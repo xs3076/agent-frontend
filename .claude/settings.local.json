@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npx umi:*)",
+      "Bash(find /Users/xuan/Downloads/frontend-main-7b4789a9fb8096bcd8ee4590e8c0f2502e7d4088 -maxdepth 2 -name .env*)",
+      "Bash(grep -r process.env. /Users/xuan/Downloads/frontend-main-7b4789a9fb8096bcd8ee4590e8c0f2502e7d4088/packages/main/src --include=*.ts --include=*.tsx)",
+      "Bash(find /Users/xuan/Downloads/frontend-main-7b4789a9fb8096bcd8ee4590e8c0f2502e7d4088 -type f \\\\\\(-name *.html -o -name *.ejs \\\\\\))",
+      "Bash(find /Users/xuan/Downloads/frontend-main-7b4789a9fb8096bcd8ee4590e8c0f2502e7d4088 -type f \\\\\\(-name .env* -o -name *nginx* -o -name *docker* \\\\\\))",
+      "Bash(grep -r baseURL /Users/xuan/Downloads/frontend-main-7b4789a9fb8096bcd8ee4590e8c0f2502e7d4088/packages/main/src --include=*.ts --include=*.tsx)",
+      "Bash(chmod:*)",
+      "Bash(npx eslint:*)"
+    ]
+  }
+}
