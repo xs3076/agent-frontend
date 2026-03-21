@@ -1,7 +1,8 @@
 import { ENV } from '@/config/env';
 import $i18n from '@/i18n';
 import { Button } from '@spark-ai/design';
-import { Divider, Form } from 'antd';
+import { RobotOutlined } from '@ant-design/icons';
+import { Checkbox, Divider, Form } from 'antd';
 import React, { useEffect } from 'react';
 import Email from '../Form/Email';
 import Password from '../Form/Password';
@@ -44,11 +45,22 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
 
   return (
     <div className={styles['login-container']}>
-      <div className={styles['login-title']}>
-        {$i18n.get({
-          id: 'main.pages.Login.components.Login.index.welcomeToAgentScope',
-          dm: '🎉 欢迎使用Spring AI Alibaba Studio',
-        })}
+      <div className={styles['login-header']}>
+        <div className={styles['login-icon']}>
+          <RobotOutlined />
+        </div>
+        <div className={styles['login-title']}>
+          {$i18n.get({
+            id: 'main.pages.Login.components.Login.index.welcomeBack',
+            dm: '欢迎回来',
+          })}
+        </div>
+        <div className={styles['login-subtitle']}>
+          {$i18n.get({
+            id: 'main.pages.Login.components.Login.index.pleaseLoginVAgent',
+            dm: '请登录您的 VAgent 账号',
+          })}
+        </div>
       </div>
 
       {supportThirdPartyLogin && (
@@ -73,10 +85,14 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
         name="login"
         autoComplete="off"
         className={styles['login-form']}
+        layout="vertical"
       >
         <Form.Item
-          className="mb-0"
           name="username"
+          label={$i18n.get({
+            id: 'main.pages.Login.components.Login.index.accountLabel',
+            dm: '账号',
+          })}
           rules={[
             {
               required: true,
@@ -92,6 +108,10 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
 
         <Form.Item
           name="password"
+          label={$i18n.get({
+            id: 'main.pages.Login.components.Login.index.passwordLabel',
+            dm: '密码',
+          })}
           rules={[
             {
               required: true,
@@ -103,6 +123,15 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
           ]}
         >
           <Password disabled={false} />
+        </Form.Item>
+
+        <Form.Item name="remember" valuePropName="checked">
+          <Checkbox>
+            {$i18n.get({
+              id: 'main.pages.Login.components.Login.index.rememberMe',
+              dm: '记住我',
+            })}
+          </Checkbox>
         </Form.Item>
 
         <Form.Item>

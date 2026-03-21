@@ -1,7 +1,4 @@
-import Header from '@/layouts/Header';
-import LangSelect from '@/layouts/LangSelect';
 import PureLayout from '@/layouts/Pure';
-import ThemeSelect from '@/layouts/ThemeSelect';
 import { authLogin } from '@/services/login';
 import { useRequest } from 'ahooks';
 import React from 'react';
@@ -22,14 +19,6 @@ const LoginPage: React.FC = () => {
 
   return (
     <PureLayout>
-      <Header
-        right={
-          <>
-            <ThemeSelect />
-            <LangSelect />
-          </>
-        }
-      />
       <div className={styles['container']}>
         <Login onSubmit={onLogin} loading={loading} />
       </div>

@@ -1,5 +1,6 @@
 import $i18n from '@/i18n';
-import { IconFont, Input, InputProps } from '@spark-ai/design';
+import { Input, InputProps } from '@spark-ai/design';
+import { MailOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './Email.module.less';
@@ -19,7 +20,7 @@ const Email: React.FC<InputProps> = (props) => {
       className={classNames(styles['email'], className)}
       placeholder={placeholder}
       prefix={
-        <IconFont type="spark-user-line" className={styles['prefix-icon']} />
+        <MailOutlined className={styles['prefix-icon']} />
       }
       allowClear
       {...restProps}

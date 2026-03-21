@@ -1,5 +1,6 @@
 import $i18n from '@/i18n';
-import { IconFont, Input, InputProps } from '@spark-ai/design';
+import { Input, InputProps } from '@spark-ai/design';
+import { LockOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './Password.module.less';
@@ -19,7 +20,7 @@ const Password: React.FC<InputProps> = (props) => {
       className={classNames(styles['password'], className)}
       placeholder={placeholder}
       prefix={
-        <IconFont type="spark-apiKey-line" className={styles['prefix-icon']} />
+        <LockOutlined className={styles['prefix-icon']} />
       }
       {...restProps}
     />
