@@ -56,13 +56,7 @@ Before starting the web frontend service, please ensure the following environmen
 - [Node.js](https://nodejs.org) >= v20
 
 
-First, install the required dependencies in the root directory:
-
-```bash
-npm install rimraf copyfiles --save-dev
-```
-
-Then, install all project dependencies:
+Install all project dependencies:
 
 ```bash
 npm run re-install

@@ -13,7 +13,7 @@ COPY packages/spark-flow/package.json ./packages/spark-flow/
 COPY packages/spark-i18n/package.json ./packages/spark-i18n/
 
 # Install dependencies (skip husky install — no .git in build context)
-RUN npm ci --ignore-scripts
+RUN npm install --ignore-scripts
 
 # Copy source code
 COPY . .

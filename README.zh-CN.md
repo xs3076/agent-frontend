@@ -55,13 +55,7 @@ frontend/
 在启动 Web 前端服务之前，请确保以下环境已准备就绪。
 - [Node.js](https://nodejs.org) >= v20
 
-首先，在根目录下安装依赖项：
-
-```bash
-npm install rimraf copyfiles --save-dev
-```
-
-然后安装所有项目依赖：
+安装所有项目依赖：
 
 ```bash
 npm run re-install
