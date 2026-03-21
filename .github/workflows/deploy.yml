@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: registry.cn-shanghai.aliyuncs.com
-  IMAGE_NAME: agent/frontend
+  IMAGE_NAME: vagent/frontend
   IMAGE_TAG: "1.0"
 
 jobs:
