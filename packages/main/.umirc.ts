@@ -3,6 +3,7 @@ import { defineConfig } from 'umi';
 
 export default defineConfig({
   title: 'SAA',
+  hash: true,
   headScripts: [{ src: '/env-config.js' }],
   define: {
     'process.env.BACK_END': process.env.BACK_END,
