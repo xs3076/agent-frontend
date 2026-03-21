@@ -13,7 +13,13 @@
       "Bash(npx eslint:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:agent2.bizfocus.net)",
+      "Bash(openspec new:*)",
+      "Bash(openspec status:*)",
+      "Bash(openspec instructions:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx --prefix packages/main eslint packages/main/src/pages/Login --ext .ts,.tsx)"
     ]
   }
 }
