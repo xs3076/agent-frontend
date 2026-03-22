@@ -570,6 +570,8 @@ const PlaygroundPage = () => {
       enableFn
     } = promptInstance;
 
+    const selectedPrompt = prompts.find(p => p.promptKey === promptInstance.selectedPromptId);
+
     const config = {
       promptId,
       content,
@@ -577,8 +579,8 @@ const PlaygroundPage = () => {
       selectedModel,
       modelParams,
       sessionId,
-      promptKey: currentPrompt?.promptKey || 'playground',
-      version: currentPrompt?.latestVersion || '1.0',
+      promptKey: selectedPrompt?.promptKey || 'playground',
+      version: selectedPrompt?.latestVersion || '1.0',
       mockTools: enableFn === false ? [] : mockTools,
     };
 
