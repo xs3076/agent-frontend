@@ -7,7 +7,6 @@ import {
   Button,
   CodeBlock,
   Form,
-  getCommonConfig,
   Input,
   message,
 } from '@spark-ai/design';
@@ -26,8 +25,6 @@ export default function McpCreate() {
   const { id: server_code } = useParams<{ id: string }>();
 
   const [form] = Form.useForm();
-  const darkMode = getCommonConfig().isDarkMode;
-
   const [loading, setLoading] = useState(!!server_code);
   const [saveLoading, setSaveLoading] = useState(false);
   const [deployStatus, setDeployStatus] = useState(McpStatus.DISABLED);
@@ -389,7 +386,7 @@ export default function McpCreate() {
                 <CodeBlock
                   value={JSON.stringify(initialData?.deploy_config, null, 2)}
                   className={styles.coder}
-                  theme={darkMode ? 'dark' : 'light'}
+                  theme="light"
                   language="json"
                   readOnly={deployStatus === McpStatus.ENABLED}
                 />

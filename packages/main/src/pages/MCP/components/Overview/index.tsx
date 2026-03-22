@@ -1,6 +1,5 @@
 import $i18n from '@/i18n';
 import { IMcpServer } from '@/types/mcp';
-import { getCommonConfig } from '@spark-ai/design';
 import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
 import { Empty } from 'antd';
 import React from 'react';
@@ -11,8 +10,6 @@ interface OverviewProps {
 }
 
 const Overview: React.FC<OverviewProps> = ({ detail }) => {
-  const darkMode = getCommonConfig().isDarkMode;
-
   const renderItem = (label: string, value: string) => (
     <div className={styles['info-item']}>
       <div className={styles['info-label']}>{label}</div>
@@ -60,7 +57,7 @@ const Overview: React.FC<OverviewProps> = ({ detail }) => {
           <CodeBlock
             className={styles['code-block']}
             language="json"
-            theme={darkMode ? 'dark' : 'light'}
+            theme="light"
             value={detail.deploy_config}
             readOnly={true}
           />

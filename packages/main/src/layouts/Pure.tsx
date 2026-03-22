@@ -4,7 +4,6 @@ import { getGlobalConfig } from '@/services/globalConfig';
 import {
   ConfigProvider,
   Empty,
-  purpleDarkTheme,
   purpleTheme,
 } from '@spark-ai/design';
 import { useRequest } from 'ahooks';
@@ -15,7 +14,6 @@ import zhCN from 'antd/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
 import { ErrorBoundary } from 'react-error-boundary';
 import styles from './index.module.less';
-import { prefersColor } from './ThemeSelect';
 
 // Get current language preset
 const langPreset = $i18n.getCurrentLanguage();
@@ -27,8 +25,6 @@ const langPreset = $i18n.getCurrentLanguage();
 export default function PureLayout(props: {
   children: React.ReactNode | React.ReactNode[];
 }) {
-  // Check for dark mode preference
-  const darkMode = prefersColor.get() === 'dark';
   // Set locale based on current language
   const locale = {
     zh: zhCN,
@@ -36,8 +32,7 @@ export default function PureLayout(props: {
     ja: jaJP,
   }[langPreset];
 
-  // Select theme based on dark mode
-  const inputTheme = (darkMode ? purpleDarkTheme : purpleTheme).theme;
+  const inputTheme = purpleTheme.theme;
   const { loading } = useRequest(getGlobalConfig);
 
   if (loading) return null;
@@ -55,7 +50,7 @@ export default function PureLayout(props: {
         }}
         theme={{
           ...inputTheme,
-          algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+          algorithm: theme.defaultAlgorithm,
           cssVar: { prefix: 'ag-ant' },
           hashed: false,
         }}

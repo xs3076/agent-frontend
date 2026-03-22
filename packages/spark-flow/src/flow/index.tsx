@@ -9,7 +9,6 @@ import { useHistory } from '@/hooks/useHistory';
 import { useNodesInteraction } from '@/hooks/useNodesInteraction';
 import $i18n from '@/i18n';
 import { IWorkFlowNode } from '@/types/work-flow';
-import { getCommonConfig } from '@spark-ai/design';
 import {
   Background,
   Edge,
@@ -118,7 +117,7 @@ const Flow = memo((props: IFlowProps) => {
         connectionLineComponent={CustomConnectionLine}
         nodes={nodes}
         edges={edges}
-        colorMode={getCommonConfig().isDarkMode ? 'dark' : 'light'}
+        colorMode="light"
         nodeTypes={props.nodeTypes}
         onDragOver={onDragOver}
         onNodeDrag={onNodeDrag}

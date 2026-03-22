@@ -2,7 +2,7 @@ import $i18n from '@/i18n';
 import { IAppType } from '@/services/appComponent';
 import { createApp } from '@/services/appManage';
 import uniqueId from '@/utils/uniqueId';
-import { Button, getCommonConfig, message, Modal } from '@spark-ai/design';
+import { Button, message, Modal } from '@spark-ai/design';
 import { useSetState } from 'ahooks';
 import { Flex } from 'antd';
 import classNames from 'classnames';
@@ -40,8 +40,6 @@ const options = [
 ];
 
 export default function CreateModal(props: ICreateModalProps) {
-  const darkMode = getCommonConfig().isDarkMode;
-
   const [state, setState] = useSetState({
     activeRecord: options[0],
     createLoading: false,
@@ -91,7 +89,7 @@ export default function CreateModal(props: ICreateModalProps) {
     >
       <Flex gap={40}>
         <div className={classNames(styles['item'])}>
-          <img src={`/images/createAgent${darkMode ? 'Dark' : ''}.png`} />
+          <img src="/images/createAgent.png" />
           <div className={styles['header']}>
             <div className={styles['title']}>
               {$i18n.get({
@@ -120,7 +118,7 @@ export default function CreateModal(props: ICreateModalProps) {
           </div>
         </div>
         <div className={classNames(styles['item'])}>
-          <img src={`/images/createFlow${darkMode ? 'Dark' : ''}.png`} />
+          <img src="/images/createFlow.png" />
           <div className={styles['header']}>
             <div className={styles['title']}>
               {$i18n.get({

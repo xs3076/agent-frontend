@@ -24,7 +24,6 @@ import styles from './index.module.less';
 import LangSelect from './LangSelect';
 import LoginProvider from './LoginProvider';
 import SettingDropdown from './SettingDropdown';
-import ThemeSelect from './ThemeSelect';
 import UserAccountModal from '@/components/UserAccountModal';
 import PureLayout from './Pure';
 import { ModelsContext } from '@/legacy/context/models';
@@ -264,7 +263,6 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
           <Header
             right={
               <>
-                <ThemeSelect />
                 <LangSelect />
                 <SettingDropdown />
                 <UserAccountModal avatarProps={{ className: styles.avatar }} />
@@ -332,7 +330,6 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
               <Header
                 right={
                   <>
-                    <ThemeSelect />
                     <LangSelect />
                     <SettingDropdown />
                     <UserAccountModal avatarProps={{ className: styles.avatar }} />

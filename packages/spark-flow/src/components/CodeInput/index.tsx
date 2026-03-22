@@ -3,8 +3,8 @@ import { IValueType } from '@/types/work-flow';
 import { javascript } from '@codemirror/lang-javascript';
 import { Diagnostic, linter } from '@codemirror/lint';
 import { EditorView } from '@codemirror/view';
-import { getCommonConfig, Modal } from '@spark-ai/design';
-import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode';
+import { Modal } from '@spark-ai/design';
+import { vscodeLight } from '@uiw/codemirror-theme-vscode';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
@@ -312,7 +312,7 @@ const CodeEdit = ({
       height={height}
       onChange={onChange}
       readOnly={disabled}
-      theme={getCommonConfig().isDarkMode ? vscodeDark : vscodeLight}
+      theme={vscodeLight}
       basicSetup={{
         lineNumbers: showGutter,
         foldGutter: showGutter,
