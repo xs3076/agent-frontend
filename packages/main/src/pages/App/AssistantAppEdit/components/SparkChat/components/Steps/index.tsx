@@ -5,7 +5,7 @@ import {
   IToolCall,
   IToolCallFunction,
 } from '@/types/chat';
-import { Accordion, AccordionProps } from '@spark-ai/chat';
+import { Accordion, AccordionProps } from '@/components/SparkChat';
 import IconFont from '@/components/ui/IconFont';
 
 const parseJsonSafely = (str: string, fallback: any = null) => {

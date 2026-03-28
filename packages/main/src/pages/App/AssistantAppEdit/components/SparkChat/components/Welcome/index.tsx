@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { ChatAnywhereRef } from '@spark-ai/chat';
+import { ChatAnywhereRef } from '@/components/SparkChat';
 import IconFont from '@/components/ui/IconFont';
 import Flex from '@/components/ui/Flex';
 import classNames from 'classnames';

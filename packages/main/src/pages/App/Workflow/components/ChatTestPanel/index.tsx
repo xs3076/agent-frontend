@@ -12,7 +12,7 @@ import {
   DefaultCards,
   TMessage,
   uuid,
-} from '@spark-ai/chat';
+} from '@/components/SparkChat';
 import IconButton from '@/components/ui/IconButton';
 import IconFont from '@/components/ui/IconFont';
 import { Tooltip, Message } from '@arco-design/web-react';

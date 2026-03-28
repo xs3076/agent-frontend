@@ -6,7 +6,7 @@ import {
   DefaultCards,
   TMessage,
   uuid,
-} from '@spark-ai/chat';
+} from '@/components/SparkChat';
 import { Button, Message, Notification, Tooltip } from '@arco-design/web-react';
 import IconButton from '@/components/ui/IconButton';
 import IconFont from '@/components/ui/IconFont';

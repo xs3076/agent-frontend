@@ -1,5 +1,5 @@
 import { IReceiveMessage, IUsage } from '@/types/chat';
-import { TMessage } from '@spark-ai/chat';
+import { TMessage } from '@/components/SparkChat';
 
 export const convertAgentMsgToSparkChat = (
   agentMsg: IReceiveMessage,
