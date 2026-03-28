@@ -3,35 +3,35 @@
   min-height: 100vh;
 }
 
-.experiment-detail-page .ant-card {
+.experiment-detail-page .arco-card {
   border-radius: 8px;
   margin-bottom: 24px;
 }
 
-.experiment-detail-page .ant-card-head {
+.experiment-detail-page .arco-card-head {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.experiment-detail-page .ant-card-head-title {
+.experiment-detail-page .arco-card-head-title {
   font-size: 16px;
   font-weight: 600;
 }
 
-.experiment-detail-page .ant-descriptions-item-label {
+.experiment-detail-page .arco-descriptions-item-label {
   font-weight: 500;
   color: #4a5568;
 }
 
-.experiment-detail-page .ant-btn {
+.experiment-detail-page .arco-btn {
   border-radius: 6px;
 }
 
-.experiment-detail-page .ant-btn-primary {
+.experiment-detail-page .arco-btn-primary {
   background-color: #1677ff !important;
   border-color: #1677ff !important;
 }
 
-.experiment-detail-page .ant-btn-primary:hover {
+.experiment-detail-page .arco-btn-primary:hover {
   background-color: #4096ff !important;
   border-color: #4096ff !important;
 }
@@ -75,11 +75,11 @@
 }
 
 /* 进度条样式 */
-.experiment-detail-page .ant-progress {
+.experiment-detail-page .arco-progress {
   margin-bottom: 0;
 }
 
-.experiment-detail-page .ant-progress-line {
+.experiment-detail-page .arco-progress-line {
   margin-bottom: 0;
 }
 
@@ -114,7 +114,7 @@
     justify-content: flex-start;
   }
   
-  .experiment-detail-page .ant-card {
+  .experiment-detail-page .arco-card {
     margin-bottom: 16px;
   }
   
@@ -124,7 +124,7 @@
   }
   
   /* 移动端状态卡片保持4列布局，但缩小字体 */
-  .experiment-detail-page .grid-cols-4 .ant-card {
+  .experiment-detail-page .grid-cols-4 .arco-card {
     padding: 8px 12px;
   }
   
@@ -138,12 +138,12 @@
 }
 
 /* Alert组件样式 */
-.experiment-detail-page .ant-alert {
+.experiment-detail-page .arco-alert {
   border-radius: 8px;
 }
 
 /* Tag组件样式 */
-.experiment-detail-page .ant-tag {
+.experiment-detail-page .arco-tag {
   border-radius: 4px;
   font-weight: 500;
 }

@@ -1,26 +1,8 @@
 import React from 'react';
-import {
-  Modal,
-  Card,
-  Typography,
-  Row,
-  Col,
-  Space,
-  Tag,
-  Divider,
-  Empty,
-  Button
-} from 'antd';
-import {
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  CloseOutlined,
-  SettingOutlined,
-  FileTextOutlined,
-  PlusOutlined,
-  MinusOutlined,
-  EditOutlined
-} from '@ant-design/icons';
+import { Modal, Card, Typography, Space, Tag, Divider, Empty, Button, Grid } from '@arco-design/web-react';
+import { IconArrowLeft, IconArrowRight, IconClose, IconSettings, IconFile, IconPlus, IconMinus, IconEdit } from '@arco-design/web-react/icon';
+
+const { Row, Col } = Grid;
 
 const { Title, Text } = Typography;
 
@@ -127,7 +109,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
           </div>
         </div>
       }
-      open={true}
+      visible={true}
       onCancel={onClose}
       width={1400}
       style={{
@@ -144,7 +126,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
           关闭对比
         </Button>
       ]}
-      closeIcon={<CloseOutlined />}
+      closeIcon={<IconClose />}
     >
       <Space direction="vertical" size={24} style={{ width: '100%' }}>
         {/* 版本信息对比 */}
@@ -152,7 +134,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
           <Col span={12}>
             <Card size="small">
               <Title level={5} style={{ margin: 0, marginBottom: 12, display: 'flex', alignItems: 'center' }}>
-                <ArrowLeftOutlined style={{ color: '#1890ff', marginRight: 8 }} />
+                <IconArrowLeft style={{ color: '#1890ff', marginRight: 8 }} />
                 旧版本: {olderVersion.version}
               </Title>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
@@ -181,7 +163,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
           <Col span={12}>
             <Card size="small">
               <Title level={5} style={{ margin: 0, marginBottom: 12, display: 'flex', alignItems: 'center' }}>
-                <ArrowRightOutlined style={{ color: '#52c41a', marginRight: 8 }} />
+                <IconArrowRight style={{ color: '#52c41a', marginRight: 8 }} />
                 新版本: {newerVersion.version}
               </Title>
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
@@ -212,7 +194,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
         <Card
           title={
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <SettingOutlined style={{ marginRight: 8 }} />
+              <IconSettings style={{ marginRight: 8 }} />
               模型配置对比
             </div>
           }
@@ -301,7 +283,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
             </Row>
           ) : (
             <Empty
-              image={<SettingOutlined style={{ fontSize: 48, color: '#d9d9d9' }} />}
+              image={<IconSettings style={{ fontSize: 48, color: '#d9d9d9' }} />}
               description="两个版本都没有模型配置"
               style={{ padding: '32px 0' }}
             />
@@ -312,7 +294,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
         <Card
           title={
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <FileTextOutlined style={{ marginRight: 8 }} />
+              <IconFile style={{ marginRight: 8 }} />
               内容对比
             </div>
           }
@@ -343,11 +325,11 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
                   const getIcon = (type) => {
                     switch (type) {
                       case 'added':
-                        return <PlusOutlined style={{ color: '#52c41a', fontSize: '12px' }} />;
+                        return <IconPlus style={{ color: '#52c41a', fontSize: '12px' }} />;
                       case 'removed':
-                        return <MinusOutlined style={{ color: '#ff4d4f', fontSize: '12px' }} />;
+                        return <IconMinus style={{ color: '#ff4d4f', fontSize: '12px' }} />;
                       case 'modified':
-                        return <EditOutlined style={{ color: '#faad14', fontSize: '12px' }} />;
+                        return <IconEdit style={{ color: '#faad14', fontSize: '12px' }} />;
                       default:
                         return null;
                     }
@@ -425,7 +407,7 @@ const VersionCompareModal = ({ prompt, version1, version2, onClose }) => {
               </div>
             ) : (
               <Empty
-                image={<FileTextOutlined style={{ fontSize: 48, color: '#d9d9d9' }} />}
+                image={<IconFile style={{ fontSize: 48, color: '#d9d9d9' }} />}
                 description="两个版本的内容完全相同"
                 style={{ padding: '32px 0' }}
               />

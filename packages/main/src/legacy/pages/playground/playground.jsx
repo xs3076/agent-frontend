@@ -1,40 +1,6 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
-import {
-  Spin,
-  Button,
-  Alert,
-  Empty,
-  Card,
-  Typography,
-  Row,
-  Col,
-  Input,
-  Select,
-  InputNumber,
-  Space,
-  Tag,
-  Badge,
-  Avatar,
-  Modal,
-  message,
-  Tooltip,
-  Divider,
-} from 'antd';
-import {
-  LoadingOutlined,
-  DownloadOutlined,
-  CopyOutlined,
-  DeleteOutlined,
-  RocketOutlined,
-  CommentOutlined,
-  SendOutlined,
-  RobotOutlined,
-  ClearOutlined,
-  EditOutlined,
-  PlusOutlined,
-  EyeOutlined,
-  ShareAltOutlined,
-} from '@ant-design/icons';
+import { Spin, Button, Alert, Empty, Card, Typography, Input, Select, InputNumber, Space, Tag, Badge, Avatar, Modal, Message, Tooltip, Divider, Grid } from '@arco-design/web-react';
+import { IconLoading, IconDownload, IconCopy, IconDelete, IconLaunch, IconMessage, IconSend, IconRobot, IconEraser, IconEdit, IconPlus, IconEye, IconShareAlt } from '@arco-design/web-react/icon';
 import { handleApiError, notifyError } from '../../utils/notification';
 import { executeStreamingPrompt } from '../../utils/streamingPrompt';
 import CreatePromptModal from '../../components/CreatePromptModal';
@@ -47,6 +13,8 @@ import ViewFunctionModel from '../prompts/prompt-detail/view-function-model/view
 import FunctionList from '../prompts/prompt-detail/FunctionList';
 import { safeJSONParse } from '../../utils/util';
 import { useNavigate } from 'react-router-dom';
+
+const { Row, Col } = Grid;
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -707,7 +675,7 @@ const PlaygroundPage = () => {
   const restoreSession = async (promptId) => {
     const sessionId = recentlyDeletedSessions[promptId];
     if (!sessionId) {
-      message.error('没有可恢复的会话');
+      Message.error('没有可恢复的会话');
       return false;
     }
 
@@ -746,15 +714,15 @@ const PlaygroundPage = () => {
           return newSessions;
         });
 
-        message.success('会话恢复成功');
+        Message.success('会话恢复成功');
         return true;
       } else {
-        message.error(response.message || '恢复会话失败');
+        Message.error(response.message || '恢复会话失败');
         return false;
       }
     } catch (error) {
       console.error('Restore session error:', error);
-      message.error('恢复会话失败');
+      Message.error('恢复会话失败');
       return false;
     }
   };
@@ -773,15 +741,15 @@ const PlaygroundPage = () => {
             ? { ...p, sessionId: null, chatHistory: [] }
             : p
         ));
-        message.success('会话删除成功');
+        Message.success('会话删除成功');
         return true;
       } else {
-        message.error(response.message || '删除会话失败');
+        Message.error(response.message || '删除会话失败');
         return false;
       }
     } catch (error) {
       console.error('Delete session error:', error);
-      message.error('删除会话失败');
+      Message.error('删除会话失败');
       return false;
     }
   };
@@ -901,7 +869,7 @@ const PlaygroundPage = () => {
     return (
       <div className="p-8 min-h-[400px] flex items-center justify-center">
         <Spin
-          indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />}
+          icon={<IconLoading style={{ fontSize: 48 }} spin />}
           size="large"
         >
           <div className="text-center pt-4">
@@ -1007,7 +975,7 @@ const PlaygroundPage = () => {
                         <Space size="small">
                           <Button
                             type="primary"
-                            icon={<PlusOutlined />}
+                            icon={<IconPlus />}
                             size={promptInstances.length === 3 ? "small" : "default"}
                             onClick={() => {
                               setShowFunctionModal(true);
@@ -1018,7 +986,7 @@ const PlaygroundPage = () => {
                           </Button>
                           <Button
                             type="primary"
-                            icon={<DownloadOutlined />}
+                            icon={<IconDownload />}
                             size={promptInstances.length === 3 ? "small" : "default"}
                             onClick={() => setShowTemplateModal(prompt.id)}
                             className="border-none"
@@ -1030,7 +998,7 @@ const PlaygroundPage = () => {
                           </Button>
                           <Button
                             type="text"
-                            icon={<CopyOutlined />}
+                            icon={<IconCopy />}
                             size={promptInstances.length === 3 ? "small" : "default"}
                             onClick={() => copyPrompt(prompt.id)}
                             disabled={promptInstances.length >= 3}
@@ -1039,8 +1007,8 @@ const PlaygroundPage = () => {
                           {promptInstances.length > 1 && (
                             <Button
                               type="text"
-                              danger
-                              icon={<DeleteOutlined />}
+                              status="danger"
+                              icon={<IconDelete />}
                               size={promptInstances.length === 3 ? "small" : "default"}
                               onClick={() => removePrompt(prompt.id)}
                               title="删除Prompt"
@@ -1055,7 +1023,7 @@ const PlaygroundPage = () => {
                       {
                         (!prompt.selectedPromptId || !prompt.selectedVersionId) && (
                           <Alert
-                            message={!prompt.selectedPromptId ? "请选择 Prompt 或直接编辑内容" : "请选择版本"}
+                            title={!prompt.selectedPromptId ? "请选择 Prompt 或直接编辑内容" : "请选择版本"}
                             type="info"
                             showIcon
                             className="w-full text-center mb-3"
@@ -1142,7 +1110,7 @@ const PlaygroundPage = () => {
                           </Text>
                           <TextArea
                             value={prompt.content}
-                            onChange={(e) => handleContentChange(prompt.id, e.target.value)}
+                            onChange={(value) => handleContentChange(prompt.id, value)}
                             placeholder="输入Prompt内容，使用 {{参数名}} 来定义参数..."
                             style={{
                               height: promptInstances.length >= 3 ? 100 : 120,
@@ -1211,7 +1179,7 @@ const PlaygroundPage = () => {
                                             : (
                                               <Input
                                                 value={paramValue}
-                                                onChange={(e) => updatePromptModelParams(prompt.id, paramName, e.target.value)}
+                                                onChange={(value) => updatePromptModelParams(prompt.id, paramName, value)}
                                                 size="small"
                                                 className='w-full'
                                               />
@@ -1262,7 +1230,7 @@ const PlaygroundPage = () => {
                                   </Text>
                                   <Input
                                     value={prompt.parameterValues[param] || ''}
-                                    onChange={(e) => updateParameterValue(prompt.id, param, e.target.value)}
+                                    onChange={(value) => updateParameterValue(prompt.id, param, value)}
                                     placeholder={`输入 ${param} 的值...`}
                                     size="small"
                                   />
@@ -1278,7 +1246,7 @@ const PlaygroundPage = () => {
                           {prompt.selectedPromptId && (
                             <Button
                               type="primary"
-                              icon={<RocketOutlined />}
+                              icon={<IconLaunch />}
                               onClick={() => {
                                 const selectedPrompt = prompts.find(p => p.promptKey === prompt.selectedPromptId);
                                 if (selectedPrompt) {
@@ -1309,7 +1277,7 @@ const PlaygroundPage = () => {
                           {!playgroundData && (
                             <Button
                               type="primary"
-                              icon={<RocketOutlined />}
+                              icon={<IconLaunch />}
                               onClick={() => setShowCreateModal({
                                 quickCreate: true,
                                 content: prompt.content,
@@ -1337,7 +1305,7 @@ const PlaygroundPage = () => {
                     <div>
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-3">
-                          <Avatar icon={<CommentOutlined />} style={{ backgroundColor: '#e6f7ff' }} />
+                          <Avatar icon={<IconMessage />} style={{ backgroundColor: '#e6f7ff' }} />
                           <div>
                             <Text strong className="text-lg">对话测试</Text>
                             <div>
@@ -1357,7 +1325,7 @@ const PlaygroundPage = () => {
                             <Button
                               type="text"
                               size="small"
-                              icon={<RocketOutlined />}
+                              icon={<IconLaunch />}
                               onClick={() => restoreSession(prompt.id)}
                               title="恢复上一次会话"
                               style={{ color: '#52c41a' }}
@@ -1369,7 +1337,7 @@ const PlaygroundPage = () => {
                             <Button
                               type="text"
                               size="small"
-                              icon={<ClearOutlined />}
+                              icon={<IconEraser />}
                               onClick={() => clearChatHistory(prompt.id)}
                               title="清空对话"
                             >
@@ -1402,7 +1370,7 @@ const PlaygroundPage = () => {
                           <div className="flex flex-col items-center justify-center h-full text-center">
                             <Avatar
                               size={64}
-                              icon={<RobotOutlined />}
+                              icon={<IconRobot />}
                               style={{
                                 marginBottom: 16,
                                 backgroundColor: '#f0f0f0',
@@ -1452,7 +1420,7 @@ const PlaygroundPage = () => {
                                       }}>
                                         <Avatar
                                           size={20}
-                                          icon={<RobotOutlined />}
+                                          icon={<IconRobot />}
                                           style={{ backgroundColor: '#52c41a' }}
                                         />
                                         <Text strong style={{ fontSize: '12px', color: '#52c41a' }}>
@@ -1462,10 +1430,10 @@ const PlaygroundPage = () => {
                                           <Button
                                             type="text"
                                             size="small"
-                                            icon={<CopyOutlined />}
+                                            icon={<IconCopy />}
                                             onClick={() => {
                                               navigator.clipboard.writeText(message.content);
-                                              message.success('已复制到剪贴板');
+                                              Message.success('已复制到剪贴板');
                                             }}
                                             title="复制回复"
                                             style={{ fontSize: '10px', padding: '2px 4px', height: 20 }}
@@ -1511,9 +1479,9 @@ const PlaygroundPage = () => {
                                               {message.content}
                                             </Text>
                                             <div className='flex gap-2 mt-2'>
-                                              <Tag color="geekblue">输入 Token: {message?.usage?.promptTokens}</Tag>
-                                              <Tag color='geekblue'>输出 Token: {message?.usage?.completionTokens}</Tag>
-                                              <Tag color='geekblue'>总 Token: {message?.usage?.totalTokens}</Tag>
+                                              <Tag color="arcoblue">输入 Token: {message?.usage?.promptTokens}</Tag>
+                                              <Tag color='arcoblue'>输出 Token: {message?.usage?.completionTokens}</Tag>
+                                              <Tag color='arcoblue'>总 Token: {message?.usage?.totalTokens}</Tag>
                                             </div>
                                             {/* 模型参数信息 */}
                                             <div className='flex justify-between items-center mt-2 gap-2'>
@@ -1522,11 +1490,11 @@ const PlaygroundPage = () => {
                                               </Text>
                                               {
                                                 Boolean(message.traceId) && (
-                                                  <Tooltip title="查看调用链路跟踪">
+                                                  <Tooltip content="查看调用链路跟踪">
                                                     <Button
                                                       type="text"
                                                       size="small"
-                                                      icon={<ShareAltOutlined />}
+                                                      icon={<IconShareAlt />}
                                                       onClick={() => {
                                                         navigate("/tracing", {
                                                           state: {
@@ -1556,7 +1524,7 @@ const PlaygroundPage = () => {
                         <div style={{ flex: 1 }}>
                           <TextArea
                             value={userInput}
-                            onChange={(e) => updatePromptInput(prompt.id, e.target.value)}
+                            onChange={(value) => updatePromptInput(prompt.id, value)}
                             onPressEnter={(e) => {
                               if (e.key === 'Enter' && !e.shiftKey) {
                                 e.preventDefault();
@@ -1578,7 +1546,7 @@ const PlaygroundPage = () => {
                           <Button
                             type="primary"
                             size="large"
-                            icon={prompt.isLoading ? <Spin size="small" /> : <SendOutlined />}
+                            icon={prompt.isLoading ? <Spin size="small" /> : <IconSend />}
                             onClick={() => {
                               handleSendMessage(prompt.id, userInput);
                             }}
@@ -1655,7 +1623,7 @@ const PlaygroundPage = () => {
       )}
 
       <AddFunctionModal
-        open={showFunctionModal}
+        visible={showFunctionModal}
         onCancel={() => setShowFunctionModal(false)}
         functions={currentPromptInstance?.mockTools || []}
         onOk={(data) => {
@@ -1668,7 +1636,7 @@ const PlaygroundPage = () => {
       />
       <ViewFunctionModel
         selectedFunction={selectedFunction}
-        open={showFunctionViewModal}
+        visible={showFunctionViewModal}
         onCancel={() => setShowFunctionViewModal(false)}
         onOk={(data) => {
           setPromptInstances(v => v.map(p => p.id === selectedSessionId ? {

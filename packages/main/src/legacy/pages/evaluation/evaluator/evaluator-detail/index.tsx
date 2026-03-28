@@ -1,44 +1,14 @@
 import React, { useState, useEffect, useCallback, useMemo, useContext } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import {
-  Card,
-  Button,
-  Descriptions,
-  Tag,
-  Tabs,
-  Form,
-  Input,
-  Select,
-  InputNumber,
-  Slider,
-  Space,
-  Table,
-  Spin,
-  Alert,
-  message,
-  Modal,
-  Tooltip,
-  Row,
-  Col,
-  Typography,
-  Divider
-} from 'antd';
-import {
-  ArrowLeftOutlined,
-  EditOutlined,
-  SaveOutlined,
-  CloseOutlined,
-  BugOutlined,
-  RocketOutlined,
-  InfoCircleOutlined,
-  ExclamationCircleOutlined,
-  CheckCircleOutlined
-} from '@ant-design/icons';
+import { Card, Button, Descriptions, Tag, Tabs, Form, Input, Select, InputNumber, Slider, Space, Table, Spin, Alert, Message, Modal, Tooltip, Typography, Divider, Grid } from '@arco-design/web-react';
+import { IconArrowLeft, IconEdit, IconSave, IconClose, IconBug, IconLaunch, IconInfoCircle, IconExclamationCircle, IconCheckCircle } from '@arco-design/web-react/icon';
 import { handleApiError, notifySuccess, notifyError } from '../../../../utils/notification';
 import API from '../../../../services';
 import './index.css';
 import usePagination from '../../../../hooks/usePagination';
 import { ModelsContext } from '../../../../context/models';
+
+const { Row, Col } = Grid;
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -112,7 +82,7 @@ function EvaluatorDetail() {
   const {
     pagination: experimentPagination,
     onPaginationChange: onExperimentPaginationChange,
-    onShowSizeChange: onExperimentShowSizeChange,
+    onPageSizeChange: onExperimentShowSizeChange,
     setPagination: setExperimentPagination
   } = usePagination();
 
@@ -121,7 +91,7 @@ function EvaluatorDetail() {
     pagination: versionPagination,
     setPagination: setVersionPagination,
     onPaginationChange: onVersionPaginationChange,
-    onShowSizeChange: onVersionShowSizeChange
+    onPageSizeChange: onVersionPageSizeChange
   } = usePagination();
 
   const handleModelChange = (newModelId: number) => {
@@ -253,7 +223,7 @@ function EvaluatorDetail() {
       }
     } catch (error: any) {
       if (error.errorFields) {
-        message.error('请检查表单填写是否正确');
+        Message.error('请检查表单填写是否正确');
       } else {
         handleApiError(error, '更新评估器信息');
       }
@@ -344,7 +314,7 @@ function EvaluatorDetail() {
     setSelectedTemplateDetail(null);
 
     // 显示成功消息
-    message.success('模板导入成功');
+    Message.success('模板导入成功');
   };
 
   // 打开模板导入弹窗
@@ -464,7 +434,7 @@ function EvaluatorDetail() {
       // 检查版本号是否已存在
       const existingVersion = versions.find(v => v.version === values.version);
       if (existingVersion) {
-        message.error(`版本号 ${values.version} 已存在，请使用其他版本号`);
+        Message.error(`版本号 ${values.version} 已存在，请使用其他版本号`);
         return;
       }
 
@@ -486,7 +456,7 @@ function EvaluatorDetail() {
       });
 
       if (response.code === 200) {
-        message.success(`版本 ${values.version} 发布成功`);
+        Message.success(`版本 ${values.version} 发布成功`);
         setShowPublishModal(false);
         loadVersions(); // 重新加载版本列表
         loadEvaluatorDetail(); // 重新加载评估器详情
@@ -676,7 +646,7 @@ function EvaluatorDetail() {
       key: 'modelConfig',
       render: (modelConfig: string) => {
         const { modelName } = extractModelInfoFromConfig(modelConfig);
-        return <Tag color="geekblue">{modelName}</Tag>;
+        return <Tag color="arcoblue">{modelName}</Tag>;
       }
     },
     {
@@ -747,8 +717,8 @@ function EvaluatorDetail() {
     return (
       <div className="p-6">
         <Alert
-          message="加载失败"
-          description={error || '评估器不存在'}
+          title="加载失败"
+          content={error || '评估器不存在'}
           type="error"
           showIcon
           action={
@@ -772,7 +742,7 @@ function EvaluatorDetail() {
       <div className="flex mb-6">
           <Button 
             type="text" 
-            icon={<ArrowLeftOutlined />} 
+            icon={<IconArrowLeft />} 
             onClick={() => navigate('/evaluation-evaluator')}
             size="large"
           />
@@ -796,7 +766,7 @@ function EvaluatorDetail() {
                         description: evaluator.description
                       });
                     }}
-                    icon={<CloseOutlined />}
+                    icon={<IconClose />}
                   >
                     取消
                   </Button>
@@ -805,7 +775,7 @@ function EvaluatorDetail() {
                     size="small"
                     loading={editLoading}
                     onClick={handleSaveBasicInfo}
-                    icon={<SaveOutlined />}
+                    icon={<IconSave />}
                   >
                     保存
                   </Button>
@@ -814,7 +784,7 @@ function EvaluatorDetail() {
                 <Button
                   size="small"
                   onClick={() => setIsEditing(true)}
-                  icon={<EditOutlined />}
+                  icon={<IconEdit />}
                 >
                   编辑
                 </Button>
@@ -830,7 +800,7 @@ function EvaluatorDetail() {
               <Col span={12}>
                 <Form.Item
                   label="名称"
-                  name="name"
+                  field="name"
                   rules={[
                     { required: true, message: '请输入评估器名称' },
                     { max: 50, message: '名称不能超过50个字符' }
@@ -842,7 +812,7 @@ function EvaluatorDetail() {
               <Col span={12}>
                 <Form.Item
                   label="描述"
-                  name="description"
+                  field="description"
                   rules={[{ max: 500, message: '描述不能超过500个字符' }]}
                 >
                   <TextArea
@@ -877,7 +847,7 @@ function EvaluatorDetail() {
                   {evaluator.latestVersion ? (
                     <Tag color="blue">{evaluator.latestVersion}</Tag>
                   ) : (
-                    <Tag color="default">暂无版本</Tag>
+                    <Tag color="gray">暂无版本</Tag>
                   )}
                 </div>
               </div>
@@ -892,7 +862,7 @@ function EvaluatorDetail() {
                   {(() => {
                     const { modelName } = getCurrentModelInfo();
                     return (
-                      <Tag color="geekblue">{modelName}</Tag>
+                      <Tag color="arcoblue">{modelName}</Tag>
                     );
                   })()}
                 </div>
@@ -946,19 +916,19 @@ function EvaluatorDetail() {
                     <Title level={4} className="m-0">模型配置</Title>
                     <Space>
                       <Button onClick={handleOpenTemplateModal}>从模版导入</Button>
-                      <Tooltip title="跳转至调试页面">
+                      <Tooltip content="跳转至调试页面">
                         <Button
-                          icon={<BugOutlined />}
+                          icon={<IconBug />}
                           onClick={handleDebug}
                           disabled={!canPublishVersion}
                         >
                           调试
                         </Button>
                       </Tooltip>
-                      <Tooltip title={canPublishVersion ? "发布新版本" : "System Prompt 中必须包含变量才能发布版本"}>
+                      <Tooltip content={canPublishVersion ? "发布新版本" : "System Prompt 中必须包含变量才能发布版本"}>
                         <Button
                           type="primary"
-                          icon={<RocketOutlined />}
+                          icon={<IconLaunch />}
                           onClick={handlePublishVersion}
                           disabled={!canPublishVersion}
                         >
@@ -971,7 +941,7 @@ function EvaluatorDetail() {
                   <Form form={configForm} layout="vertical">
                     <Row gutter={24}>
                       <Col span={24}>
-                        <Form.Item label="裁判模型" name="modelId" required>
+                        <Form.Item label="裁判模型" field="modelId" required>
                           <Select placeholder="选择模型" onChange={handleModelChange}>
                             {models.map(model => (
                               <Option key={model.id} value={model.id}>
@@ -987,7 +957,7 @@ function EvaluatorDetail() {
                           if (isNumber) {
                             return (
                               <Col span={12} key={key}>
-                                <Form.Item label={key} name={key}>
+                                <Form.Item label={key} field={key}>
                                   <InputNumber
                                     style={{ width: '100%' }}
                                     placeholder={value}
@@ -998,7 +968,7 @@ function EvaluatorDetail() {
                           }
                           return (
                             <Col span={12} key={key}>
-                              <Form.Item label={key} name={key}>
+                              <Form.Item label={key} field={key}>
                                 <Input
                                   style={{ width: '100%' }}
                                   placeholder={value}
@@ -1014,8 +984,8 @@ function EvaluatorDetail() {
                           label={
                             <div className="flex items-center gap-2">
                               <span>System Prompt</span>
-                              <Tooltip title="使用 {{variable_name}} 格式定义变量">
-                                <InfoCircleOutlined className="text-gray-400" />
+                              <Tooltip content="使用 {{variable_name}} 格式定义变量">
+                                <IconInfoCircle className="text-gray-400" />
                               </Tooltip>
                             </div>
                           }
@@ -1024,9 +994,9 @@ function EvaluatorDetail() {
                           <TextArea
                             rows={3}
                             placeholder="输入系统提示词，使用 {{variable_name}} 定义变量"
-                            onChange={(e) => {
+                            onChange={(value) => {
                               // 实时显示检测到的变量
-                              const newPrompt = e.target.value;
+                              const newPrompt = value;
                               const variables = extractVariablesFromPrompt(newPrompt);
 
                               // 清理不再存在的变量值
@@ -1052,7 +1022,7 @@ function EvaluatorDetail() {
                                   <div className="mb-4">
                                     <div className="p-3 bg-blue-50 border border-blue-200 rounded mb-4">
                                       <div className="flex items-center gap-2 mb-2">
-                                        <InfoCircleOutlined className="text-blue-500" />
+                                        <IconInfoCircle className="text-blue-500" />
                                         <span className="text-sm font-medium text-blue-700">
                                           检测到的变量 ({variableNames.length} 个)
                                         </span>
@@ -1072,11 +1042,11 @@ function EvaluatorDetail() {
                                 return (
                                   <div className="mb-4">
                                     <Alert
-                                      message="未检测到变量"
-                                      description="System Prompt 中未检测到变量（格式：{{变量名}}）。需要添加变量才能发布版本。"
+                                      title="未检测到变量"
+                                      content="System Prompt 中未检测到变量（格式：{{变量名}}）。需要添加变量才能发布版本。"
                                       type="warning"
                                       showIcon
-                                      icon={<ExclamationCircleOutlined />}
+                                      icon={<IconExclamationCircle />}
                                     />
                                   </div>
                                 );
@@ -1103,7 +1073,7 @@ function EvaluatorDetail() {
                   pagination={{
                     ...versionPagination,
                     onChange: onVersionPaginationChange,
-                    onShowSizeChange: onVersionShowSizeChange
+                    onPageSizeChange: onVersionPageSizeChange
                   }}
                 />
               )
@@ -1128,7 +1098,7 @@ function EvaluatorDetail() {
                     pagination={{
                       ...experimentPagination,
                       onChange: onExperimentPaginationChange,
-                      onShowSizeChange: onExperimentShowSizeChange,
+                      onPageSizeChange: onExperimentShowSizeChange,
                     }}
                     columns={[
                       {
@@ -1161,7 +1131,7 @@ function EvaluatorDetail() {
                         width: '25%',
                         ellipsis: true,
                         render: (description: string) => (
-                          <Tooltip title={description}>
+                          <Tooltip content={description}>
                             <span className="text-xs truncate">{description}</span>
                           </Tooltip>
                         )
@@ -1204,11 +1174,11 @@ function EvaluatorDetail() {
       <Modal
         title={
           <div className="flex items-center gap-3">
-            <RocketOutlined className="text-blue-500" />
+            <IconLaunch className="text-blue-500" />
             <span>发布新版本</span>
           </div>
         }
-        open={showPublishModal}
+        visible={showPublishModal}
         onCancel={() => {
           setShowPublishModal(false);
           publishForm.resetFields();
@@ -1227,7 +1197,7 @@ function EvaluatorDetail() {
           >
             <Form.Item
               label="版本号"
-              name="version"
+              field="version"
               rules={[
                 { required: true, message: '请输入版本号' },
                 {
@@ -1241,7 +1211,7 @@ function EvaluatorDetail() {
 
             <Form.Item
               label="版本描述"
-              name="description"
+              field="description"
               rules={[
                 { max: 200, message: '描述不能超过200个字符' }
               ]}
@@ -1262,7 +1232,7 @@ function EvaluatorDetail() {
         title={
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
-              <InfoCircleOutlined className="text-blue-500 text-xl" />
+              <IconInfoCircle className="text-blue-500 text-xl" />
             </div>
             <div>
               <Title level={3} className="m-0">从模板导入</Title>
@@ -1270,7 +1240,7 @@ function EvaluatorDetail() {
             </div>
           </div>
         }
-        open={showTemplateModal}
+        visible={showTemplateModal}
         onCancel={() => {
           setShowTemplateModal(false);
           setSelectedTemplateId(null);
@@ -1291,7 +1261,7 @@ function EvaluatorDetail() {
             type="primary"
             disabled={!selectedTemplateDetail}
             onClick={handleTemplateImport}
-            icon={<SaveOutlined />}
+            icon={<IconSave />}
           >
             导入模板
           </Button>
@@ -1309,7 +1279,7 @@ function EvaluatorDetail() {
               }
               size="small"
             >
-              <Spin spinning={templatesLoading}>
+              <Spin loading={templatesLoading}>
                 {templates.length > 0 ? (
                   <Row gutter={[16, 16]}>
                     {templates.map(template => (
@@ -1326,7 +1296,7 @@ function EvaluatorDetail() {
                           <div className="flex justify-between items-start mb-2">
                             <Text strong className="text-sm">{template.templateDesc}</Text>
                             {selectedTemplateId === template.id && (
-                              <CheckCircleOutlined className="text-blue-500" />
+                              <IconCheckCircle className="text-blue-500" />
                             )}
                           </div>
                           <Text type="secondary" className="text-xs block mb-2" ellipsis>
@@ -1350,13 +1320,13 @@ function EvaluatorDetail() {
             <Card
               title={
                 <div className="flex items-center gap-2">
-                  <InfoCircleOutlined />
+                  <IconInfoCircle />
                   <span>模板预览</span>
                 </div>
               }
               size="small"
             >
-              <Spin spinning={templateDetailLoading}>
+              <Spin loading={templateDetailLoading}>
                 {selectedTemplateDetail ? (
                   <div className="space-y-4">
                     <div>
@@ -1398,7 +1368,7 @@ function EvaluatorDetail() {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <InfoCircleOutlined className="text-4xl text-gray-300 mb-4" />
+                    <IconInfoCircle className="text-4xl text-gray-300 mb-4" />
                     <br />
                     <Text type="secondary">点击左侧模板查看详情</Text>
                   </div>

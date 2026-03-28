@@ -1,33 +1,11 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  Card,
-  Typography,
-  Input,
-  Select,
-  Button,
-  Alert,
-  Tag,
-  Space,
-  Row,
-  Col,
-  Divider,
-  Spin
-} from 'antd';
-import {
-  CloseOutlined,
-  ExclamationCircleOutlined,
-  RocketOutlined,
-  ExperimentOutlined,
-  RobotOutlined,
-  GoldOutlined,
-  FireOutlined,
-  AppstoreOutlined,
-  InfoCircleOutlined
-} from '@ant-design/icons';
+import { Modal, Card, Typography, Input, Select, Button, Alert, Tag, Space, Divider, Spin, Grid } from '@arco-design/web-react';
+import { IconClose, IconExclamationCircle, IconLaunch, IconExperiment, IconRobot, IconGold, IconFire, IconApps, IconInfoCircle } from '@arco-design/web-react/icon';
 import { handleApiError, handleValidationError, notifySuccess } from '../utils/notification';
 import PublishSuccessModal from './PublishSuccessModal';
 import API from '../services';
+
+const { Row, Col } = Grid;
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -171,15 +149,15 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
       <Modal
         title={
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <RocketOutlined />
+            <IconLaunch />
             <span>发布新版本</span>
           </div>
         }
-        open={true}
+        visible={true}
         onCancel={onClose}
         width={800}
         footer={null}
-        destroyOnHidden
+        unmountOnExit
         style={{ top: 20 }}
         styles={{
           body: {
@@ -191,8 +169,8 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
       >
         {error && (
           <Alert
-            message="发布失败"
-            description={error}
+            title="发布失败"
+            content={error}
             type="error"
             showIcon
             style={{ marginBottom: 16 }}
@@ -219,7 +197,7 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
                       {prompt.latestVersion ? (
                         <Tag color="blue">{prompt.latestVersion}</Tag>
                       ) : (
-                        <Tag color="default">暂无版本</Tag>
+                        <Tag color="gray">暂无版本</Tag>
                       )}
                     </div>
                   </div>
@@ -235,7 +213,7 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
                     <Text strong style={{ marginBottom: 8, display: 'block' }}>新版本号 *</Text>
                     <Input
                       value={formData.version}
-                      onChange={(e) => setFormData(prev => ({ ...prev, version: e.target.value }))}
+                      onChange={(value) => setFormData(prev => ({ ...prev, version: value }))}
                       placeholder="1.0.0"
                     />
                   </div>
@@ -274,10 +252,10 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
                 </div>
               ) : (
                 <Alert
-                  message="请在编辑区填写Prompt内容"
+                  title="请在编辑区填写Prompt内容"
                   type="warning"
                   showIcon
-                  icon={<ExclamationCircleOutlined />}
+                  icon={<IconExclamationCircle />}
                 />
               )}
             </Card>
@@ -340,8 +318,8 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
 
             {/* 版本类型说明 */}
             <Alert
-              message="版本类型说明"
-              description={
+              title="版本类型说明"
+              content={
                 <div style={{ marginTop: 8 }}>
                   <div style={{ marginBottom: 4 }}>
                     <Text strong>正式版本：</Text>
@@ -355,14 +333,14 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
               }
               type="info"
               showIcon
-              icon={<InfoCircleOutlined />}
+              icon={<IconInfoCircle />}
             />
 
             {/* 版本说明 */}
             <Card title="版本说明" size="small">
               <TextArea
                 value={formData.description}
-                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                onChange={(value) => setFormData(prev => ({ ...prev, description: value }))}
                 placeholder="描述此版本的变更内容..."
                 rows={3}
               />
@@ -387,7 +365,7 @@ const PublishVersionModal = ({ prompt, newContent, modelConfig, models = [], onC
             </Button>
             <Button
               type="primary"
-              icon={loading ? <Spin size="small" /> : (formData.status === 'release' ? <RocketOutlined /> : <ExperimentOutlined />)}
+              icon={loading ? <Spin size="small" /> : (formData.status === 'release' ? <IconLaunch /> : <IconExperiment />)}
               onClick={handleSubmit}
               disabled={loading || !newContent || !newContent.trim() || !formData.version.trim()}
               style={{

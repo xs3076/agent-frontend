@@ -1,5 +1,7 @@
-import { DeleteOutlined } from '@ant-design/icons';
-import { Row, Col, Card, Button, Popconfirm, Typography, Tooltip, Switch } from 'antd';
+import { IconDelete } from '@arco-design/web-react/icon';
+import { Card, Button, Popconfirm, Typography, Tooltip, Switch, Grid } from '@arco-design/web-react';
+
+const { Row, Col } = Grid;
 
 const { Text } = Typography;
 
@@ -44,15 +46,15 @@ const FunctionList = ({
                   >
                     <Button
                       type="text"
-                      danger
+                      status="danger"
                       size="small"
-                      icon={<DeleteOutlined />}
+                      icon={<IconDelete />}
                       onClick={(e) => e.stopPropagation()}
                     />
                   </Popconfirm>
                 }
               >
-                <Tooltip title={fn.toolDefinition.description}>
+                <Tooltip content={fn.toolDefinition.description}>
                   <div className='text-xs text-gray-500 mt-1 truncate max-w-full text-ellipsis overflow-hidden whitespace-nowrap'>
                     {fn.toolDefinition.description}
                   </div>

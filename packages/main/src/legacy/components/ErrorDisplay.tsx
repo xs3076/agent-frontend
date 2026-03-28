@@ -1,6 +1,6 @@
 import React from 'react';
-import { Result, Button, Alert } from 'antd';
-import { ExclamationCircleOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Result, Button, Alert } from '@arco-design/web-react';
+import { IconExclamationCircle, IconRefresh } from '@arco-design/web-react/icon';
 
 interface ErrorDisplayProps {
   error: string | Error | null;
@@ -26,8 +26,8 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
   if (type === 'alert') {
     return (
       <Alert
-        message={title}
-        description={errorMessage}
+        title={title}
+        content={errorMessage}
         type="error"
         showIcon
         className={className}
@@ -35,7 +35,7 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
           showRetry && onRetry ? (
             <Button
               size="small"
-              icon={<ReloadOutlined />}
+              icon={<IconRefresh />}
               onClick={onRetry}
             >
               重试
@@ -50,15 +50,15 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
     return (
       <div className={`bg-red-50 border border-red-200 rounded-lg p-4 ${className}`}>
         <div className="flex items-start">
-          <ExclamationCircleOutlined className="text-red-500 text-lg mr-3 mt-0.5" />
+          <IconExclamationCircle className="text-red-500 text-lg mr-3 mt-0.5" />
           <div className="flex-1">
             <h3 className="text-sm font-medium text-red-900 mb-1">{title}</h3>
             <p className="text-sm text-red-700">{errorMessage}</p>
             {showRetry && onRetry && (
               <Button
-                type="link"
+                type="text"
                 size="small"
-                icon={<ReloadOutlined />}
+                icon={<IconRefresh />}
                 onClick={onRetry}
                 className="text-red-600 hover:text-red-800 px-0 mt-2"
               >
@@ -82,7 +82,7 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
           showRetry && onRetry ? (
             <Button
               type="primary"
-              icon={<ReloadOutlined />}
+              icon={<IconRefresh />}
               onClick={onRetry}
             >
               重试

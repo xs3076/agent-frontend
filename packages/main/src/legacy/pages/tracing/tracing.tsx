@@ -1,29 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  DatePicker,
-  Form,
-  Input,
-  Select,
-  Button,
-  Table,
-  Drawer,
-  Row,
-  Col,
-  Card,
-  Typography,
-  Space,
-  Tag,
-  Timeline,
-  Empty,
-  Spin,
-  Tooltip,
-  Statistic,
-  Tabs,
-  Popover,
-  Modal,
-  message
-} from 'antd';
-import { SearchOutlined, PlusOutlined, MinusCircleOutlined, DownOutlined, DatabaseOutlined, CopyOutlined } from '@ant-design/icons';
+import { DatePicker, Form, Input, Select, Button, Table, Drawer, Card, Typography, Space, Tag, Timeline, Empty, Spin, Tooltip, Statistic, Tabs, Popover, Modal, Message, Grid } from '@arco-design/web-react';
+import { IconSearch, IconPlus, IconMinusCircle, IconDown, IconStorage, IconCopy } from '@arco-design/web-react/icon';
 import dayjs from 'dayjs';
 import ReactJsonView from "react-json-view";
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
@@ -31,8 +8,9 @@ import API from '../../services';
 import { handleApiError, notifyError } from '../../utils/notification';
 import './tracing.css';
 import usePagination from '../../hooks/usePagination';
-import type { ColumnType } from 'antd/lib/table';
 import { copyToClipboard, safeJSONParse } from '../../utils/util';
+
+const { Row, Col } = Grid;
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -163,12 +141,12 @@ const SpanWaterfallRow: React.FC<SpanWaterfallRowProps> = ({ span, depth, traceS
                 transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)',
               }}
             >
-              <DownOutlined style={{ fontSize: '10px' }} />
+              <IconDown style={{ fontSize: '10px' }} />
             </span>
           ) : (
             <span className="w-6 inline-block" /> // for alignment
           )}
-          <Tooltip title={span.operationName}>
+          <Tooltip content={span.operationName}>
             <div className="flex items-center gap-2">
               <div className='max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap'>
                 {span.operationName}
@@ -178,10 +156,10 @@ const SpanWaterfallRow: React.FC<SpanWaterfallRowProps> = ({ span, depth, traceS
             </div>
           </Tooltip>
           {operationName === 'chat' && <div className="">
-            <Tooltip title="添加到评测集">
+            <Tooltip content="添加到评测集">
               <Button
                 size="small"
-                icon={<DatabaseOutlined />}
+                icon={<IconStorage />}
                 onClick={handleAddToDataset}
               />
             </Tooltip>
@@ -189,7 +167,7 @@ const SpanWaterfallRow: React.FC<SpanWaterfallRowProps> = ({ span, depth, traceS
         </div>
       </div>
       <div className="flex-grow h-6 bg-gray-100 relative p-0">
-        <Tooltip title={hoverContent}>
+        <Tooltip content={hoverContent}>
           <div
             className="h-full absolute rounded"
             style={{
@@ -218,7 +196,7 @@ function TracingPage() {
   const location = useLocation();
   const [traces, setTraces] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const { pagination, setPagination, onShowSizeChange, onPaginationChange } = usePagination();
+  const { pagination, setPagination, onPageSizeChange, onPaginationChange } = usePagination();
 
   const [overviewData, setOverviewData] = useState<any>(null);
   const [overviewLoading, setOverviewLoading] = useState(false);
@@ -266,7 +244,7 @@ function TracingPage() {
         fetchDatasetDetail(value)
       ]).catch(error => {
         console.error('获取评测集信息失败:', error);
-        message.error('获取评测集信息失败');
+        Message.error('获取评测集信息失败');
       });
     }
   };
@@ -443,11 +421,11 @@ function TracingPage() {
         setDatasets(transformedDatasets);
       } else {
         setDatasets([]);
-        message.error('获取评测集列表失败');
+        Message.error('获取评测集列表失败');
       }
     } catch (error) {
       setDatasets([]);
-      message.error('获取评测集列表失败');
+      Message.error('获取评测集列表失败');
     } finally {
       setDatasetsLoading(false);
     }
@@ -474,11 +452,11 @@ function TracingPage() {
         }
       } else {
         setDatasetVersions([]);
-        message.error('获取评测集版本列表失败');
+        Message.error('获取评测集版本列表失败');
       }
     } catch (error) {
       setDatasetVersions([]);
-      message.error('获取评测集版本列表失败');
+      Message.error('获取评测集版本列表失败');
     } finally {
       setDatasetVersionsLoading(false);
     }
@@ -526,12 +504,12 @@ function TracingPage() {
           setFieldMappings({});
         }
       } else {
-        message.error('获取评测集详情失败');
+        Message.error('获取评测集详情失败');
         setDatasetColumns([]);
         setFieldMappings({});
       }
     } catch (error) {
-      message.error('获取评测集详情失败');
+      Message.error('获取评测集详情失败');
       setDatasetColumns([]);
       setFieldMappings({});
     }
@@ -622,14 +600,14 @@ function TracingPage() {
   // 保存到数据集
   const handleSaveToDataset = async () => {
     if (!selectedSpanForDataset || !selectedDatasetId || !selectedDatasetVersionId) {
-      message.error('请选择完整的评测集和版本信息');
+      Message.error('请选择完整的评测集和版本信息');
       return;
     }
 
     // 检查是否有字段映射配置
     const hasMappings = Object.values(fieldMappings).some(mapping => mapping);
     if (!hasMappings) {
-      message.warning('请至少配置一个字段映射关系');
+      Message.warning('请至少配置一个字段映射关系');
       return;
     }
 
@@ -682,7 +660,7 @@ function TracingPage() {
 
       // 检查构造的数据是否为空
       if (Object.keys(dataContent).length === 0) {
-        message.warning('没有可保存的数据，请检查字段映射配置');
+        Message.warning('没有可保存的数据，请检查字段映射配置');
         return;
       }
 
@@ -699,7 +677,7 @@ function TracingPage() {
       });
 
       if (response.code === 200) {
-        message.success('已成功添加到评测集');
+        Message.success('已成功添加到评测集');
         setAddToDatasetModalVisible(false);
         // 重置状态
         setSelectedSpanForDataset(null);
@@ -713,10 +691,10 @@ function TracingPage() {
         setOutputContentValues([]);
         setOtherAttrValues({});
       } else {
-        message.error('添加到评测集失败: ' + (response.message || '未知错误'));
+        Message.error('添加到评测集失败: ' + (response.message || '未知错误'));
       }
     } catch (error: any) {
-      message.error('添加到评测集失败: ' + (error.message || '网络错误或服务器异常'));
+      Message.error('添加到评测集失败: ' + (error.message || '网络错误或服务器异常'));
       console.error('添加到评测集失败:', error);
     }
   };
@@ -986,7 +964,7 @@ function TracingPage() {
       title: '操作',
       key: 'action',
       render: (_: any, record: any) => (
-        <Button type="link" onClick={() => {
+        <Button type="text" onClick={() => {
           showDrawer(record);
         }}>
           查看详情
@@ -1081,7 +1059,7 @@ function TracingPage() {
             {
               selectedSpan ? (
                 <Tabs defaultActiveKey="info">
-                  <Tabs.TabPane tab="基本信息" key="info">
+                  <Tabs.TabPane title="基本信息" key="info">
                     <div className='flex flex-col gap-2 mb-2'>
                     {
                       Boolean(selectedSpan.attributes?.["gen_ai.input.messages"]) && (
@@ -1136,7 +1114,7 @@ function TracingPage() {
                       <Col span={12}><Text strong>持续时间:</Text> {formatDuration(selectedSpan.duration)}</Col>
                     </Row>
                   </Tabs.TabPane>
-                  <Tabs.TabPane tab="属性" key="attributes" className='flex flex-col gap-4'>
+                  <Tabs.TabPane title="属性" key="attributes" className='flex flex-col gap-4'>
                     <Card size="small" title="AI 相关属性">
                       {
                         Object.entries(aiAttr).map(([key, value]) => {
@@ -1153,12 +1131,12 @@ function TracingPage() {
                                 >
                                   <div className='text-blue-500 flex-1 overflow-hidden text-ellipsis whitespace-nowrap'>{value as string}</div>
                                 </Popover>
-                                <CopyOutlined
+                                <IconCopy
                                   onClick={() => {
                                     copyToClipboard(value as string).then(() => {
-                                      message.success("复制成功")
+                                      Message.success("复制成功")
                                     }).catch((error) => {
-                                      message.error("复制失败")
+                                      Message.error("复制失败")
                                     });
                                   }}
                                 className='text-blue-400 cursor-pointer' />
@@ -1184,12 +1162,12 @@ function TracingPage() {
                                 >
                                   <div className='text-blue-500 flex-1 overflow-hidden text-ellipsis whitespace-nowrap'>{value as string}</div>
                                 </Popover>
-                                <CopyOutlined
+                                <IconCopy
                                   onClick={() => {
                                     copyToClipboard(value as string).then(() => {
-                                      message.success("复制成功")
+                                      Message.success("复制成功")
                                     }).catch((error) => {
-                                      message.error("复制失败")
+                                      Message.error("复制失败")
                                     });
                                   }}
                                 className='text-blue-400 cursor-pointer' />
@@ -1200,7 +1178,7 @@ function TracingPage() {
                       }
                     </Card>
                   </Tabs.TabPane>
-                  <Tabs.TabPane tab="事件" key="events">
+                  <Tabs.TabPane title="事件" key="events">
                     {
                       selectedSpan.events.length > 0 ? (
                         <Timeline>
@@ -1228,7 +1206,7 @@ function TracingPage() {
         {/* 添加到评测集弹出框 */}
         <Modal
           title="添加到评测集"
-          open={addToDatasetModalVisible}
+          visible={addToDatasetModalVisible}
           onCancel={handleCloseAddToDatasetModal}
           width={800}
           style={{ maxHeight: 'calc(100vh - 40px)' }}
@@ -1342,9 +1320,9 @@ function TracingPage() {
                                       <Input
                                         placeholder="输入内容"
                                         value={content}
-                                        onChange={(e) => {
+                                        onChange={(value) => {
                                           const newValues = [...inputContentValues];
-                                          newValues[index] = e.target.value;
+                                          newValues[index] = value;
                                           setInputContentValues(newValues);
                                         }}
                                       />
@@ -1378,9 +1356,9 @@ function TracingPage() {
                                       <Input
                                         placeholder="输出内容"
                                         value={content}
-                                        onChange={(e) => {
+                                        onChange={(value) => {
                                           const newValues = [...outputContentValues];
-                                          newValues[index] = e.target.value;
+                                          newValues[index] = value;
                                           setOutputContentValues(newValues);
                                         }}
                                       />
@@ -1414,10 +1392,10 @@ function TracingPage() {
                                       <Input
                                         placeholder="其他属性"
                                         value={typeof value === 'object' ? JSON.stringify(value) : value}
-                                        onChange={(e) => {
+                                        onChange={(value) => {
                                           setOtherAttrValues(prev => ({
                                             ...prev,
-                                            [key]: e.target.value
+                                            [key]: value
                                           }));
                                         }}
                                       />
@@ -1486,7 +1464,7 @@ function TracingPage() {
           </Col>
         </Row>
       </Card>
-      <Form form={form} onFinish={onSearch}>
+      <Form form={form} onSubmit={onSearch}>
         <Card style={{ marginBottom: 24 }}>
           <Row gutter={16}>
             <Col span={8}>
@@ -1504,7 +1482,7 @@ function TracingPage() {
         <Card style={{ marginBottom: 24 }}>
           <Row gutter={24}>
             <Col span={6}>
-              <Form.Item name="serviceName" label="来源应用">
+              <Form.Item field="serviceName" label="来源应用">
                 <Select showSearch placeholder="全部" allowClear>
                   {services.map(s => <Option key={s} value={s}>{s}</Option>)}
                 </Select>
@@ -1513,7 +1491,7 @@ function TracingPage() {
             {
               serviceName === "spring-ai-alibaba-studio" && (
                 <Col span={6}>
-                  <Form.Item name="sourceType" label="来源类型">
+                  <Form.Item field="sourceType" label="来源类型">
                     <Select placeholder="全部" allowClear>
                       <Option value="prompt">Prompt</Option>
                       <Option value="playground">Playground</Option>
@@ -1525,19 +1503,19 @@ function TracingPage() {
               )
             }
             <Col span={6}>
-              <Form.Item name="spanName" label="Span名称">
+              <Form.Item field="spanName" label="Span名称">
                 <Select showSearch placeholder="全部" allowClear>
                   {operations.map(op => <Option key={op} value={op}>{op}</Option>)}
                 </Select>
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="traceId" label="TraceId">
+              <Form.Item field="traceId" label="TraceId">
                 <Input placeholder="输入TraceId" />
               </Form.Item>
             </Col>
             <Col span={6} className="flex gap-2 justify-end">
-              <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>查询</Button>
+              <Button type="primary" htmlType="submit" icon={<IconSearch />}>查询</Button>
               <Button className='mr-2' onClick={() => {
                form.resetFields();
                onSearch();
@@ -1550,19 +1528,19 @@ function TracingPage() {
               <>
                 {fields.map(({ key, name, ...restField }) => (
                   <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                    <Form.Item {...restField} name={[name, 'key']} rules={[{ required: true, message: '请选择属性' }]}>
+                    <Form.Item {...restField} field={[name, 'key']} rules={[{ required: true, message: '请选择属性' }]}>
                       <Input placeholder='属性' width={200} />
                     </Form.Item>
-                    <Form.Item {...restField} name={[name, 'value']} rules={[{ required: true, message: '请输入属性值' }]}>
+                    <Form.Item {...restField} field={[name, 'value']} rules={[{ required: true, message: '请输入属性值' }]}>
                       <Input placeholder="属性值" width={200} />
                     </Form.Item>
-                    <MinusCircleOutlined onClick={() => remove(name)} />
+                    <IconMinusCircle onClick={() => remove(name)} />
                   </Space>
                 ))}
                 <Form.Item className='mb-0'>
                   <Button
                     type="dashed"
-                    onClick={() => add()} block icon={<PlusOutlined />}
+                    onClick={() => add()} block icon={<IconPlus />}
                   >
                     添加高级筛选
                   </Button>
@@ -1581,7 +1559,7 @@ function TracingPage() {
           pagination={{
             ...pagination,
             onChange: onPaginationChange,
-            onShowSizeChange: onShowSizeChange
+            onPageSizeChange: onPageSizeChange
           }}
           rowKey="spanId"
         />
@@ -1596,8 +1574,8 @@ function TracingPage() {
         }
         width="85%"
         onClose={closeDrawer}
-        open={drawerVisible}
-        destroyOnHidden
+        visible={drawerVisible}
+        unmountOnExit
       >
         {renderDrawerContent()}
       </Drawer>

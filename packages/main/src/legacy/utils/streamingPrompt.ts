@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { Message } from '@arco-design/web-react';
 import { MockTool } from '../pages/prompts/prompt-detail/hooks/useFunctions';
 
 /**
@@ -223,7 +223,7 @@ export const executeStreamingPrompt = async (
                   }
                   updateChatHistory();
                   delete eventSourceRefs[promptId];
-                  message.error(data.error || '请求失败');
+                  Message.error(data.error || '请求失败');
                   return;
                 }
               } catch (parseError) {
@@ -243,7 +243,7 @@ export const executeStreamingPrompt = async (
         }
         updateChatHistory();
         delete eventSourceRefs[promptId];
-        message.error('连接失败');
+        Message.error('连接失败');
       }
     };
 
@@ -251,7 +251,7 @@ export const executeStreamingPrompt = async (
 
   } catch (error) {
     console.error('Run prompt error:', error);
-    message.error('请求失败');
+    Message.error('请求失败');
 
     // Update the loading message to show error
     onUpdateChatHistory(promptId, (chatHistory) =>

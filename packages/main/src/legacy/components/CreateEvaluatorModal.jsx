@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Modal,
+import { Modal,
   Card,
   Typography,
   Button,
@@ -8,14 +7,8 @@ import {
   Alert,
   Space,
   Form,
-  message
-} from 'antd';
-import {
-  CloseOutlined,
-  PlusOutlined,
-  ExclamationCircleOutlined,
-  InfoCircleOutlined
-} from '@ant-design/icons';
+  Message } from '@arco-design/web-react';
+import { IconClose, IconPlus, IconExclamationCircle, IconInfoCircle } from '@arco-design/web-react/icon';
 import { notifyError, notifySuccess, handleApiError } from '../utils/notification';
 import API from '../services';
 
@@ -81,14 +74,14 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            <PlusOutlined style={{ color: '#52c41a', fontSize: 20 }} />
+            <IconPlus style={{ color: '#52c41a', fontSize: 20 }} />
           </div>
           <Title level={3} style={{ margin: 0 }}>
             创建新评估器
           </Title>
         </div>
       }
-      open={true}
+      visible={true}
       onCancel={handleCancel}
       width={600}
       centered
@@ -108,20 +101,20 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
           type="primary"
           loading={loading}
           onClick={handleSubmit}
-          icon={<PlusOutlined />}
+          icon={<IconPlus />}
         >
           {loading ? '创建中...' : '创建评估器'}
         </Button>
       ]}
-      closeIcon={<CloseOutlined />}
+      closeIcon={<IconClose />}
     >
       <Space direction="vertical" size={24} style={{ width: '100%' }}>
         {error && (
           <Alert
-            message="创建失败"
-            description={error}
+            title="创建失败"
+            content={error}
             type="error"
-            icon={<ExclamationCircleOutlined />}
+            icon={<IconExclamationCircle />}
             showIcon
           />
         )}
@@ -134,7 +127,7 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
         >
           <Form.Item
             label="评估器名称"
-            name="name"
+            field="name"
             rules={[
               { required: true, message: '请输入评估器名称' },
               { max: 50, message: '名称不能超过50个字符' },
@@ -154,7 +147,7 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
 
           <Form.Item
             label="描述"
-            name="description"
+            field="description"
             rules={[
               { max: 500, message: '描述不能超过500个字符' }
             ]}
@@ -170,8 +163,8 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
 
         {/* 提示信息 */}
         <Alert
-          message="创建后的配置步骤"
-          description={
+          title="创建后的配置步骤"
+          content={
             <div>
               <Paragraph style={{ margin: 0, marginBottom: 8 }}>
                 创建评估器后，您可以在详情页面配置具体的版本信息，包括：
@@ -185,7 +178,7 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
             </div>
           }
           type="info"
-          icon={<InfoCircleOutlined />}
+          icon={<IconInfoCircle />}
           showIcon
         />
       </Space>

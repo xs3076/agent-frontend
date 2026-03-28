@@ -1,12 +1,4 @@
-import { notification } from 'antd';
-
-// 配置全局通知样式
-notification.config({
-  placement: 'topRight',
-  top: 50,
-  duration: 4.5,
-  rtl: false,
-});
+import { Notification } from '@arco-design/web-react';
 
 export interface NotificationOptions {
   message: string;
@@ -15,43 +7,46 @@ export interface NotificationOptions {
   placement?: 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight';
 }
 
+// Arco Notification uses title/content instead of message/description
+// position is set per-call via `position` prop
+
 // 成功通知
 export const notifySuccess = (options: NotificationOptions) => {
-  notification.success({
-    message: options.message,
-    description: options.description,
-    duration: options.duration || 3,
-    placement: options.placement || 'topRight',
+  Notification.success({
+    title: options.message,
+    content: options.description,
+    duration: (options.duration || 3) * 1000,
+    position: options.placement || 'topRight',
   });
 };
 
 // 错误通知
 export const notifyError = (options: NotificationOptions) => {
-  notification.error({
-    message: options.message,
-    description: options.description,
-    duration: options.duration || 5,
-    placement: options.placement || 'topRight',
+  Notification.error({
+    title: options.message,
+    content: options.description,
+    duration: (options.duration || 5) * 1000,
+    position: options.placement || 'topRight',
   });
 };
 
 // 警告通知
 export const notifyWarning = (options: NotificationOptions) => {
-  notification.warning({
-    message: options.message,
-    description: options.description,
-    duration: options.duration || 4,
-    placement: options.placement || 'topRight',
+  Notification.warning({
+    title: options.message,
+    content: options.description,
+    duration: (options.duration || 4) * 1000,
+    position: options.placement || 'topRight',
   });
 };
 
 // 信息通知
 export const notifyInfo = (options: NotificationOptions) => {
-  notification.info({
-    message: options.message,
-    description: options.description,
-    duration: options.duration || 3,
-    placement: options.placement || 'topRight',
+  Notification.info({
+    title: options.message,
+    content: options.description,
+    duration: (options.duration || 3) * 1000,
+    position: options.placement || 'topRight',
   });
 };
 

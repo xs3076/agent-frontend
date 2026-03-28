@@ -1,21 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useContext, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import {
-  Spin, Result, Button, Alert,
-  Card, Tag, Typography, Row,
-  Col, Input, Select, InputNumber, Space,
-  Tooltip, Divider, Badge, Avatar, message,
-  Modal, Drawer } from 'antd';
-import {
-  LoadingOutlined, ArrowLeftOutlined, DownloadOutlined,
-  HistoryOutlined, CopyOutlined, DeleteOutlined,
-  RocketOutlined, CommentOutlined, EditOutlined,
-  SendOutlined, RobotOutlined, ClearOutlined,
-  CheckCircleOutlined, ExperimentOutlined, QuestionCircleOutlined,
-  MessageOutlined, UserOutlined, PlusOutlined,
-  EyeOutlined,
-  ShareAltOutlined,
-} from '@ant-design/icons';
+import { Spin, Result, Button, Alert, Card, Tag, Typography, Input, Select, InputNumber, Space, Tooltip, Divider, Badge, Avatar, Message, Modal, Drawer, Grid } from '@arco-design/web-react';
+import { IconLoading, IconArrowLeft, IconDownload, IconHistory, IconCopy, IconDelete, IconLaunch, IconMessage, IconEdit, IconSend, IconRobot, IconEraser, IconCheckCircle, IconExperiment, IconQuestionCircle, IconUser, IconPlus, IconEye, IconShareAlt } from '@arco-design/web-react/icon';
 import { handleApiError } from '../../../utils/notification';
 import { executeStreamingPrompt } from '../../../utils/streamingPrompt';
 import PublishVersionModal from '../../../components/PublishVersionModal';
@@ -28,6 +14,8 @@ import { buildLegacyPath } from '../../../utils/path';
 import AddFunctionModal from './add-function-modal/add-function-modal';
 import ViewFunctionModel from './view-function-model/view-function-model';
 import FunctionList from './FunctionList';
+
+const { Row, Col } = Grid;
 
 const { Title, Paragraph, Text } = Typography;
 const { TextArea } = Input;
@@ -226,12 +214,12 @@ const PromptDetailPage = () => {
         }));
         return response.data;
       } else {
-        message.error(response.message || '获取会话失败');
+        Message.error(response.message || '获取会话失败');
         return null;
       }
     } catch (error) {
       console.error('Load session error:', error);
-      message.error('获取会话失败');
+      Message.error('获取会话失败');
       return null;
     }
   };
@@ -245,15 +233,15 @@ const PromptDetailPage = () => {
           delete newSessions[sessionId];
           return newSessions;
         });
-        message.success('会话删除成功');
+        Message.success('会话删除成功');
         return true;
       } else {
-        message.error(response.message || '删除会话失败');
+        Message.error(response.message || '删除会话失败');
         return false;
       }
     } catch (error) {
       console.error('Delete session error:', error);
-      message.error('删除会话失败');
+      Message.error('删除会话失败');
       return false;
     }
   };
@@ -811,7 +799,7 @@ const PromptDetailPage = () => {
   const restoreSession = async (promptId) => {
     const sessionId = recentlyDeletedSessions[promptId];
     if (!sessionId) {
-      message.error('没有可恢复的会话');
+      Message.error('没有可恢复的会话');
       return false;
     }
 
@@ -850,15 +838,15 @@ const PromptDetailPage = () => {
           return newSessions;
         });
 
-        message.success('会话恢复成功');
+        Message.success('会话恢复成功');
         return true;
       } else {
-        message.error(response.message || '恢复会话失败');
+        Message.error(response.message || '恢复会话失败');
         return false;
       }
     } catch (error) {
       console.error('Restore session error:', error);
-      message.error('恢复会话失败');
+      Message.error('恢复会话失败');
       return false;
     }
   };
@@ -947,7 +935,7 @@ const PromptDetailPage = () => {
       <div className="p-8 fade-in">
         <div className="flex items-center justify-center h-64">
           <Spin
-            indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />}
+            icon={<IconLoading style={{ fontSize: 48 }} spin />}
             size="large"
           >
             <div className="text-center pt-4">
@@ -1006,7 +994,7 @@ const PromptDetailPage = () => {
         <div className='flex items-center gap-3 mb-2' >
           <Button
             type="text"
-            icon={<ArrowLeftOutlined />}
+            icon={<IconArrowLeft />}
             onClick={() => navigate(buildLegacyPath('/prompts'))}
             size="large"
           />
@@ -1040,7 +1028,7 @@ const PromptDetailPage = () => {
                 {currentPrompt.latestVersion ? (
                   <Tag color="blue">{currentPrompt.latestVersion}</Tag>
                 ) : (
-                  <Tag color="default">无版本</Tag>
+                  <Tag color="gray">无版本</Tag>
                 )}
               </div>
             </div>
@@ -1054,16 +1042,16 @@ const PromptDetailPage = () => {
               <div className='mt-1' >
                 {currentPrompt.latestVersionStatus ? (
                   currentPrompt.latestVersionStatus === 'release' ? (
-                    <Tag color="success" icon={<CheckCircleOutlined />}>
+                    <Tag color="green" icon={<IconCheckCircle />}>
                       正式版本
                     </Tag>
                   ) : (
-                    <Tag color="processing" icon={<ExperimentOutlined />}>
+                    <Tag color="arcoblue" icon={<IconExperiment />}>
                       PRE版本
                     </Tag>
                   )
                 ) : (
-                  <Tag color="default" icon={<QuestionCircleOutlined />}>
+                  <Tag color="gray" icon={<IconQuestionCircle />}>
                     未知状态
                   </Tag>
                 )}
@@ -1104,14 +1092,14 @@ const PromptDetailPage = () => {
                     try {
                       const tags = safeJSONParse(currentPrompt.tags || '[]');
                       return tags.map((tag, index) => (
-                        <Tag key={index} color="geekblue">
+                        <Tag key={index} color="arcoblue">
                           {tag}
                         </Tag>
                       ));
                     } catch (e) {
                       const tags = currentPrompt.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
                       return tags.map((tag, index) => (
-                        <Tag key={index} color="geekblue">
+                        <Tag key={index} color="arcoblue">
                           {tag}
                         </Tag>
                       ));
@@ -1193,7 +1181,7 @@ const PromptDetailPage = () => {
                       <div className='flex flex-wrap gap-2'>
                         <Button
                           type="primary" 
-                          icon={<PlusOutlined />}
+                          icon={<IconPlus />}
                           size={promptInstances.length >= 3 ? "small" : "default"}
                           onClick={() => {
                             setShowFunctionModal(true);
@@ -1204,7 +1192,7 @@ const PromptDetailPage = () => {
                         </Button>
                         <Button
                           type="primary"
-                          icon={<DownloadOutlined />}
+                          icon={<IconDownload />}
                           size={promptInstances.length >= 3 ? "small" : "default"}
                           onClick={() => setShowTemplateModal(prompt.id)}
                           style={{ background: 'linear-gradient(90deg, #16a085 0%, #2ecc71 100%)', border: 'none' }}
@@ -1213,7 +1201,7 @@ const PromptDetailPage = () => {
                         </Button>
                         {promptVersions && promptVersions.length > 0 && (
                           <Button
-                            icon={<HistoryOutlined />}
+                            icon={<IconHistory />}
                             size={promptInstances.length >= 3 ? "small" : "default"}
                             onClick={() => navigate(buildLegacyPath('/version-history', { promptKey, targetWindowId: prompt.id }))}
                           >
@@ -1222,7 +1210,7 @@ const PromptDetailPage = () => {
                         )}
                         <Button
                           type="primary"
-                          icon={<RocketOutlined />}
+                          icon={<IconLaunch />}
                           size={promptInstances.length >= 3 ? "small" : "default"}
                           disabled={!prompt.content.trim()}
                           onClick={() => setShowPublishModal({
@@ -1245,7 +1233,7 @@ const PromptDetailPage = () => {
                       <Space size="small">
                         <Button
                           type="text"
-                          icon={<CopyOutlined />}
+                          icon={<IconCopy />}
                           onClick={() => copyPrompt(prompt.id)}
                           disabled={promptInstances.length >= 3}
                           title={promptInstances.length >= 3 ? '最多同时调试3个配置' : '复制配置进行对比'}
@@ -1253,8 +1241,8 @@ const PromptDetailPage = () => {
                         {promptInstances.length > 1 && (
                           <Button
                             type="text"
-                            danger
-                            icon={<DeleteOutlined />}
+                            status="danger"
+                            icon={<IconDelete />}
                             onClick={() => removePrompt(prompt.id)}
                             title="删除配置"
                           />
@@ -1268,8 +1256,8 @@ const PromptDetailPage = () => {
                 <div className="mb-4">
                   {showRestoreSuccess && restoredVersion && restoredWindowId === prompt.id ? (
                     <Alert
-                      message="版本恢复成功！"
-                      description={`已恢复版本 ${restoredVersion.version} 的内容`}
+                      title="版本恢复成功！"
+                      content={`已恢复版本 ${restoredVersion.version} 的内容`}
                       type="success"
                       showIcon
                       closable
@@ -1290,7 +1278,7 @@ const PromptDetailPage = () => {
                     </Text>
                     <TextArea
                       value={prompt.content}
-                      onChange={(e) => handleContentChange(prompt.id, e.target.value)}
+                      onChange={(value) => handleContentChange(prompt.id, value)}
                       placeholder="输入Prompt内容，使用 {{参数名}} 来定义参数..."
                       style={{
                         height: promptInstances.length >= 3 ? 100 : 120,
@@ -1352,7 +1340,7 @@ const PromptDetailPage = () => {
                                       : (
                                         <Input
                                           value={paramValue}
-                                          onChange={(e) => updatePromptModelParams(prompt.id, paramName, e.target.value)}
+                                          onChange={(value) => updatePromptModelParams(prompt.id, paramName, value)}
                                           size="small"
                                           className='w-full'
                                         />
@@ -1403,7 +1391,7 @@ const PromptDetailPage = () => {
                             </Text>
                             <Input
                               value={prompt.parameterValues[param] || ''}
-                              onChange={(e) => updateParameterValue(prompt.id, param, e.target.value)}
+                              onChange={(value) => updateParameterValue(prompt.id, param, value)}
                               placeholder={`输入 ${param} 的值...`}
                               size="small"
                             />
@@ -1421,7 +1409,7 @@ const PromptDetailPage = () => {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
-                    <Avatar icon={<CommentOutlined />} style={{ backgroundColor: '#e6f7ff' }} />
+                    <Avatar icon={<IconMessage />} style={{ backgroundColor: '#e6f7ff' }} />
                     <div>
                       <Text strong className="text-lg">对话测试</Text>
                       <div>
@@ -1441,7 +1429,7 @@ const PromptDetailPage = () => {
                       <Button
                         type="text"
                         size="small"
-                        icon={<RocketOutlined />}
+                        icon={<IconLaunch />}
                         onClick={() => restoreSession(prompt.id)}
                         title="恢复上一次会话"
                         style={{ color: '#52c41a' }}
@@ -1454,7 +1442,7 @@ const PromptDetailPage = () => {
                         <Button
                           type="text"
                           size="small"
-                          icon={<UserOutlined />}
+                          icon={<IconUser />}
                           onClick={() => {
                             setSelectedSessionId(prompt.sessionId);
                             setShowSessionModal(true);
@@ -1464,8 +1452,8 @@ const PromptDetailPage = () => {
                         <Button
                           type="text"
                           size="small"
-                          danger
-                          icon={<DeleteOutlined />}
+                          status="danger"
+                          icon={<IconDelete />}
                           onClick={async () => {
                             Modal.confirm({
                               title: '删除会话',
@@ -1490,7 +1478,7 @@ const PromptDetailPage = () => {
                       <Button
                         type="text"
                         size="small"
-                        icon={<ClearOutlined />}
+                        icon={<IconEraser />}
                         onClick={() => clearChatHistory(prompt.id)}
                         title="清空对话"
                       >
@@ -1523,7 +1511,7 @@ const PromptDetailPage = () => {
                     <div className="flex flex-col items-center justify-center h-full text-center">
                       <Avatar
                         size={64}
-                        icon={<RobotOutlined />}
+                        icon={<IconRobot />}
                         style={{
                           marginBottom: 16,
                           backgroundColor: '#f0f0f0',
@@ -1573,7 +1561,7 @@ const PromptDetailPage = () => {
                                 }}>
                                   <Avatar
                                     size={20}
-                                    icon={<RobotOutlined />}
+                                    icon={<IconRobot />}
                                     style={{ backgroundColor: '#52c41a' }}
                                   />
                                   <Text strong style={{ fontSize: '12px', color: '#52c41a' }}>
@@ -1583,10 +1571,10 @@ const PromptDetailPage = () => {
                                     <Button
                                       type="text"
                                       size="small"
-                                      icon={<CopyOutlined />}
+                                      icon={<IconCopy />}
                                       onClick={() => {
                                         navigator.clipboard.writeText(message.content);
-                                        message.success('已复制到剪贴板');
+                                        Message.success('已复制到剪贴板');
                                       }}
                                       title="复制回复"
                                       style={{ fontSize: '10px', padding: '2px 4px', height: 20 }}
@@ -1632,9 +1620,9 @@ const PromptDetailPage = () => {
                                         {message.content}
                                       </Text>
                                       <div className='flex gap-2 mt-2'>
-                                        <Tag color="geekblue">输入 Token: {message?.usage?.promptTokens}</Tag>
-                                        <Tag color='geekblue'>输出 Token: {message?.usage?.completionTokens}</Tag>
-                                        <Tag color='geekblue'>总 Token: {message?.usage?.totalTokens}</Tag>
+                                        <Tag color="arcoblue">输入 Token: {message?.usage?.promptTokens}</Tag>
+                                        <Tag color='arcoblue'>输出 Token: {message?.usage?.completionTokens}</Tag>
+                                        <Tag color='arcoblue'>总 Token: {message?.usage?.totalTokens}</Tag>
                                       </div>
                                       {/* 模型参数信息 */}
                                       <div className='flex justify-between items-center mt-2 gap-2'>
@@ -1643,11 +1631,11 @@ const PromptDetailPage = () => {
                                         </Text>
                                         {
                                           Boolean(message.traceId) && (
-                                            <Tooltip title="查看调用链路跟踪">
+                                            <Tooltip content="查看调用链路跟踪">
                                               <Button
                                                 type="text"
                                                 size="small"
-                                                icon={<ShareAltOutlined />}
+                                                icon={<IconShareAlt />}
                                                 onClick={() => {
                                                   navigate(buildLegacyPath("/tracing"), {
                                                     state: {
@@ -1677,7 +1665,7 @@ const PromptDetailPage = () => {
                   <div style={{ flex: 1 }}>
                     <TextArea
                       value={userInput}
-                      onChange={(e) => updatePromptInput(prompt.id, e.target.value)}
+                      onChange={(value) => updatePromptInput(prompt.id, value)}
                       onPressEnter={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
@@ -1699,7 +1687,7 @@ const PromptDetailPage = () => {
                     <Button
                       type="primary"
                       size="large"
-                      icon={prompt.isLoading ? <Spin size="small" /> : <SendOutlined />}
+                      icon={prompt.isLoading ? <Spin size="small" /> : <IconSend />}
                       onClick={() => {
                         handleSendMessage(prompt.id, userInput);
                       }}
@@ -1763,12 +1751,12 @@ const PromptDetailPage = () => {
         <Modal
           title={
             <Space>
-              <MessageOutlined />
+              <IconMessage />
               <span>会话详情</span>
               <Tag color="blue">{selectedSessionId.substring(0, 8)}...</Tag>
             </Space>
           }
-          open={true}
+          visible={true}
           onCancel={() => {
             setShowSessionModal(false);
             setSelectedSessionId(null);
@@ -1783,8 +1771,8 @@ const PromptDetailPage = () => {
             </Button>,
             <Button
               key="delete"
-              danger
-              icon={<DeleteOutlined />}
+              status="danger"
+              icon={<IconDelete />}
               onClick={async () => {
                 Modal.confirm({
                   title: '删除会话',
@@ -1877,7 +1865,7 @@ const PromptDetailPage = () => {
       )}
 
       <AddFunctionModal
-        open={showFunctionModal}
+        visible={showFunctionModal}
         onCancel={() => setShowFunctionModal(false)}
         functions={currentPromptInstance?.mockTools || []}
         onOk={(data) => {
@@ -1890,7 +1878,7 @@ const PromptDetailPage = () => {
       />
       <ViewFunctionModel
         selectedFunction={selectedFunction}
-        open={showFunctionViewModal}
+        visible={showFunctionViewModal}
         onCancel={() => setShowFunctionViewModal(false)}
         onOk={(data) => {
           setPromptInstances(v => v.map(p => p.id === selectedSessionId ? {

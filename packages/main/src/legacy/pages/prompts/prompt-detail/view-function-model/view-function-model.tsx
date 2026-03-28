@@ -1,10 +1,10 @@
-import { Modal, Card, Input, Button, message, Typography, Popconfirm } from "antd";
+import { Modal, Card, Input, Button, Message, Typography, Popconfirm } from '@arco-design/web-react';
 import { useEffect, useState } from "react";
 import type { MockTool } from "../hooks/useFunctions";
 import CodeMirror from '@uiw/react-codemirror';
 import { json } from '@codemirror/lang-json';
 import { githubLight } from '@uiw/codemirror-theme-github';
-import { DeleteOutlined } from '@ant-design/icons';
+import { IconDelete } from '@arco-design/web-react/icon';
 import { safeJSONParse, safeJSONStringify } from "../../../../utils/util";
 
 interface ViewFunctionModelProps {
@@ -69,9 +69,9 @@ function ViewFunctionModel(props: ViewFunctionModelProps) {
       setLocalFunctions(updatedFunctions);
       setSelectedFunction(updatedFunction);
       setEditingFunction(null);
-      message.success('函数更新成功');
+      Message.success('函数更新成功');
     } catch (error) {
-      message.error('JSON 格式错误，请检查后重试');
+      Message.error('JSON 格式错误，请检查后重试');
     }
   };
 
@@ -91,7 +91,7 @@ function ViewFunctionModel(props: ViewFunctionModelProps) {
   const handleDelete = (functionName: string) => {
     const updatedFunctions = localFunctions.filter(fn => fn.toolDefinition.name !== functionName);
     setLocalFunctions(updatedFunctions);
-    message.success('函数删除成功');
+    Message.success('函数删除成功');
 
     if (selectedFunction?.toolDefinition.name === functionName) {
       setSelectedFunction(updatedFunctions[0] || null);
@@ -114,8 +114,8 @@ function ViewFunctionModel(props: ViewFunctionModelProps) {
 
   return (
     <Modal
-      destroyOnHidden
-      open={open}
+      unmountOnExit
+      visible={open}
       onCancel={handleCancel}
       onOk={handleOk}
       title="查看函数"
@@ -154,9 +154,9 @@ function ViewFunctionModel(props: ViewFunctionModelProps) {
                   >
                     <Button
                       type="text"
-                      danger
+                      status="danger"
                       size="small"
-                      icon={<DeleteOutlined />}
+                      icon={<IconDelete />}
                       onClick={(e) => e.stopPropagation()}
                     />
                   </Popconfirm>
@@ -206,7 +206,7 @@ function ViewFunctionModel(props: ViewFunctionModelProps) {
                     </div>
                     <Input.TextArea
                       value={defaultValue}
-                      onChange={(e) => setDefaultValue(e.target.value)}
+                      onChange={(value) => setDefaultValue(value)}
                       rows={23}
                     />
                   </div>

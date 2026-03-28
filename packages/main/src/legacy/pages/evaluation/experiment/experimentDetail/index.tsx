@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { Button, Card, Progress, Tag, Alert, Spin, Table, message, Typography, Tooltip } from 'antd';
-import { ArrowLeftOutlined, StopOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Button, Card, Progress, Tag, Alert, Spin, Table, Message, Typography, Tooltip } from '@arco-design/web-react';
+import { IconArrowLeft, IconStop, IconRefresh } from '@arco-design/web-react/icon';
 import API from '../../../../services';
 import usePagination from '../../../../hooks/usePagination';
 import './index.css';
@@ -158,7 +158,7 @@ const ExperimentDetail: React.FC = () => {
   // 评测结果相关状态
   const [resultData, setResultData] = useState<EvaluationResult[]>([]); // 当前评估器的结果数据
   const [resultLoading, setResultLoading] = useState(false); // 结果数据加载状态
-  const { pagination, setPagination, onPaginationChange, onShowSizeChange } = usePagination();
+  const { pagination, setPagination, onPaginationChange, onPageSizeChange } = usePagination();
 
   // 获取评测结果数据
   const fetchExperimentResult = async (evaluatorVersionId: number, pageNumber?: number, pageSize?: number) => {
@@ -445,7 +445,7 @@ const ExperimentDetail: React.FC = () => {
       console.error('停止实验失败:', error);
       
       // 错误处理
-      message.error('停止实验失败，请重试');
+      Message.error('停止实验失败，请重试');
     } finally {
       setStopping(false);
     }
@@ -510,7 +510,7 @@ const ExperimentDetail: React.FC = () => {
         <div className="flex">
           <Button 
             type="text" 
-            icon={<ArrowLeftOutlined />} 
+            icon={<IconArrowLeft />} 
             onClick={handleGoBack}
             size="large"
           >
@@ -524,7 +524,7 @@ const ExperimentDetail: React.FC = () => {
         {detail?.status === 'RUNNING' && (
           <div>
             <Button 
-              icon={<ReloadOutlined />}
+              icon={<IconRefresh />}
               onClick={fetchExperimentDetail}
               className="mr-4"
               title="刷新"
@@ -532,8 +532,8 @@ const ExperimentDetail: React.FC = () => {
               刷新
             </Button>
             <Button 
-              danger 
-              icon={<StopOutlined />}
+              status="danger" 
+              icon={<IconStop />}
               loading={stopping}
               onClick={handleStopExperiment}
             >
@@ -546,8 +546,8 @@ const ExperimentDetail: React.FC = () => {
       {/* 实验状态信息 */}
       {/* {detail.status === 'RUNNING' && (
         <Alert
-          message="实验正在运行中"
-          description={`当前进度: ${detail.progress}%，已处理 ${detail.totalProgress} 条数据`}
+          title="实验正在运行中"
+          content={`当前进度: ${detail.progress}%，已处理 ${detail.totalProgress} 条数据`}
           type="info"
           showIcon
           className="mb-6"
@@ -821,8 +821,8 @@ const ExperimentDetail: React.FC = () => {
                     pageSize: pagination.pageSize,
                     total: pagination.total,
                     showTotal: pagination.showTotal,
-                    showSizeChanger: pagination.showSizeChanger,
-                    showQuickJumper: pagination.showQuickJumper,
+                    sizeCanChange: pagination.sizeCanChange,
+                    showJumper: pagination.showJumper,
                     pageSizeOptions: pagination.pageSizeOptions,
                     onChange: (page, pageSize) => {
                       // 更新分页状态
@@ -839,9 +839,9 @@ const ExperimentDetail: React.FC = () => {
                         fetchExperimentResult(evaluatorVersionId, page, pageSize);
                       }
                     },
-                    onShowSizeChange: (page, pageSize) => {
+                    onPageSizeChange: (page, pageSize) => {
                       // 更新分页状态
-                      onShowSizeChange(page, pageSize);
+                      onPageSizeChange(page, pageSize);
                       // 根据activeEvaluatorTab找到对应的评估器
                       const currentEvaluator = detail?.evaluators?.find((evaluator, index) => 
                         `evaluator-${evaluator.id}-${evaluator.version}-${index}` === activeEvaluatorTab
@@ -862,7 +862,7 @@ const ExperimentDetail: React.FC = () => {
                       width: '25%',
                       ellipsis: true,
                       render: (text: string) => (
-                        <Tooltip title={text} placement="topLeft">
+                        <Tooltip content={text} placement="topLeft">
                           <span>{text}</span>
                         </Tooltip>
                       )
@@ -873,7 +873,7 @@ const ExperimentDetail: React.FC = () => {
                       width: '25%',
                       ellipsis: true,
                       render: (text: string) => (
-                        <Tooltip title={text} placement="topLeft">
+                        <Tooltip content={text} placement="topLeft">
                           <span>{text}</span>
                         </Tooltip>
                       )
@@ -884,7 +884,7 @@ const ExperimentDetail: React.FC = () => {
                       width: '25%',
                       ellipsis: true,
                       render: (text: string) => (
-                        <Tooltip title={text} placement="topLeft">
+                        <Tooltip content={text} placement="topLeft">
                           <span>{text}</span>
                         </Tooltip>
                       )
@@ -908,7 +908,7 @@ const ExperimentDetail: React.FC = () => {
                       width: '15%',
                       ellipsis: true,
                       render: (text: string) => (
-                        <Tooltip title={text} placement="rightTop">
+                        <Tooltip content={text} placement="rightTop">
                           <span>{text}</span>
                         </Tooltip>
                       )

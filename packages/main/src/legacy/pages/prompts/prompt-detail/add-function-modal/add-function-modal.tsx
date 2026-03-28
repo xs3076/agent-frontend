@@ -1,4 +1,4 @@
-import { Modal, Input, message, Typography, Button } from "antd";
+import { Modal, Input, Message, Typography, Button } from '@arco-design/web-react';
 import { useState } from "react";
 import type { MockTool } from "../hooks/useFunctions";
 import CodeMirror from '@uiw/react-codemirror';
@@ -27,14 +27,14 @@ function AddFunctionModal(props: AddFunctionModalProps) {
         name: string; description: string; parameters: any;
       };
       if (functions.find(f => f.toolDefinition.name === name)) {
-        message.error('函数已存在')
+        Message.error('函数已存在')
         return
       }
       onOk({ toolDefinition: { name, description, parameters: safeJSONStringify(parameters) }, output: defaultValue });
       setSchema('');
       setDefaultValue('');
     } catch (e) {
-      message.error('JSON 格式错误，请检查后重试');
+      Message.error('JSON 格式错误，请检查后重试');
     }
   }
 
@@ -72,8 +72,8 @@ function AddFunctionModal(props: AddFunctionModalProps) {
 
   return (
     <Modal
-      destroyOnHidden
-      open={open}
+      unmountOnExit
+      visible={open}
       onCancel={handleCancel}
       title="新增函数"
       width={900}
@@ -108,7 +108,7 @@ function AddFunctionModal(props: AddFunctionModalProps) {
             <Input.TextArea
               placeholder="请输入模拟值来模拟函数返回"
               value={defaultValue}
-              onChange={(e) => setDefaultValue(e.target.value)}
+              onChange={(value) => setDefaultValue(value)}
               rows={23}
               style={{ outline: "none" }}
             />

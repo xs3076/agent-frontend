@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
 import ErrorBoundary from './components/ErrorBoundary';
 import Layout from './components/Layout';
 import PromptsPage from './pages/prompts/prompts';
@@ -20,6 +18,8 @@ import EvaluationEvaluatorDetail from './pages/evaluation/evaluator/evaluator-de
 import EvaluationEvaluatorDebug from './pages/evaluation/evaluator/evaluator-debug';
 import { ModelsContext } from './context/models';
 import PromptAPI from './services';
+import { ConfigProvider } from '@arco-design/web-react';
+import zhCN from '@arco-design/web-react/es/locale/zh-CN';
 
 function App() {
 

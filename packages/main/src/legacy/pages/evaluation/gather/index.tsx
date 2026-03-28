@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Input, Select, Button, Space, Tag, Checkbox, Pagination, Spin, message, Tooltip, Modal, Card, Drawer, Typography } from 'antd';
-import { SearchOutlined, PlusOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Table, Input, Select, Button, Space, Tag, Checkbox, Pagination, Spin, Message, Tooltip, Modal, Card, Drawer, Typography } from '@arco-design/web-react';
+import { IconSearch, IconPlus, IconEye, IconEdit, IconDelete } from '@arco-design/web-react/icon';
 import { handleApiError, notifySuccess } from '../../../utils/notification';
 import API from '../../../services';
 import GatherCreate from './gatherCreate';
@@ -49,7 +49,7 @@ const EvaluationGather = () => {
     const [searchText, setSearchText] = useState(''); // 输入框中的文本
     const [queryText, setQueryText] = useState(''); // 实际用于查询的文本
     const [showCreateDrawer, setShowCreateDrawer] = useState(false); // 侧滑面板状态
-    const { pagination, setPagination, onPaginationChange, onShowSizeChange } = usePagination();
+    const { pagination, setPagination, onPaginationChange, onPageSizeChange } = usePagination();
 
     // 获取评测集列表
     const fetchDatasets = useCallback(async () => {
@@ -114,8 +114,8 @@ const EvaluationGather = () => {
     };
 
     // 处理搜索输入变化（仅更新输入框状态，不触发搜索）
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchText(e.target.value);
+    const handleSearchChange = (value: string) => {
+        setSearchText(value);
     };
 
     // 处理搜索（仅在点击搜索按钮或按下回车键时触发）
@@ -183,7 +183,7 @@ const EvaluationGather = () => {
                 showTitle: false,
             },
             render: (text: string) => (
-                <Tooltip placement="topLeft" title={text || '-'}>
+                <Tooltip placement="topLeft" content={text || '-'}>
                     <span>{text || '-'}</span>
                 </Tooltip>
             ),
@@ -231,17 +231,17 @@ const EvaluationGather = () => {
             fixed: 'right' as const,
             render: (_: any, record: DatasetRecord) => (
                 <Space size="middle">
-                    <Tooltip title="详情">
+                    <Tooltip content="详情">
                         <Button
-                            type="link"
-                            icon={<EyeOutlined />}
+                            type="text"
+                            icon={<IconEye />}
                             onClick={() => handleViewDataset(record)}
                         />
                     </Tooltip>
-                    <Tooltip title="删除">
+                    <Tooltip content="删除">
                         <Button
-                            type="link"
-                            icon={<DeleteOutlined />}
+                            type="text"
+                            icon={<IconDelete />}
                             onClick={() => handleDeleteDataset(record)}
                             danger
                         />
@@ -287,7 +287,7 @@ const EvaluationGather = () => {
                     /> */}
                     <Button 
                         type="primary" 
-                        icon={<PlusOutlined />}
+                        icon={<IconPlus />}
                         onClick={handleCreateDataset}
                     >
                         创建评测集
@@ -307,7 +307,7 @@ const EvaluationGather = () => {
                         pagination={{
                             ...pagination,
                             onChange: onPaginationChange,
-                            onShowSizeChange: onShowSizeChange
+                            onPageSizeChange: onPageSizeChange
                         }}
                         scroll={{ x: 800 }}
                     />
@@ -320,9 +320,9 @@ const EvaluationGather = () => {
                 title="创建评测集"
                 placement="right"
                 width="90%"
-                open={showCreateDrawer}
+                visible={showCreateDrawer}
                 onClose={handleCloseCreateDrawer}
-                destroyOnClose={true}
+                unmountOnExit={true}
                 style={{ zIndex: 1000 }}
                 styles={{
                     body: { padding: 0, height: '100%', display: 'flex', flexDirection: 'column' }

@@ -493,7 +493,7 @@ const ElementSelector = ({
 
             <textarea
               value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
+              onChange={(value) => setPrompt(value)}
               placeholder="请输入给 AI 的提示词..."
               style={{
                 width: '100%',

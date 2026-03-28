@@ -1,32 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import {
-  Modal,
-  Card,
-  Typography,
-  Button,
-  Input,
-  Select,
-  Alert,
-  Space,
-  Row,
-  Col,
-  Tag,
-  Divider,
-  Spin,
-  message
-} from 'antd';
-import {
-  CloseOutlined,
-  RocketOutlined,
-  ExclamationCircleOutlined,
-  PlusOutlined,
-  ExperimentOutlined,
-  RobotOutlined,
-  GoldOutlined,
-  FireOutlined,
-  AppstoreOutlined
-} from '@ant-design/icons';
+import { Modal, Card, Typography, Button, Input, Select, Alert, Space, Tag, Divider, Spin, Message, Grid } from '@arco-design/web-react';
+import { IconClose, IconLaunch, IconExclamationCircle, IconPlus, IconExperiment, IconRobot, IconGold, IconFire, IconApps } from '@arco-design/web-react/icon';
 import API from '../services';
+
+const { Row, Col } = Grid;
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -87,7 +64,7 @@ const CreatePromptModal = (props) => {
 
   const handleSubmit = async () => {
     if (!formData.promptKey.trim()) {
-      message.error('请填写 Prompt Key');
+      Message.error('请填写 Prompt Key');
       return;
     }
 
@@ -115,7 +92,7 @@ const CreatePromptModal = (props) => {
       // 如果是快速创建且有内容，同时创建版本
       if (quickCreate && initialData.content && initialData.content.trim()) {
         if (!versionData.version.trim()) {
-          message.error('请填写版本号');
+          Message.error('请填写版本号');
           setLoading(false);
           return;
         }
@@ -138,7 +115,7 @@ const CreatePromptModal = (props) => {
       }
 
       // 成功完成
-      message.success({
+      Message.success({
         content: quickCreate ? 'Prompt 创建和版本发布成功' : 'Prompt 创建成功',
         description: quickCreate
           ? `已创建 Prompt "${formData.promptKey}" 并发布版本 ${versionData.version}`
@@ -152,7 +129,7 @@ const CreatePromptModal = (props) => {
       }
     } catch (err) {
       console.error('创建失败:', err);
-      message.error(err.message || '创建失败，请稍后重试');
+      Message.error(err.message || '创建失败，请稍后重试');
       setError(err.message || '创建失败，请稍后重试');
     } finally {
       setLoading(false);
@@ -182,9 +159,9 @@ const CreatePromptModal = (props) => {
             justifyContent: 'center'
           }}>
             {quickCreate ? (
-              <RocketOutlined style={{ color: '#1890ff', fontSize: 20 }} />
+              <IconLaunch style={{ color: '#1890ff', fontSize: 20 }} />
             ) : (
-              <PlusOutlined style={{ color: '#52c41a', fontSize: 20 }} />
+              <IconPlus style={{ color: '#52c41a', fontSize: 20 }} />
             )}
           </div>
           <Title level={3} style={{ margin: 0 }}>
@@ -192,7 +169,7 @@ const CreatePromptModal = (props) => {
           </Title>
         </div>
       }
-      open={true}
+      visible={true}
       onCancel={onClose}
       width={800}
       centered
@@ -213,8 +190,8 @@ const CreatePromptModal = (props) => {
           loading={loading}
           disabled={!formData.promptKey.trim() || (quickCreate && (!initialData.content || !initialData.content.trim() || !versionData.version.trim()))}
           onClick={handleSubmit}
-          icon={quickCreate && versionData.status === 'release' ? <RocketOutlined /> :
-            quickCreate && versionData.status === 'pre' ? <ExperimentOutlined /> : <PlusOutlined />}
+          icon={quickCreate && versionData.status === 'release' ? <IconLaunch /> :
+            quickCreate && versionData.status === 'pre' ? <IconExperiment /> : <IconPlus />}
           style={{
             backgroundColor: quickCreate && versionData.status === 'release' ? '#52c41a' :
               quickCreate && versionData.status === 'pre' ? '#fa8c16' : undefined
@@ -228,25 +205,25 @@ const CreatePromptModal = (props) => {
           }
         </Button>
       ]}
-      closeIcon={<CloseOutlined />}
+      closeIcon={<IconClose />}
     >
       <Space direction="vertical" size={24} style={{ width: '100%' }}>
         {quickCreate && (
           <Alert
-            message="快速创建模式"
-            description="将同时创建新Prompt并发布第一个版本"
+            title="快速创建模式"
+            content="将同时创建新Prompt并发布第一个版本"
             type="info"
-            icon={<RocketOutlined />}
+            icon={<IconLaunch />}
             showIcon
           />
         )}
 
         {error && (
           <Alert
-            message="创建失败"
-            description={error}
+            title="创建失败"
+            content={error}
             type="error"
-            icon={<ExclamationCircleOutlined />}
+            icon={<IconExclamationCircle />}
             showIcon
           />
         )}
@@ -257,8 +234,7 @@ const CreatePromptModal = (props) => {
               <Text strong style={{ display: 'block', marginBottom: 8 }}>Prompt Key <span className='text-red-700'>*</span></Text>
               <Input
                 value={formData.promptKey}
-                onChange={(e) => {
-                  const value = e.target.value;
+                onChange={(value) => {
                   const validValue = value.replace(/[^a-zA-Z0-9_-]/g, '');
                   setFormData(prev => ({ ...prev, promptKey: validValue }));
                 }}
@@ -274,7 +250,7 @@ const CreatePromptModal = (props) => {
               <Text strong style={{ display: 'block', marginBottom: 8 }}>标签</Text>
               <Input
                 value={formData.tags}
-                onChange={(e) => setFormData(prev => ({ ...prev, tags: e.target.value }))}
+                onChange={(value) => setFormData(prev => ({ ...prev, tags: value }))}
                 placeholder="多个标签用逗号分隔，例如：营销，文案，创意"
                 size="large"
               />
@@ -284,7 +260,7 @@ const CreatePromptModal = (props) => {
               <Text strong style={{ display: 'block', marginBottom: 8 }}>描述</Text>
               <TextArea
                 value={formData.promptDescription}
-                onChange={(e) => setFormData(prev => ({ ...prev, promptDescription: e.target.value }))}
+                onChange={(value) => setFormData(prev => ({ ...prev, promptDescription: value }))}
                 placeholder="描述这个Prompt的用途和特点..."
                 rows={3}
                 size="large"
@@ -301,7 +277,7 @@ const CreatePromptModal = (props) => {
                   <Text strong style={{ display: 'block', marginBottom: 8 }}>版本号 *</Text>
                   <Input
                     value={versionData.version}
-                    onChange={(e) => setVersionData(prev => ({ ...prev, version: e.target.value }))}
+                    onChange={(value) => setVersionData(prev => ({ ...prev, version: value }))}
                     placeholder="1.0"
                     size="large"
                   />
@@ -324,7 +300,7 @@ const CreatePromptModal = (props) => {
                   <Text strong style={{ display: 'block', marginBottom: 8 }}>版本说明</Text>
                   <Input
                     value={versionData.versionDescription}
-                    onChange={(e) => setVersionData(prev => ({ ...prev, versionDescription: e.target.value }))}
+                    onChange={(value) => setVersionData(prev => ({ ...prev, versionDescription: value }))}
                     placeholder="初始版本"
                     size="large"
                   />
@@ -349,9 +325,9 @@ const CreatePromptModal = (props) => {
                   </div>
                 ) : (
                   <Alert
-                    message="请在编辑区填写Prompt内容"
+                    title="请在编辑区填写Prompt内容"
                     type="warning"
-                    icon={<ExclamationCircleOutlined />}
+                    icon={<IconExclamationCircle />}
                     showIcon
                   />
                 )}
@@ -414,8 +390,8 @@ const CreatePromptModal = (props) => {
               )}
 
               <Alert
-                message={versionData.status === 'release' ? '正式版本说明' : 'PRE版本说明'}
-                description={
+                title={versionData.status === 'release' ? '正式版本说明' : 'PRE版本说明'}
+                content={
                   <div>
                     {versionData.status === 'release' ? (
                       <div>
@@ -435,7 +411,7 @@ const CreatePromptModal = (props) => {
                   </div>
                 }
                 type={versionData.status === 'release' ? 'success' : 'warning'}
-                icon={versionData.status === 'release' ? <RocketOutlined /> : <ExperimentOutlined />}
+                icon={versionData.status === 'release' ? <IconLaunch /> : <IconExperiment />}
                 showIcon
               />
             </Space>

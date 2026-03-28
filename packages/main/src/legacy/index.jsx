@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
-import 'antd/dist/reset.css'; // Ant Design styles
+import '@arco-design/web-react/dist/css/arco.css'; // Arco Design styles
 import App from './App';
 import './styles/index.css';
 import './styles/tailwind.css';

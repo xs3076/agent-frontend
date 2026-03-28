@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
-import {
-  Modal,
+import { Modal,
   Input,
   Button,
   Typography,
   Space,
   Alert,
-  message
-} from 'antd';
-import {
-  ExclamationCircleOutlined,
-  CloseOutlined
-} from '@ant-design/icons';
+  Message } from '@arco-design/web-react';
+import { IconExclamationCircle, IconClose } from '@arco-design/web-react/icon';
 
 const { Text, Paragraph } = Typography;
 
@@ -23,7 +18,7 @@ const DeleteConfirmModal = ({ prompt, onConfirm, onClose }) => {
     if (confirmName === promptName) {
       onConfirm();
     } else {
-      message.error('输入的名称不匹配，请重新输入');
+      Message.error('输入的名称不匹配，请重新输入');
     }
   };
 
@@ -40,12 +35,12 @@ const DeleteConfirmModal = ({ prompt, onConfirm, onClose }) => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            <ExclamationCircleOutlined style={{ color: '#ff4d4f', fontSize: 20 }} />
+            <IconExclamationCircle style={{ color: '#ff4d4f', fontSize: 20 }} />
           </div>
           <Text strong style={{ fontSize: 18 }}>确认删除</Text>
         </div>
       }
-      open={true}
+      visible={true}
       onCancel={onClose}
       width={480}
       centered
@@ -56,18 +51,18 @@ const DeleteConfirmModal = ({ prompt, onConfirm, onClose }) => {
         <Button
           key="confirm"
           type="primary"
-          danger
+          status="danger"
           disabled={confirmName !== (prompt.promptKey || prompt.name)}
           onClick={handleConfirm}
         >
           确认删除
         </Button>
       ]}
-      closeIcon={<CloseOutlined />}
+      closeIcon={<IconClose />}
     >
       <Space direction="vertical" size={16} style={{ width: '100%' }}>
         <Alert
-          message={
+          title={
             <div>
               <Paragraph style={{ margin: 0, marginBottom: 8 }}>
                 你确定要删除Prompt吗？请输入 <Text strong style={{ color: '#ff4d4f' }}>{prompt.promptKey || prompt.name}</Text> 确认删除操作。
@@ -82,13 +77,13 @@ const DeleteConfirmModal = ({ prompt, onConfirm, onClose }) => {
           <Text strong style={{ display: 'block', marginBottom: 8 }}>请输入Prompt名称确认：</Text>
           <Input
             value={confirmName}
-            onChange={(e) => setConfirmName(e.target.value)}
+            onChange={(value) => setConfirmName(value)}
             placeholder={`输入"${prompt.promptKey || prompt.name}"确认删除`}
             status={confirmName && confirmName !== (prompt.promptKey || prompt.name) ? 'error' : undefined}
             size="large"
           />
           {confirmName && confirmName !== (prompt.promptKey || prompt.name) && (
-            <Text type="danger" style={{ fontSize: '12px', marginTop: 4, display: 'block' }}>
+            <Text type="error" style={{ fontSize: '12px', marginTop: 4, display: 'block' }}>
               输入的名称与 Prompt 名称不匹配
             </Text>
           )}

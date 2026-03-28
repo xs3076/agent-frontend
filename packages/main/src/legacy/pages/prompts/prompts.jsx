@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Spin,
+import { Spin,
   Button,
   Alert,
   Empty,
@@ -11,19 +10,8 @@ import {
   Tag,
   Space,
   Typography,
-  Tooltip
-} from 'antd';
-import {
-  PlusOutlined,
-  ClearOutlined,
-  EyeOutlined,
-  DeleteOutlined,
-  ShareAltOutlined,
-  ClockCircleOutlined,
-  CheckCircleOutlined,
-  ExperimentOutlined,
-  QuestionCircleOutlined
-} from '@ant-design/icons';
+  Tooltip } from '@arco-design/web-react';
+import { IconPlus, IconEraser, IconEye, IconDelete, IconShareAlt, IconClockCircle, IconCheckCircle, IconExperiment, IconQuestionCircle } from '@arco-design/web-react/icon';
 import dayjs from 'dayjs';
 import { handleApiError, notifySuccess } from '../../utils/notification';
 import CreatePromptModal from '../../components/CreatePromptModal';
@@ -40,7 +28,7 @@ const { Search } = Input;
 const PromptsPage = () => {
   const navigate = useNavigate();
 
-  const { pagination, onPaginationChange, onShowSizeChange, setPagination } = usePagination();
+  const { pagination, onPaginationChange, onPageSizeChange, setPagination } = usePagination();
 
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -160,7 +148,7 @@ const PromptsPage = () => {
   const renderStatusBadge = (prompt) => {
     if (!prompt.latestVersion || !prompt.latestVersionStatus) {
       return (
-        <Tag color="warning" icon={<ClockCircleOutlined />}>
+        <Tag color="orangered" icon={<IconClockCircle />}>
           无版本
         </Tag>
       );
@@ -169,19 +157,19 @@ const PromptsPage = () => {
     // 根据 latestVersionStatus 显示不同的状态
     if (prompt.latestVersionStatus === 'release') {
       return (
-        <Tag color="success" icon={<CheckCircleOutlined />}>
+        <Tag color="green" icon={<IconCheckCircle />}>
           正式版本
         </Tag>
       );
     } else if (prompt.latestVersionStatus === 'pre') {
       return (
-        <Tag color="processing" icon={<ExperimentOutlined />}>
+        <Tag color="arcoblue" icon={<IconExperiment />}>
           PRE版本
         </Tag>
       );
     } else {
       return (
-        <Tag color="default" icon={<QuestionCircleOutlined />}>
+        <Tag color="gray" icon={<IconQuestionCircle />}>
           未知状态
         </Tag>
       );
@@ -204,7 +192,7 @@ const PromptsPage = () => {
         showTitle: false,
       },
       render: (text) => (
-        <Tooltip placement="topLeft" title={text}>
+        <Tooltip placement="topLeft" content={text}>
           {text || '无描述'}
         </Tooltip>
       ),
@@ -217,7 +205,7 @@ const PromptsPage = () => {
         version ? (
           <Tag color="blue">{version}</Tag>
         ) : (
-          <Tag color="default">无版本</Tag>
+          <Tag color="gray">无版本</Tag>
         )
       ),
     },
@@ -233,7 +221,7 @@ const PromptsPage = () => {
       render: (tags) => (
         <Space size={[0, 4]} wrap>
           {parseTags(tags).map((tag, index) => (
-            <Tag key={index} color="geekblue">
+            <Tag key={index} color="arcoblue">
               {tag}
             </Tag>
           ))}
@@ -257,20 +245,20 @@ const PromptsPage = () => {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <Tooltip title="查看详情">
+          <Tooltip content="查看详情">
             <Button
               type="text"
-              icon={<EyeOutlined />}
+              icon={<IconEye />}
               onClick={(e) => {
                 e.stopPropagation();
                 handleView(record);
               }}
             />
           </Tooltip>
-          <Tooltip title="查看调用链路追踪">
+          <Tooltip content="查看调用链路追踪">
             <Button
               type="text"
-              icon={<ShareAltOutlined />}
+              icon={<IconShareAlt />}
               onClick={(e) => {
                 e.stopPropagation();
                 navigate(buildLegacyPath("/tracing"), {
@@ -283,11 +271,11 @@ const PromptsPage = () => {
               }}
             />
           </Tooltip>
-          <Tooltip title="删除">
+          <Tooltip content="删除">
             <Button
               type="text"
-              danger
-              icon={<DeleteOutlined />}
+              status="danger"
+              icon={<IconDelete />}
               onClick={(e) => handleDelete(record, e)}
             />
           </Tooltip>
@@ -311,8 +299,8 @@ const PromptsPage = () => {
       {/* 错误提示 */}
       {error && (
         <Alert
-          message="加载错误"
-          description={error}
+          title="加载错误"
+          content={error}
           type="error"
           showIcon
           style={{ marginBottom: 24 }}
@@ -348,7 +336,7 @@ const PromptsPage = () => {
             <Button
               type="primary"
               onClick={() => setShowCreateModal(true)}
-              icon={<PlusOutlined />}
+              icon={<IconPlus />}
             >
               创建Prompt
             </Button>
@@ -367,22 +355,19 @@ const PromptsPage = () => {
             onClick: () => handleView(record),
             style: { cursor: 'pointer' },
           })}
-          locale={{
-            emptyText: (
+          noDataElement={
               <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
                 description="没有找到匹配的 Prompt"
               >
                 <Button type="primary" onClick={() => setShowCreateModal(true)}>
                   创建第一个 Prompt
                 </Button>
               </Empty>
-            ),
-          }}
+          }
           pagination={{
             ...pagination,
             onChange: onPaginationChange,
-            onShowSizeChange: onShowSizeChange
+            onPageSizeChange: onPageSizeChange
           }}
           scroll={{ x: 800 }}
         />

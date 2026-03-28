@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { 
-  Card, 
+import { Card, 
   Button, 
   Descriptions, 
   Table, 
   Tag, 
   Spin, 
-  message,
+  Message,
   Tabs,
   Alert,
   Modal,
   Form,
   Typography,
   Input,
-  Tooltip
-} from 'antd';
-import { 
-  ArrowLeftOutlined, 
-  EditOutlined, 
-  DeleteOutlined,
-  EyeOutlined,
-  DownloadOutlined,
-  PlusOutlined,
-  SaveOutlined,
-  CloseOutlined,
-  CheckOutlined
-} from '@ant-design/icons';
+  Tooltip } from '@arco-design/web-react';
+import { IconArrowLeft, IconEdit, IconDelete, IconEye, IconDownload, IconPlus, IconSave, IconClose, IconCheck } from '@arco-design/web-react/icon';
 import API from '../../../../services';
 import usePagination from '../../../../hooks/usePagination';
 import './index.css';
@@ -112,9 +100,9 @@ const GatherDetail: React.FC = () => {
   const [pendingDataItems, setPendingDataItems] = useState<any[]>([]);
   
   // 为三个Tab分别创建独立的分页状态
-  const { pagination: dataPagination, setPagination: setDataPagination, onPaginationChange: onDataPaginationChange, onShowSizeChange: onDataShowSizeChange } = usePagination();
-  const { pagination: versionsPagination, setPagination: setVersionsPagination, onPaginationChange: onVersionsPaginationChange, onShowSizeChange: onVersionsShowSizeChange } = usePagination();
-  const { pagination: experimentsPagination, setPagination: setExperimentsPagination, onPaginationChange: onExperimentsPaginationChange, onShowSizeChange: onExperimentsShowSizeChange } = usePagination();
+  const { pagination: dataPagination, setPagination: setDataPagination, onPaginationChange: onDataPaginationChange, onPageSizeChange: onDataShowSizeChange } = usePagination();
+  const { pagination: versionsPagination, setPagination: setVersionsPagination, onPaginationChange: onVersionsPaginationChange, onPageSizeChange: onVersionsShowSizeChange } = usePagination();
+  const { pagination: experimentsPagination, setPagination: setExperimentsPagination, onPaginationChange: onExperimentsPaginationChange, onPageSizeChange: onExperimentsShowSizeChange } = usePagination();
 
   // 动态生成表格列
   const generateTableColumns = () => {
@@ -131,14 +119,14 @@ const GatherDetail: React.FC = () => {
             return (
               <Input.TextArea
                 value={editingData[column.name] || ''}
-                onChange={(e) => handleEditDataChange(column.name, e.target.value)}
+                onChange={(value) => handleEditDataChange(column.name, value)}
                 rows={2}
                 maxLength={1000}
                 placeholder={`输入${column.description || column.name}`}
               />
             );
           }
-          return <Tooltip placement="topLeft" title={text}>
+          return <Tooltip placement="topLeft" content={text}>
             <span>{text}</span>
           </Tooltip>
         }
@@ -166,7 +154,7 @@ const GatherDetail: React.FC = () => {
               <div className="flex space-x-1">
                 <Button 
                   type="text" 
-                  icon={<CloseOutlined />} 
+                  icon={<IconClose />} 
                   size="small"
                   title="取消"
                   onClick={handleCancelEdit}
@@ -174,7 +162,7 @@ const GatherDetail: React.FC = () => {
                 />
                 <Button 
                   type="text" 
-                  icon={<CheckOutlined />} 
+                  icon={<IconCheck />} 
                   size="small"
                   title="确认"
                   loading={updatingData}
@@ -188,14 +176,14 @@ const GatherDetail: React.FC = () => {
             <div className="flex space-x-1">
               <Button 
                 type="text" 
-                icon={<EditOutlined />} 
+                icon={<IconEdit />} 
                 size="small"
                 title="编辑"
                 onClick={() => handleEditRow(record)}
               />
               <Button 
                 type="text" 
-                icon={<DeleteOutlined />} 
+                icon={<IconDelete />} 
                 size="small"
                 danger
                 title="删除"
@@ -267,12 +255,12 @@ const GatherDetail: React.FC = () => {
         total: prev.total + 1
       }));
       
-      message.success('数据已添加到待提交列表，请提交新版本以保存更改');
+      Message.success('数据已添加到待提交列表，请提交新版本以保存更改');
       setAddDataModalVisible(false);
       addDataForm.resetFields();
     } catch (error) {
       console.error('数据添加失败:', error);
-      message.error('数据添加失败，请重试');
+      Message.error('数据添加失败，请重试');
     } finally {
       setAddingData(false);
     }
@@ -321,7 +309,7 @@ const GatherDetail: React.FC = () => {
       });
       
       if (response.code === 200) {
-        message.success('数据更新成功');
+        Message.success('数据更新成功');
         setEditingRowId(null);
         setEditingData({});
         // 重新获取数据列表
@@ -331,7 +319,7 @@ const GatherDetail: React.FC = () => {
       }
     } catch (error) {
       console.error('数据更新失败:', error);
-      message.error('数据更新失败，请重试');
+      Message.error('数据更新失败，请重试');
     } finally {
       setUpdatingData(false);
     }
@@ -374,7 +362,7 @@ const GatherDetail: React.FC = () => {
           total: prev.total - 1
         }));
         
-        message.success(isPendingData ? '待提交数据已删除' : '数据已删除（前端）');
+        Message.success(isPendingData ? '待提交数据已删除' : '数据已删除（前端）');
       }
     });
   };
@@ -382,7 +370,7 @@ const GatherDetail: React.FC = () => {
   // 批量删除
   const handleBatchDelete = () => {
     if (selectedRowKeys.length === 0) {
-      message.warning('请选择要删除的数据');
+      Message.warning('请选择要删除的数据');
       return;
     }
     Modal.confirm({
@@ -405,7 +393,7 @@ const GatherDetail: React.FC = () => {
           total: prev.total - deletedCount
         }));
         
-        message.success(`已删除 ${deletedCount} 条数据（前端）`);
+        Message.success(`已删除 ${deletedCount} 条数据（前端）`);
         setSelectedRowKeys([]);
       }
     });
@@ -478,7 +466,7 @@ const GatherDetail: React.FC = () => {
               }
             }
             
-            message.success(`成功提交 ${pendingDataItems.length} 条新增数据`);
+            Message.success(`成功提交 ${pendingDataItems.length} 条新增数据`);
             // 清空待提交数据列表
             setPendingDataItems([]);
           }
@@ -495,7 +483,7 @@ const GatherDetail: React.FC = () => {
           console.log('创建新版本API返回数据:', versionResponse);
           
           if (versionResponse.code === 200) {
-            message.success('新版本提交成功');
+            Message.success('新版本提交成功');
             
             // 获取新版本ID
             const newVersionId = versionResponse.data?.id;
@@ -519,7 +507,7 @@ const GatherDetail: React.FC = () => {
           }
         } catch (error) {
           const errMsg = error instanceof Error ? error.message : String(error);
-          message.error(`提交失败: ${errMsg || '请重试'}`);
+          Message.error(`提交失败: ${errMsg || '请重试'}`);
           // 如果是数据提交失败，不要继续执行版本提交
           return Promise.reject(error);
         }
@@ -913,7 +901,7 @@ const GatherDetail: React.FC = () => {
       });
       
       if (response.code === 200) {
-        message.success('保存成功');
+        Message.success('保存成功');
         // 更新本地数据
         setDetail(prev => prev ? {
           ...prev,
@@ -926,7 +914,7 @@ const GatherDetail: React.FC = () => {
       }
     } catch (error) {
       console.error('保存失败:', error);
-      message.error('保存失败，请重试');
+      Message.error('保存失败，请重试');
     } finally {
       setSaving(false);
     }
@@ -949,10 +937,10 @@ const GatherDetail: React.FC = () => {
       onOk: async () => {
         try {
           await API.deleteDataset({ datasetId: Number(id) });
-          message.success('评测集已删除');
+          Message.success('评测集已删除');
           navigate('/evaluation-gather');
         } catch (error) {
-          message.error('删除失败，请重试');
+          Message.error('删除失败，请重试');
           console.error('删除评测集失败:', error);
         }
       }
@@ -1018,7 +1006,7 @@ const GatherDetail: React.FC = () => {
       <div className="flex mb-6">
           <Button 
             type="text" 
-            icon={<ArrowLeftOutlined />} 
+            icon={<IconArrowLeft />} 
             onClick={handleGoBack}
             size="large"
           />
@@ -1033,7 +1021,7 @@ const GatherDetail: React.FC = () => {
             !isEditing ? (
               <Button 
                 type="primary"
-                icon={<EditOutlined />}
+                icon={<IconEdit />}
                 onClick={handleEdit}
               >
                 编辑
@@ -1042,14 +1030,14 @@ const GatherDetail: React.FC = () => {
               <div className="flex gap-2">
                 <Button 
                   onClick={handleCancel}
-                  icon={<CloseOutlined />}
+                  icon={<IconClose />}
                 >
                   取消
                 </Button>
                 <Button 
                   type="primary"
                   loading={saving}
-                  icon={<SaveOutlined />}
+                  icon={<IconSave />}
                   onClick={handleSave}
                 >
                   保存
@@ -1081,7 +1069,7 @@ const GatherDetail: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <Form.Item
                   label="评测集名称"
-                  name="name"
+                  field="name"
                   rules={[
                     { required: true, message: '请输入评测集名称' },
                     { max: 100, message: '名称不能超过100个字符' }
@@ -1093,7 +1081,7 @@ const GatherDetail: React.FC = () => {
               
               <Form.Item
                 label="描述"
-                name="description"
+                field="description"
                 rules={[
                   { max: 500, message: '描述不能超过500个字符' }
                 ]}
@@ -1117,12 +1105,12 @@ const GatherDetail: React.FC = () => {
           onChange={setActiveTab}
           className="mb-6"
         >
-          <TabPane tab="数据管理" key="data">
+          <TabPane title="数据管理" key="data">
             {/* 操作按钮区域 */}
             <div className="mb-4 flex gap-4 justify-between items-center" style={{flexWrap: 'wrap'}}>
               <Button 
                 type="primary" 
-                icon={<PlusOutlined />}
+                icon={<IconPlus />}
                 onClick={handleAddData}
               >
                 添加数据
@@ -1154,14 +1142,14 @@ const GatherDetail: React.FC = () => {
                   pageSize: dataPagination.pageSize,
                   total: dataPagination.total,
                   showTotal: dataPagination.showTotal,
-                  showSizeChanger: dataPagination.showSizeChanger,
-                  showQuickJumper: dataPagination.showQuickJumper,
+                  sizeCanChange: dataPagination.sizeCanChange,
+                  showJumper: dataPagination.showJumper,
                   pageSizeOptions: dataPagination.pageSizeOptions,
                   onChange: (page, pageSize) => {
                     onDataPaginationChange(page, pageSize);
                     fetchDataItems(page, pageSize || 10);
                   },
-                  onShowSizeChange: (page, pageSize) => {
+                  onPageSizeChange: (page, pageSize) => {
                     onDataShowSizeChange(page, pageSize);
                     fetchDataItems(page, pageSize);
                   }
@@ -1169,7 +1157,7 @@ const GatherDetail: React.FC = () => {
               />
           </TabPane>
 
-          <TabPane tab="版本记录" key="version">
+          <TabPane title="版本记录" key="version">
             <Table
                 dataSource={versions}
                 rowKey="id"
@@ -1211,14 +1199,14 @@ const GatherDetail: React.FC = () => {
                   pageSize: versionsPagination.pageSize,
                   total: versionsPagination.total,
                   showTotal: versionsPagination.showTotal,
-                  showSizeChanger: versionsPagination.showSizeChanger,
-                  showQuickJumper: versionsPagination.showQuickJumper,
+                  sizeCanChange: versionsPagination.sizeCanChange,
+                  showJumper: versionsPagination.showJumper,
                   pageSizeOptions: versionsPagination.pageSizeOptions,
                   onChange: (page, pageSize) => {
                     onVersionsPaginationChange(page, pageSize);
                     fetchVersions(page, pageSize || 10);
                   },
-                  onShowSizeChange: (page, pageSize) => {
+                  onPageSizeChange: (page, pageSize) => {
                     onVersionsShowSizeChange(page, pageSize);
                     fetchVersions(page, pageSize);
                   }
@@ -1233,7 +1221,7 @@ const GatherDetail: React.FC = () => {
               )}
           </TabPane>
 
-          <TabPane tab="关联实验" key="experiment">
+          <TabPane title="关联实验" key="experiment">
             <Table
                 dataSource={experiments}
                 rowKey="id"
@@ -1294,14 +1282,14 @@ const GatherDetail: React.FC = () => {
                   pageSize: experimentsPagination.pageSize,
                   total: experimentsPagination.total,
                   showTotal: experimentsPagination.showTotal,
-                  showSizeChanger: experimentsPagination.showSizeChanger,
-                  showQuickJumper: experimentsPagination.showQuickJumper,
+                  sizeCanChange: experimentsPagination.sizeCanChange,
+                  showJumper: experimentsPagination.showJumper,
                   pageSizeOptions: experimentsPagination.pageSizeOptions,
                   onChange: (page, pageSize) => {
                     onExperimentsPaginationChange(page, pageSize);
                     fetchExperiments(page, pageSize || 10);
                   },
-                  onShowSizeChange: (page, pageSize) => {
+                  onPageSizeChange: (page, pageSize) => {
                     onExperimentsShowSizeChange(page, pageSize);
                     fetchExperiments(page, pageSize);
                   }
@@ -1321,7 +1309,7 @@ const GatherDetail: React.FC = () => {
       {/* 添加数据弹窗 */}
       <Modal
         title="添加数据"
-        open={addDataModalVisible}
+        visible={addDataModalVisible}
         onCancel={handleAddDataCancel}
         footer={[
           <Button key="cancel" onClick={handleAddDataCancel}>
@@ -1346,7 +1334,7 @@ const GatherDetail: React.FC = () => {
           overflowY: 'auto',
           padding: '20px 24px'
         }}
-        destroyOnClose
+        unmountOnExit
       >
         <div className="add-data-form-container">
           <Form
@@ -1358,7 +1346,7 @@ const GatherDetail: React.FC = () => {
               <Form.Item
                 key={column.name}
                 label={column.name}
-                name={column.name}
+                field={column.name}
                 rules={[
                   ...(column.required ? [{ required: true, message: `请输入${column.description || column.name}内容` }] : []),
                   { max: 1000, message: `${column.description || column.name}内容不能超过1000个字符` }
@@ -1376,7 +1364,7 @@ const GatherDetail: React.FC = () => {
             
             <Form.Item
               label="备注（可选）"
-              name="remark"
+              field="remark"
               rules={[
                 { max: 200, message: '备注不能超过200个字符' }
               ]}

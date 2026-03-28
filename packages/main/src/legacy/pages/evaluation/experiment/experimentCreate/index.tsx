@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Card, Select, message, Tag, AutoComplete } from 'antd';
-import { ArrowLeftOutlined, EyeOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Card, Select, Message, Tag, AutoComplete } from '@arco-design/web-react';
+import { IconArrowLeft, IconEye, IconPlus, IconDelete } from '@arco-design/web-react/icon';
 import API from '../../../../services';
 import { getLegacyPath, buildLegacyPath } from '../../../../utils/path';
 import './index.css';
@@ -145,7 +145,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
     } catch (error) {
       // 发生错误时设置为空数组
       setDatasets([]);
-      message.error('获取评测集列表失败，请重试');
+      Message.error('获取评测集列表失败，请重试');
     } finally {
       setDatasetsLoading(false);
     }
@@ -165,11 +165,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         setPrompts(promptsData);
       } else {
         setPrompts([]);
-        message.error('获取Prompts列表失败');
+        Message.error('获取Prompts列表失败');
       }
     } catch (error) {
       setPrompts([]);
-      message.error('获取Prompts列表失败，请重试');
+      Message.error('获取Prompts列表失败，请重试');
     } finally {
       setPromptsLoading(false);
     }
@@ -189,11 +189,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         setEvaluators(evaluatorsData);
       } else {
         setEvaluators([]);
-        message.error('获取评估器列表失败');
+        Message.error('获取评估器列表失败');
       }
     } catch (error) {
       setEvaluators([]);
-      message.error('获取评估器列表失败，请重试');
+      Message.error('获取评估器列表失败，请重试');
     } finally {
       setEvaluatorsLoading(false);
     }
@@ -214,11 +214,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         setDatasetVersions(versionsData);
       } else {
         setDatasetVersions([]);
-        message.error('获取评测集版本列表失败');
+        Message.error('获取评测集版本列表失败');
       }
     } catch (error) {
       setDatasetVersions([]);
-      message.error('获取评测集版本列表失败');
+      Message.error('获取评测集版本列表失败');
     } finally {
       setDatasetVersionsLoading(false);
     }
@@ -398,11 +398,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         }
       } else {
         setPromptVersionDetail(null);
-        message.error('获取Prompt版本详情失败');
+        Message.error('获取Prompt版本详情失败');
       }
     } catch (error) {
       setPromptVersionDetail(null);
-      message.error('获取Prompt版本详情失败');
+      Message.error('获取Prompt版本详情失败');
     } finally {
       setPromptVersionDetailLoading(false);
     }
@@ -425,11 +425,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         }
       } else {
         setDatasetDetail(null);
-        message.error('获取评测集详情失败');
+        Message.error('获取评测集详情失败');
       }
     } catch (error) {
       setDatasetDetail(null);
-      message.error('获取评测集详情失败');
+      Message.error('获取评测集详情失败');
     } finally {
       setDatasetDetailLoading(false);
     }
@@ -459,11 +459,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
           setPromptVersions((response.data as any).pageItems || []);
         } else {
           setPromptVersions([]);
-          message.error('获取Prompt版本失败');
+          Message.error('获取Prompt版本失败');
         }
       } catch (error) {
         setPromptVersions([]);
-        message.error('获取Prompt版本失败');
+        Message.error('获取Prompt版本失败');
       } finally {
         setPromptVersionsLoading(false);
       }
@@ -577,11 +577,11 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
 
         return true;
       } else {
-        message.error(`获取评估器${evaluatorId}的参数失败`);
+        Message.error(`获取评估器${evaluatorId}的参数失败`);
         return false;
       }
     } catch (error) {
-      message.error(`获取评估器${evaluatorId}的参数失败`);
+      Message.error(`获取评估器${evaluatorId}的参数失败`);
       return false;
     }
   };
@@ -724,7 +724,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
           ...prev,
           [evaluatorId]: []
         }));
-        message.error(`获取评估器${evaluatorId}的版本列表失败`);
+        Message.error(`获取评估器${evaluatorId}的版本列表失败`);
       }
     } catch (error) {
       // 设置空数组
@@ -732,7 +732,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         ...prev,
         [evaluatorId]: []
       }));
-      message.error(`获取评估器${evaluatorId}的版本列表失败`);
+      Message.error(`获取评估器${evaluatorId}的版本列表失败`);
     } finally {
       // 重置加载状态
       setEvaluatorVersionsLoading(prev => ({ ...prev, [evaluatorId]: false }));
@@ -899,7 +899,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
 
       // 检查是否有效的评估器配置
       if (selectedEvaluators.length === 0) {
-        message.error('请至少添加一个评估器');
+        Message.error('请至少添加一个评估器');
         setLoading(false);
         return;
       }
@@ -911,7 +911,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         return !evaluator.evaluatorId || !selectedEvaluatorVersions[instanceKey];
       });
       if (missingVersions) {
-        message.error('请确保所有评估器都选择了版本');
+        Message.error('请确保所有评估器都选择了版本');
         setLoading(false);
         return;
       }
@@ -922,7 +922,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         return !evaluator.evaluatorId || !selectedEvaluatorVersions[instanceKey];
       });
       if (invalidEvaluators) {
-        message.error('请确保所有评估器都已正确配置');
+        Message.error('请确保所有评估器都已正确配置');
         setLoading(false);
         return;
       }
@@ -1023,7 +1023,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
       // 调用创建实验的API
       await API.createExperiment(submitData);
 
-      message.success('实验创建成功');
+      Message.success('实验创建成功');
 
       // 如果提供了onSuccess回调，则调用它，否则导航到列表页面
       if (onSuccess) {
@@ -1032,7 +1032,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         navigate('/evaluation-experiment');
       }
     } catch (error) {
-      message.error('创建失败，请重试');
+      Message.error('创建失败，请重试');
 
     } finally {
       setLoading(false);
@@ -1058,7 +1058,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
           <div className="flex items-center mb-4">
             <Button
               type="text"
-              icon={<ArrowLeftOutlined />}
+              icon={<IconArrowLeft />}
               onClick={handleGoBack}
               className="mr-3"
             >
@@ -1074,12 +1074,12 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
         <Form
           form={form}
           layout="vertical"
-          onFinish={handleSubmit}
+          onSubmit={handleSubmit}
         >
           {/* 步骤1：配置信息 */}
           <Card title="步骤1：配置信息" className="mb-6">
             <Form.Item
-              name="name"
+              field="name"
               label="实验名称"
               rules={[
                 { required: true, message: '请输入实验名称' },
@@ -1090,7 +1090,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
             </Form.Item>
 
             <Form.Item
-              name="description"
+              field="description"
               label="实验描述"
               rules={[{ max: 500, message: '描述不能超过500个字符' }]}
             >
@@ -1106,7 +1106,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
           {/* 步骤2：配置评测集 */}
           <Card title="步骤2：配置评测集" className="mb-6">
             <Form.Item
-              name="datasetId"
+              field="datasetId"
               label="选择评测集"
               rules={[{ required: true, message: '请选择评测集' }]}
             >
@@ -1128,7 +1128,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
             {selectedDataset && (
               <>
                 <Form.Item
-                  name="datasetVersionId"
+                  field="datasetVersionId"
                   label="选择版本"
                   rules={[{ required: true, message: '请选择评测集版本' }]}
                 >
@@ -1150,8 +1150,8 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-base font-medium text-gray-900">评测集信息</h4>
                     <Button
-                      type="link"
-                      icon={<EyeOutlined />}
+                      type="text"
+                      icon={<IconEye />}
                       className="text-blue-600 hover:text-blue-800 font-medium"
                       onClick={handleViewDatasetDetail}
                     >
@@ -1192,7 +1192,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
           <Card title="步骤3：配置评测对象" className="mb-6">
             <div className="grid grid-cols-1 md:grid-cols-1 gap-4 mb-4">
               <Form.Item
-                name="objectType"
+                field="objectType"
                 label="对象类型"
                 rules={[{ required: true, message: '请选择对象类型' }]}
               >
@@ -1225,7 +1225,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
               {selectedObjectType === 'prompt' && (
                 <>
                   <Form.Item
-                    name="promptKey"
+                    field="promptKey"
                     label="Prompt Key"
                     rules={[{ required: true, message: '请输入或选择Prompt Key' }]}
                   >
@@ -1255,7 +1255,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
             {selectedObjectType === 'prompt' && (
               <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <Form.Item
-                  name="version"
+                  field="version"
                   label="版本"
                   rules={[{ required: true, message: '请选择版本' }]}
                 >
@@ -1288,8 +1288,8 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
                 <div className="flex justify-between items-start mb-3">
                   <h4 className="text-base font-medium text-gray-900">Prompt版本详情</h4>
                   <Button
-                    type="link"
-                    icon={<EyeOutlined />}
+                    type="text"
+                    icon={<IconEye />}
                     className="text-blue-600 hover:text-blue-800 font-medium"
                     onClick={handleViewPromptDetail}
                   >
@@ -1437,7 +1437,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
             {/* 添加评估器按钮 */}
             <div className="text-center border-2 border-dashed rounded-lg p-4 mb-6 cursor-pointer hover:bg-gray-50"
               onClick={handleAddEvaluator}>
-              <PlusOutlined className="text-xl text-gray-500" />
+              <IconPlus className="text-xl text-gray-500" />
               <div className="mt-2 text-gray-600">添加评估器</div>
             </div>
 
@@ -1475,8 +1475,8 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
                           <div className="top-2 right-2">
                             <Button
                               type="text"
-                              danger
-                              icon={<DeleteOutlined />}
+                              status="danger"
+                              icon={<IconDelete />}
                               onClick={() => handleRemoveEvaluator(index)}
                             >
                               移除
@@ -1494,7 +1494,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
                                 style={{marginRight: '6px'}}
                                 onClick={() => handleViewEvaluatorDetail(evaluatorId)}
                               >
-                                <EyeOutlined className="mr-1" /> 查看详情
+                                <IconEye className="mr-1" /> 查看详情
                               </div>
                               <div
                                 className="text-blue-500 cursor-pointer mr-6"
@@ -1689,7 +1689,7 @@ const ExperimentCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hi
                                   className="flex items-center text-blue-500 cursor-pointer"
                                   onClick={() => handleViewEvaluatorDetail(evaluator.evaluatorId)}
                                 >
-                                  <EyeOutlined className="mr-1" /> 查看详情
+                                  <IconEye className="mr-1" /> 查看详情
                                 </div>
                               </div>
                             )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Input, Select, Button, Space, Tag, Checkbox, Pagination, Spin, message, Tooltip, Modal, Card, Drawer, Typography } from 'antd';
-import { SearchOutlined, PlusOutlined, SyncOutlined, EyeOutlined, StopOutlined, ReloadOutlined, PlayCircleOutlined, DeleteOutlined, BarChartOutlined } from '@ant-design/icons';
+import { Table, Input, Select, Button, Space, Tag, Checkbox, Pagination, Spin, Message, Tooltip, Modal, Card, Drawer, Typography } from '@arco-design/web-react';
+import { IconSearch, IconPlus, IconSync, IconEye, IconStop, IconRefresh, IconPlayCircle, IconDelete, IconBarChart } from '@arco-design/web-react/icon';
 import { handleApiError, notifySuccess } from '../../../utils/notification';
 import API from '../../../services';
 import ExperimentCreate from './experimentCreate';
@@ -58,7 +58,7 @@ const Experiment = () => {
     const [statusFilter, setStatusFilter] = useState<string>('');
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [showCreateDrawer, setShowCreateDrawer] = useState(false); // 侧滑面板状态
-    const { pagination, setPagination, onPaginationChange, onShowSizeChange } = usePagination();
+    const { pagination, setPagination, onPaginationChange, onPageSizeChange } = usePagination();
 
     // 获取实验列表
     const fetchExperiments = useCallback(async () => {
@@ -123,8 +123,8 @@ const Experiment = () => {
     }, [fetchExperiments]);
 
     // 处理搜索输入变化（仅更新输入框状态，不触发搜索）
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchText(e.target.value);
+    const handleSearchChange = (value: string) => {
+        setSearchText(value);
     };
 
     // 处理搜索（仅在点击搜索按钮或按下回车键时触发）
@@ -198,7 +198,7 @@ const Experiment = () => {
         try {
             // 这里应该调用重新运行实验的API
             // await API.rerunExperiment({ id: record.id });
-            message.info(`重新运行实验: ${record.name}`);
+            Message.info(`重新运行实验: ${record.name}`);
             // fetchExperiments();
         } catch (error) {
             handleApiError(error, '重新运行实验失败');
@@ -237,7 +237,7 @@ const Experiment = () => {
     const renderStatus = (status: string, progress?: number) => {
         switch (status) {
             case 'WAITING':
-                return <Tag color="default">等待中</Tag>;
+                return <Tag color="gray">等待中</Tag>;
             case 'RUNNING':
                 return (
                     <div>
@@ -277,7 +277,7 @@ const Experiment = () => {
             dataIndex: 'description', 
             ellipsis: true,
             render: (text: string) => (
-                <Tooltip title={text} placement="topLeft">
+                <Tooltip content={text} placement="topLeft">
                     <span>{text}</span>
                 </Tooltip>
             )
@@ -318,7 +318,7 @@ const Experiment = () => {
                 const allEvaluatorNames = evaluatorNames.join('，');
                 
                 return (
-                    <Tooltip title={`全部评估器:\n${allEvaluatorNames}`} placement="topLeft">
+                    <Tooltip content={`全部评估器:\n${allEvaluatorNames}`} placement="topLeft">
                         <div className="text-sm text-gray-600 mt-1 truncate" style={{ maxWidth: '200px' }}>
                             {allEvaluatorNames}
                         </div>
@@ -360,10 +360,10 @@ const Experiment = () => {
                     switch (record.status) {
                         case 'RUNNING':
                             return (
-                                <Tooltip title="停止">
+                                <Tooltip content="停止">
                                     <Button
-                                        type="link"
-                                        icon={<StopOutlined />}
+                                        type="text"
+                                        icon={<IconStop />}
                                         onClick={() => handleStopExperiment(record)}
                                         danger
                                     />
@@ -371,20 +371,20 @@ const Experiment = () => {
                             );
                         case 'COMPLETED':
                             return (
-                                <Tooltip title="查看结果">
+                                <Tooltip content="查看结果">
                                     <Button
-                                        type="link"
-                                        icon={<BarChartOutlined />}
+                                        type="text"
+                                        icon={<IconBarChart />}
                                         onClick={() => handleViewResult(record)}
                                     />
                                 </Tooltip>
                             );
                         case 'FAILED':
                             return (
-                                <Tooltip title="重新运行">
+                                <Tooltip content="重新运行">
                                     <Button
-                                        type="link"
-                                        icon={<PlayCircleOutlined />}
+                                        type="text"
+                                        icon={<IconPlayCircle />}
                                         onClick={() => handleRerunExperiment(record)}
                                     />
                                 </Tooltip>
@@ -394,10 +394,10 @@ const Experiment = () => {
                             return null;
                         case 'STOPPED':
                             return (
-                                <Tooltip title="重新运行">
+                                <Tooltip content="重新运行">
                                     <Button
-                                        type="link"
-                                        icon={<PlayCircleOutlined />}
+                                        type="text"
+                                        icon={<IconPlayCircle />}
                                         onClick={() => handleRerunExperiment(record)}
                                     />
                                 </Tooltip>
@@ -409,18 +409,18 @@ const Experiment = () => {
 
                 return (
                     <Space size="middle">
-                        <Tooltip title="查看详情">
+                        <Tooltip content="查看详情">
                             <Button
-                                type="link"
-                                icon={<EyeOutlined />}
+                                type="text"
+                                icon={<IconEye />}
                                 onClick={() => handleViewExperiment(record)}
                             />
                         </Tooltip>
                         {renderSecondAction()}
-                        <Tooltip title="删除">
+                        <Tooltip content="删除">
                             <Button
-                                type="link"
-                                icon={<DeleteOutlined />}
+                                type="text"
+                                icon={<IconDelete />}
                                 onClick={() => handleDeleteExperiment(record)}
                                 danger
                             />
@@ -469,14 +469,14 @@ const Experiment = () => {
                     </Select>
                     <div style={{flex: 1}}></div>
                     <Button 
-                        icon={<SyncOutlined />} 
+                        icon={<IconSync />} 
                         onClick={handleRefresh}
                     >
                         刷新
                     </Button>
                     <Button 
                         type="primary" 
-                        icon={<PlusOutlined />}
+                        icon={<IconPlus />}
                         onClick={handleCreateExperiment}
                     >
                         新建实验
@@ -497,7 +497,7 @@ const Experiment = () => {
                         pagination={{
                             ...pagination,
                             onChange: onPaginationChange,
-                            onShowSizeChange: onShowSizeChange
+                            onPageSizeChange: onPageSizeChange
                         }}
                         scroll={{ x: 800 }}
                     />
@@ -510,9 +510,9 @@ const Experiment = () => {
                 title="新建实验"
                 placement="right"
                 width="90%"
-                open={showCreateDrawer}
+                visible={showCreateDrawer}
                 onClose={handleCloseCreateDrawer}
-                destroyOnClose={true}
+                unmountOnExit={true}
                 style={{ zIndex: 1000 }}
                 styles={{
                     body: { padding: 0, height: '100%', display: 'flex', flexDirection: 'column' }

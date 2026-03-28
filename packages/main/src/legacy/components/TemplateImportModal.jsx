@@ -1,30 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Modal,
-  Card,
-  Typography,
-  Button,
-  Alert,
-  Space,
-  Row,
-  Col,
-  Tag,
-  Empty,
-  Spin,
-  message,
-  Input,
-  Pagination
-} from 'antd';
-import {
-  CloseOutlined,
-  DownloadOutlined,
-  InfoCircleOutlined,
-  FolderOutlined,
-  CheckCircleOutlined,
-  FileTextOutlined,
-  SearchOutlined
-} from '@ant-design/icons';
+import { Modal, Card, Typography, Button, Alert, Space, Tag, Empty, Spin, Message, Input, Pagination, Grid } from '@arco-design/web-react';
+import { IconClose, IconDownload, IconInfoCircle, IconFolder, IconCheckCircle, IconFile, IconSearch } from '@arco-design/web-react/icon';
 import { getPromptTemplates, getPromptTemplate } from '../services/prompt';
+
+const { Row, Col } = Grid;
 
 const { Title, Text, Paragraph } = Typography;
 const { Search } = Input;
@@ -62,11 +41,11 @@ const TemplateImportModal = ({ onImport, onClose }) => {
           current: response.data.pageNumber || 1
         }));
       } else {
-        message.error(response.message || '获取模板列表失败');
+        Message.error(response.message || '获取模板列表失败');
       }
     } catch (error) {
       console.error('获取模板列表失败:', error);
-      message.error('获取模板列表失败，请稍后重试');
+      Message.error('获取模板列表失败，请稍后重试');
     } finally {
       setLoading(false);
     }
@@ -83,11 +62,11 @@ const TemplateImportModal = ({ onImport, onClose }) => {
       if (response.code === 200 && response.data) {
         setSelectedTemplateData(response.data);
       } else {
-        message.error(response.message || '获取模板详情失败');
+        Message.error(response.message || '获取模板详情失败');
       }
     } catch (error) {
       console.error('获取模板详情失败:', error);
-      message.error('获取模板详情失败，请稍后重试');
+      Message.error('获取模板详情失败，请稍后重试');
     } finally {
       setTemplateDetailLoading(false);
     }
@@ -186,7 +165,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            <DownloadOutlined style={{ color: '#1890ff', fontSize: 20 }} />
+            <IconDownload style={{ color: '#1890ff', fontSize: 20 }} />
           </div>
           <div>
             <Title level={3} style={{ margin: 0 }}>从模板导入</Title>
@@ -194,7 +173,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
           </div>
         </div>
       }
-      open={true}
+      visible={true}
       onCancel={onClose}
       width={1200}
       centered
@@ -214,12 +193,12 @@ const TemplateImportModal = ({ onImport, onClose }) => {
           type="primary"
           disabled={!selectedTemplate}
           onClick={handleImport}
-          icon={<DownloadOutlined />}
+          icon={<IconDownload />}
         >
           导入模板
         </Button>
       ]}
-      closeIcon={<CloseOutlined />}
+      closeIcon={<IconClose />}
     >
       <Space direction="vertical" size={24} style={{ width: '100%' }}>
         {/* 搜索栏 */}
@@ -229,7 +208,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
             allowClear
             onSearch={handleSearch}
             style={{ width: 300 }}
-            enterButton={<SearchOutlined />}
+            searchButton={<IconSearch />}
           />
         </div>
 
@@ -239,14 +218,14 @@ const TemplateImportModal = ({ onImport, onClose }) => {
             <Card 
               title={
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <FolderOutlined />
+                  <IconFolder />
                   <span>选择模板</span>
                   <Text type="secondary">({pagination.total} 个模板)</Text>
                 </div>
               }
               size="small"
             >
-              <Spin spinning={loading}>
+              <Spin loading={loading}>
                 {templates.length > 0 ? (
                   <div>
                     <Row gutter={[16, 16]}>
@@ -258,7 +237,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
                               size="small"
                               hoverable
                               onClick={() => setSelectedTemplate(template.promptTemplateKey)}
-                              className={selectedTemplate === template.promptTemplateKey ? 'ant-card-selected' : ''}
+                              className={selectedTemplate === template.promptTemplateKey ? 'arco-card-selected' : ''}
                               style={{
                                 borderColor: selectedTemplate === template.promptTemplateKey ? '#1890ff' : '#d9d9d9',
                                 backgroundColor: selectedTemplate === template.promptTemplateKey ? '#f0f8ff' : '#fff'
@@ -270,7 +249,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
                                   {template.templateDescription || template.promptTemplateKey}
                                 </Text>
                                 {selectedTemplate === template.promptTemplateKey && (
-                                  <CheckCircleOutlined style={{ color: '#1890ff', fontSize: 16 }} />
+                                  <IconCheckCircle style={{ color: '#1890ff', fontSize: 16 }} />
                                 )}
                               </div>
                               
@@ -309,8 +288,8 @@ const TemplateImportModal = ({ onImport, onClose }) => {
                           current={pagination.current}
                           total={pagination.total}
                           pageSize={pagination.pageSize}
-                          showSizeChanger
-                          showQuickJumper
+                          sizeCanChange
+                          showJumper
                           showTotal={(total, range) => `第 ${range[0]}-${range[1]} 项，共 ${total} 个模板`}
                           onChange={handlePageChange}
                         />
@@ -319,7 +298,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
                   </div>
                 ) : (
                   <Empty 
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                    
                     description="暂无模板数据"
                   />
                 )}
@@ -333,13 +312,13 @@ const TemplateImportModal = ({ onImport, onClose }) => {
               <Card 
                 title={
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <InfoCircleOutlined />
+                    <IconInfoCircle />
                     <span>模板预览</span>
                   </div>
                 }
                 size="small"
               >
-                <Spin spinning={templateDetailLoading}>
+                <Spin loading={templateDetailLoading}>
                   {selectedTemplateData ? (
                     <Space direction="vertical" size={16} style={{ width: '100%' }}>
                       <div>
@@ -397,7 +376,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
                             <Text strong style={{ display: 'block', marginBottom: 8 }}>标签</Text>
                             <Space wrap>
                               {tags.map((tag, index) => (
-                                <Tag key={index} color="geekblue">{tag}</Tag>
+                                <Tag key={index} color="arcoblue">{tag}</Tag>
                               ))}
                             </Space>
                           </div>
@@ -406,7 +385,7 @@ const TemplateImportModal = ({ onImport, onClose }) => {
                     </Space>
                   ) : (
                     <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                      <FileTextOutlined style={{ fontSize: 48, color: '#d9d9d9', marginBottom: 16 }} />
+                      <IconFile style={{ fontSize: 48, color: '#d9d9d9', marginBottom: 16 }} />
                       <br />
                       <Text type="secondary">点击左侧模板查看详情</Text>
                     </div>
@@ -420,9 +399,9 @@ const TemplateImportModal = ({ onImport, onClose }) => {
         {/* 底部提示 */}
         {selectedTemplateData && (
           <Alert
-            message={
+            title={
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <InfoCircleOutlined style={{ color: '#1890ff' }} />
+                <IconInfoCircle style={{ color: '#1890ff' }} />
                 <span>
                   导入后将替换当前Prompt内容
                   {(() => {

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Button, Input, Space, Tag, Tooltip, Card, Modal, Typography } from 'antd';
-import { PlusOutlined, EyeOutlined, BugOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Table, Button, Input, Space, Tag, Tooltip, Card, Modal, Typography } from '@arco-design/web-react';
+import { IconPlus, IconEye, IconBug, IconDelete, IconExclamationCircle } from '@arco-design/web-react/icon';
 import { handleApiError, notifySuccess } from '../../../utils/notification';
 import API from '../../../services';
 import CreateEvaluatorModal from '../../../components/CreateEvaluatorModal';
@@ -31,7 +31,7 @@ interface EvaluatorRecord {
 const EvaluationEvaluator: React.FC = () => {
   const navigate = useNavigate();
   const [evaluators, setEvaluators] = useState<EvaluatorRecord[]>([]);
-  const { pagination, onPaginationChange, onShowSizeChange, setPagination } = usePagination();
+  const { pagination, onPaginationChange, onPageSizeChange, setPagination } = usePagination();
   const { models, modelNameMap } = useContext(ModelsContext);
   const [searchName, setSearchName] = useState('');
   const [loading, setLoading] = useState(false);
@@ -113,7 +113,7 @@ const EvaluationEvaluator: React.FC = () => {
   const handleDelete = (record: EvaluatorRecord) => {
     Modal.confirm({
       title: '确认删除',
-      icon: <ExclamationCircleOutlined />,
+      icon: <IconExclamationCircle />,
       content: (
         <div>
           <p>确定要删除评估器 <strong>{record.name}</strong> 吗？</p>
@@ -182,7 +182,7 @@ const EvaluationEvaluator: React.FC = () => {
         const modelConfigJson = JSON.parse(modelConfig);
         const name = modelNameMap[modelConfigJson?.modelId];
         return name ? (
-          <Tag color="geekblue">{name}</Tag>
+          <Tag color="arcoblue">{name}</Tag>
         ) : "-";
       },
     },
@@ -205,25 +205,25 @@ const EvaluationEvaluator: React.FC = () => {
       fixed: 'right' as const,
       render: (_: any, record: EvaluatorRecord) => (
         <Space size="middle">
-          <Tooltip title="详情">
+          <Tooltip content="详情">
             <Button
-              type="link"
-              icon={<EyeOutlined />}
+              type="text"
+              icon={<IconEye />}
               onClick={() => handleView(record)}
             />
           </Tooltip>
-          <Tooltip title={!record.modelConfig ? "当前暂未发布版本，请先发布版本后调试" : "调试"} >
+          <Tooltip content={!record.modelConfig ? "当前暂未发布版本，请先发布版本后调试" : "调试"} >
             <Button
-              type="link"
-              icon={<BugOutlined />}
+              type="text"
+              icon={<IconBug />}
               disabled={!record.modelConfig}
               onClick={() => handleDebug(record)}
             />
           </Tooltip>
-          <Tooltip title="删除">
+          <Tooltip content="删除">
             <Button
-              type="link"
-              icon={<DeleteOutlined />}
+              type="text"
+              icon={<IconDelete />}
               onClick={() => handleDelete(record)}
               danger
             />
@@ -250,7 +250,7 @@ const EvaluationEvaluator: React.FC = () => {
           />
           <Button
             type="primary"
-            icon={<PlusOutlined />}
+            icon={<IconPlus />}
             onClick={handleCreate}
           >
             新建评估器
@@ -269,7 +269,7 @@ const EvaluationEvaluator: React.FC = () => {
             pagination={{
               ...pagination,
               onChange: onPaginationChange,
-              onShowSizeChange: onShowSizeChange
+              onPageSizeChange: onPageSizeChange
             }}
             className="border-0"
             scroll={{ x: 800 }}

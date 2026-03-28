@@ -4,56 +4,56 @@
   min-height: calc(100vh - 64px);
 }
 
-.evaluator-debug-page .ant-card {
+.evaluator-debug-page .arco-card {
   border-radius: 8px;
 }
 
-.evaluator-debug-page .ant-card-head {
+.evaluator-debug-page .arco-card-head {
   border-bottom: 1px solid #e8e8e8;
 }
 
-.evaluator-debug-page .ant-card-head-title {
+.evaluator-debug-page .arco-card-head-title {
   font-weight: 600;
   font-size: 16px;
 }
 
-.evaluator-debug-page .ant-descriptions-item-label {
+.evaluator-debug-page .arco-descriptions-item-label {
   font-weight: 500;
   color: #666;
 }
 
-.evaluator-debug-page .ant-descriptions-item-content {
+.evaluator-debug-page .arco-descriptions-item-content {
   color: #333;
 }
 
-.evaluator-debug-page .ant-form-item-label > label {
+.evaluator-debug-page .arco-form-item-label > label {
   font-weight: 500;
 }
 
-.evaluator-debug-page .ant-input,
-.evaluator-debug-page .ant-input:focus,
-.evaluator-debug-page .ant-input-focused {
+.evaluator-debug-page .arco-input,
+.evaluator-debug-page .arco-input:focus,
+.evaluator-debug-page .arco-input-focused {
   border-color: #1890ff;
   transition: border-color 0.2s ease-in-out;
 }
 
 /* General button improvements to prevent flickering */
-.evaluator-debug-page .ant-btn {
+.evaluator-debug-page .arco-btn {
   transition: all 0.2s ease-in-out;
   border: 1px solid transparent;
 }
 
-.evaluator-debug-page .ant-btn:hover,
-.evaluator-debug-page .ant-btn:focus {
+.evaluator-debug-page .arco-btn:hover,
+.evaluator-debug-page .arco-btn:focus {
   /* transform: translateY(-1px); */
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
-.evaluator-debug-page .ant-btn:active {
+.evaluator-debug-page .arco-btn:active {
   /* transform: translateY(0); */
 }
 
-.evaluator-debug-page .ant-btn-primary {
+.evaluator-debug-page .arco-btn-primary {
   /* background: linear-gradient(90deg, #1890ff 0%, #40a9ff 100%);
   border: none;
   transition: all 0.2s ease-in-out;
@@ -61,25 +61,25 @@
   overflow: hidden; */
 }
 
-.evaluator-debug-page .ant-btn-primary:hover,
-.evaluator-debug-page .ant-btn-primary:focus {
+.evaluator-debug-page .arco-btn-primary:hover,
+.evaluator-debug-page .arco-btn-primary:focus {
   /* background: linear-gradient(90deg, #1677ff 0%, #52c41a 100%);
   box-shadow: 0 2px 4px rgba(22, 119, 255, 0.3);
   transform: translateY(-1px); */
 }
 
-.evaluator-debug-page .ant-btn-primary:active {
+.evaluator-debug-page .arco-btn-primary:active {
   /* transform: translateY(0);
   box-shadow: 0 1px 2px rgba(22, 119, 255, 0.2); */
 }
 
 /* Loading button specific styles to prevent flickering */
-.evaluator-debug-page .ant-btn-loading {
+.evaluator-debug-page .arco-btn-loading {
   position: relative;
   pointer-events: none;
 }
 
-.evaluator-debug-page .ant-btn-loading::before {
+.evaluator-debug-page .arco-btn-loading::before {
   content: '';
   position: absolute;
   top: -1px;
@@ -92,7 +92,7 @@
   transition: opacity 0.2s ease-in-out;
 }
 
-.evaluator-debug-page .ant-btn[disabled] {
+.evaluator-debug-page .arco-btn[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none !important;
@@ -116,7 +116,7 @@
 
 /* Responsive design */
 @media (max-width: 992px) {
-  .evaluator-debug-page .ant-col {
+  .evaluator-debug-page .arco-col {
     margin-bottom: 24px;
   }
 }
@@ -126,7 +126,7 @@
     padding: 16px;
   }
   
-  .evaluator-debug-page .ant-card {
+  .evaluator-debug-page .arco-card {
     margin-bottom: 16px;
   }
 }
@@ -175,7 +175,7 @@
   margin-bottom: 16px;
 }
 
-.evaluator-debug-page .variable-input-item .ant-form-item-label > label {
+.evaluator-debug-page .variable-input-item .arco-form-item-label > label {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -192,13 +192,13 @@
   border-radius: 10px;
 }
 
-.evaluator-debug-page .variable-input-item .ant-input {
+.evaluator-debug-page .variable-input-item .arco-input {
   border-radius: 6px;
   transition: all 0.2s ease-in-out;
 }
 
-.evaluator-debug-page .variable-input-item .ant-input:focus,
-.evaluator-debug-page .variable-input-item .ant-input-focused {
+.evaluator-debug-page .variable-input-item .arco-input:focus,
+.evaluator-debug-page .variable-input-item .arco-input-focused {
   border-color: #1890ff;
   box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
 }

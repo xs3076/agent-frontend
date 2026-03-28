@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Form, Input, Button, Card, Select, message, Space, Divider } from 'antd';
-import { ArrowLeftOutlined, PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Card, Select, Message, Space, Divider } from '@arco-design/web-react';
+import { IconArrowLeft, IconPlus, IconMinusCircle } from '@arco-design/web-react/icon';
 import API from '../../../../services';
 import './index.css';
 
@@ -82,7 +82,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
       // 这里调用创建评测集的API
       await API.createDataset(submitData);
       
-      message.success('评测集创建成功');
+      Message.success('评测集创建成功');
       
       // 如果提供了onSuccess回调，则调用它，否则导航到列表页面
       if (onSuccess) {
@@ -91,7 +91,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
         navigate('/evaluation-gather');
       }
     } catch (error) {
-      message.error('创建失败，请重试');
+      Message.error('创建失败，请重试');
       console.error('创建评测集失败:', error);
     } finally {
       setLoading(false);
@@ -115,7 +115,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
           <div className="flex items-center">
             <Button 
               type="text" 
-              icon={<ArrowLeftOutlined />} 
+              icon={<IconArrowLeft />} 
               onClick={handleGoBack}
               className="mr-3"
             >
@@ -130,7 +130,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
         <Form
           form={form}
           layout="vertical"
-          onFinish={handleSubmit}
+          onSubmit={handleSubmit}
           initialValues={{
             columns: [
               {
@@ -153,7 +153,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
           {/* 基本信息 */}
           <Card title="基本信息" className="mb-6">
             <Form.Item
-              name="name"
+              field="name"
               label="评测集名称"
               rules={[
                 { required: true, message: '请输入评测集名称' },
@@ -164,7 +164,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
             </Form.Item>
 
             <Form.Item
-              name="description"
+              field="description"
               label="评测集描述"
               rules={[
                 { max: 500, message: '描述不能超过500个字符' }
@@ -197,7 +197,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
                         description: '',
                         required: false
                       })}
-                      icon={<PlusOutlined />}
+                      icon={<IconPlus />}
                       size="small"
                     >
                       添加列
@@ -217,7 +217,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
                           title={
                             <Form.Item
                               {...restField}
-                              name={[name, 'name']}
+                              field={[name, 'name']}
                               className="mb-0"
                             >
                               <Input 
@@ -231,8 +231,8 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
                             !isRequired && (
                               <Button
                                 type="text"
-                                danger
-                                icon={<MinusCircleOutlined />}
+                                status="danger"
+                                icon={<IconMinusCircle />}
                                 onClick={() => remove(name)}
                               />
                             )
@@ -241,7 +241,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
                           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                             <Form.Item
                               {...restField}
-                              name={[name, 'name']}
+                              field={[name, 'name']}
                               label="列名称"
                               rules={[{ required: true, message: '请输入列名称' }]}
                             >
@@ -250,7 +250,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
 
                             <Form.Item
                               {...restField}
-                              name={[name, 'dataType']}
+                              field={[name, 'dataType']}
                               label="数据类型"
                               rules={[{ required: true, message: '请选择数据类型' }]}
                             >
@@ -265,7 +265,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
 
                             <Form.Item
                               {...restField}
-                              name={[name, 'displayFormat']}
+                              field={[name, 'displayFormat']}
                               label="查看格式"
                               rules={[{ required: true, message: '请选择查看格式' }]}
                             >
@@ -281,7 +281,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
 
                           <Form.Item
                             {...restField}
-                            name={[name, 'description']}
+                            field={[name, 'description']}
                             label="列描述"
                             rules={[{ required: true, message: '请输入列描述' }]}
                           >
@@ -294,7 +294,7 @@ const GatherCreate: React.FC<GatherCreateProps> = ({ onCancel, onSuccess, hideTi
                           {/* 隐藏的required字段 */}
                           <Form.Item
                             {...restField}
-                            name={[name, 'required']}
+                            field={[name, 'required']}
                             hidden
                           >
                             <Input />

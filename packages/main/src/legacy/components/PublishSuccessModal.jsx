@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Modal,
+import { Modal,
   Card,
   Typography,
   Button,
@@ -8,16 +7,8 @@ import {
   Space,
   Tabs,
   Avatar,
-  message
-} from 'antd';
-import {
-  CheckCircleOutlined,
-  CloseOutlined,
-  InfoCircleOutlined,
-  CopyOutlined,
-  BulbOutlined,
-  CodeOutlined,
-} from '@ant-design/icons';
+  Message } from '@arco-design/web-react';
+import { IconCheckCircle, IconClose, IconInfoCircle, IconCopy, IconBulb, IconCode } from '@arco-design/web-react/icon';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -26,7 +17,7 @@ const PublishSuccessModal = ({ prompt, version, onClose }) => {
   const [activeTab, setActiveTab] = useState('integration');
 
   const tabs = [
-    { key: 'integration', label: '集成指南', icon: <CodeOutlined /> }
+    { key: 'integration', label: '集成指南', icon: <IconCode /> }
   ];
 
   const integrationCode1 = `<dependency>
@@ -97,15 +88,15 @@ spring.ai.alibaba.arms.model.capture-output=true`;
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      message.success('复制成功');
+      Message.success('复制成功');
     }).catch(() => {
-      message.error('复制失败');
+      Message.error('复制失败');
     });
   };
 
   return (
     <Modal
-      open={true}
+      visible={true}
       onCancel={onClose}
       footer={null}
       width={1200}
@@ -119,7 +110,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
         overflowY: 'auto',
         padding: 0
       }}
-      closeIcon={<CloseOutlined />}
+      closeIcon={<IconClose />}
     >
       <div>
         {/* 成功提示头部 */}
@@ -133,7 +124,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
               <Avatar
                 size={48}
                 style={{ backgroundColor: '#f6ffed', color: '#52c41a' }}
-                icon={<CheckCircleOutlined />}
+                icon={<IconCheckCircle />}
               />
               <div>
                 <Title level={2} style={{ margin: 0, color: '#262626' }}>发布成功！</Title>
@@ -177,7 +168,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
           {activeTab === 'integration' && (
             <Space direction="vertical" size={24} style={{ width: '100%' }}>
               <Alert
-                message={
+                title={
                   <div>
                     Prompt发布成功，<span className='text-xs'>版本类型：</span>
                     <Text strong>{prompt.latestVersionStatus === 'release' ? '正式版本' : 'PRE版本'}</Text>
@@ -206,15 +197,15 @@ spring.ai.alibaba.arms.model.capture-output=true`;
 
                 }
                 type="success"
-                icon={<CheckCircleOutlined />}
+                icon={<IconCheckCircle />}
                 showIcon
               />
 
               <Alert
-                message="Spring AI Alibaba 集成指南"
-                description="Spring AI Alibaba Agent集成Nacos实现prompt加载以及动态更新。"
+                title="Spring AI Alibaba 集成指南"
+                content="Spring AI Alibaba Agent集成Nacos实现prompt加载以及动态更新。"
                 type="info"
-                icon={<InfoCircleOutlined />}
+                icon={<IconInfoCircle />}
                 showIcon
               />
 
@@ -232,7 +223,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
                     <Button
                       type="default"
                       size="small"
-                      icon={<CopyOutlined />}
+                      icon={<IconCopy />}
                       onClick={() => copyToClipboard(integrationCode1)}
                     >
                       复制代码
@@ -265,7 +256,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
                     <Button
                       type="default"
                       size="small"
-                      icon={<CopyOutlined />}
+                      icon={<IconCopy />}
                       onClick={() => copyToClipboard(integrationCode3)}
                     >
                       复制代码
@@ -297,7 +288,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
                     <Button
                       type="default"
                       size="small"
-                      icon={<CopyOutlined />}
+                      icon={<IconCopy />}
                       onClick={() => copyToClipboard(integrationCode2)}
                     >
                       复制代码
@@ -329,7 +320,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
                     <Button
                       type="default"
                       size="small"
-                      icon={<CopyOutlined />}
+                      icon={<IconCopy />}
                       onClick={() => copyToClipboard(integrationCode4)}
                     >
                       复制代码
@@ -406,7 +397,7 @@ spring.ai.alibaba.arms.model.capture-output=true`;
           bottom: 0
         }}>
           <div style={{ display: 'flex', alignItems: 'center', color: '#595959', fontSize: '14px' }}>
-            <BulbOutlined style={{ color: '#faad14', marginRight: 4 }} />
+            <IconBulb style={{ color: '#faad14', marginRight: 4 }} />
             提示：配置更新后，应用会自动重新加载最新的Prompt配置
           </div>
           <Space>

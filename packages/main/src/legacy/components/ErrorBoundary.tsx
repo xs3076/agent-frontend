@@ -1,5 +1,5 @@
 import React from 'react';
-import { Result, Button } from 'antd';
+import { Result, Button } from '@arco-design/web-react';
 
 interface ErrorBoundaryState {
   hasError: boolean;

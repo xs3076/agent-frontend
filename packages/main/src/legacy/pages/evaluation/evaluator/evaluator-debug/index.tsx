@@ -1,30 +1,13 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  Card,
-  Button,
-  Row,
-  Col,
-  Typography,
-  Form,
-  Input,
-  Space,
-  Tag,
-  Descriptions,
-  Spin,
-  Alert,
-  Divider,
-  message
-} from 'antd';
-import {
-  ArrowLeftOutlined,
-  PlayCircleOutlined,
-  ClearOutlined,
-} from '@ant-design/icons';
+import { Card, Button, Typography, Form, Input, Space, Tag, Descriptions, Spin, Alert, Divider, Message, Grid } from '@arco-design/web-react';
+import { IconArrowLeft, IconPlayCircle, IconEraser } from '@arco-design/web-react/icon';
 import { handleApiError, notifySuccess } from '../../../../utils/notification';
 import API from '../../../../services';
 import './index.css';
 import { ModelsContext } from '../../../../context/models';
+
+const { Row, Col } = Grid;
 
 const { Title, Text } = Typography;
 
@@ -106,7 +89,7 @@ function EvaluatorDebug() {
 
     }
 
-    message.success('表单已清空');
+    Message.success('表单已清空');
   };
 
   // 处理运行评估
@@ -145,7 +128,7 @@ function EvaluatorDebug() {
       }
     } catch (error: any) {
       if (error.errorFields) {
-        message.error('请填写必要的测试数据');
+        Message.error('请填写必要的测试数据');
       } else {
         handleApiError(error, '运行评估');
       }
@@ -214,7 +197,7 @@ function EvaluatorDebug() {
         <div className='flex mb-2'>
           <Button
             type="text"
-            icon={<ArrowLeftOutlined />}
+            icon={<IconArrowLeft />}
             onClick={goBackPageFun}
             size="large"
           />
@@ -239,7 +222,7 @@ function EvaluatorDebug() {
                   {evaluator.latestVersion ? (
                     <Tag color="blue">{evaluator.latestVersion}</Tag>
                   ) : (
-                    <Tag color="default">暂无版本</Tag>
+                    <Tag color="gray">暂无版本</Tag>
                   )}
                 </Descriptions.Item>
               </Descriptions>
@@ -249,7 +232,7 @@ function EvaluatorDebug() {
 
             <Descriptions column={3} size="small">
               <Descriptions.Item span={24} label="模型">
-                <Tag color="geekblue">{getModelName(modelId)}</Tag>
+                <Tag color="arcoblue">{getModelName(modelId)}</Tag>
               </Descriptions.Item>
               {
                 Object.entries(otherConfig).map(([key, value]) => {
@@ -315,7 +298,7 @@ function EvaluatorDebug() {
             extra={
               <Space>
                 <Button
-                  icon={<ClearOutlined />}
+                  icon={<IconEraser />}
                   onClick={handleClear}
                   disabled={evaluationLoading}
                 >
@@ -323,7 +306,7 @@ function EvaluatorDebug() {
                 </Button>
                 <Button
                   type="primary"
-                  icon={<PlayCircleOutlined />}
+                  icon={<IconPlayCircle />}
                   onClick={handleRun}
                   loading={evaluationLoading}
                 >
@@ -387,8 +370,8 @@ function EvaluatorDebug() {
               <>
                 <Divider orientation="left">评估结果</Divider>
                 <Alert
-                  message="评估完成"
-                  description={
+                  title="评估完成"
+                  content={
                     <div>
                       <Row gutter={[16, 8]}>
                         <Col span={12}>
@@ -421,8 +404,8 @@ function EvaluatorDebug() {
             {/* 提示信息 */}
             {!debugConfig.evaluatorId && (
               <Alert
-                message="配置信息提示"
-                description="当前使用默认配置进行调试，建议从评估器详情页进入以使用完整配置信息。"
+                title="配置信息提示"
+                content="当前使用默认配置进行调试，建议从评估器详情页进入以使用完整配置信息。"
                 type="info"
                 showIcon
                 className='mt-4'

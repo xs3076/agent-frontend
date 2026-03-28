@@ -1,17 +1,17 @@
 
-.span-waterfall-chart .ant-tree-treenode {
+.span-waterfall-chart .arco-tree-treenode {
   width: 100%;
   display: flex;
   align-items: center;
   padding: 4px 0;
 }
 
-.span-waterfall-chart .ant-tree-switcher {
+.span-waterfall-chart .arco-tree-switcher {
   display: flex;
   align-items: center;
 }
 
-.span-waterfall-chart .ant-tree-node-content-wrapper {
+.span-waterfall-chart .arco-tree-node-content-wrapper {
   flex-grow: 1;
 }
 

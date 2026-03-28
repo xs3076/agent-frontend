@@ -35,55 +35,55 @@
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.gather-create-page .ant-card {
+.gather-create-page .arco-card {
   border-radius: 8px;
 }
 
-.gather-create-page .ant-card-head {
+.gather-create-page .arco-card-head {
   border-bottom: 1px solid #f0f0f0;
 }
 
-.gather-create-page .ant-card-head-title {
+.gather-create-page .arco-card-head-title {
   font-size: 16px;
   font-weight: 600;
 }
 
-.gather-create-page .ant-form-item-label > label {
+.gather-create-page .arco-form-item-label > label {
   font-weight: 500;
 }
 
-.gather-create-page .ant-input,
-.gather-create-page .ant-select-selector {
+.gather-create-page .arco-input,
+.gather-create-page .arco-select-selector {
   border-radius: 6px;
 }
 
-.gather-create-page .ant-btn {
+.gather-create-page .arco-btn {
   border-radius: 6px;
 }
 
-.gather-create-page .ant-btn-primary {
+.gather-create-page .arco-btn-primary {
   background-color: #1677ff !important;
   border-color: #1677ff !important;
 }
 
-.gather-create-page .ant-btn-primary:hover {
+.gather-create-page .arco-btn-primary:hover {
   background-color: #4096ff !important;
   border-color: #4096ff !important;
 }
 
 /* 列配置卡片样式 */
-.gather-create-page .ant-card-type-inner {
+.gather-create-page .arco-card-type-inner {
   background-color: #fafafa;
   border: 1px solid #f0f0f0;
 }
 
-.gather-create-page .ant-card-type-inner .ant-card-head {
+.gather-create-page .arco-card-type-inner .arco-card-head {
   background-color: transparent;
   border-bottom: 1px solid #e8e8e8;
   min-height: 48px;
 }
 
-.gather-create-page .ant-card-type-inner .ant-card-head-title {
+.gather-create-page .arco-card-type-inner .arco-card-head-title {
   font-size: 14px;
   font-weight: 500;
 }

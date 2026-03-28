@@ -1,32 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import {
-  Spin,
-  Result,
-  Button,
-  Alert,
-  Empty,
-  Table,
-  Checkbox,
-  Tag,
-  Typography,
-  Card,
-  Space,
-  Modal,
-  Row,
-  Col,
-  Tooltip
-} from 'antd';
-import {
-  LoadingOutlined,
-  ArrowLeftOutlined,
-  InfoCircleOutlined,
-  CheckCircleOutlined,
-  ExperimentOutlined,
-  BranchesOutlined,
-  UndoOutlined,
-  EyeOutlined
-} from '@ant-design/icons';
+import { Spin, Result, Button, Alert, Empty, Table, Checkbox, Tag, Typography, Card, Space, Modal, Tooltip, Grid } from '@arco-design/web-react';
+import { IconLoading, IconArrowLeft, IconInfoCircle, IconCheckCircle, IconExperiment, IconBranch, IconUndo, IconEye } from '@arco-design/web-react/icon';
 import dayjs from 'dayjs';
 import { handleApiError, notifyError } from '../../../utils/notification';
 import VersionCompareModal from '../../../components/VersionCompareModal';
@@ -35,13 +10,15 @@ import { ModelsContext } from '../../../context/models';
 import usePagination from '../../../hooks/usePagination';
 import { getLegacyPath } from '../../../utils/path';
 
+const { Row, Col } = Grid;
+
 const { Title, Text, Paragraph } = Typography;
 
 const VersionHistoryPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { models } = useContext(ModelsContext);
-  const { pagination, onPaginationChange, onShowSizeChange, setPagination } = usePagination();
+  const { pagination, onPaginationChange, onPageSizeChange, setPagination } = usePagination();
 
   const promptKey = searchParams.get('promptKey');
   const targetWindowId = searchParams.get('targetWindowId');
@@ -201,7 +178,7 @@ const VersionHistoryPage = () => {
       <div className="p-8 fade-in">
         <div className="flex items-center justify-center h-64">
           <Spin
-            indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />}
+            icon={<IconLoading style={{ fontSize: 48 }} spin />}
             size="large"
           >
             <div className="text-center pt-4">
@@ -456,7 +433,7 @@ const VersionHistoryPage = () => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
               <Button
                 type="text"
-                icon={<ArrowLeftOutlined />}
+                icon={<IconArrowLeft />}
                 onClick={() => navigate('/prompts')}
                 size="large"
               />
@@ -471,13 +448,13 @@ const VersionHistoryPage = () => {
 
       {/* 操作提示 */}
       <Alert
-        message={
+        title={
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Text>勾选两个版本进行对比，或点击操作列的“详情”按钮查看版本详情</Text>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               {selectedVersions.length > 0 && (
                 <Button
-                  type="link"
+                  type="text"
                   size="small"
                   onClick={clearSelection}
                 >
@@ -488,7 +465,7 @@ const VersionHistoryPage = () => {
           </div>
         }
         type="info"
-        icon={<InfoCircleOutlined />}
+        icon={<IconInfoCircle />}
         showIcon
         style={{ marginBottom: 24 }}
       />
@@ -512,8 +489,8 @@ const VersionHistoryPage = () => {
                 <Checkbox
                   checked={selectedVersions.some(v => v.version === record.version)}
                   disabled={selectedVersions.length >= 2 && !selectedVersions.some(v => v.version === record.version)}
-                  onChange={(e) => {
-                    e.stopPropagation();
+                  onChange={(checked, e) => {
+                    e?.stopPropagation?.();
                     handleCheckboxChange(record, { stopPropagation: () => { } });
                   }}
                 />
@@ -527,10 +504,10 @@ const VersionHistoryPage = () => {
                 <Space direction="vertical" size={4}>
                   <Tag color="blue">{record.version}</Tag>
                   {record.actualIndex === 0 && (
-                    <Tag color="success" size="small">当前版本</Tag>
+                    <Tag color="green" size="small">当前版本</Tag>
                   )}
                   {selectedVersions.some(v => v.version === record.version) && (
-                    <Tag color="blue" size="small" icon={<CheckCircleOutlined />}>已选择</Tag>
+                    <Tag color="blue" size="small" icon={<IconCheckCircle />}>已选择</Tag>
                   )}
                 </Space>
               )
@@ -549,7 +526,7 @@ const VersionHistoryPage = () => {
                 showTitle: false
               },
               render: (_, record) => (
-                <Tooltip title={record.versionDescription || record.cachedDetail?.description || '无说明'}>
+                <Tooltip content={record.versionDescription || record.cachedDetail?.description || '无说明'}>
                   <Text ellipsis>
                     {record.versionDescription || record.cachedDetail?.description || '无说明'}
                   </Text>
@@ -605,13 +582,13 @@ const VersionHistoryPage = () => {
               render: (_, record) => {
                 if (record.status === 'release') {
                   return (
-                    <Tag color="success" icon={<CheckCircleOutlined />}>
+                    <Tag color="green" icon={<IconCheckCircle />}>
                       正式版本
                     </Tag>
                   );
                 }
                 return (
-                  <Tag color="warning" icon={<ExperimentOutlined />}>
+                  <Tag color="orangered" icon={<IconExperiment />}>
                     PRE版本
                   </Tag>
                 );
@@ -629,7 +606,7 @@ const VersionHistoryPage = () => {
             //     if (content) {
             //       const previewText = `${content.substring(0, 80)}${content.length > 80 ? '...' : ''}`;
             //       return (
-            //         <Tooltip title={content}>
+            //         <Tooltip content={content}>
             //           <div style={{
             //             fontFamily: 'monospace',
             //             fontSize: '12px',
@@ -655,7 +632,7 @@ const VersionHistoryPage = () => {
                 <Button
                   type="text"
                   size="small"
-                  icon={<EyeOutlined />}
+                  icon={<IconEye />}
                   onClick={(e) => {
                     e.stopPropagation();
                     handleVersionClick(record);
@@ -667,22 +644,19 @@ const VersionHistoryPage = () => {
               )
             }
           ]}
-          locale={{
-            emptyText: (
+          noDataElement={
               <Empty
-                image={Empty.PRESENTED_IMAGE_SIMPLE}
                 description="暂无版本记录"
               >
                 <Button type="primary" onClick={() => navigate(`/prompt-detail?promptKey=${promptKey}`)}>
                   开始创建版本
                 </Button>
               </Empty>
-            )
-          }}
+          }
           pagination={{
             ...pagination,
             onChange: onPaginationChange,
-            onShowSizeChange: onShowSizeChange
+            onPageSizeChange: onPageSizeChange
           }}
           scroll={{ x: 1300 }}
         />
@@ -700,7 +674,7 @@ const VersionHistoryPage = () => {
             {selectedVersions.length === 2 && (
               <Button
                 type="primary"
-                icon={<BranchesOutlined />}
+                icon={<IconBranch />}
                 loading={loadingVersionDetail}
                 onClick={() => loadVersionsAndCompare(selectedVersions[0], selectedVersions[1])}
               >
@@ -719,7 +693,7 @@ const VersionHistoryPage = () => {
               )}
               {loadingVersionDetail && (
                 <Text type="secondary">
-                  <LoadingOutlined style={{ marginRight: 8 }} />
+                  <IconLoading style={{ marginRight: 8 }} />
                   正在加载版本详情用于对比...
                 </Text>
               )}
@@ -731,7 +705,7 @@ const VersionHistoryPage = () => {
       {/* 版本详情模态框 */}
       <Modal
         title={`版本详情 - ${selectedVersion?.version}`}
-        open={showVersionDetail && selectedVersion}
+        visible={showVersionDetail && selectedVersion}
         onCancel={() => setShowVersionDetail(false)}
         width={1000}
         style={{
@@ -746,13 +720,13 @@ const VersionHistoryPage = () => {
           <Space key="actions">
             <Button
               type="primary"
-              icon={<UndoOutlined />}
+              icon={<IconUndo />}
               onClick={handleRestoreVersion}
             >
               恢复到编辑区
             </Button>
             <Button
-              icon={<BranchesOutlined />}
+              icon={<IconBranch />}
               onClick={handleVersionDetailCompare}
             >
               与前版本对比
@@ -766,7 +740,7 @@ const VersionHistoryPage = () => {
         {loadingVersionDetail ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 0' }}>
             <Spin
-              indicator={<LoadingOutlined style={{ fontSize: 32 }} spin />}
+              icon={<IconLoading style={{ fontSize: 32 }} spin />}
               size="large"
             >
               <div style={{ textAlign: 'center', paddingTop: 16 }}>
@@ -812,7 +786,7 @@ const VersionHistoryPage = () => {
                   <Row gutter={16}>
                     <Col span={12}>
                       <Text strong style={{ color: '#595959' }}>模型：</Text>
-                      <Tag color="geekblue">{currentModel?.name}</Tag>
+                      <Tag color="arcoblue">{currentModel?.name}</Tag>
                     </Col>
                     {
                       Object.keys(otherModelConfig).map((key) => (
@@ -846,11 +820,11 @@ const VersionHistoryPage = () => {
               <Text strong style={{ display: 'block', marginBottom: 8, color: '#262626' }}>版本状态</Text>
               <div style={{ padding: '8px 16px', backgroundColor: '#fafafa', borderRadius: 6 }}>
                 {(selectedVersion?.versionType || selectedVersion?.status) === 'release' ? (
-                  <Tag color="success" icon={<CheckCircleOutlined />}>
+                  <Tag color="green" icon={<IconCheckCircle />}>
                     正式版本
                   </Tag>
                 ) : (
-                  <Tag color="warning" icon={<ExperimentOutlined />}>
+                  <Tag color="orangered" icon={<IconExperiment />}>
                     PRE版本
                   </Tag>
                 )}
