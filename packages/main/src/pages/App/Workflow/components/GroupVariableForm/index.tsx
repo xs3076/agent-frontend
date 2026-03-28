@@ -1,5 +1,11 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Input, message } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Input,
+  Message,
+  Typography,
+} from '@arco-design/web-react';
 import type { IValueType, IVarTreeItem } from '@spark-ai/flow';
 import {
   DraggableWithHandle,
@@ -8,7 +14,7 @@ import {
   VariableSelector,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { Typography } from 'antd';
+
 import classNames from 'classnames';
 import React, { memo, useCallback, useMemo, useRef } from 'react';
 import { IVariable, IVariableHandleGroupItem } from '../../types';
@@ -148,7 +154,7 @@ export default memo(function GroupVariableForm({
           isEdit: false,
         });
       })
-      .catch((msg) => message.warning(msg));
+      .catch((msg) => Message.warning(msg));
   }, [state.tempName, data]);
 
   // handle Chinese input start event
@@ -191,9 +197,8 @@ export default memo(function GroupVariableForm({
             <div className="flex gap-[8px] items-center w-full">
               <Input
                 value={state.tempName}
-                onChange={(e) =>
-                  setState({
-                    tempName: e.target.value,
+                onChange={(value) => setState({
+                    tempName: value,
                   })
                 }
                 onCompositionStart={handleCompositionStart}
@@ -204,7 +209,6 @@ export default memo(function GroupVariableForm({
               <IconFont
                 onClick={handleSure}
                 type="spark-true-line"
-                isCursorPointer
                 className={styles['spark-flow-name-input-ok-btn']}
               />
 
@@ -216,7 +220,6 @@ export default memo(function GroupVariableForm({
                   });
                 }}
                 type="spark-false-line"
-                isCursorPointer
                 className={styles['spark-flow-name-input-cancel-btn']}
               />
             </div>

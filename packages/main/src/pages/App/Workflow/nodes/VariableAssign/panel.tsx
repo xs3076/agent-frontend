@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Select } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Select, Space } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import type { IValueType, IVarItem, IVarTreeItem } from '@spark-ai/flow';
 import {
   uniqueId,
@@ -11,7 +13,7 @@ import {
   variableFromLabelRender,
   VariableSelector,
 } from '@spark-ai/flow';
-import { Flex, Space } from 'antd';
+
 import { memo, useCallback, useMemo } from 'react';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';
 import {

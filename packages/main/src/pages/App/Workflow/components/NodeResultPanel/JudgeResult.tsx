@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { IconFont, Tag, Tooltip } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Tag, Tooltip } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   extractVariables,
   INodeSchema,
@@ -8,7 +10,7 @@ import {
   useReactFlowStore,
   useStore,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import classNames from 'classnames';
 import { memo, useMemo } from 'react';
 import styles from './index.module.less';
@@ -97,7 +99,7 @@ function SubBranchItem(props: {
     >
       {subBranch.leftInfo ? (
         <Tooltip
-          title={
+          content={
             <Flex
               className={styles['condition-item-variable-tooltip']}
               gap={8}

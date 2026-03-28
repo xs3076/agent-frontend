@@ -1,7 +1,8 @@
 import $i18n from '@/i18n';
 import { getTool } from '@/services/plugin';
 import { PluginTool } from '@/types/plugin';
-import { Empty } from '@spark-ai/design';
+import { Empty, Spin } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   CustomInputsControl,
   IValueType,
@@ -12,7 +13,7 @@ import {
   useReactFlowStore,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { Flex, Spin } from 'antd';
+
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import ErrorCatchForm from '../../components/ErrorCatchForm';
 import InfoIcon from '../../components/InfoIcon';
@@ -118,7 +119,7 @@ export default memo(function PluginNodePanel(props: {
     [props.data.node_param, handleNodeDataUpdate],
   );
 
-  if (state.loading) return <Spin spinning className="loading-center" />;
+  if (state.loading) return <Spin loading className="loading-center" />;
 
   if (!state.detail)
     return (

@@ -6,7 +6,8 @@ import {
   useReactFlowStore,
   VarInputTextArea,
 } from '@spark-ai/flow';
-import { Flex, Switch } from 'antd';
+import { Switch } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { memo, useCallback, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';

@@ -1,14 +1,17 @@
 import $i18n from '@/i18n';
 import { IAppStatus, ModalityTypeTexts } from '@/types/appManage';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
 import {
   Badge,
+  ConfigProvider,
   Dropdown,
-  IconButton,
-  IconFont,
+  Menu,
   Tooltip,
-} from '@spark-ai/design';
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { ConfigProvider, Flex } from 'antd';
+
 import { useContext, useEffect, useRef } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
 import ExperienceConfigDrawer from '../ExperienceConfigDrawer';
@@ -31,7 +34,8 @@ export type IAssistantTestWindowState = {
   isBizVarsComplete: boolean; // whether bizVars is complete
 };
 export default function AssistantTestWindow(props: IProps) {
-  const { componentDisabled } = ConfigProvider.useConfig();
+  // TODO: Arco doesn't have ConfigProvider.useConfig() - using false as default
+  const componentDisabled = false;
   const { appCode, appState, setAppState, sparkChatComponentRef } =
     useContext(AssistantAppContext);
   const { appBasicConfig } = appState;
@@ -141,11 +145,11 @@ export default function AssistantTestWindow(props: IProps) {
             {/**variables configuration button*/}
             {state.showVarDrawerTipBtn && !componentDisabled && (
               <Tooltip
-                title={$i18n.get({
+                content={$i18n.get({
                   id: 'main.components.AssistantTestWindow.index.parameterConfiguration',
                   dm: '入参变量配置',
                 })}
-                placement="bottom"
+                position="bottom"
               >
                 <IconButton
                   icon={
@@ -167,9 +171,9 @@ export default function AssistantTestWindow(props: IProps) {
             {/**experience configuration button*/}
             {appState.modalType === 'textDialog' && (
               <Tooltip
-                placement="bottom"
+                position="bottom"
                 overlayStyle={{ maxWidth: 320 }}
-                title={$i18n.get({
+                content={$i18n.get({
                   id: 'main.components.AssistantTestWindow.index.experienceConfiguration',
                   dm: '体验配置',
                 })}
@@ -184,7 +188,7 @@ export default function AssistantTestWindow(props: IProps) {
             {/**drop current session, start a new session*/}
             {appState.modalType === 'textDialog' && (
               <Tooltip
-                title={$i18n.get({
+                content={$i18n.get({
                   id: 'main.components.AssistantTestWindow.index.clearHistory',
                   dm: '清空记录',
                 })}

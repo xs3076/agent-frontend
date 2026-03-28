@@ -5,7 +5,8 @@ import {
   useEdgesInteraction,
   VariableBaseInput,
 } from '@spark-ai/flow';
-import { Flex, Switch } from 'antd';
+import { Switch } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import React, { memo } from 'react';
 import { ITryCatchConfig } from '../../types';
 import InfoIcon from '../InfoIcon';

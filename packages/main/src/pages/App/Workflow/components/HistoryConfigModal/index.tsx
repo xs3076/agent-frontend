@@ -1,9 +1,18 @@
 import $i18n from '@/i18n';
 import { updateApp } from '@/services/appManage';
 import { IHistoryConfig, IWorkFlowAppDetail } from '@/types/appManage';
-import { IconButton, IconFont, Modal, SliderSelector } from '@spark-ai/design';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
+import SliderInput from '@/components/SliderInput';
+import {
+  Form,
+  Modal,
+  Switch,
+  Tooltip,
+  Message,
+} from '@arco-design/web-react';
 import { useSetState } from 'ahooks';
-import { Form, message, Switch, Tooltip } from 'antd';
+
 import { useState } from 'react';
 import styles from './index.module.less';
 export interface IHistoryConfigModalProps {
@@ -32,7 +41,7 @@ export default function HistoryConfigModal(props: IHistoryConfigModalProps) {
       },
     })
       .then(() => {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.App.Workflow.components.GlobalVariableFormModal.index.saveSuccess',
             dm: '保存成功',
@@ -78,7 +87,7 @@ export default function HistoryConfigModal(props: IHistoryConfigModalProps) {
             dm: '最大记忆轮次',
           })}
         >
-          <SliderSelector
+          <SliderInput
             disabled={!value.history_switch}
             min={1}
             step={1}
@@ -108,7 +117,7 @@ export function HistoryConfigBtn({
   return (
     <>
       <Tooltip
-        title={$i18n.get({
+        content={$i18n.get({
           id: 'main.pages.App.Workflow.components.HistoryConfigModal.contextRoundSetting',
           dm: '上下文轮次设置',
         })}

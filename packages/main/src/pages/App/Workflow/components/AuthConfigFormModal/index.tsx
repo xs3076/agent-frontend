@@ -1,8 +1,15 @@
 import $i18n from '@/i18n';
-import { Form, Input, Modal, Radio } from '@spark-ai/design';
+import {
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Select,
+  Message,
+} from '@arco-design/web-react';
 import { IVarTreeItem, VarInputTextArea } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { message, Select } from 'antd';
+
 import { useCallback } from 'react';
 import { IApiNodeParam } from '../../types';
 import styles from './index.module.less';
@@ -33,7 +40,7 @@ export default function AuthConfigFormModal(props: IProps) {
 
   const handleOk = useCallback(() => {
     if (value.auth_type !== 'NoAuth' && !value.auth_config?.value) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.pages.App.Workflow.components.AuthConfigFormModal.index.enterToken',
           dm: '请输入TOKEN值',
@@ -42,7 +49,7 @@ export default function AuthConfigFormModal(props: IProps) {
       return;
     }
     if (value.auth_type === 'ApiKeyAuth' && !value.auth_config?.key) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.pages.App.Workflow.components.AuthConfigFormModal.index.enterKey',
           dm: '请输入KEY',
@@ -57,7 +64,7 @@ export default function AuthConfigFormModal(props: IProps) {
   return (
     <Modal
       width={560}
-      open
+      visible
       onCancel={props.onClose}
       onOk={handleOk}
       title={$i18n.get({
@@ -84,12 +91,12 @@ export default function AuthConfigFormModal(props: IProps) {
         >
           <Radio.Group
             value={value.auth_type}
-            onChange={(e) => {
+            onChange={(value) => {
               setValue({
                 auth_type: e.target
                   .value as IApiNodeParam['authorization']['auth_type'],
                 auth_config:
-                  e.target.value === 'NoAuth'
+                  value === 'NoAuth'
                     ? void 0
                     : {
                         ...(value.auth_config || {}),
@@ -126,7 +133,7 @@ export default function AuthConfigFormModal(props: IProps) {
           <>
             <Form.Item label="Key">
               <Input
-                onChange={(e) => changeAuthConfig({ key: e.target.value })}
+                onChange={(value) => changeAuthConfig({ key: value })}
                 value={value.auth_config?.key}
                 placeholder={$i18n.get({
                   id: 'main.pages.App.Workflow.components.AuthConfigFormModal.index.enterKey',

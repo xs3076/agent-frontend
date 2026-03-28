@@ -9,7 +9,8 @@ import {
   useReactFlowStore,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { Flex, Spin } from 'antd';
+import { Spin } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { memo, useEffect, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';
@@ -89,7 +90,7 @@ export default memo(function MCPPanel(props: {
   }, [props.id]);
 
   if (state.loading) {
-    return <Spin spinning className="loading-center" />;
+    return <Spin loading className="loading-center" />;
   }
 
   return (

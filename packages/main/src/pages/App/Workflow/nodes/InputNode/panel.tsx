@@ -1,10 +1,11 @@
+import Flex from '@/components/ui/Flex';
 import $i18n from '@/i18n';
 import {
   CustomOutputsFormWrap,
   useNodeDataUpdate,
   useNodesReadOnly,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { memo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
 import { IInputNodeData } from '../../types';

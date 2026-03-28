@@ -1,7 +1,15 @@
 import $i18n from '@/i18n';
 import { UserPromptParams } from '@/types/appManage';
-import { Button, Form, IconFont, Tag } from '@spark-ai/design';
-import { Divider, Flex, Input } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  Tag,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+
 import classNames from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 // @ts-ignore
@@ -178,7 +186,7 @@ export default (props: IProps) => {
               style={{ padding: 0 }}
               size="small"
               type="text"
-              iconType="spark-plus-line"
+              icon={<IconFont type="spark-plus-line" />}
               onClick={() => {
                 setTempVariables((prev) => [
                   ...prev,
@@ -305,8 +313,8 @@ export default (props: IProps) => {
                           onPressEnter={() => {
                             handleSaveAppConfig();
                           }}
-                          onChange={(e) => {
-                            handleUpdateVariable(index, 'name', e.target.value);
+                          onChange={(value) => {
+                            handleUpdateVariable(index, 'name', value);
                           }}
                         ></Input>
                       </Form.Item>
@@ -327,11 +335,11 @@ export default (props: IProps) => {
                           onPressEnter={() => {
                             handleSaveAppConfig();
                           }}
-                          onChange={(e) => {
+                          onChange={(value) => {
                             handleUpdateVariable(
                               index,
                               'description',
-                              e.target.value,
+                              value,
                             );
                           }}
                         ></Input>
@@ -354,11 +362,11 @@ export default (props: IProps) => {
                             onPressEnter={() => {
                               handleSaveAppConfig();
                             }}
-                            onChange={(e) => {
+                            onChange={(value) => {
                               handleUpdateVariable(
                                 index,
                                 'default_value',
-                                e.target.value,
+                                value,
                               );
                             }}
                           ></Input>
@@ -367,7 +375,6 @@ export default (props: IProps) => {
                           className={'mb-[16px]'}
                           onClick={() => handleRemoveVariable(index)}
                           type="spark-delete-line"
-                          isCursorPointer
                         />
                       </Flex>
                     </div>

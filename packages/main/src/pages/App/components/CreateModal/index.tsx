@@ -2,9 +2,9 @@ import $i18n from '@/i18n';
 import { IAppType } from '@/services/appComponent';
 import { createApp } from '@/services/appManage';
 import uniqueId from '@/utils/uniqueId';
-import { Button, getCommonConfig, message, Modal } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Message, Modal } from '@arco-design/web-react';
 import { useSetState } from 'ahooks';
-import { Flex } from 'antd';
 import classNames from 'classnames';
 import { initAppConfig } from '../../utils';
 import styles from './index.module.less';
@@ -40,7 +40,9 @@ const options = [
 ];
 
 export default function CreateModal(props: ICreateModalProps) {
-  const darkMode = getCommonConfig().isDarkMode;
+  const darkMode =
+    document.body.getAttribute('arco-theme') === 'dark' ||
+    document.documentElement.classList.contains('dark');
 
   const [state, setState] = useSetState({
     activeRecord: options[0],
@@ -56,7 +58,7 @@ export default function CreateModal(props: ICreateModalProps) {
       config: initAppConfig(activeRecord.value as IAppType),
     })
       .then((res) => {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.App.components.CreateModal.index.createSuccess',
             dm: '创建成功',
@@ -74,22 +76,17 @@ export default function CreateModal(props: ICreateModalProps) {
   };
   return (
     <Modal
-      open
+      visible
       className={styles['app-create-modal']}
       footer={null}
-      width={888}
+      style={{ width: 888 }}
       onCancel={props.onCancel}
       title={$i18n.get({
         id: 'main.pages.App.components.CreateModal.index.createApp',
         dm: '创建应用',
       })}
-      styles={{
-        body: {
-          padding: 40,
-        },
-      }}
     >
-      <Flex gap={40}>
+      <div className="flex gap-[40px]" style={{ padding: 40 }}>
         <div className={classNames(styles['item'])}>
           <img src={`/images/createAgent${darkMode ? 'Dark' : ''}.png`} />
           <div className={styles['header']}>
@@ -100,7 +97,7 @@ export default function CreateModal(props: ICreateModalProps) {
               })}
             </div>
             <Button
-              iconType="spark-plus-line"
+              icon={<IconFont type="spark-plus-line" />}
               type="primary"
               onClick={() =>
                 createAppByCode(options[0] as { name: string; value: IAppType })
@@ -129,7 +126,7 @@ export default function CreateModal(props: ICreateModalProps) {
               })}
             </div>
             <Button
-              iconType="spark-plus-line"
+              icon={<IconFont type="spark-plus-line" />}
               type="primary"
               onClick={() =>
                 createAppByCode(options[1] as { name: string; value: IAppType })
@@ -148,7 +145,7 @@ export default function CreateModal(props: ICreateModalProps) {
             })}
           </div>
         </div>
-      </Flex>
+      </div>
     </Modal>
   );
 }

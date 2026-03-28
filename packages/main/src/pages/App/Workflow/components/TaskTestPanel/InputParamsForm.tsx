@@ -1,6 +1,6 @@
 import { VariableBaseInput } from '@/components/VariableBaseInput';
 import $i18n from '@/i18n';
-import { Drawer, Input } from '@spark-ai/design';
+import { Drawer, Input } from '@arco-design/web-react';
 import classNames from 'classnames';
 import { memo, useMemo } from 'react';
 import { IWorkflowDebugInputParamItem } from '../../context';
@@ -102,10 +102,9 @@ function InputParamsForm(props: {
                   dm: '请输入',
                 })}
                 value={item.value}
-                onChange={(e) =>
-                  changeInputRowItem({
+                onChange={(value) => changeInputRowItem({
                     ...item,
-                    value: e.target.value,
+                    value: value,
                   })
                 }
               />
@@ -123,7 +122,7 @@ export function InputParamsFormDrawer(props: {
 }) {
   return (
     <Drawer
-      open
+      visible
       placement="bottom"
       height="100%"
       onClose={props.onClose}

@@ -1,11 +1,13 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Input } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Input } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   INodeDataInputParamItem,
   IVarTreeItem,
   VariableSelector,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { memo, useCallback } from 'react';
 
 export interface IIteratorVariableFormProps {
@@ -86,7 +88,7 @@ export default memo(function IteratorVariableForm({
                 dm: '请输入变量名',
               })}
               value={item.key}
-              onChange={(e) => changeRowItem(index, { key: e.target.value })}
+              onChange={(value) => changeRowItem(index, { key: value })}
             />
           </div>
           <div className="flex-1">

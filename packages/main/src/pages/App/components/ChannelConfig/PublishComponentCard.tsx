@@ -5,9 +5,10 @@ import {
   IAppType,
 } from '@/services/appComponent';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Divider } from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Button, Divider } from 'antd';
+
 import classNames from 'classnames';
 import { memo, useEffect } from 'react';
 import styles from './index.module.less';

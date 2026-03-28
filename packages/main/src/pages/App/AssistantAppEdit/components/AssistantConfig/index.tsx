@@ -1,8 +1,10 @@
 import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { ConfigProvider, Timeline, Message } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { ConfigProvider, Flex, message, Timeline } from 'antd';
+
 import { default as classNames } from 'classnames';
 import { compact } from 'lodash-es';
 import { useContext, useLayoutEffect, useRef } from 'react';
@@ -38,7 +40,7 @@ export default function AssistantConfig() {
 
   const beforeSendValidate = () => {
     if (!appBasicConfig?.config?.model) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.selectModelFirst',
           dm: '请先选择模型！',

@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { Select } from '@spark-ai/design';
+import { Select, Switch } from '@arco-design/web-react';
 import {
   CustomInputsControl,
   useNodeDataUpdate,
@@ -8,7 +8,7 @@ import {
   useReactFlowStore,
   VarInputTextArea,
 } from '@spark-ai/flow';
-import { Switch } from 'antd';
+
 import { memo, useCallback, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
 import { END_NODE_OUTPUT_PARAMS_DEFAULT } from '../../constant';

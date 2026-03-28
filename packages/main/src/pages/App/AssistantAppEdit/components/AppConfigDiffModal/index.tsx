@@ -5,9 +5,14 @@ import { getModelDetail } from '@/services/modelService';
 import { IAssistantConfigWithInfos } from '@/types/appManage';
 import { IModel } from '@/types/modelService';
 import { PluginTool } from '@/types/plugin';
-import { Button, Modal } from '@spark-ai/design';
+import {
+  Button,
+  Modal,
+  Spin,
+  Table,
+} from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Spin, Table } from 'antd';
+
 import { useContext, useMemo } from 'react';
 import {
   queryComponentsByCodes,
@@ -323,7 +328,7 @@ export default function AppConfigDiffModal(props: IProps) {
   return (
     <Modal
       onCancel={props.onCancel}
-      open
+      visible
       title={$i18n.get({
         id: 'main.pages.App.AssistantAppEdit.components.AppConfigDiffModal.index.releaseVersion',
         dm: '发布版本',
@@ -347,7 +352,7 @@ export default function AppConfigDiffModal(props: IProps) {
       }
     >
       {state.loading ? (
-        <Spin className={styles.loading} spinning />
+        <Spin className={styles.loading} loading />
       ) : (
         <>
           {renderDiffName}

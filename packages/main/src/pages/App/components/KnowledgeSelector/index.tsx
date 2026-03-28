@@ -2,16 +2,19 @@ import Search from '@/components/Search';
 import $i18n from '@/i18n';
 import { getKnowledgeList } from '@/services/knowledge';
 import { IKnowledgeListItem } from '@/types/knowledge';
+import IconFont from '@/components/ui/IconFont';
 import {
   Button,
+  Checkbox,
   Drawer,
   Empty,
-  IconFont,
-  message,
+  Message,
   Modal,
-} from '@spark-ai/design';
+  Pagination,
+  Spin,
+  Typography,
+} from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Checkbox, Pagination, Spin, Typography } from 'antd';
 import classNames from 'classnames';
 import { useMemo, useRef, useState } from 'react';
 import styles from './index.module.less';
@@ -42,7 +45,7 @@ export function KnowledgeSelectorItem(props: {
     >
       <Checkbox
         checked={checked}
-        onChange={(e) => props.onCheckChange(e.target.checked)}
+        onChange={(checked) => props.onCheckChange(checked)}
       />
 
       <img src={'/images/knowledge.svg'} alt="" />
@@ -116,7 +119,7 @@ export default function KnowledgeSelector(props: IKnowledgeSelectorProps) {
   const handleCheckChange = (checked: boolean, payload: IKnowledgeListItem) => {
     if (checked) {
       if (props.value.length >= MAX_LEN) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'main.pages.App.components.KnowledgeSelector.index.maxTenKnowledge',
             dm: '最多只能选择10个知识库',
@@ -163,7 +166,7 @@ export default function KnowledgeSelector(props: IKnowledgeSelectorProps) {
       <div className={classNames(styles['list-wrap'], styles[mode])}>
         {state.loading ? (
           <div className="loading-center">
-            <Spin className="loading-center" spinning />
+            <Spin className="loading-center" loading />
           </div>
         ) : !state.list.length ? (
           <div className="loading-center">
@@ -251,8 +254,8 @@ export function KnowledgeSelectorModal(props: IKnowledgeSelectorModalProps) {
         dm: '选择知识库',
       })}
       onOk={() => props.onOk(value)}
-      open
-      width={640}
+      visible
+      style={{ width: 640 }}
       className={styles['modal-wrap']}
       onCancel={props.onClose}
     >
@@ -321,7 +324,7 @@ export function KnowledgeSelectorDrawer(props: IKnowledgeSelectorModalProps) {
         </div>
       }
       onClose={props.onClose}
-      open
+      visible
       width={640}
       className={styles['drawer-wrap']}
     >

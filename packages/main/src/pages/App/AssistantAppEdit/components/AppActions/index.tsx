@@ -1,9 +1,17 @@
 import $i18n from '@/i18n';
 import { channelConfigEventBus } from '@/pages/App/components/ChannelConfig/PublishComponentCard';
 import { publishApp } from '@/services/appManage';
-import { Button, IconFont, Popover, Tooltip } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Checkbox,
+  Popover,
+  Tooltip,
+  Message,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { Checkbox, Flex, message } from 'antd';
+
 import { useContext } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
 import AppConfigDiffModal from '../AppConfigDiffModal';
@@ -50,7 +58,7 @@ export default function AppActions(props: {
   const onConfirm = async () => {
     const { appBasicConfig } = appState;
     if (!appBasicConfig?.name?.trim()) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.enterApplicationName',
           dm: '请填写应用名称',
@@ -65,7 +73,7 @@ export default function AppActions(props: {
     if (!appState.appBasicConfig) return;
     const { config } = appState.appBasicConfig;
     if (!config.model) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.selectModel',
           dm: '请选择模型！',
@@ -78,7 +86,7 @@ export default function AppActions(props: {
 
     if (file_search?.enable_search) {
       if (!prompt || prompt.match(/\${documents}/g)?.length !== 1) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.knowledgeRetrievalEnhancementFunctionNotFilledOrMultipleVariables',
             dm: '您开启了【知识检索增强】功能，但在Prompt中未填写或者填写了多个${documents}变量，为了保证效果，请保证Prompt中只出现一次',
@@ -112,7 +120,7 @@ export default function AppActions(props: {
   };
 
   const handleReset = () => {
-    message.info(
+    Message.info(
       $i18n.get({
         id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.notImplementedYet',
         dm: '暂未实现',
@@ -136,7 +144,7 @@ export default function AppActions(props: {
         <>
           <Tooltip
             trigger={'hover'}
-            title={
+            content={
               appState.flushing
                 ? $i18n.get({
                     id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.dialogProcessingProhibitedSwitchVersion',
@@ -149,7 +157,7 @@ export default function AppActions(props: {
             }
           >
             <Button
-              iconType="spark-auditLog-line"
+              icon={<IconFont type="spark-auditLog-line" />}
               onClick={() => {
                 setAppState((prev) => {
                   return {
@@ -174,12 +182,12 @@ export default function AppActions(props: {
                 导出SAA工程代码
               </Button>
               <Popover
-                onOpenChange={(val) => {
+                onVisibleChange={(val) => {
                   if (!val) onClose();
                 }}
-                overlayClassName={styles.confirmWrap}
-                trigger={['click']}
-                open={state.visible}
+                className={styles.confirmWrap}
+                trigger="click"
+                popupVisible={state.visible}
                 content={
                 <div className={styles.info}>
                   <IconFont
@@ -192,8 +200,8 @@ export default function AppActions(props: {
                     <div className={styles.confirmFooter}>
                       <span className={styles.checkWrap}>
                         <Checkbox
-                          onChange={(e) =>
-                            setState({ checked: e.target.checked })
+                          onChange={(checked) =>
+                            setState({ checked })
                           }
                           checked={state.checked}
                         />
@@ -224,7 +232,7 @@ export default function AppActions(props: {
               rootClassName={styles.confirmWrap111}
             >
               <Button
-                iconType="spark-send-line"
+                icon={<IconFont type="spark-send-line" />}
                 onClick={() => {
                   beforePublish();
                 }}
@@ -246,7 +254,7 @@ export default function AppActions(props: {
                   selectedVersion: 'draft',
                   isReleaseVersion: false,
                 });
-                message.success(
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.returnedToCurrentVersion',
                     dm: '已回到当前版本',

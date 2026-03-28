@@ -1,7 +1,9 @@
 import $i18n from '@/i18n';
-import { SliderSelector } from '@spark-ai/design';
+import SliderInput from '@/components/SliderInput';
+import { Switch } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { IVarTreeItem, SelectWithDesc, VariableSelector } from '@spark-ai/flow';
-import { Flex, Switch } from 'antd';
+
 import classNames from 'classnames';
 import { memo } from 'react';
 import { IShortMemoryConfig } from '../../types';
@@ -109,7 +111,7 @@ export default memo(function ShortMemoryForm({
                 })}
               />
             </div>
-            <SliderSelector
+            <SliderInput
               disabled={disabled}
               min={1}
               max={50}

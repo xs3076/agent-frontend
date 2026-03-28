@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
-import { Button } from '@spark-ai/design';
+import { Button, Tooltip } from '@arco-design/web-react';
 import { useStore } from '@spark-ai/flow';
-import { Tooltip } from 'antd';
+
 import { memo, useMemo } from 'react';
 
 interface IVersionManageBtnProps {
@@ -17,7 +17,7 @@ export default memo(function VersionManagerBtn(props: IVersionManageBtnProps) {
   return (
     <Tooltip
       trigger={'hover'}
-      title={
+      content={
         isFlushing
           ? $i18n.get({
               id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.dialogProcessingProhibitedSwitchVersion',
@@ -30,7 +30,7 @@ export default memo(function VersionManagerBtn(props: IVersionManageBtnProps) {
       }
     >
       <Button
-        iconType="spark-auditLog-line"
+        icon={<IconFont type="spark-auditLog-line" />}
         onClick={() => {
           props.setShowHistoryPanel(true);
         }}

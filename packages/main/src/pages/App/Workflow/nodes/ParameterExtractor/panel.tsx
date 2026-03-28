@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import type { IValueType, IVarItem, IVarTreeItem } from '@spark-ai/flow';
 import {
   OutputParamsTree,
@@ -12,7 +14,7 @@ import {
   useReactFlowStore,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { Flex } from 'antd';
+
 import { memo, useCallback, useMemo } from 'react';
 import ExtractParamEditModal from '../../components/ExtractParamEditModal';
 import ExtractParamItem from '../../components/ExtractParamItem';

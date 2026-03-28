@@ -5,16 +5,20 @@ import {
   updateApp,
 } from '@/services/appManage';
 import { IAppDetail, IAppVersion } from '@/types/appManage';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import {
-  AlertDialog,
   Button,
-  IconFont,
-  message,
-  parseJsonSafely,
-  renderTooltip,
-} from '@spark-ai/design';
+  Message,
+  Timeline,
+  Typography,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+const parseJsonSafely = (str: string, fallback: any = {}) => {
+  try { return JSON.parse(str); } catch { return fallback; }
+};
 import { useMount, useSetState } from 'ahooks';
-import { Flex, Timeline, Typography } from 'antd';
+
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { useCallback, useState } from 'react';
@@ -111,7 +115,7 @@ const TimelineItem = (props: ITimelineItem) => {
               </span>
               <Typography.Text
                 ellipsis={{
-                  tooltip: renderTooltip(versionConfig.modifier || ''),
+                  tooltip:(versionConfig.modifier || ''),
                 }}
               >
                 {versionConfig.modifier}
@@ -205,7 +209,7 @@ export default function HistoryPanelComp(props: IProps) {
               id: 'main.components.HistoryPanel.index.version',
               dm: '版本',
             });
-          message.success(msg);
+          Message.success(msg);
         }
       },
     });
@@ -222,7 +226,6 @@ export default function HistoryPanelComp(props: IProps) {
         </div>
         <IconFont
           type="spark-false-line"
-          isCursorPointer
           onClick={() => {
             props.onClose();
           }}

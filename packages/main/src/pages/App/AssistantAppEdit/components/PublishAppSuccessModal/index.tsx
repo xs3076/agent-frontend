@@ -1,7 +1,9 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Modal } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Divider, Modal } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useMount, useUnmount } from 'ahooks';
-import { Divider, Flex } from 'antd';
+
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,7 +46,7 @@ export default function PublishAppSuccessModal(props: IProps) {
     <Modal
       onCancel={props.onClose}
       className={styles.successModal}
-      open
+      visible
       footer={
         <Flex className="w-full" justify="flex-end">
           <Button

@@ -2,9 +2,11 @@ import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
 import { ToolSelectorDrawer } from '@/pages/App/components/PluginSelector';
 import { PluginTool } from '@/types/plugin';
-import { Button, HelpIcon, IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Divider, Tooltip } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { Divider, Flex } from 'antd';
+
 import cls from 'classnames';
 import { useContext, useEffect } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
@@ -22,12 +24,11 @@ export function SelectedToolItem({
 }) {
   return (
     <SelectedConfigItem
-      iconType="spark-plugin-line"
+      icon={<IconFont type="spark-plugin-line" />}
       name={tool.name}
       rightArea={
         <IconFont
           type="spark-delete-line"
-          isCursorPointer
           onClick={() => {
             handleRemoveTool(tool);
           }}
@@ -77,12 +78,10 @@ export default function PluginSelectorComp() {
                 dm: '插件',
               })}
             </span>
-            <HelpIcon
-              content={$i18n.get({
+            <Tooltip content={$i18n.get({
                 id: 'main.components.PluginSelectorComp.index.callOpenApi',
                 dm: '智能体可以通过插件主动调用OpenAPI，例如信息查询、数据存储等。',
-              })}
-            ></HelpIcon>
+              })}><IconFont type="spark-question-line" className="cursor-pointer" /></Tooltip>
           </Flex>
           <span
             className="text-[12px] leading-[20px]"
@@ -95,7 +94,7 @@ export default function PluginSelectorComp() {
           <Button
             style={{ padding: 0 }}
             onClick={() => setState({ selectVisible: true })}
-            iconType="spark-plus-line"
+            icon={<IconFont type="spark-plus-line" />}
             type="text"
             size="small"
           >

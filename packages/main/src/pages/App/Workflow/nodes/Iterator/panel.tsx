@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { SliderSelector } from '@spark-ai/design';
+import SliderInput from '@/components/SliderInput';
+import { Select } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   CustomInputsControl,
   filterVarItemsByType,
@@ -12,7 +14,7 @@ import {
   useNodesReadOnly,
   useReactFlowStore,
 } from '@spark-ai/flow';
-import { Flex, Select } from 'antd';
+
 import { memo, useCallback, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
 import IteratorVariableForm from '../../components/IteratorVariableForm';
@@ -182,7 +184,7 @@ export default memo(function IteratorPanel(props: {
                 dm: '循环次数',
               })}
             </div>
-            <SliderSelector
+            <SliderInput
               disabled={nodesReadOnly}
               value={props.data.node_param.count_limit}
               onChange={(val) =>

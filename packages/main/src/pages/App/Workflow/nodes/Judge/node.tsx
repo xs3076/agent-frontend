@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
 import type { IWorkFlowNode, NodeProps } from '@spark-ai/flow';
 import { BaseNode, SourceHandle } from '@spark-ai/flow';
-import { Typography } from 'antd';
+import { Typography } from '@arco-design/web-react';
 import { memo } from 'react';
 import { IJudgeNodeParam } from '../../types';
 import styles from './index.module.less';

@@ -8,7 +8,8 @@ import {
   useNodesReadOnly,
   useReactFlowStore,
 } from '@spark-ai/flow';
-import { Flex, Select } from 'antd';
+import { Select } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { memo, useCallback, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
 import ParallelConfigForm from '../../components/ParallelConfigForm';

@@ -2,9 +2,11 @@ import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
 import { MCPServerSelectDrawer } from '@/pages/App/components/MCPSelector';
 import { IMcpServer } from '@/types/mcp';
-import { Button, HelpIcon, IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Divider, Tooltip } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { Divider, Flex } from 'antd';
+
 import cls from 'classnames';
 import { useContext, useEffect } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
@@ -22,7 +24,7 @@ export function SelectedMCPItem({
 }) {
   return (
     <SelectedConfigItem
-      iconType="spark-MCP-mcp-line"
+      icon={<IconFont type="spark-MCP-mcp-line" />}
       name={item.name}
       rightArea={
         <Flex gap={12}>
@@ -31,7 +33,6 @@ export function SelectedMCPItem({
           </div>
           <IconFont
             type="spark-delete-line"
-            isCursorPointer
             onClick={() => {
               handleRemoveMCP(item);
             }}
@@ -82,12 +83,10 @@ export default function PluginSelectorComp() {
               })}
             </span>
 
-            <HelpIcon
-              content={$i18n.get({
+            <Tooltip content={$i18n.get({
                 id: 'main.components.MCPSelectorComp.index.connectInternalServices',
                 dm: '智能体可以通过标准化协议（MCP）连接企业内部服务API并发起调用。',
-              })}
-            ></HelpIcon>
+              })}><IconFont type="spark-question-line" className="cursor-pointer" /></Tooltip>
           </Flex>
           <span
             className="text-[12px] leading-[20px]"
@@ -100,7 +99,7 @@ export default function PluginSelectorComp() {
           <Button
             style={{ padding: 0 }}
             onClick={() => setState({ selectVisible: true })}
-            iconType="spark-plus-line"
+            icon={<IconFont type="spark-plus-line" />}
             type="text"
             size="small"
           >
@@ -114,7 +113,6 @@ export default function PluginSelectorComp() {
               !state.expand && styles.hidden,
             )}
             type="spark-up-line"
-            isCursorPointer
           />
         </span>
       </Flex>

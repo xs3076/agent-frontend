@@ -1,7 +1,13 @@
 import $i18n from '@/i18n';
-import { Form, Input, Modal, Select } from '@spark-ai/design';
+import {
+  Form,
+  Input,
+  Modal,
+  Select,
+  Switch,
+} from '@arco-design/web-react';
 import { VALUE_TYPE_OPTIONS } from '@spark-ai/flow';
-import { Switch } from 'antd';
+
 import { IParameterExtractorNodeParam } from '../../types';
 import styles from './index.module.less';
 
@@ -25,7 +31,7 @@ export default function ExtractParamEditModal({
 
   const handleOk = async () => {
     try {
-      const values = await form.validateFields();
+      const values = await form.validate();
       onOk(values);
     } catch (error) {
       console.error('Validate Failed:', error);
@@ -45,7 +51,7 @@ export default function ExtractParamEditModal({
               dm: '新增参数',
             })
       }
-      open
+      visible
       onCancel={onCancel}
       onOk={handleOk}
       destroyOnClose

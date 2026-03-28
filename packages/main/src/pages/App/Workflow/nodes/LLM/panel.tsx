@@ -1,3 +1,4 @@
+import Flex from '@/components/ui/Flex';
 import $i18n from '@/i18n';
 import { ISelectedModelParams } from '@/types/modelService';
 import {
@@ -10,7 +11,7 @@ import {
   useNodesReadOnly,
   useReactFlowStore,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { memo, useCallback, useMemo } from 'react';
 import ErrorCatchForm from '../../components/ErrorCatchForm';
 import InfoIcon from '../../components/InfoIcon';

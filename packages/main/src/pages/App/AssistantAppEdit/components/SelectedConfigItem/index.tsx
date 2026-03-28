@@ -1,5 +1,7 @@
-import { IconFont, Popover, renderTooltip } from '@spark-ai/design';
-import { Flex, Typography } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+import { Popover, Typography } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+
 import React from 'react';
 
 export default (props: {
@@ -26,7 +28,7 @@ export default (props: {
       >
         <IconFont type={props.iconType} size="small"></IconFont>
         <Typography.Text
-          ellipsis={{ tooltip: renderTooltip(props.name) }}
+          ellipsis={{ tooltip:(props.name) }}
           style={{ color: 'var(--ag-ant-color-text-base)', width: '112px' }}
           className="text-[12px] text-normal leading-[20px]"
         >
@@ -37,7 +39,7 @@ export default (props: {
             width: 'calc(100% - 140px)',
             color: 'var(--ag-ant-color-text-tertiary)',
           }}
-          ellipsis={{ tooltip: renderTooltip(props?.description || '') }}
+          ellipsis={{ tooltip:(props?.description || '') }}
         >
           {props?.description}
         </Typography.Text>

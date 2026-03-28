@@ -1,8 +1,9 @@
 import $i18n from '@/i18n';
 import { ModalityTypeTexts } from '@/types/appManage';
-import { Button, Drawer } from '@spark-ai/design';
+import { Button, Drawer } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { Flex } from 'antd';
+
 import { forwardRef, useContext, useImperativeHandle } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
 import ComponentsMap, { ExperienceConfig } from './components/componentsMap';
@@ -68,7 +69,7 @@ const ExperienceConfigDrawer = forwardRef<any, IProps>((props, ref) => {
       )}
       width={480}
       onClose={props.onClose}
-      open
+      visible
       footer={
         <Flex className="w-full" justify="flex-end" align="center" gap={12}>
           <Button

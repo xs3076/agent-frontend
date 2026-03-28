@@ -10,13 +10,17 @@ import {
 } from '@/services/appManage';
 import { IAppStatus, IWorkFlowAppDetail } from '@/types/appManage';
 import { IBizFlowData } from '@/types/workflow';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
 import {
   Button,
   Empty,
-  IconButton,
-  IconFont,
-  renderTooltip,
-} from '@spark-ai/design';
+  Space,
+  Tooltip,
+  Typography,
+  Message,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   CheckListBtn,
   ConfigPanel,
@@ -34,7 +38,7 @@ import {
   WorkflowContextProvider,
 } from '@spark-ai/flow';
 import { useMount, useSetState } from 'ahooks';
-import { Flex, message, Space, Tooltip, Typography } from 'antd';
+
 import dayjs from 'dayjs';
 import React, { memo, useCallback, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -162,7 +166,7 @@ export const FlowBase = memo((props: IFlowBaseProps) => {
           {selectedVersion === 'draft' ? (
             <>
               <Tooltip
-                title={$i18n.get({
+                content={$i18n.get({
                   id: 'main.pages.App.Workflow.index.index.conversationVariablesRecordParameters',
                   dm: '通过会话变量,可以在流程的全生命周期中记录参数信息,并在节点中被引用',
                 })}
@@ -205,7 +209,7 @@ export const FlowBase = memo((props: IFlowBaseProps) => {
                 disabled={actionLoading}
                 onClick={() => {
                   if (checkList.length) {
-                    message.warning(
+                    Message.warning(
                       $i18n.get({
                         id: 'main.pages.App.Workflow.index.checkNodeConfiguration',
                         dm: '请先检查节点配置',
@@ -229,7 +233,7 @@ export const FlowBase = memo((props: IFlowBaseProps) => {
               icon={<IconFont type="spark-processOutput-line" />}
               onClick={async () => {
                 onSelectVersion('draft');
-                message.success(
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.AssistantAppEdit.components.AppActions.index.returnedToCurrentVersion',
                     dm: '已回到当前版本',
@@ -324,10 +328,10 @@ export const FlowEditor = memo((props: IProps) => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      message.success('转换成功！项目文件已开始下载');
+      Message.success('转换成功！项目文件已开始下载');
     } catch (error) {
       console.error('转换失败:', error);
-      message.error(`转换失败：${error.message || '请重试'}`);
+      Message.error(`转换失败：${error.message || '请重试'}`);
     } finally {
       setActionLoading(false); // 重置加载状态
     }
@@ -607,7 +611,7 @@ function Workflow() {
                 <Flex align="center" gap={8}>
                   <Typography.Text
                     ellipsis={{
-                      tooltip: renderTooltip(state.appDetail?.name || '', {
+                      tooltip:(state.appDetail?.name || '', {
                         getPopupContainer: () => document.body,
                       }),
                     }}

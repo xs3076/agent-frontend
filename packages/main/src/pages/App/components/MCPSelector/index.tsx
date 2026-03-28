@@ -9,18 +9,18 @@ import {
   MCP_MAX_LIMIT,
   McpStatus,
 } from '@/types/mcp';
+import IconFont from '@/components/ui/IconFont';
 import {
   Button,
   Drawer,
   Empty,
-  IconFont,
   Input,
-  message,
+  Message,
   Modal,
   Pagination,
-} from '@spark-ai/design';
+  Spin,
+} from '@arco-design/web-react';
 import { useSetState } from 'ahooks';
-import { Flex, Spin } from 'antd';
 import { debounce } from 'lodash-es';
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -62,16 +62,16 @@ const MCPServerSelector = (props: IMCPServerSelectorProps) => {
     fetchList();
   }, [filterParams]);
 
-  const onInputChange = debounce((e) => {
+  const onInputChange = debounce((value: string) => {
     setFilterParams({
       current: 1,
-      name: e.target.value,
+      name: value,
     });
   }, 500);
 
   return (
     <>
-      <Flex justify="space-between" className="mb-[16px]">
+      <div className="flex justify-between mb-[16px]">
         <Input
           onChange={onInputChange}
           prefix={<IconFont type="spark-search-line" />}
@@ -83,11 +83,11 @@ const MCPServerSelector = (props: IMCPServerSelectorProps) => {
           style={{ width: 220 }}
         ></Input>
         <CreateMcpBtn isOpenNew buttonProps={{ type: 'default' }} />
-      </Flex>
+      </div>
       {loading ? (
         <Spin className="w-full h-full"></Spin>
       ) : (
-        <Flex vertical gap={16}>
+        <div className="flex flex-col gap-[16px]">
           {list.length ? (
             <>
               {list.map((item) => (
@@ -100,7 +100,7 @@ const MCPServerSelector = (props: IMCPServerSelectorProps) => {
                       props.selectedServers &&
                       props.selectedServers.length >= MCP_MAX_LIMIT
                     ) {
-                      message.warning(
+                      Message.warning(
                         $i18n.get({
                           id: 'main.pages.App.components.MCPSelector.index.reachedMaxLimit',
                           dm: '已达到最大数量限制',
@@ -141,7 +141,7 @@ const MCPServerSelector = (props: IMCPServerSelectorProps) => {
               />
             </>
           ) : (
-            <Flex className="h-full" align="center" justify="center">
+            <div className="flex h-full items-center justify-center">
               <Empty
                 title={
                   filterParams.name?.length
@@ -165,10 +165,10 @@ const MCPServerSelector = (props: IMCPServerSelectorProps) => {
                     />
                   )
                 }
-              ></Empty>
-            </Flex>
+              />
+            </div>
           )}
-        </Flex>
+        </div>
       )}
     </>
   );
@@ -189,7 +189,7 @@ export const MCPServerSelectDrawer = (props: IMCPSelectorDrawerProps) => {
         id: 'main.pages.App.components.MCPSelector.index.selectMcpService',
         dm: '选择MCP服务',
       })}
-      open
+      visible
       width={640}
       onClose={props.onClose}
       footer={
@@ -241,7 +241,7 @@ export const MCPServerSelectDrawer = (props: IMCPSelectorDrawerProps) => {
               onClick={() => {
                 props.onOk(cacheSelcted);
                 props.onClose();
-                message.success(
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.components.MCPSelector.index.addSuccess',
                     dm: '添加成功！',
@@ -280,12 +280,12 @@ export const MCPToolSelectModal = (props: IMCPToolSelectModalProps) => {
   const [server, setServer] = useState<IMcpServer | undefined>(undefined);
   return (
     <Modal
-      width={740}
+      style={{ width: 740 }}
       title={$i18n.get({
         id: 'main.pages.App.components.MCPSelector.index.11',
         dm: '选择MCP工具',
       })}
-      open
+      visible
       onCancel={props.onClose}
       bodyProps={{ style: { padding: 0 } }}
       footer={
@@ -300,7 +300,7 @@ export const MCPToolSelectModal = (props: IMCPToolSelectModalProps) => {
             type="primary"
             onClick={() => {
               if (!value || !server) {
-                message.warning(
+                Message.warning(
                   $i18n.get({
                     id: 'main.pages.App.components.MCPSelector.index.selectMcpTool',
                     dm: '请选择MCP工具',

@@ -1,15 +1,8 @@
 import $i18n from '@/i18n';
 import { baseURL } from '@/request/request';
 import { IAppType } from '@/services/appComponent';
-import {
-  Button,
-  CodeBlock,
-  CollapsePanel,
-  Drawer,
-  IconFont,
-  message,
-} from '@spark-ai/design';
-import copy from 'copy-to-clipboard';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Collapse, Drawer, Message } from '@arco-design/web-react';
 import { useMemo, useState } from 'react';
 
 export default function (props: { appId: string; type: IAppType }) {
@@ -71,32 +64,47 @@ export default function (props: { appId: string; type: IAppType }) {
         {title}
       </Button>
       <Drawer
-        open={open}
+        visible={open}
         onClose={() => setOpen(false)}
         width={640}
         title={title}
       >
-        <CollapsePanel
-          title="curl"
-          expandOnPanelClick={false}
-          extra={
-            <IconFont
-              type="spark-copy-line"
-              size="small"
-              onClick={() => {
-                copy(codeText);
-                message.success(
-                  $i18n.get({
-                    id: 'main.pages.App.index.copySuccess',
-                    dm: '复制成功',
-                  }),
-                );
+        <Collapse defaultActiveKey={['curl']}>
+          <Collapse.Item
+            header="curl"
+            name="curl"
+            extra={
+              <IconFont
+                type="spark-copy-line"
+                className="cursor-pointer"
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  navigator.clipboard.writeText(codeText);
+                  Message.success(
+                    $i18n.get({
+                      id: 'main.pages.App.index.copySuccess',
+                      dm: '复制成功',
+                    }),
+                  );
+                }}
+              />
+            }
+          >
+            <pre
+              style={{
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-all',
+                fontSize: 13,
+                padding: 12,
+                background: 'var(--ag-ant-color-fill-tertiary)',
+                borderRadius: 6,
+                overflow: 'auto',
               }}
-            />
-          }
-        >
-          <CodeBlock language={[]} value={codeText} readOnly />
-        </CollapsePanel>
+            >
+              <code>{codeText}</code>
+            </pre>
+          </Collapse.Item>
+        </Collapse>
       </Drawer>
     </>
   );

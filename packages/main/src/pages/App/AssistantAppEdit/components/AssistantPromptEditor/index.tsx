@@ -1,7 +1,8 @@
+import Flex from '@/components/ui/Flex';
 import $i18n from '@/i18n';
 import { IAssistantAppDetailWithInfos } from '@/types/appManage';
 import { useMount, useUnmount } from 'ahooks';
-import { Flex } from 'antd';
+
 import cls from 'classnames';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AssistantPromptEditor } from './editor';

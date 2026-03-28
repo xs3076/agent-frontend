@@ -1,4 +1,4 @@
-import { Flex, Spin, Typography } from 'antd';
+
 
 import $i18n from '@/i18n';
 import {
@@ -6,9 +6,11 @@ import {
   Form,
   Input,
   InputNumber,
-  renderTooltip,
   Select,
-} from '@spark-ai/design';
+  Spin,
+  Typography,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { BizVarItem } from '.';
 import styles from './form.module.less';
 
@@ -70,7 +72,7 @@ export function ConfigFormItem(props: { item: BizVarItem }) {
             label={
               <Typography.Text
                 ellipsis={{
-                  tooltip: renderTooltip(paramItem.field),
+                  tooltip:(paramItem.field),
                 }}
                 className={styles.labelMulti}
               >
@@ -104,7 +106,7 @@ export default function AgentVarConfigForm(props: VarConfigFormProps) {
     onBizVarsFormValuesChange,
   } = props;
 
-  if (loading) return <Spin spinning className={styles.loading} />;
+  if (loading) return <Spin loading className={styles.loading} />;
   if (!bizVarList.length && !userPromptParamsList.length)
     return (
       <Flex justify="center" className="mt-[20px]">
@@ -143,7 +145,7 @@ export default function AgentVarConfigForm(props: VarConfigFormProps) {
                         <Typography.Text
                           className="text-[13px] leading-[20px] font-medium"
                           ellipsis={{
-                            tooltip: renderTooltip(item.name),
+                            tooltip:(item.name),
                           }}
                         >
                           {item.name}
@@ -152,7 +154,7 @@ export default function AgentVarConfigForm(props: VarConfigFormProps) {
                           className="text-[12px] leading-[20px]"
                           style={{ color: 'var(--ag-ant-color-text-tertiary)' }}
                           ellipsis={{
-                            tooltip: renderTooltip(item.description),
+                            tooltip:(item.description),
                           }}
                         >
                           {item.description}

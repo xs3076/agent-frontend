@@ -21,7 +21,8 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Button, IconFont, Input, message } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Input, Message, Tooltip } from '@arco-design/web-react';
 import { useRef } from 'react';
 import commonStyles from '../common.module.less';
 import styles from './index.module.less';
@@ -48,8 +49,8 @@ function SortableItem({ id, content, onDelete, onChange }: SortableItemProps) {
     transition,
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(id, e.target.value);
+  const handleInputChange = (value: string) => {
+    onChange(id, value);
   };
 
   return (
@@ -113,7 +114,7 @@ const PresetQuestions = ({
 
   function handleAddQuestion() {
     if (questions.length >= MAX_PRESET_QUESTIONS) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.components.ExperienceConfigDrawer.components.presetQuestions.index.maxFiveQuestions',
           dm: '最多只能添加5个预设问题',
@@ -187,11 +188,8 @@ const PresetQuestions = ({
           </div>
         </div>
       )}
-      <Button
-        disabled={questions.length >= MAX_PRESET_QUESTIONS}
-        onClick={handleAddQuestion}
-        iconType="spark-plus-line"
-        tooltipContent={
+      <Tooltip
+        content={
           questions.length >= MAX_PRESET_QUESTIONS
             ? $i18n.get(
                 {
@@ -200,14 +198,20 @@ const PresetQuestions = ({
                 },
                 { var1: MAX_PRESET_QUESTIONS },
               )
-            : ''
+            : undefined
         }
       >
+        <Button
+          disabled={questions.length >= MAX_PRESET_QUESTIONS}
+          onClick={handleAddQuestion}
+          icon={<IconFont type="spark-plus-line" />}
+        >
         {$i18n.get({
           id: 'main.components.ExperienceConfigDrawer.components.presetQuestions.index.addQuestion',
           dm: '添加问题',
         })}
       </Button>
+      </Tooltip>
     </div>
   );
 };

@@ -6,7 +6,14 @@ import {
   startPartGraphTask,
 } from '@/services/workflow';
 import { IBizEdge } from '@/types/workflow';
-import { Button, Drawer, Empty, IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Drawer,
+  Empty,
+  Typography,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   buildOutputParamsTree,
   extractVariables,
@@ -24,7 +31,7 @@ import {
   useStore,
 } from '@spark-ai/flow';
 import { useMount, useSetState, useUnmount } from 'ahooks';
-import { Flex, Typography } from 'antd';
+
 import classNames from 'classnames';
 import { memo, useMemo, useRef } from 'react';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';
@@ -385,7 +392,7 @@ const SingleNodeDrawer = (props: ISingleNodeDrawer) => {
   return (
     <Drawer
       onClose={props.onClose}
-      open
+      visible
       className={styles['drawer']}
       height="90%"
       placement="bottom"

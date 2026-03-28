@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
-import { IconFont } from '@spark-ai/design';
-import { Typography } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+import { Typography } from '@arco-design/web-react';
+
 import classNames from 'classnames';
 import { memo } from 'react';
 import { IParameterExtractorNodeParam } from '../../types';

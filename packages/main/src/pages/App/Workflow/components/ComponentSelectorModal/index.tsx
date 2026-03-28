@@ -3,18 +3,21 @@ import $i18n from '@/i18n';
 import { APP_ICON_IMAGE } from '@/pages/Component/AppComponent/components/AppSelector';
 import { getAppComponentList, IAppType } from '@/services/appComponent';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { Empty, IconFont, Modal } from '@spark-ai/design';
-import { useMount, useSetState } from 'ahooks';
+import IconFont from '@/components/ui/IconFont';
 import {
   Button,
-  Flex,
+  Empty,
   Input,
-  message,
+  Modal,
   Pagination,
   Radio,
   Spin,
   Typography,
-} from 'antd';
+  Message,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+import { useMount, useSetState } from 'ahooks';
+
 import classNames from 'classnames';
 import { useMemo, useRef } from 'react';
 import styles from './index.module.less';
@@ -89,7 +92,7 @@ export default function ComponentSelectorModal(
 
   const handleOk = () => {
     if (!state.selectedComponent) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.App.Workflow.components.ComponentSelectorModal.index.selectComponent',
           dm: '请选择组件',
@@ -123,7 +126,7 @@ export default function ComponentSelectorModal(
   return (
     <Modal
       onOk={handleOk}
-      open
+      visible
       width={900}
       onCancel={props.onClose}
       title={$i18n.get({
@@ -148,7 +151,7 @@ export default function ComponentSelectorModal(
           <Input.Search
             className={styles.search}
             value={state.name}
-            onChange={(e) => setState({ name: e.target.value })}
+            onChange={(value) => setState({ name: value })}
             onSearch={handleSearch}
             placeholder={$i18n.get({
               id: 'main.pages.App.Workflow.components.ComponentSelectorModal.index.searchComponentName',
@@ -174,7 +177,7 @@ export default function ComponentSelectorModal(
         </Flex>
         <div className={styles['list-wrap']}>
           {state.loading ? (
-            <Spin className="loading-center" spinning />
+            <Spin className="loading-center" loading />
           ) : !state.list.length ? (
             <div className={styles['empty-wrap']}>
               <Empty

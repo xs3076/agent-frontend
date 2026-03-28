@@ -1,6 +1,6 @@
 import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
-import { Input } from '@spark-ai/design';
+import { Input } from '@arco-design/web-react';
 import commonStyles from '../common.module.less';
 import styles from './index.module.less';
 interface GuideTextProps {
@@ -9,8 +9,7 @@ interface GuideTextProps {
 }
 
 const GuideText = ({ prologue, onChange }: GuideTextProps) => {
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
+  const handleTextChange = (value: string) => {
     if (value.length <= 2000) {
       onChange(value);
     }

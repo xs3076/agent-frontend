@@ -2,7 +2,10 @@ import $i18n from '@/i18n';
 import { KnowledgeSelectorModal } from '@/pages/App/components/KnowledgeSelector';
 import { getKnowledgeListByCodes } from '@/services/knowledge';
 import { IKnowledgeListItem } from '@/types/knowledge';
-import { Button, IconFont, SliderSelector } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import SliderInput from '@/components/SliderInput';
+import { Button, Spin, Typography } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   filterVarItemsByType,
   IVarItem,
@@ -15,7 +18,7 @@ import {
   VariableSelector,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { Flex, Spin, Typography } from 'antd';
+
 import classNames from 'classnames';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
@@ -253,7 +256,7 @@ export default memo(function RetrievalPanel({
                     })}
                   />
                 </div>
-                <SliderSelector
+                <SliderInput
                   disabled={nodesReadOnly}
                   value={data.node_param.top_k}
                   onChange={(value) => {
@@ -284,7 +287,7 @@ export default memo(function RetrievalPanel({
                     })}
                   />
                 </div>
-                <SliderSelector
+                <SliderInput
                   disabled={nodesReadOnly}
                   value={data.node_param.similarity_threshold}
                   onChange={(value) => {

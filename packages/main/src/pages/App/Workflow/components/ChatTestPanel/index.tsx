@@ -13,7 +13,10 @@ import {
   TMessage,
   uuid,
 } from '@spark-ai/chat';
-import { copy, IconButton, IconFont } from '@spark-ai/design';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
+import { Tooltip, Message } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   IWorkFlowTaskProcess,
   useFlowDebugInteraction,
@@ -21,7 +24,7 @@ import {
   useStore,
 } from '@spark-ai/flow';
 import { useMount, useUnmount } from 'ahooks';
-import { Flex, message, Tooltip } from 'antd';
+
 import classNames from 'classnames';
 import { compact } from 'lodash-es';
 import { memo, useRef, useState } from 'react';
@@ -138,8 +141,8 @@ export default memo(function ChatTestPanel() {
             {
               icon: (
                 <Tooltip
-                  placement="top"
-                  title={$i18n.get({
+                  position="top"
+                  content={$i18n.get({
                     id: 'main.pages.App.Workflow.components.ChatTestPanel.index.clickCopyRequestId',
                     dm: '点击复制Request ID',
                   })}
@@ -151,8 +154,8 @@ export default memo(function ChatTestPanel() {
 
               label: '',
               onClick: () => {
-                copy(msg.task_id);
-                message.success(
+                navigator.clipboard.writeText(msg.task_id);
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.Workflow.components.ChatTestPanel.index.copySuccess',
                     dm: '复制成功',
@@ -163,8 +166,8 @@ export default memo(function ChatTestPanel() {
             isLatestMsg && {
               icon: (
                 <Tooltip
-                  placement="top"
-                  title={$i18n.get({
+                  position="top"
+                  content={$i18n.get({
                     id: 'main.pages.App.Workflow.components.ChatTestPanel.index.regenerate',
                     dm: '重新生成',
                   })}
@@ -382,8 +385,8 @@ export default memo(function ChatTestPanel() {
       <Flex className="h-full" vertical>
         <Flex gap={8} className={styles['header']}>
           <Tooltip
-            placement="bottom"
-            title={$i18n.get({
+            position="bottom"
+            content={$i18n.get({
               id: 'main.pages.App.Workflow.components.ChatTestPanel.index.paramConfig',
               dm: '入参参数配置',
             })}
@@ -395,7 +398,7 @@ export default memo(function ChatTestPanel() {
             ></IconButton>
           </Tooltip>
           <Tooltip
-            title={
+            content={
               loading
                 ? $i18n.get({
                     id: 'main.pages.App.Workflow.components.ChatTestPanel.index.dialogGenerating',

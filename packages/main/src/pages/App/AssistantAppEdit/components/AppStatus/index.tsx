@@ -1,7 +1,9 @@
 import $i18n from '@/i18n';
 import { AppStatus, IAppStatus } from '@/types/appManage';
-import { EllipsisTip, Tag } from '@spark-ai/design';
-import { Flex } from 'antd';
+import EllipsisTip from '@/components/ui/EllipsisTip';
+import { Tag } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+
 import styles from './index.module.less';
 
 enum AppStatusColor {

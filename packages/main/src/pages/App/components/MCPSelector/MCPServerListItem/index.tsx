@@ -1,7 +1,9 @@
 import $i18n from '@/i18n';
 import { IMcpServer, IMCPTool, McpStatus } from '@/types/mcp';
-import { IconFont, renderTooltip } from '@spark-ai/design';
-import { Checkbox, Flex, Radio, Typography } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+import { Checkbox, Radio, Typography } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import styles from './index.module.less';
@@ -64,8 +66,8 @@ export default (props: IProps) => {
           {selectMode === 'server' && (
             <Checkbox
               checked={serverSelected}
-              onChange={(e) => {
-                if (e.target.checked) {
+              onChange={(checked) => {
+                if (checked) {
                   props.onSelectServer?.(item);
                 } else {
                   props.onRemoveServer?.(item.server_code);
@@ -125,7 +127,6 @@ export default (props: IProps) => {
                   {item.status === McpStatus.DISABLED ? null : (
                     <IconFont
                       type={'spark-down-line'}
-                      isCursorPointer
                       className={`${styles['fold-icon']} ${
                         folded ? '' : styles.rotated
                       }`}
@@ -137,7 +138,7 @@ export default (props: IProps) => {
               <Typography.Paragraph
                 className={styles.desc}
                 style={{ marginBottom: 0 }}
-                ellipsis={{ rows: 1, tooltip: renderTooltip(item.description) }}
+                ellipsis={{ rows: 1, tooltip:(item.description) }}
               >
                 {item.description}
               </Typography.Paragraph>
@@ -211,7 +212,7 @@ export default (props: IProps) => {
                               style={{ marginBottom: 0, marginTop: 0 }}
                               ellipsis={{
                                 rows: 1,
-                                tooltip: renderTooltip(tool.name),
+                                tooltip:(tool.name),
                               }}
                             >
                               {tool.name}
@@ -223,7 +224,7 @@ export default (props: IProps) => {
                           style={{ marginBottom: 0 }}
                           ellipsis={{
                             rows: 1,
-                            tooltip: renderTooltip(tool.description),
+                            tooltip:(tool.description),
                           }}
                         >
                           {tool.description}
@@ -265,7 +266,7 @@ export default (props: IProps) => {
                             style={{ marginBottom: 0, marginTop: 0 }}
                             ellipsis={{
                               rows: 1,
-                              tooltip: renderTooltip(tool.name),
+                              tooltip:(tool.name),
                             }}
                           >
                             {tool.name}
@@ -277,7 +278,7 @@ export default (props: IProps) => {
                         style={{ marginBottom: 0, marginTop: 0 }}
                         ellipsis={{
                           rows: 1,
-                          tooltip: renderTooltip(tool.description),
+                          tooltip:(tool.description),
                         }}
                       >
                         {tool.description}

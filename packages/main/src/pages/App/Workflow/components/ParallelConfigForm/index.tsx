@@ -1,6 +1,7 @@
+import Flex from '@/components/ui/Flex';
 import $i18n from '@/i18n';
-import { SliderSelector } from '@spark-ai/design';
-import { Flex } from 'antd';
+import SliderInput from '@/components/SliderInput';
+
 import { memo } from 'react';
 import { IParallelNodeParam } from '../../types';
 import InfoIcon from '../InfoIcon';
@@ -32,7 +33,7 @@ export default memo(function ParallelConfigForm({
             })}
           />
         </Flex>
-        <SliderSelector
+        <SliderInput
           min={1}
           max={200}
           step={1}
@@ -57,7 +58,7 @@ export default memo(function ParallelConfigForm({
             })}
           />
         </Flex>
-        <SliderSelector
+        <SliderInput
           min={1}
           max={10}
           step={1}

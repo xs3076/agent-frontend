@@ -1,7 +1,8 @@
+import Flex from '@/components/ui/Flex';
 import { TopExpandBtn } from '@/components/ExpandBtn';
 import { Markdown } from '@spark-ai/chat';
-import { CodeBlock, IconFont } from '@spark-ai/design';
-import { Flex } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+
 import classNames from 'classnames';
 import { memo, useMemo, useState } from 'react';
 import styles from './index.module.less';
@@ -28,7 +29,11 @@ export default memo(function JSONViewer(props: IJSONViewerProps) {
 
   const memoContent = useMemo(() => {
     if (type === 'json') {
-      return <CodeBlock language="json" readOnly value={jsonValue} />;
+      return (
+        <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: 13, margin: 0 }}>
+          <code>{jsonValue}</code>
+        </pre>
+      );
     }
 
     return (

@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Select } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Select } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import type { INodeDataOutputParamItem } from '@spark-ai/flow';
 import {
   CODE_DEMO_MAP,
@@ -12,7 +14,7 @@ import {
   useNodesReadOnly,
   useReactFlowStore,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { memo, useCallback, useMemo, useState } from 'react';
 import ErrorCatchForm from '../../components/ErrorCatchForm';
 import InfoIcon from '../../components/InfoIcon';

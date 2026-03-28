@@ -3,7 +3,8 @@ import $i18n from '@/i18n';
 import { APP_ICON_IMAGE } from '@/pages/Component/AppComponent/components/AppSelector';
 import { IAppType } from '@/services/appComponent';
 import { IAppCard } from '@/types/appManage';
-import { Button, Dropdown, IconButton, Tag } from '@spark-ai/design';
+import IconButton from '@/components/ui/IconButton';
+import { Button, Dropdown, Menu, Tag } from '@arco-design/web-react';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import styles from './index.module.less';
@@ -76,35 +77,28 @@ const AppCard: React.FC<AppCardProps> = ({
           </Button>
           <Dropdown
             getPopupContainer={(ele) => ele}
-            menu={{
-              onClick: (e) => {
-                onClickAction(e.key);
-              },
-              items: [
-                {
-                  label: $i18n.get({
+            droplist={
+              <Menu onClickMenuItem={(key) => onClickAction(key)}>
+                <Menu.Item key="editName">
+                  {$i18n.get({
                     id: 'main.pages.App.components.Card.index.modifyAppName',
                     dm: '修改应用名',
-                  }),
-                  key: 'editName',
-                },
-                {
-                  label: $i18n.get({
+                  })}
+                </Menu.Item>
+                <Menu.Item key="copy">
+                  {$i18n.get({
                     id: 'main.pages.App.components.Card.index.copyApp',
                     dm: '复制应用',
-                  }),
-                  key: 'copy',
-                },
-                {
-                  label: $i18n.get({
+                  })}
+                </Menu.Item>
+                <Menu.Item key="delete" className="text-red-500">
+                  {$i18n.get({
                     id: 'main.pages.App.components.Card.index.delete',
                     dm: '删除',
-                  }),
-                  danger: true,
-                  key: 'delete',
-                },
-              ],
-            }}
+                  })}
+                </Menu.Item>
+              </Menu>
+            }
           >
             <IconButton shape="default" icon="spark-more-line" />
           </Dropdown>

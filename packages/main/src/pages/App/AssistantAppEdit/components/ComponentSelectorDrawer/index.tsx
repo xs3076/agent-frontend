@@ -2,17 +2,21 @@ import $i18n from '@/i18n';
 import { APP_ICON_IMAGE } from '@/pages/Component/AppComponent/components/AppSelector';
 import { getAppComponentList, IAppType } from '@/services/appComponent';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { Button, Drawer, Empty, IconFont } from '@spark-ai/design';
-import { useMount, useSetState } from 'ahooks';
+import IconFont from '@/components/ui/IconFont';
 import {
+  Button,
   Checkbox,
-  Flex,
+  Drawer,
+  Empty,
   Input,
-  message,
   Pagination,
   Spin,
   Typography,
-} from 'antd';
+  Message,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+import { useMount, useSetState } from 'ahooks';
+
 import classNames from 'classnames';
 import { useMemo, useRef, useState } from 'react';
 import styles from './index.module.less';
@@ -157,7 +161,7 @@ export default function ComponentSelectorDrawer(props: IProps) {
   const changeItemSelected = (val: boolean, item: IAppComponentListItem) => {
     if (val) {
       if (selectedComps.length >= maxLength) {
-        message.warning(
+        Message.warning(
           $i18n.get(
             {
               id: 'main.components.ComponentSelectorDrawer.index.agentLimit',
@@ -193,7 +197,7 @@ export default function ComponentSelectorDrawer(props: IProps) {
       width={640}
       onClose={props.onClose}
       footer={renderFooter}
-      open
+      visible
       title={renderTitle}
     >
       <Flex className="h-full" vertical gap={16}>
@@ -205,7 +209,7 @@ export default function ComponentSelectorDrawer(props: IProps) {
               dm: '搜索组件名称',
             })}
             value={state.name}
-            onChange={(e) => setState({ name: e.target.value })}
+            onChange={(value) => setState({ name: value })}
             onSearch={handleSearch}
           />
 
@@ -233,7 +237,7 @@ export default function ComponentSelectorDrawer(props: IProps) {
         </Flex>
         <div className="flex-1 overflow-y-auto">
           {state.loading ? (
-            <Spin className="loading-center" spinning />
+            <Spin className="loading-center" loading />
           ) : !state.list.length ? (
             <div className="loading-center">
               <Empty

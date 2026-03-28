@@ -2,9 +2,11 @@ import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
 import { IAppType } from '@/services/appComponent';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { Button, HelpIcon, IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Divider, Tooltip } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { Divider, Flex } from 'antd';
+
 import cls from 'classnames';
 import { useContext, useEffect } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
@@ -54,12 +56,10 @@ export default function AgentSelectorComp() {
                 dm: '智能体',
               })}
             </span>
-            <HelpIcon
-              content={$i18n.get({
+            <Tooltip content={$i18n.get({
                 id: 'main.pages.App.AssistantAppEdit.components.AgentCompSelector.index.configuredAgentApplicationCanBePublishedAsAgentComponent',
                 dm: '配置好的智能体应用可发布为智能体组件，从而实现特定场景下的智能处理。',
-              })}
-            ></HelpIcon>
+              })}><IconFont type="spark-question-line" className="cursor-pointer" /></Tooltip>
           </Flex>
           <span
             className="text-[12px] leading-[20px]"
@@ -72,7 +72,7 @@ export default function AgentSelectorComp() {
           <Button
             style={{ padding: 0 }}
             onClick={() => setState({ selectVisible: true })}
-            iconType="spark-plus-line"
+            icon={<IconFont type="spark-plus-line" />}
             type="text"
             size="small"
           >
@@ -86,7 +86,6 @@ export default function AgentSelectorComp() {
             onClick={() => setState({ expand: !state.expand })}
             className={cls(styles.expandBtn, !state.expand && styles.hidden)}
             type="spark-up-line"
-            isCursorPointer
           />
         </span>
       </Flex>
@@ -97,12 +96,11 @@ export default function AgentSelectorComp() {
               item && (
                 <SelectedConfigItem
                   key={item.code}
-                  iconType="spark-dataAugmentation-line"
+                  icon={<IconFont type="spark-dataAugmentation-line" />}
                   name={item.name!}
                   rightArea={
                     <IconFont
                       type="spark-delete-line"
-                      isCursorPointer
                       onClick={() => {
                         onRemoveAgent(item.code!);
                       }}

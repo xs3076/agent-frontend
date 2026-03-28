@@ -2,9 +2,16 @@ import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
 import { KnowledgeSelectorDrawer } from '@/pages/App/components/KnowledgeSelector';
 import { IKnowledgeListItem } from '@/types/knowledge';
-import { Button, IconFont, Switch, Tag } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Divider,
+  Switch,
+  Tag,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
-import { Divider, Flex } from 'antd';
+
 import cls from 'classnames';
 import { useContext, useEffect } from 'react';
 import { AssistantAppContext } from '../../AssistantAppContext';
@@ -25,13 +32,12 @@ export function SelectedKnowledgeBaseItem({
 }) {
   return (
     <SelectedConfigItem
-      iconType="spark-readingPreview-line"
+      icon={<IconFont type="spark-readingPreview-line" />}
       name={item.name}
       rightArea={
         <Flex gap={12}>
           <IconFont
             type="spark-delete-line"
-            isCursorPointer
             onClick={() => {
               handleRemoveKnowledge(item);
             }}
@@ -116,7 +122,7 @@ export default function KnowledgeBaseSelectorComp() {
           <Button
             style={{ padding: 0 }}
             onClick={() => setState({ selectVisible: true })}
-            iconType="spark-plus-line"
+            icon={<IconFont type="spark-plus-line" />}
             type="text"
             size="small"
             disabled={!file_search?.enable_search}
@@ -134,7 +140,6 @@ export default function KnowledgeBaseSelectorComp() {
               !state.expand && styles.hidden,
             )}
             type="spark-up-line"
-            isCursorPointer
           />
         </span>
       </Flex>

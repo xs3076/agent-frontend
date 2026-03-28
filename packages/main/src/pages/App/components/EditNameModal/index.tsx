@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { updateApp } from '@/services/appManage';
-import { Form, Input, Modal, message } from '@spark-ai/design';
+import { Form, Input, Message, Modal } from '@arco-design/web-react';
 
 interface IProps {
   onClose: () => void;
@@ -14,13 +14,13 @@ interface IProps {
 export const EditNameModal = (props: IProps) => {
   const [form] = Form.useForm();
   const handleOk = () => {
-    form.validateFields().then((values) => {
+    form.validate().then((values) => {
       updateApp({
         app_id: props.app_id,
         name: values.name,
         description: values.description,
       }).then(() => {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.App.components.EditNameModal.index.updateSuccess',
             dm: '更新成功',
@@ -32,7 +32,7 @@ export const EditNameModal = (props: IProps) => {
   };
   return (
     <Modal
-      open
+      visible
       onCancel={props.onClose}
       onOk={handleOk}
       title={$i18n.get({
@@ -63,18 +63,11 @@ export const EditNameModal = (props: IProps) => {
             id: 'main.pages.App.components.EditNameModal.index.appName',
             dm: '应用名称',
           })}
-          name="name"
+          field="name"
         >
           <Input
             style={{ height: 36, marginBottom: 12 }}
-            maxLength={props?.maxLength || 50}
-            showCount={{
-              formatter: ({ count, maxLength }) => (
-                <>
-                  {count}/{maxLength}
-                </>
-              ),
-            }}
+            maxLength={{ length: props?.maxLength || 50, errorOnly: false }}
             placeholder={$i18n.get({
               id: 'main.pages.App.components.EditNameModal.index.enterAppName',
               dm: '请输入应用名称',
@@ -86,7 +79,7 @@ export const EditNameModal = (props: IProps) => {
             id: 'main.pages.App.components.EditNameModal.index.appDescription',
             dm: '应用描述',
           })}
-          name="description"
+          field="description"
         >
           <Input.TextArea
             style={{ height: 150 }}

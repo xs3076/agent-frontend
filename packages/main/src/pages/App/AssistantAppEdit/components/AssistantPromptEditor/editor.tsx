@@ -1,8 +1,18 @@
 import $i18n from '@/i18n';
-import { Dropdown, IconFont, SlateEditor, Tag } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  ConfigProvider,
+  Dropdown,
+  Menu,
+  Message,
+  Tag,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
+// TODO: migrate remaining spark-ai/design imports
+import { SlateEditor } from '@spark-ai/design';
 import { EditorRefProps } from '@spark-ai/design/dist/components/commonComponents/SlateEditor';
 import { useMount, useSetState, useUnmount } from 'ahooks';
-import { ConfigProvider, Flex, message } from 'antd';
+
 import { default as classNames, default as cls } from 'classnames';
 import { debounce } from 'lodash-es';
 import {
@@ -25,7 +35,8 @@ interface IProps {
   bindId: 'main' | 'optimize';
 }
 export const AssistantPromptEditor = forwardRef((props: IProps, ref: any) => {
-  const { componentDisabled } = ConfigProvider.useConfig();
+  // TODO: Arco doesn't have ConfigProvider.useConfig() - using false as default
+  const componentDisabled = false;
   const { variables, bindId } = props;
   const [state, setState] = useSetState({
     expand: false,
@@ -42,7 +53,7 @@ export const AssistantPromptEditor = forwardRef((props: IProps, ref: any) => {
   const addVarTag = useCallback((code: string) => {
     if (!editorRef.current) return;
     if (`\$\{${code}\}`.length > props.maxTokenContext) {
-      message.warning(
+      Message.warning(
         $i18n.get(
           {
             id: 'main.pages.App.AssistantAppEdit.components.AssistantPromptEditor.editor.maxInputCharacters',

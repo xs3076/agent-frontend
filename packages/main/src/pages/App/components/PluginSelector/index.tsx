@@ -1,9 +1,18 @@
 import $i18n from '@/i18n';
 import { listPlugin } from '@/services/plugin';
 import { ListPluginParams, Plugin, PluginTool } from '@/types/plugin';
-import { Button, Drawer, Input, Modal } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Drawer,
+  Empty,
+  Input,
+  Message,
+  Modal,
+  Pagination,
+  Spin,
+} from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Empty, Flex, message, Pagination, Spin } from 'antd';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { TOOL_MAX_LIMIT } from '../../AssistantAppEdit/components/PluginSelectorComp';
@@ -50,7 +59,7 @@ export default function ToolSelector(props: IProps) {
 
   const handleAddTools = (tools: PluginTool[]) => {
     if (value.length >= maxLength) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.App.components.PluginSelector.index.reachMaxLimit',
           dm: '已达到最大数量限制',
@@ -67,14 +76,13 @@ export default function ToolSelector(props: IProps) {
   };
 
   return (
-    <Flex className={classNames('p-[8px]', props.className)} vertical>
+    <div className={classNames('flex flex-col p-[8px]', props.className)}>
       {
-        <Flex justify="space-between" align="center">
+        <div className="flex justify-between items-center">
           <Input.Search
             style={{ width: 280 }}
-            width={280}
             value={state.name}
-            onChange={(e) => setState({ name: e.target.value })}
+            onChange={(value) => setState({ name: value })}
             placeholder={$i18n.get({
               id: 'main.pages.App.components.PluginSelector.index.searchPluginName',
               dm: '搜索插件名称',
@@ -88,14 +96,14 @@ export default function ToolSelector(props: IProps) {
           <Button
             style={{ flexShrink: 0 }}
             onClick={() => window.open('/component/plugin/create')}
-            iconType="spark-plus-line"
+            icon={<IconFont type="spark-plus-line" />}
           >
             {$i18n.get({
               id: 'main.pages.App.components.PluginSelector.index.createPlugin',
               dm: '创建插件',
             })}
           </Button>
-        </Flex>
+        </div>
       }
       {
         <span className={styles.topDesc}>
@@ -117,9 +125,9 @@ export default function ToolSelector(props: IProps) {
           })}
         </span>
       }
-      <Flex vertical gap={12} className={classNames(styles.list)}>
+      <div className={classNames('flex flex-col gap-[12px]', styles.list)}>
         {state.loading ? (
-          <Spin spinning />
+          <Spin loading />
         ) : !state.list.length ? (
           <Empty
             description={$i18n.get({
@@ -139,7 +147,7 @@ export default function ToolSelector(props: IProps) {
             ></PluginListItem>
           ))
         )}
-      </Flex>
+      </div>
       <Pagination
         hideOnSinglePage
         style={{ justifyContent: 'flex-end', paddingTop: 12 }}
@@ -151,7 +159,7 @@ export default function ToolSelector(props: IProps) {
           fetchList({ current, size });
         }}
       />
-    </Flex>
+    </div>
   );
 }
 
@@ -168,9 +176,9 @@ export function ToolSelectorModal(props: {
 
   return (
     <Modal
-      width={880}
+      style={{ width: 880 }}
       onCancel={props.onClose}
-      open
+      visible
       title={$i18n.get({
         id: 'main.pages.App.components.PluginSelector.index.selectPlugin',
         dm: '选择插件',
@@ -207,19 +215,19 @@ export function ToolSelectorDrawer(props: {
   );
   const memoTitle = useMemo(() => {
     return (
-      <Flex align="center" className={styles.drawerTitle} gap={4}>
+      <div className={`flex items-center gap-[4px] ${styles.drawerTitle}`}>
         {$i18n.get({
           id: 'main.pages.App.components.PluginSelector.index.selectPlugin',
           dm: '选择插件',
         })}
-      </Flex>
+      </div>
     );
   }, [props]);
   return (
     <Drawer
       className={styles.toolSelectDrawer}
       width={640}
-      open
+      visible
       onClose={props.onClose}
       title={memoTitle}
       footer={
@@ -271,7 +279,7 @@ export function ToolSelectorDrawer(props: {
               onClick={() => {
                 props.onOk(selectedTools);
                 props.onClose();
-                message.success(
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.components.PluginSelector.index.addSuccess',
                     dm: '添加成功！',

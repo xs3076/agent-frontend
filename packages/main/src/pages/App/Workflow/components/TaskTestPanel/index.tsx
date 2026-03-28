@@ -6,7 +6,8 @@ import {
   resumeWorkFlowTask,
 } from '@/services/workflow';
 import { Markdown } from '@spark-ai/chat';
-import { Button } from '@spark-ai/design';
+import { Button, Radio, Tabs } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   IWorkFlowTaskProcess,
   useFlowDebugInteraction,
@@ -14,7 +15,7 @@ import {
   useStore,
 } from '@spark-ai/flow';
 import { useSetState, useUnmount } from 'ahooks';
-import { Flex, Segmented, Tabs } from 'antd';
+
 import classNames from 'classnames';
 import { memo, useMemo, useRef } from 'react';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';
@@ -168,7 +169,8 @@ export default memo(function TaskTestPanel() {
 
   return (
     <div className="h-full flex flex-col gap-[12px]">
-      <Segmented
+      <Radio.Group
+        type="button"
         value={state.activeTab}
         className={styles.segmented}
         onChange={(value) => setState({ activeTab: value })}
@@ -192,102 +194,99 @@ export default memo(function TaskTestPanel() {
 
       <Tabs
         className={styles.tabs}
-        activeKey={state.activeTab}
-        items={[
-          {
-            label: $i18n.get({
-              id: 'main.pages.App.Workflow.components.TaskTestPanel.index.input',
-              dm: '输入',
-            }),
-            key: 'input',
-            children: (
-              <div className="h-full flex flex-col gap-[12px] pb-[20px]">
-                <InputParamsForm showPadding />
-                <Button
-                  className={classNames(
-                    'mx-[20px] gap-[8px]',
-                    styles['test-button'],
-                  )}
-                  loading={state.loading}
-                  type="primaryLess"
-                  onClick={handleTest}
-                >
-                  {state.loading
-                    ? $i18n.get({
-                        id: 'main.pages.App.Workflow.components.TaskTestPanel.index.testing',
-                        dm: '测试中...',
-                      })
-                    : $i18n.get({
-                        id: 'main.pages.App.Workflow.components.TaskTestPanel.index.startTesting',
-                        dm: '开始测试',
-                      })}
-                </Button>
-              </div>
-            ),
-          },
-          {
-            label: $i18n.get({
-              id: 'main.pages.App.Workflow.components.TaskTestPanel.index.output',
-              dm: '输出',
-            }),
-            key: 'result',
-            children: (
-              <div
-                ref={resultContainerRef}
-                className="h-full overflow-y-auto relative px-[20px] pb-[16px] flex flex-col gap-[12px]"
-              >
-                {!state.taskInfo ? (
-                  <Welcome
-                    data={{}}
-                    title={$i18n.get({
-                      id: 'main.pages.App.Workflow.components.TaskTestPanel.index.outputResultDisplayed',
-                      dm: '输出结果在这里展示',
+        activeTab={state.activeTab}
+      >
+        <Tabs.TabPane
+          key="input"
+          title={$i18n.get({
+            id: 'main.pages.App.Workflow.components.TaskTestPanel.index.input',
+            dm: '输入',
+          })}
+        >
+          <div className="h-full flex flex-col gap-[12px] pb-[20px]">
+            <InputParamsForm showPadding />
+            <Button
+              className={classNames(
+                'mx-[20px] gap-[8px]',
+                styles['test-button'],
+              )}
+              loading={state.loading}
+              type="primary"
+              onClick={handleTest}
+            >
+              {state.loading
+                ? $i18n.get({
+                    id: 'main.pages.App.Workflow.components.TaskTestPanel.index.testing',
+                    dm: '测试中...',
+                  })
+                : $i18n.get({
+                    id: 'main.pages.App.Workflow.components.TaskTestPanel.index.startTesting',
+                    dm: '开始测试',
+                  })}
+            </Button>
+          </div>
+        </Tabs.TabPane>
+        <Tabs.TabPane
+          key="result"
+          title={$i18n.get({
+            id: 'main.pages.App.Workflow.components.TaskTestPanel.index.output',
+            dm: '输出',
+          })}
+        >
+          <div
+            ref={resultContainerRef}
+            className="h-full overflow-y-auto relative px-[20px] pb-[16px] flex flex-col gap-[12px]"
+          >
+            {!state.taskInfo ? (
+              <Welcome
+                data={{}}
+                title={$i18n.get({
+                  id: 'main.pages.App.Workflow.components.TaskTestPanel.index.outputResultDisplayed',
+                  dm: '输出结果在这里展示',
+                })}
+              />
+            ) : (
+              <>
+                <div className="flex-justify-between">
+                  <div className={styles['result-title']}>
+                    {$i18n.get({
+                      id: 'main.pages.App.Workflow.components.TaskTestPanel.index.runResult',
+                      dm: '运行结果',
                     })}
-                  />
-                ) : (
-                  <>
-                    <div className="flex-justify-between">
-                      <div className={styles['result-title']}>
-                        {$i18n.get({
-                          id: 'main.pages.App.Workflow.components.TaskTestPanel.index.runResult',
-                          dm: '运行结果',
-                        })}
-                      </div>
-                      {state.taskInfo && (
-                        <ResultStatus
-                          usages={usageList}
-                          status={state.taskInfo.task_status}
-                          execTime={state.taskInfo.task_exec_time}
+                  </div>
+                  {state.taskInfo && (
+                    <ResultStatus
+                      usages={usageList}
+                      status={state.taskInfo.task_status}
+                      execTime={state.taskInfo.task_exec_time}
+                    />
+                  )}
+                </div>
+                <Flex vertical gap={12}>
+                  <NodeResultPanelList data={state.taskInfo.node_results} />
+                  {state.taskInfo.task_results.map((item) => {
+                    if (item.node_type === 'Input')
+                      return (
+                        <UserInputForm
+                          key={`${item.node_id}_index`}
+                          nodeData={item}
+                          onSubmit={handleSubmitUserInput}
                         />
-                      )}
-                    </div>
-                    <Flex vertical gap={12}>
-                      <NodeResultPanelList data={state.taskInfo.node_results} />
-                      {state.taskInfo.task_results.map((item) => {
-                        if (item.node_type === 'Input')
-                          return (
-                            <UserInputForm
-                              key={`${item.node_id}_index`}
-                              nodeData={item}
-                              onSubmit={handleSubmitUserInput}
-                            />
-                          );
+                      );
 
-                        return (
-                          <TextCard
-                            key={`${item.node_id}_index`}
-                            data={{ text: item.node_content as string }}
-                          />
-                        );
-                      })}
-                    </Flex>
-                  </>
-                )}
-              </div>
-            ),
-          },
-        ]}
-      ></Tabs>
+                    return (
+                      <TextCard
+                        key={`${item.node_id}_index`}
+                        data={{ text: item.node_content as string }}
+                      />
+                    );
+                  })}
+                </Flex>
+              </>
+            )}
+          </div>
+        </Tabs.TabPane>
+      </Tabs>
     </div>
   );
 });

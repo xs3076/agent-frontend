@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Button } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import type {
   INodeDataInputParamItem,
   INodeDataOutputParamItem,
@@ -16,7 +18,7 @@ import {
   useNodesReadOnly,
   useReactFlowStore,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { memo, useCallback, useMemo } from 'react';
 import GroupVariableForm from '../../components/GroupVariableForm';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';

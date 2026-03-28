@@ -2,13 +2,20 @@ import $i18n from '@/i18n';
 import { updateApp } from '@/services/appManage';
 import { IGlobalVariableItem, IWorkFlowAppDetail } from '@/types/appManage';
 import uniqueId from '@/utils/uniqueId';
-import { Button, IconFont, Input, Modal, message } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  Input,
+  Message,
+  Modal,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   IValueType,
   VariableBaseInput,
   VariableTypeSelect,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { omit } from 'lodash-es';
 import { useState } from 'react';
 import styles from './index.module.less';
@@ -98,7 +105,7 @@ export default function GlobalVariableFormModal(
   const handleSure = () => {
     const error = validateVariables(value);
     if (error) {
-      message.warning(error);
+      Message.warning(error);
       return;
     }
     setSaveLoading(true);
@@ -119,7 +126,7 @@ export default function GlobalVariableFormModal(
       },
     })
       .then(() => {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.App.Workflow.components.GlobalVariableFormModal.index.saveSuccess',
             dm: '保存成功',
@@ -149,7 +156,7 @@ export default function GlobalVariableFormModal(
               dm: '保存',
             }),
       }}
-      open
+      visible
       title={$i18n.get({
         id: 'main.pages.App.Workflow.components.GlobalVariableFormModal.index.conversationVariable',
         dm: '会话变量',
@@ -188,8 +195,7 @@ export default function GlobalVariableFormModal(
               <Input
                 style={{ width: 120 }}
                 value={item.key}
-                onChange={(e) =>
-                  changeRowItem(item.id, { key: e.target.value })
+                onChange={(value) => changeRowItem(item.id, { key: value })
                 }
                 placeholder={$i18n.get({
                   id: 'main.pages.App.Workflow.components.GlobalVariableFormModal.index.enterVariableName',
@@ -207,8 +213,7 @@ export default function GlobalVariableFormModal(
               <Input
                 style={{ width: 176 }}
                 value={item.desc}
-                onChange={(e) =>
-                  changeRowItem(item.id, { desc: e.target.value })
+                onChange={(value) => changeRowItem(item.id, { desc: value })
                 }
                 placeholder={$i18n.get({
                   id: 'main.pages.App.Workflow.components.GlobalVariableFormModal.index.enterDescription',
@@ -231,7 +236,6 @@ export default function GlobalVariableFormModal(
               </div>
               <IconFont
                 type="spark-delete-line"
-                isCursorPointer
                 size="small"
                 onClick={() => removeRowItem(item.id)}
               />

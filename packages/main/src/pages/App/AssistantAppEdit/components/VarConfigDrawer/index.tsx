@@ -7,7 +7,10 @@ import {
 } from '@/types/appComponent';
 import { UserPromptParams } from '@/types/appManage';
 import { PluginTool } from '@/types/plugin';
-import { Button, Drawer, parseJsonSafely } from '@spark-ai/design';
+import { Button, Drawer } from '@arco-design/web-react';
+const parseJsonSafely = (str: string, fallback: any = {}) => {
+  try { return JSON.parse(str); } catch { return fallback; }
+};
 import classNames from 'classnames';
 import {
   CSSProperties,

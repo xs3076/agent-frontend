@@ -1,5 +1,12 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, InputNumber, Radio, Select } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Button,
+  InputNumber,
+  Radio,
+  Select,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import type {
   INodeDataInputParamItem,
   INodeDataOutputParamItem,
@@ -15,7 +22,7 @@ import {
   useReactFlowStore,
   VarInputTextArea,
 } from '@spark-ai/flow';
-import { Flex } from 'antd';
+
 import { memo, useMemo, useState } from 'react';
 import AuthConfigFormModal from '../../components/AuthConfigFormModal';
 import ErrorCatchForm from '../../components/ErrorCatchForm';
@@ -222,11 +229,10 @@ export default memo(function ApiPanel({
           <Radio.Group
             disabled={disabled}
             value={data.node_param.body.type}
-            onChange={(e) =>
-              changeNodeParam({
+            onChange={(value) => changeNodeParam({
                 body: {
                   ...data.node_param.body,
-                  type: e.target.value,
+                  type: value,
                   data: e.target.value === 'form-data' ? [] : '',
                 },
               })

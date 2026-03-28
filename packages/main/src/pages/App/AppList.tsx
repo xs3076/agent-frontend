@@ -10,7 +10,9 @@ import {
   IGetAppListParams,
 } from '@/services/appManage';
 import { IAppCard } from '@/types/appManage';
-import { AlertDialog, Button, IconFont, message } from '@spark-ai/design';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
+import { Button, Message } from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
 import { useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -195,7 +197,7 @@ export default function () {
         break;
       case 'copy':
         copyApp(item.app_id).then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.App.index.copySuccess',
               dm: '复制成功',

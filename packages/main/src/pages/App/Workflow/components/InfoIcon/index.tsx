@@ -1,5 +1,6 @@
-import { IconFont } from '@spark-ai/design';
-import { Popover } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+import { Popover } from '@arco-design/web-react';
+
 import { memo } from 'react';
 import styles from './index.module.less';
 

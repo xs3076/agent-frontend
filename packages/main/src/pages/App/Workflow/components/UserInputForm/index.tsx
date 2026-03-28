@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { Button, Form, Input } from '@spark-ai/design';
+import { Button, Form, Input } from '@arco-design/web-react';
 import { IUserInputItem, IWorkFlowTaskResultItem } from '@spark-ai/flow';
 import { memo, useEffect, useMemo, useState } from 'react';
 import styles from './index.module.less';
@@ -33,7 +33,7 @@ export default memo(function UserInputForm(props: IUserInputFormProps) {
   }, [inputParams]);
 
   const submit = () => {
-    form.validateFields().then((values) => {
+    form.validate().then((values) => {
       setIsSubmit(true);
       const input_params = [] as Array<{ key: string; value: string }>;
       Object.keys(values).forEach((key) => {

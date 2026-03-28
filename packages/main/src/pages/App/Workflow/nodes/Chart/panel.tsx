@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from 'react';
-import { Form, Input, InputNumber, Select, Collapse } from 'antd';
+import { Form, Input, InputNumber, Select, Collapse } from '@arco-design/web-react';
 import {
   CustomInputsControl,
   CustomOutputsFormWrap,
@@ -97,7 +97,7 @@ export default memo((props: { id: string; data: IChartNodeData }) => {
             value={props.data.node_param.data_mapping.source}
             disabled={nodesReadOnly}
             placeholder="输入参数中的数据来源 key，如 data"
-            onChange={(e) => changeDataMapping({ source: e.target.value })}
+            onChange={(value) => changeDataMapping({ source: value })}
           />
         </Form.Item>
 
@@ -106,7 +106,7 @@ export default memo((props: { id: string; data: IChartNodeData }) => {
             value={props.data.node_param.data_mapping.x_field}
             disabled={nodesReadOnly}
             placeholder={isPie ? '如 name' : '如 month'}
-            onChange={(e) => changeDataMapping({ x_field: e.target.value })}
+            onChange={(value) => changeDataMapping({ x_field: value })}
           />
         </Form.Item>
 
@@ -115,7 +115,7 @@ export default memo((props: { id: string; data: IChartNodeData }) => {
             value={props.data.node_param.data_mapping.y_field}
             disabled={nodesReadOnly}
             placeholder="如 sales，多个用逗号分隔"
-            onChange={(e) => changeDataMapping({ y_field: e.target.value })}
+            onChange={(value) => changeDataMapping({ y_field: value })}
           />
         </Form.Item>
 
@@ -125,8 +125,7 @@ export default memo((props: { id: string; data: IChartNodeData }) => {
               value={props.data.node_param.data_mapping.series_field}
               disabled={nodesReadOnly}
               placeholder="可选，如 category"
-              onChange={(e) =>
-                changeDataMapping({ series_field: e.target.value })
+              onChange={(value) => changeDataMapping({ series_field: value })
               }
             />
           </Form.Item>
@@ -137,7 +136,7 @@ export default memo((props: { id: string; data: IChartNodeData }) => {
             value={props.data.node_param.display?.title}
             disabled={nodesReadOnly}
             placeholder="可选"
-            onChange={(e) => changeDisplay({ title: e.target.value })}
+            onChange={(value) => changeDisplay({ title: value })}
           />
         </Form.Item>
 
@@ -172,9 +171,9 @@ export default memo((props: { id: string; data: IChartNodeData }) => {
                     disabled={nodesReadOnly}
                     rows={4}
                     placeholder='{"legend":{"show":true}}'
-                    onChange={(e) => {
+                    onChange={(value) => {
                       try {
-                        const parsed = e.target.value
+                        const parsed = value
                           ? JSON.parse(e.target.value)
                           : {};
                         changeNodeParam({ option_override: parsed });

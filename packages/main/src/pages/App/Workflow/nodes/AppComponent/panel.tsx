@@ -1,6 +1,8 @@
 import $i18n from '@/i18n';
 import { getAppComponentInputAndOutputParams } from '@/services/appComponent';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import { Spin, Switch, Typography } from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import {
   CustomInputsControl,
   OutputParamsTree,
@@ -10,7 +12,7 @@ import {
   useReactFlowStore,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { Flex, Spin, Switch, Typography } from 'antd';
+
 import classNames from 'classnames';
 import { memo, useCallback, useEffect, useMemo } from 'react';
 import InfoIcon from '../../components/InfoIcon';
@@ -106,7 +108,7 @@ export default memo(function AppComponentPanel(props: {
   }, [props.data.node_param.code]);
 
   if (state.loading) {
-    return <Spin spinning className="loading-center" />;
+    return <Spin loading className="loading-center" />;
   }
 
   return (

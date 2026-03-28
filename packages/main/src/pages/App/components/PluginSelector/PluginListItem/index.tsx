@@ -1,8 +1,8 @@
 import $i18n from '@/i18n';
 import { getPluginToolList } from '@/services/plugin';
 import { Plugin, PluginTool } from '@/types/plugin';
-import { IconFont, renderTooltip } from '@spark-ai/design';
-import { Checkbox, Flex, Typography } from 'antd';
+import IconFont from '@/components/ui/IconFont';
+import { Checkbox, Tooltip, Typography } from '@arco-design/web-react';
 import classNames from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import styles from './index.module.less';
@@ -59,14 +59,12 @@ export default (props: IProps) => {
         })}
         style={{ padding: '12px 16px' }}
       >
-        <Flex gap={8}>
-          <Flex gap={8} className="w-full h-[52px] flex-1" align="center">
-            <Flex align="center" className="h-[40px] w-[40px]">
-              <Flex
-                align="center"
-                justify="center"
+        <div className="flex gap-[8px]">
+          <div className="flex gap-[8px] w-full h-[52px] flex-1 items-center">
+            <div className="flex items-center h-[40px] w-[40px]">
+              <div
                 className={classNames(
-                  'h-[40px] w-[40px] rounded-[6px]',
+                  'flex items-center justify-center h-[40px] w-[40px] rounded-[6px]',
                   styles['check-item'],
                 )}
                 style={{
@@ -74,15 +72,12 @@ export default (props: IProps) => {
                 }}
               >
                 <img src={'/images/plugin.svg'} alt="" />
-              </Flex>
-            </Flex>
+              </div>
+            </div>
             <div style={{ width: 'calc(100% - 48px)' }}>
-              <Flex
-                justify="space-between"
-                className="header leading-[22px] h-[22px]"
-              >
+              <div className="flex justify-between header leading-[22px] h-[22px]">
                 <div
-                  className="text-[16px] font-semibold  mr-[4px] "
+                  className="text-[16px] font-semibold mr-[4px]"
                   style={{
                     color: 'var(--ag-ant-color-text-base)',
                     textOverflow: 'ellipsis',
@@ -94,7 +89,7 @@ export default (props: IProps) => {
                 >
                   {item.name}
                 </div>
-                <Flex style={{ color: 'var(--ag-ant-color-text)' }}>
+                <div className="flex" style={{ color: 'var(--ag-ant-color-text)' }}>
                   {!!toolsList?.length && (
                     <span
                       className="mr-[4px] cursor-pointer"
@@ -111,25 +106,26 @@ export default (props: IProps) => {
                   {
                     <IconFont
                       type={'spark-down-line'}
-                      isCursorPointer
-                      className={`${styles['fold-icon']} ${
+                      className={`cursor-pointer ${styles['fold-icon']} ${
                         folded ? '' : styles.rotated
                       }`}
                       onClick={toggleFold}
-                    ></IconFont>
+                    />
                   }
-                </Flex>
-              </Flex>
-              <Typography.Paragraph
-                className={styles.desc}
-                style={{ marginBottom: 0 }}
-                ellipsis={{ rows: 1, tooltip: renderTooltip(item.description) }}
-              >
-                {item.description}
-              </Typography.Paragraph>
+                </div>
+              </div>
+              <Tooltip content={item.description}>
+                <Typography.Paragraph
+                  className={styles.desc}
+                  style={{ marginBottom: 0 }}
+                  ellipsis={{ rows: 1 }}
+                >
+                  {item.description}
+                </Typography.Paragraph>
+              </Tooltip>
             </div>
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </div>
       {!folded && !!toolsList?.length && (
         <div
@@ -144,70 +140,64 @@ export default (props: IProps) => {
           }}
         >
           {
-            <Flex gap={9} style={{ marginLeft: 20 }} vertical>
+            <div className="flex flex-col gap-[9px]" style={{ marginLeft: 20 }}>
               {toolsList.map((tool) => (
-                <Flex
-                  className="h-[60px] flex-1 rounded-[6px]"
+                <div
+                  className="flex h-[60px] flex-1 rounded-[6px] items-center"
                   key={tool.tool_id}
-                  align="center"
                 >
-                  <Flex gap={8} flex={1}>
+                  <div className="flex gap-[8px] flex-1">
                     <Checkbox
                       checked={
                         !!selectedTools?.find((t) => t.tool_id === tool.tool_id)
                       }
-                      onChange={(e) => {
-                        if (e.target.checked) {
+                      onChange={(checked) => {
+                        if (checked) {
                           props.onSelectTool?.(tool);
                         } else {
                           props.onRemoveTool?.(tool);
                         }
                       }}
                       disabled={!tool.enabled}
-                    ></Checkbox>
-                    <Flex
-                      flex={1}
-                      gap={8}
-                      className="h-[72px] flex-1 rounded-[6px]"
+                    />
+                    <div
+                      className="flex flex-col flex-1 gap-[8px] h-[72px] rounded-[6px]"
                       style={{
                         border:
                           '1px solid var(--ag-ant-color-border-secondary)',
                         padding: '8px 12px',
                       }}
-                      vertical
                     >
-                      <Flex align="center" gap={12} className="h-[28px]">
+                      <div className="flex items-center gap-[12px] h-[28px]">
                         <div
                           className="text-[16px] font-semibold leading-6"
                           style={{ color: 'var(--ag-ant-color-text-base)' }}
                         >
-                          <Typography.Paragraph
-                            className={styles.desc}
-                            style={{ marginBottom: 0, marginTop: 0 }}
-                            ellipsis={{
-                              rows: 1,
-                              tooltip: renderTooltip(tool.name),
-                            }}
-                          >
-                            {tool.name}
-                          </Typography.Paragraph>
+                          <Tooltip content={tool.name}>
+                            <Typography.Paragraph
+                              className={styles.desc}
+                              style={{ marginBottom: 0, marginTop: 0 }}
+                              ellipsis={{ rows: 1 }}
+                            >
+                              {tool.name}
+                            </Typography.Paragraph>
+                          </Tooltip>
                         </div>
-                      </Flex>
-                      <Typography.Paragraph
-                        className={styles.desc}
-                        style={{ marginBottom: 0, marginTop: 0 }}
-                        ellipsis={{
-                          rows: 1,
-                          tooltip: renderTooltip(tool.description),
-                        }}
-                      >
-                        {tool.description}
-                      </Typography.Paragraph>
-                    </Flex>
-                  </Flex>
-                </Flex>
+                      </div>
+                      <Tooltip content={tool.description}>
+                        <Typography.Paragraph
+                          className={styles.desc}
+                          style={{ marginBottom: 0, marginTop: 0 }}
+                          ellipsis={{ rows: 1 }}
+                        >
+                          {tool.description}
+                        </Typography.Paragraph>
+                      </Tooltip>
+                    </div>
+                  </div>
+                </div>
               ))}
-            </Flex>
+            </div>
           }
         </div>
       )}

@@ -29,9 +29,16 @@ import { IKnowledgeListItem } from '@/types/knowledge';
 import { IMcpServer } from '@/types/mcp';
 import { IModel } from '@/types/modelService';
 import { PluginTool } from '@/types/plugin';
-import { Empty, IconFont, renderTooltip } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+import {
+  Empty,
+  Spin,
+  Typography,
+  Message,
+} from '@arco-design/web-react';
+import Flex from '@/components/ui/Flex';
 import { useDebounceFn, useSetState } from 'ahooks';
-import { Flex, Spin, Typography, message } from 'antd';
+
 import dayjs from 'dayjs';
 import { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
@@ -497,10 +504,10 @@ export default function AssistantAppEdit() {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      message.success('转换成功！项目文件已开始下载');
+      Message.success('转换成功！项目文件已开始下载');
     } catch (error: any) {
       console.error('转换失败:', error);
-      message.error(`转换失败：${error.message || '请重试'}`);
+      Message.error(`转换失败：${error.message || '请重试'}`);
     } finally {
       setState({ saveLoading: false });
     }
@@ -598,7 +605,7 @@ export default function AssistantAppEdit() {
                     <Flex align="center" gap={8}>
                       <Typography.Text
                         ellipsis={{
-                          tooltip: renderTooltip(
+                          tooltip:(
                             state.appBasicConfig?.name || '',
                             {
                               getPopupContainer: () => document.body,

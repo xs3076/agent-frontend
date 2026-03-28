@@ -6,7 +6,7 @@ import {
   useFlowDebugInteraction,
   useStore,
 } from '@spark-ai/flow';
-import { message } from 'antd';
+import { Message } from '@arco-design/web-react';
 import { useMemo, useState } from 'react';
 import { useWorkflowAppStore } from '../../context/WorkflowAppProvider';
 import ChatTestPanel from '../ChatTestPanel';
@@ -61,7 +61,7 @@ export default function TestPanel() {
               taskStore?.task_status === 'executing' ||
               taskStore?.task_status === 'pause'
             ) {
-              message.warning(
+              Message.warning(
                 $i18n.get({
                   id: 'main.pages.App.Workflow.components.TestPanel.executingWorkflow',
                   dm: '正在执行工作流，请先停止',
@@ -85,7 +85,7 @@ export default function TestPanel() {
       taskStore?.task_status === 'executing' ||
       taskStore?.task_status === 'pause'
     ) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.App.Workflow.components.TestPanel.executingWorkflow',
           dm: '正在执行工作流，请先停止',
