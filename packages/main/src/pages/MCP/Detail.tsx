@@ -2,15 +2,9 @@ import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { deleteMcpServer, getMcpServer } from '@/services/mcp';
 import { IMcpServer, McpStatus } from '@/types/mcp';
-import {
-  AlertDialog,
-  Button,
-  Dropdown,
-  IconButton,
-  message,
-  Tooltip,
-} from '@spark-ai/design';
-import { Empty } from 'antd';
+import { Button, Empty, Menu, Message, Tooltip, Dropdown } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconButton from '@/components/ui/IconButton';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import MCPTools from './components/McpTools';
@@ -57,7 +51,7 @@ const McpDetail = () => {
       danger: true,
       onOk: () => {
         deleteMcpServer(detail.server_code).then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.MCP.Detail.deletionSuccessful',
               dm: '删除成功',
@@ -74,19 +68,18 @@ const McpDetail = () => {
       <>
         <Dropdown
           getPopupContainer={(ele) => ele}
-          menu={{
-            items: [
-              {
-                onClick: () => handleDelete(),
-                danger: true,
-                label: $i18n.get({
+          droplist={
+            <Menu onClickMenuItem={(key) => {
+              if (key === 'delete') handleDelete();
+            }}>
+              <Menu.Item key="delete" className="text-red-500">
+                {$i18n.get({
                   id: 'main.pages.MCP.Detail.delete',
                   dm: '删除',
-                }),
-                key: 'delete',
-              },
-            ],
-          }}
+                })}
+              </Menu.Item>
+            </Menu>
+          }
         >
           <IconButton icon="spark-more-line" bordered={false} />
         </Dropdown>
@@ -161,7 +154,7 @@ const McpDetail = () => {
           {
             label: (
               <Tooltip
-                title={$i18n.get({
+                content={$i18n.get({
                   id: 'main.pages.MCP.Detail.comingSoon',
                   dm: '敬请期待',
                 })}
@@ -178,7 +171,7 @@ const McpDetail = () => {
           {
             label: (
               <Tooltip
-                title={$i18n.get({
+                content={$i18n.get({
                   id: 'main.pages.MCP.Detail.comingSoon',
                   dm: '敬请期待',
                 })}

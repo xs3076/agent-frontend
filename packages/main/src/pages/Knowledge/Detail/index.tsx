@@ -5,7 +5,7 @@ import {
   getKnowledgeDetail,
 } from '@/services/knowledge';
 import { useRequest, useSetState } from 'ahooks';
-import { Modal } from 'antd';
+import { Modal } from '@arco-design/web-react';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FileList from './components/FileList';

@@ -1,16 +1,8 @@
 import $i18n from '@/i18n';
 import { IMCPTool, IToolProperty } from '@/types/mcp';
-import {
-  Button,
-  Card,
-  CodeBlock,
-  Form,
-  IconFont,
-  Input,
-  Radio,
-  Tooltip,
-  message,
-} from '@spark-ai/design';
+import { Button, Card, Form, Input, Radio, Tooltip, Message } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
+import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styles from './index.module.less';
@@ -70,7 +62,7 @@ const ToolPanel: React.FC<ToolPanelProps> = ({
         }
       });
     } catch (errMsg: any) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.MCP.components.ToolPanel.index.parameterParsingFailedCheckParameterFormat',
           dm: '参数解析失败，请检查参数格式',
@@ -158,7 +150,7 @@ const ToolPanel: React.FC<ToolPanelProps> = ({
               )}
             </div>
           }
-          name={key}
+          field={key}
           rules={[
             {
               required: required.includes(key),
@@ -209,7 +201,7 @@ const ToolPanel: React.FC<ToolPanelProps> = ({
           <div className={styles['tool-content']}>
             <Form
               form={form}
-              onFinish={handleSubmit}
+              onSubmit={handleSubmit}
               layout="vertical"
               className={styles['tool-form']}
             >
@@ -217,7 +209,7 @@ const ToolPanel: React.FC<ToolPanelProps> = ({
               <Form.Item style={{ marginBottom: 0 }}>
                 <div className={styles['form-actions']}>
                   <Tooltip
-                    title={
+                    content={
                       btnDisabled
                         ? $i18n.get({
                             id: 'main.pages.MCP.components.ToolPanel.index.openServiceFirst',

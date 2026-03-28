@@ -8,18 +8,11 @@ import {
   removeTool,
 } from '@/services/plugin';
 import { PluginTool } from '@/types/plugin';
-import {
-  AlertDialog,
-  Button,
-  Empty,
-  IconFont,
-  Switch,
-  Tag,
-  Tooltip,
-  message,
-} from '@spark-ai/design';
+import { Button, Dropdown, Empty, Menu, Message, Switch, Table, Tag, Tooltip } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import { useRequest } from 'ahooks';
-import { Dropdown, Flex, Table } from 'antd';
+
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { history, useParams } from 'umi';
@@ -139,16 +132,16 @@ export default function () {
       key: 'name',
       width: 500,
       render: (_: any, record: PluginTool) => (
-        <Flex gap={10} align="center">
+        <div className="flex gap-2 items-center">
           <IconFont type="spark-tool-line" className={styles['tool-icon']} />
           <div>
-            <Flex align="center" gap={8}>
+            <div className="flex items-center gap-2">
               <div className={styles.name}>{record.name}</div>
               {statusTag(record)}
-            </Flex>
+            </div>
             <div className={styles.desc}>{record.description}</div>
           </div>
-        </Flex>
+        </div>
       ),
     },
     {
@@ -173,9 +166,9 @@ export default function () {
       key: 'test_status',
       render: (_: any, record: PluginTool) => {
         return (
-          <Flex align="center" gap={4}>
+          <div className="flex items-center gap-1">
             {testStatus(record.test_status)}
-          </Flex>
+          </div>
         );
       },
     },
@@ -197,7 +190,7 @@ export default function () {
       key: 'enabled',
       render: (_: any, record: PluginTool) => {
         return (
-          <Flex align="center" gap={8}>
+          <div className="flex items-center gap-2">
             <Switch
               size="small"
               checked={record.enabled}
@@ -205,7 +198,7 @@ export default function () {
               onChange={(v) => {
                 enableTool(record.tool_id as string, v).then(() => {
                   setToken(token + 1);
-                  message.success(
+                  Message.success(
                     $i18n.get({
                       id: 'main.pages.Component.Plugin.Tools.List.operationSuccess',
                       dm: '操作成功',
@@ -226,7 +219,7 @@ export default function () {
                     dm: '未启用',
                   })}
             </div>
-          </Flex>
+          </div>
         );
       },
     },
@@ -238,7 +231,7 @@ export default function () {
       key: 'action',
       render: (_: any, record: PluginTool) => {
         return (
-          <Flex>
+          <div className="flex">
             <Button
               onClick={() => {
                 history.push(`/component/plugin/${id}/tool/${record.tool_id}`);
@@ -251,21 +244,20 @@ export default function () {
                 dm: '编辑',
               })}
             </Button>
-            <Flex align="center">
+            <div className="flex items-center">
               <Dropdown
-                menu={{
-                  items: [
-                    {
-                      label: $i18n.get({
+                droplist={
+                  <Menu onClickMenuItem={(key) => {
+                    if (key === 'delete') handleDelete(record);
+                  }}>
+                    <Menu.Item key="delete" className="text-red-500">
+                      {$i18n.get({
                         id: 'main.pages.Component.Plugin.Tools.List.delete',
                         dm: '删除',
-                      }),
-                      key: 'delete',
-                      danger: true,
-                      onClick: () => handleDelete(record),
-                    },
-                  ],
-                }}
+                      })}
+                    </Menu.Item>
+                  </Menu>
+                }
               >
                 <Button className="gap-1" size="small" type="link">
                   {$i18n.get({
@@ -276,8 +268,8 @@ export default function () {
                   <IconFont type="spark-down-line" />
                 </Button>
               </Dropdown>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         );
       },
     },
@@ -295,7 +287,7 @@ export default function () {
       }),
       onOk() {
         removeTool(id, record.tool_id || '').then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Component.Plugin.Tools.List.successDelete',
               dm: '删除成功',
@@ -321,8 +313,7 @@ export default function () {
         },
       ]}
       left={
-        <Tooltip
-          title={$i18n.get({
+        <Tooltip content={$i18n.get({
             id: 'main.pages.Component.Plugin.Tools.List.definePluginInterface',
             dm: '定义您的插件接口，详细内容可查看 如何定义插件接口协议',
           })}
@@ -333,7 +324,7 @@ export default function () {
     >
       <div className={styles.container}>
         {!loading && toolListData.length === 0 ? (
-          <Flex className="h-full" justify="center" align="center">
+          <div className="flex items-center justify-center h-full">
             <Empty
               title={$i18n.get({
                 id: 'main.pages.Component.Plugin.Tools.List.noData',
@@ -354,14 +345,10 @@ export default function () {
                 })}
               </Button>
             </Empty>
-          </Flex>
+          </div>
         ) : (
           <>
-            <Flex
-              justify="space-between"
-              align="center"
-              className={styles['content-header']}
-            >
+            <div className={`flex items-center justify-between ${styles['content-header']}`}>
               <span className={styles.title}>
                 {$i18n.get({
                   id: 'main.pages.Component.Plugin.Tools.List.toolList',
@@ -380,7 +367,7 @@ export default function () {
                   dm: '创建工具',
                 })}
               </Button>
-            </Flex>
+            </div>
             <Table
               columns={columns}
               dataSource={toolListData}

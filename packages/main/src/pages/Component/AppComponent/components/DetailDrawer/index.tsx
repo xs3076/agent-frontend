@@ -1,9 +1,9 @@
 import $i18n from '@/i18n';
 import { getAppComponentDetailByCode } from '@/services/appComponent';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { Drawer } from '@spark-ai/design';
+import { Drawer, Spin } from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Flex, Spin } from 'antd';
+
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import InputParamsComp, {
@@ -67,7 +67,7 @@ export default function DetailDrawer(props: IProps) {
                 dm: '基础信息',
               })}
             </div>
-            <Flex vertical gap={16}>
+            <div className="flex flex-col gap-4">
               <div className={styles['form-item']}>
                 <div className={styles.label}>
                   {$i18n.get({
@@ -117,7 +117,7 @@ export default function DetailDrawer(props: IProps) {
                   {dayjs(props.data.gmt_create).format('YYYY-MM-DD HH:mm:ss')}
                 </div>
               </div>
-            </Flex>
+            </div>
           </div>
           <div
             className={classNames(styles['form-con'], 'flex flex-col gap-5')}

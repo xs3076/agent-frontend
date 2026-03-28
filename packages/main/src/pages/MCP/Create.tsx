@@ -2,17 +2,10 @@ import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { createMcpServer, getMcpServer, updateMcpServer } from '@/services/mcp';
 import { ICreateMcpParams, IUpdateMcpParams, McpStatus } from '@/types/mcp';
-import {
-  AlertDialog,
-  Button,
-  CodeBlock,
-  Form,
-  getCommonConfig,
-  Input,
-  message,
-} from '@spark-ai/design';
+import { Button, Form, Input, Message } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
 import { useMount } from 'ahooks';
-import { Flex } from 'antd';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -26,7 +19,7 @@ export default function McpCreate() {
   const { id: server_code } = useParams<{ id: string }>();
 
   const [form] = Form.useForm();
-  const darkMode = getCommonConfig().isDarkMode;
+  const darkMode = document.body.getAttribute('arco-theme') === 'dark';
 
   const [loading, setLoading] = useState(!!server_code);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -101,7 +94,7 @@ export default function McpCreate() {
           _deployConfig = JSON.stringify(deployConfig);
         }
       } catch (error) {
-        message.error(
+        Message.error(
           $i18n.get({
             id: 'main.pages.MCP.Create.mcpServiceConfigurationInvalidJsonFormat',
             dm: 'MCP服务配置不是有效的JSON格式',
@@ -130,7 +123,7 @@ export default function McpCreate() {
         };
 
         await updateMcpServer(updateParams);
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.MCP.Create.mcpServiceUpdatedSuccessfully',
             dm: 'MCP服务更新成功',
@@ -143,7 +136,7 @@ export default function McpCreate() {
         };
 
         await createMcpServer(createParams);
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.MCP.Create.mcpServiceCreatedSuccessfully',
             dm: 'MCP服务创建成功',
@@ -239,25 +232,23 @@ export default function McpCreate() {
         },
         {
           title: server_code ? (
-            <Flex gap={8} align="center">
+            <div className="flex gap-2 items-center">
               <span>
                 {$i18n.get({
                   id: 'main.pages.MCP.Create.editMcpService',
                   dm: '编辑MCP服务',
                 })}
               </span>
-              <Flex
-                className={classNames(styles['status'], {
+              <div
+                className={classNames(styles['status'], 'flex gap-1.5 items-center', {
                   [styles['deploy']]: deployStatus === McpStatus.ENABLED,
                   [styles['deploy-error']]: deployStatus === McpStatus.DISABLED,
                 })}
-                gap={6}
-                align="center"
               >
                 <span className={styles['dot']}></span>
                 <span>{statusText}</span>
-              </Flex>
-            </Flex>
+              </div>
+            </div>
           ) : (
             $i18n.get({
               id: 'main.pages.MCP.Create.createMcpService',
@@ -281,7 +272,7 @@ export default function McpCreate() {
       }
     >
       <div className={styles['page']}>
-        <Flex className={styles['container']} vertical>
+        <div className={`${styles['container']} flex flex-col`}>
           <div className={styles['content-wrap']}>
             <Form className={styles['content']} form={form} layout="vertical">
               <Form.Item
@@ -290,7 +281,7 @@ export default function McpCreate() {
                   id: 'main.pages.MCP.Create.serviceName',
                   dm: '服务名称',
                 })}
-                name="serverName"
+                field="serverName"
                 rules={[
                   {
                     required: true,
@@ -312,7 +303,7 @@ export default function McpCreate() {
                 />
               </Form.Item>
               <Form.Item
-                name="description"
+                field="description"
                 label={$i18n.get({
                   id: 'main.pages.MCP.Create.description',
                   dm: '描述',
@@ -330,7 +321,7 @@ export default function McpCreate() {
                 />
               </Form.Item>
               <Form.Item
-                name="installType"
+                field="installType"
                 label={$i18n.get({
                   id: 'main.pages.MCP.Create.installType',
                   dm: '安装类型',
@@ -349,7 +340,7 @@ export default function McpCreate() {
               </Form.Item>
 
               <Form.Item
-                name="deployConfig"
+                field="deployConfig"
                 label={
                   <div className={styles['custom-label-wrap']}>
                     <span className={styles['custom-label']}>
@@ -396,7 +387,7 @@ export default function McpCreate() {
               </Form.Item>
             </Form>
           </div>
-        </Flex>
+        </div>
       </div>
     </InnerLayout>
   );

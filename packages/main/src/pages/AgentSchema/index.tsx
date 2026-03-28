@@ -1,7 +1,7 @@
 import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
-import { Button, Form, Input, Select, Card, message, Space, Typography, List, Checkbox, Tooltip, Divider } from 'antd';
-import { PlusOutlined, CopyOutlined, SaveOutlined, CloseOutlined, DownOutlined, UpOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Select, Card, Message, Typography, List, Checkbox, Tooltip, Divider } from '@arco-design/web-react';
+import { IconPlus, IconCopy, IconSave, IconClose, IconDown, IconUp, IconDelete } from '@arco-design/web-react/icon';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.less';
@@ -194,7 +194,7 @@ const AgentSchemaCreator: React.FC = () => {
 
       setSavedAgents(agents);
     } catch (error) {
-      message.error('获取智能体列表失败');
+      Message.error('获取智能体列表失败');
       console.error('Failed to fetch agents:', error);
       setSavedAgents([]); // 出错时设置为空数组
     } finally {
@@ -214,7 +214,7 @@ const AgentSchemaCreator: React.FC = () => {
         setAvailableTools([]);
       }
     } catch (error) {
-      message.error('获取工具列表失败');
+      Message.error('获取工具列表失败');
       setAvailableTools([]); // 出错时设置为空数组
     } finally {
       setToolsLoading(false);
@@ -241,7 +241,7 @@ const AgentSchemaCreator: React.FC = () => {
 
       setAvailableModels(allModels);
     } catch (error) {
-      message.error('获取模型列表失败');
+      Message.error('获取模型列表失败');
       setAvailableModels([]);
     } finally {
       setModelsLoading(false);
@@ -689,7 +689,7 @@ const AgentSchemaCreator: React.FC = () => {
     e.stopPropagation(); // 阻止事件冒泡，避免触发选择
 
     if (!agent.id) {
-      message.error('无法删除：智能体ID无效');
+      Message.error('无法删除：智能体ID无效');
       return;
     }
 
@@ -703,7 +703,7 @@ const AgentSchemaCreator: React.FC = () => {
     try {
       await AgentSchemaService.deleteAgentSchema(agent.id);
 
-      message.success(`智能体 "${agent.name}" 删除成功`);
+      Message.success(`智能体 "${agent.name}" 删除成功`);
 
       // 如果删除的是当前选中的智能体，清空表单
       if (selectedAgentId === agent.id) {
@@ -716,7 +716,7 @@ const AgentSchemaCreator: React.FC = () => {
       await fetchSavedAgents();
 
     } catch (error) {
-      message.error(`删除智能体 "${agent.name}" 失败`);
+      Message.error(`删除智能体 "${agent.name}" 失败`);
     }
   };
 
@@ -749,11 +749,11 @@ const AgentSchemaCreator: React.FC = () => {
 
       // 手动验证必填字段
       if (!values.name) {
-        message.error('请输入智能体名称');
+        Message.error('请输入智能体名称');
         return;
       }
       if (!values.instruction) {
-        message.error('请输入系统提示词');
+        Message.error('请输入系统提示词');
         return;
       }
 
@@ -773,7 +773,7 @@ const AgentSchemaCreator: React.FC = () => {
 
 
         if (isDuplicate) {
-          message.error('智能体名称已存在，请使用其他名称');
+          Message.error('智能体名称已存在，请使用其他名称');
           setLoading(false); // 重置loading状态
           return;
         }
@@ -785,7 +785,7 @@ const AgentSchemaCreator: React.FC = () => {
       if (values.subAgents && values.subAgents.length > 0) {
         const currentAgentName = values.name;
         if (values.subAgents.includes(currentAgentName)) {
-          message.error('不能将当前智能体设置为自身的子智能体');
+          Message.error('不能将当前智能体设置为自身的子智能体');
           setLoading(false);
           return;
         }
@@ -795,7 +795,7 @@ const AgentSchemaCreator: React.FC = () => {
       try {
         yaml = await generateYaml(values);
       } catch (yamlError) {
-        message.error('YAML生成失败');
+        Message.error('YAML生成失败');
         return;
       }
 
@@ -865,11 +865,11 @@ const AgentSchemaCreator: React.FC = () => {
 
       if (selectedAgentId) {
         const updatedAgent = await AgentSchemaService.updateAgentSchema(selectedAgentId, agentData);
-        message.success('Agent Schema 更新成功！');
+        Message.success('Agent Schema 更新成功！');
       } else {
         try {
           const createdAgent = await AgentSchemaService.createAgentSchema(agentData);
-          message.success('Agent Schema 创建成功！');
+          Message.success('Agent Schema 创建成功！');
         } catch (apiError) {
           // 不要在这里重新抛出错误，让外层的catch处理
           throw apiError;
@@ -879,7 +879,7 @@ const AgentSchemaCreator: React.FC = () => {
       await fetchSavedAgents();
 
     } catch (error) {
-      message.error('保存失败，请重试');
+      Message.error('保存失败，请重试');
     } finally {
       setLoading(false);
     }
@@ -888,7 +888,7 @@ const AgentSchemaCreator: React.FC = () => {
   // 复制 YAML
   const handleCopyYaml = () => {
     navigator.clipboard.writeText(yamlContent);
-    message.success('YAML 已复制到剪贴板');
+    Message.success('YAML 已复制到剪贴板');
   };
 
   // 下载 YAML
@@ -969,7 +969,7 @@ const AgentSchemaCreator: React.FC = () => {
             className={styles.expandButton}
             onClick={() => onExpandChange(!expanded)}
           >
-            {expanded ? <UpOutlined /> : <DownOutlined />}
+            {expanded ? <IconUp /> : <IconDown />}
             {expanded ? `Show less` : `${options.length - maxVisible} more`}
           </div>
         )}
@@ -1017,11 +1017,11 @@ const AgentSchemaCreator: React.FC = () => {
                     className={`${styles.agentItem} ${selectedAgentId === agent.id ? styles.selectedAgent : ''}`}
                     onClick={() => handleSelectAgent(agent)}
                     actions={[
-                      <Tooltip title="删除智能体" key="delete">
+                      <Tooltip content="删除智能体" key="delete">
                         <Button
                           type="text"
                           size="small"
-                          icon={<DeleteOutlined />}
+                          icon={<IconDelete />}
                           onClick={(e) => handleDeleteAgent(agent, e)}
                           className={styles.deleteButton}
                           style={{ color: '#ff4d4f' }}
@@ -1044,7 +1044,7 @@ const AgentSchemaCreator: React.FC = () => {
               <Button
                 type="dashed"
                 block
-                icon={<PlusOutlined />}
+                icon={<IconPlus />}
                 onClick={handleNewAgent}
                 className={styles.newAgentButton}
               >
@@ -1153,7 +1153,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Agent Name
-                      <Tooltip title="A unique name for your agent (required)">
+                      <Tooltip content="A unique name for your agent (required)">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1198,7 +1198,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Model Selection
-                      <Tooltip title="Select the LLM model for this agent">
+                      <Tooltip content="Select the LLM model for this agent">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1223,7 +1223,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Agent Type
-                      <Tooltip title="Functional type of the agent">
+                      <Tooltip content="Functional type of the agent">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1243,7 +1243,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Description
-                      <Tooltip title="Brief summary of agent capabilities (optional)">
+                      <Tooltip content="Brief summary of agent capabilities (optional)">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1260,7 +1260,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Instructions (System Prompt)
-                      <Tooltip title="System instructions to guide agent behavior">
+                      <Tooltip content="System instructions to guide agent behavior">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1279,7 +1279,7 @@ const AgentSchemaCreator: React.FC = () => {
                     label={
                       <span>
                         Input Key
-                        <Tooltip title="Key for input data in agent interactions">
+                        <Tooltip content="Key for input data in agent interactions">
                           <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                         </Tooltip>
                       </span>
@@ -1293,7 +1293,7 @@ const AgentSchemaCreator: React.FC = () => {
                     label={
                       <span>
                         Output Key
-                        <Tooltip title="Key for output data from agent responses">
+                        <Tooltip content="Key for output data from agent responses">
                           <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                         </Tooltip>
                       </span>
@@ -1309,7 +1309,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Sub Agents
-                      <Tooltip title="Select sub-agents to enable collaboration">
+                      <Tooltip content="Select sub-agents to enable collaboration">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1358,7 +1358,7 @@ const AgentSchemaCreator: React.FC = () => {
                   label={
                     <span>
                       Tools
-                      <Tooltip title="Tools available for the agent to use">
+                      <Tooltip content="Tools available for the agent to use">
                         <Text type="secondary" className={styles.tooltipText}> ℹ️</Text>
                       </Tooltip>
                     </span>
@@ -1385,14 +1385,14 @@ const AgentSchemaCreator: React.FC = () => {
                 </div>
 
                 <div className={styles.configActions}>
-                  <Button onClick={handleGoBack} icon={<CloseOutlined />}>
+                  <Button onClick={handleGoBack} icon={<IconClose />}>
                     Cancel
                   </Button>
                   <Button
                     type="primary"
                     onClick={handleSaveAgent}
                     loading={loading}
-                    icon={<SaveOutlined />}
+                    icon={<IconSave />}
                   >
                     Save Agent
                   </Button>
@@ -1409,7 +1409,7 @@ const AgentSchemaCreator: React.FC = () => {
                   Agent Schema (YAML)
                   <Button
                     type="text"
-                    icon={<CopyOutlined />}
+                    icon={<IconCopy />}
                     onClick={handleCopyYaml}
                     className={styles.copyButton}
                   >

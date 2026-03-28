@@ -1,8 +1,9 @@
 import { TopExpandBtn } from '@/components/ExpandBtn';
 import $i18n from '@/i18n';
-import { HelpIcon } from '@spark-ai/design';
+import { Input, Select, Tooltip } from '@arco-design/web-react';
+// TODO: HelpIcon needs replacement
 import { IValueType } from '@spark-ai/flow';
-import { Flex, Input, Select } from 'antd';
+
 import classNames from 'classnames';
 import { useState } from 'react';
 import styles from './index.module.less';
@@ -60,13 +61,13 @@ export function InputCompItem(props: IInputCompItemProps) {
   };
   return (
     <div className="flex flex-col gap-3">
-      <Flex className={styles['title-wrap']} gap={8}>
+      <div className={`flex gap-2 flex-wrap ${styles['title-wrap']}`}>
         <span className={styles.title}>{props.name}</span>
         <TopExpandBtn setExpand={setExpand} expand={expand} />
-      </Flex>
+      </div>
       {expand && (
-        <Flex className={styles['inputs-form']} vertical gap={8}>
-          <Flex className={styles['key-label']} gap={8}>
+        <div className={`flex flex-col gap-2 ${styles['inputs-form']}`}>
+          <div className={`flex gap-2 ${styles['key-label']}`}>
             <span className={styles.name}>
               {$i18n.get({
                 id: 'main.pages.Component.AppComponent.components.InputParamsComp.index.parameterName',
@@ -124,14 +125,9 @@ export function InputCompItem(props: IInputCompItemProps) {
                 dm: '默认值',
               })}
             </span>
-          </Flex>
+          </div>
           {props.params.map((item, index) => (
-            <Flex
-              key={`${item.field}_${index}`}
-              className={styles['form-row-item']}
-              gap={8}
-              align="center"
-            >
+            <div className={`flex items-center gap-2 ${styles['form-row-item']}`}>
               <Input value={item.field} className={styles.name} disabled />
               <Input
                 onChange={(e) =>
@@ -249,9 +245,9 @@ export function InputCompItem(props: IInputCompItemProps) {
                       })
                 }
               />
-            </Flex>
+            </div>
           ))}
-        </Flex>
+        </div>
       )}
     </div>
   );
@@ -276,7 +272,7 @@ export default function InputParamsComp(props: IProps) {
   };
 
   return (
-    <Flex vertical gap={20}>
+    <div className="flex flex-col gap-5">
       {userParams.map((item) => (
         <InputCompItem
           onChange={(val) => handleChangeUserParams(val, item.code)}
@@ -297,6 +293,6 @@ export default function InputParamsComp(props: IProps) {
           disabled={props.disabled}
         />
       )}
-    </Flex>
+    </div>
   );
 }

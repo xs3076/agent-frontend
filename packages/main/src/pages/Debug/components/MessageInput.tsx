@@ -1,6 +1,6 @@
 import React, { useState, useRef, KeyboardEvent } from 'react';
-import { Button, Upload, message } from 'antd';
-import { SendOutlined, PaperClipOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Button, Upload, Message } from '@arco-design/web-react';
+import { IconSend, IconAttachment, IconLoading } from '@arco-design/web-react/icon';
 import { useChatContext } from '../contexts/ChatContext';
 import styles from '../index.module.less';
 
@@ -24,7 +24,7 @@ const MessageInput: React.FC = () => {
         textareaRef.current.style.height = '40px';
       }
     } catch (error) {
-      message.error('发送消息失败');
+      Message.error('发送消息失败');
     }
   };
 
@@ -51,7 +51,7 @@ const MessageInput: React.FC = () => {
   const handleFileUpload = (file: File) => {
     const maxSize = 10 * 1024 * 1024; // 10MB
     if (file.size > maxSize) {
-      message.error('文件大小不能超过 10MB');
+      Message.error('文件大小不能超过 10MB');
       return false;
     }
 
@@ -65,7 +65,7 @@ const MessageInput: React.FC = () => {
     ];
 
     if (!allowedTypes.includes(file.type)) {
-      message.error('不支持的文件类型');
+      Message.error('不支持的文件类型');
       return false;
     }
 
@@ -118,7 +118,7 @@ const MessageInput: React.FC = () => {
         >
           <Button
             type="text"
-            icon={<PaperClipOutlined />}
+            icon={<IconAttachment />}
             size="small"
             disabled={isDisabled}
             title="上传文件"
@@ -127,7 +127,7 @@ const MessageInput: React.FC = () => {
 
         <Button
           type="primary"
-          icon={state.isStreaming ? <LoadingOutlined /> : <SendOutlined />}
+          icon={state.isStreaming ? <IconLoading /> : <IconSend />}
           size="small"
           onClick={handleSend}
           disabled={isDisabled || (!inputValue.trim() && attachedFiles.length === 0)}

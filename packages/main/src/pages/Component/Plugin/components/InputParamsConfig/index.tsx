@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconButton, Input, Select } from '@spark-ai/design';
-import { Flex } from 'antd';
+import { Button, Input, Select } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
+
 import { useMemo, useState } from 'react';
 import { RightExpandBtn } from '../ExpandBtn';
 import styles from './index.module.less';
@@ -172,13 +173,13 @@ function InputParamsRowComp({
   return (
     <>
       <div>
-        <Flex className={styles.item} gap={8} align="flex-start">
+        <div className={`flex items-start gap-2 ${styles.item}`}>
           {hasChildren ? (
             <RightExpandBtn expand={expand} setExpand={setExpand} />
           ) : (
             bizHasProperties && <div className={styles.placeholder}></div>
           )}
-          <Flex style={{ flex: 1, width: 100 }} vertical>
+          <div className="flex flex-col">
             <Input
               status={errorTip ? 'error' : void 0}
               onBlur={handleCheckKey}
@@ -195,9 +196,9 @@ function InputParamsRowComp({
             {errorTip && (
               <span className={styles['error-tip']}>{errorTip}</span>
             )}
-          </Flex>
+          </div>
 
-          <Flex style={{ width: 150 }} vertical>
+          <div className="flex flex-col">
             <Input
               onChange={(e) => changeRowItem({ desc: e.target.value })}
               value={paramItem.desc}
@@ -212,7 +213,7 @@ function InputParamsRowComp({
             {descErrorTip && (
               <span className={styles['error-tip']}>{descErrorTip}</span>
             )}
-          </Flex>
+          </div>
           <Select
             onChange={(val) => changeRowItem({ type: val })}
             options={VALUE_TYPE_OPTS}
@@ -287,7 +288,7 @@ function InputParamsRowComp({
             ]}
           />
 
-          <Flex gap={8}>
+          <div className="flex gap-2">
             {hasProperties && (
               <IconButton
                 onClick={handleAddRowItem}
@@ -301,8 +302,8 @@ function InputParamsRowComp({
               bordered={false}
               shape="circle"
             />
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </div>
       {hasProperties &&
         expand &&
@@ -356,8 +357,8 @@ export default function InputParamsConfig({
   }, [params]);
 
   return (
-    <Flex vertical gap={12}>
-      <Flex gap={8} className={styles.label}>
+    <div className="flex flex-col gap-3">
+      <div className={`flex gap-2 ${styles.label}`}>
         {hasProperties && <div className={styles.placeholder}></div>}
         <div className={styles.label} style={{ flex: 1 }}>
           {$i18n.get({
@@ -396,7 +397,7 @@ export default function InputParamsConfig({
           })}
         </div>
         <div style={{ width: 36 }}></div>
-      </Flex>
+      </div>
       {params.map((item, index) => (
         <InputParamsRowComp
           requestMethod={requestMethod}
@@ -421,6 +422,6 @@ export default function InputParamsConfig({
           dm: '增加入参',
         })}
       </Button>
-    </Flex>
+    </div>
   );
 }

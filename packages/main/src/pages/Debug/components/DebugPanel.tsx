@@ -1,11 +1,13 @@
 import React from 'react';
-import { Button, Tag, Collapse, Statistic, Row, Col } from 'antd';
-import { ClearOutlined } from '@ant-design/icons';
+import { Button, Tag, Collapse, Statistic, Grid } from '@arco-design/web-react';
+import { IconDelete } from '@arco-design/web-react/icon';
 import { useDebugContext } from '../contexts/DebugContext';
 import { useChatContext } from '../contexts/ChatContext';
 import styles from '../index.module.less';
 
-const { Panel } = Collapse;
+const Row = Grid.Row;
+const Col = Grid.Col;
+const CollapseItem = Collapse.Item;
 
 const DebugPanel: React.FC = () => {
   const { debugState, clearLogs, addDebugLog } = useDebugContext();
@@ -51,7 +53,7 @@ const DebugPanel: React.FC = () => {
         <Button
           type="text"
           size="small"
-          icon={<ClearOutlined />}
+          icon={<IconDelete />}
           onClick={clearLogs}
           title="清空日志"
         />
@@ -137,8 +139,8 @@ const DebugPanel: React.FC = () => {
         {/* Debug Logs */}
         <div className={styles.debugSection}>
           <div className={styles.debugSectionTitle}>调试日志</div>
-          <Collapse size="small" ghost>
-            <Panel header={`日志 (${debugState.debugLogs.length})`} key="1">
+          <Collapse bordered={false}>
+            <CollapseItem header={`日志 (${debugState.debugLogs.length})`} name="1">
               <div style={{ maxHeight: 200, overflowY: 'auto' }}>
                 {debugState.debugLogs.length === 0 ? (
                   <div style={{ color: '#999', fontSize: 12, textAlign: 'center', padding: 16 }}>
@@ -184,7 +186,7 @@ const DebugPanel: React.FC = () => {
                   ))
                 )}
               </div>
-            </Panel>
+            </CollapseItem>
           </Collapse>
         </div>
 

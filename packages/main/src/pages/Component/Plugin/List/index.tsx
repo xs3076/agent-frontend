@@ -1,6 +1,7 @@
 import { useInnerLayout } from '@/components/InnerLayout/utils';
 import $i18n from '@/i18n';
-import { Button, IconFont } from '@spark-ai/design';
+import { Button } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import { history } from 'umi';
 import List from './List';
 

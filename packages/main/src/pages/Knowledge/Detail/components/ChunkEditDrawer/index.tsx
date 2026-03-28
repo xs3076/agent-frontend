@@ -1,8 +1,8 @@
 import $i18n from '@/i18n';
 import { updateChunksContent } from '@/services/knowledge';
-import { Button, Drawer, Input } from '@spark-ai/design';
-import type { InputRef } from 'antd';
-import { Flex } from 'antd';
+import { Button, Drawer, Input } from '@arco-design/web-react';
+import type {  InputRef  } from '@arco-design/web-react';
+
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './index.module.less';
@@ -84,7 +84,7 @@ export default function ChunkEditDrawer(props: ChunkEditDrawerProps) {
 
   return (
     <Drawer
-      open={visible}
+      visible={visible}
       title={$i18n.get(
         {
           id: 'main.pages.Knowledge.Detail.components.ChunkEditDrawer.index.editSliceVar1',
@@ -103,7 +103,7 @@ export default function ChunkEditDrawer(props: ChunkEditDrawerProps) {
               dm: '字符',
             })}
           </div>
-          <Flex align="center" gap={12}>
+          <div className="flex items-center gap-3">
             <Button onClick={onClose}>
               {$i18n.get({
                 id: 'main.pages.Knowledge.Detail.components.ChunkEditDrawer.index.cancel',
@@ -116,7 +116,7 @@ export default function ChunkEditDrawer(props: ChunkEditDrawerProps) {
                 dm: '保存',
               })}
             </Button>
-          </Flex>
+          </div>
         </div>
       }
     >

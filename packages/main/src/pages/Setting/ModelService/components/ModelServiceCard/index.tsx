@@ -1,7 +1,8 @@
 import ProCard from '@/components/Card/ProCard';
 import $i18n from '@/i18n';
 import { IProvider } from '@/types/modelService';
-import { Button, Dropdown, IconButton, Tag } from '@spark-ai/design';
+import { Button, Dropdown, Tag, Menu } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
 import dayjs from 'dayjs';
 import { ProviderAvatar } from '../ProviderAvatar';
 import styles from './index.module.less';
@@ -30,8 +31,8 @@ const ModelServiceCard = ({ service, onClick }: ModelServiceCardProps) => {
     onClick?.(action, service);
   };
 
-  const handleDropdownClick = (info: { key: string }) => {
-    onClick?.(info.key, service);
+  const handleDropdownClick = (key: string) => {
+    onClick?.(key, service);
   };
 
   const renderActions = () => {
@@ -89,8 +90,16 @@ const ModelServiceCard = ({ service, onClick }: ModelServiceCardProps) => {
         </Button>
         {menuItems.length > 0 && (
           <Dropdown
-            trigger={['click']}
-            menu={{ items: menuItems, onClick: handleDropdownClick }}
+            trigger="click"
+            droplist={
+              <Menu onClickMenuItem={handleDropdownClick}>
+                {menuItems.map((item) => (
+                  <Menu.Item key={item.key} className={item.danger ? 'text-red-500' : ''}>
+                    {item.label}
+                  </Menu.Item>
+                ))}
+              </Menu>
+            }
           >
             <div onClick={(e) => e.stopPropagation()}>
               <IconButton shape="default" icon="spark-more-line" />

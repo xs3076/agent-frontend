@@ -1,4 +1,4 @@
-import { Flex } from 'antd';
+
 import classNames from 'classnames';
 import styles from './index.module.less';
 
@@ -29,7 +29,7 @@ export default function RadioItem(props: IProps) {
         [styles.disabled]: props.disabled,
       })}
     >
-      <Flex gap={12} align="center" className={styles['top']}>
+      <div className={`flex items-center gap-3 ${styles['top']}`}>
         {!!props.logo && (
           <div
             style={{ backgroundColor: props.logoBg }}
@@ -47,7 +47,7 @@ export default function RadioItem(props: IProps) {
             })}
           ></div>
         }
-      </Flex>
+      </div>
       {!!props.desc && <div className={styles['desc']}>{props.desc}</div>}
     </div>
   );

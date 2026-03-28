@@ -1,8 +1,7 @@
 import $i18n from '@/i18n';
 import { IMcpServer } from '@/types/mcp';
-import { getCommonConfig } from '@spark-ai/design';
+import { Empty } from '@arco-design/web-react';
 import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
-import { Empty } from 'antd';
 import React from 'react';
 import styles from './index.module.less';
 
@@ -11,7 +10,7 @@ interface OverviewProps {
 }
 
 const Overview: React.FC<OverviewProps> = ({ detail }) => {
-  const darkMode = getCommonConfig().isDarkMode;
+  const darkMode = document.body.getAttribute('arco-theme') === 'dark';
 
   const renderItem = (label: string, value: string) => (
     <div className={styles['info-item']}>

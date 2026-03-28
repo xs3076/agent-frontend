@@ -1,5 +1,4 @@
-import { IconFont } from '@spark-ai/design';
-import { Flex } from 'antd';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import styles from './index.module.less';
 
@@ -30,7 +29,7 @@ export default function RadioItem(props: IProps) {
         [styles.disabled]: props.disabled,
       })}
     >
-      <Flex gap={12} align="center" className={styles.top}>
+      <div className={`flex gap-3 items-center ${styles.top}`}>
         {!!props.logo && (
           <div
             style={{ backgroundColor: props.logoBg }}
@@ -41,7 +40,7 @@ export default function RadioItem(props: IProps) {
         )}
         <div className={styles.title}>{props.label}</div>
         {props.isActive && <div className={styles['check-icon']}></div>}
-      </Flex>
+      </div>
       {!!props.desc && <div className={styles.desc}>{props.desc}</div>}
     </div>
   );

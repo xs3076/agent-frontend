@@ -13,15 +13,8 @@ import {
   IProviderConfigInfo,
   MODEL_TAGS,
 } from '@/types/modelService';
-import {
-  AlertDialog,
-  Button,
-  Empty,
-  Switch,
-  Tag,
-  message,
-} from '@spark-ai/design';
-import { Spin, Table } from 'antd';
+import { Button, Empty, Switch, Tag, Message, Spin, Table } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'umi';
 import styles from './Detail.module.less';
@@ -188,7 +181,7 @@ const ModelServiceDetail: React.FC = () => {
       ),
       onOk: () => {
         if (!record.model_id) {
-          message.error(
+          Message.error(
             $i18n.get({
               id: 'main.pages.Setting.ModelService.Detail.modelIdNotExist',
               dm: '模型ID不存在',
@@ -197,7 +190,7 @@ const ModelServiceDetail: React.FC = () => {
           return;
         }
         if (!id) {
-          message.error(
+          Message.error(
             $i18n.get({
               id: 'main.pages.Setting.ModelService.Detail.providerIdNotExist',
               dm: '提供商ID不存在',
@@ -207,7 +200,7 @@ const ModelServiceDetail: React.FC = () => {
         }
         deleteModel(id, record.model_id).then((response) => {
           if (response) {
-            message.success(
+            Message.success(
               $i18n.get({
                 id: 'main.pages.Setting.ModelService.Detail.deleteModelSuccess',
                 dm: '删除模型成功',
@@ -227,7 +220,7 @@ const ModelServiceDetail: React.FC = () => {
 
   const updateModelInfo = async (modelInfo: IModel) => {
     if (!id) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.pages.Setting.ModelService.Detail.providerIdNotExist',
           dm: '提供商ID不存在',
@@ -237,7 +230,7 @@ const ModelServiceDetail: React.FC = () => {
     }
 
     if (!modelInfo.model_id) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.pages.Setting.ModelService.Detail.modelIdNotExist',
           dm: '模型ID不存在',
@@ -253,7 +246,7 @@ const ModelServiceDetail: React.FC = () => {
 
     const response = await updateModel(id, modelInfo.model_id, updateParams);
     if (response) {
-      message.success(
+      Message.success(
         $i18n.get({
           id: 'main.pages.Setting.ModelService.Detail.updateModelSuccess',
           dm: '更新模型成功',
@@ -266,7 +259,7 @@ const ModelServiceDetail: React.FC = () => {
 
   const createModelInfo = async (modelInfo: ICreateModelParams) => {
     if (!id) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.pages.Setting.ModelService.Detail.providerIdNotExist',
           dm: '提供商ID不存在',
@@ -282,7 +275,7 @@ const ModelServiceDetail: React.FC = () => {
 
     const response = await createModel(id, createParams);
     if (response) {
-      message.success(
+      Message.success(
         $i18n.get({
           id: 'main.pages.Setting.ModelService.Detail.addModelSuccess',
           dm: '添加模型成功',
@@ -295,7 +288,7 @@ const ModelServiceDetail: React.FC = () => {
 
   const handleModelConfigSubmit = async (modelInfo: ICreateModelParams) => {
     if (!id) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.pages.Setting.ModelService.Detail.providerIdNotExist',
           dm: '提供商ID不存在',
@@ -332,7 +325,7 @@ const ModelServiceDetail: React.FC = () => {
       >
         <div className={styles.container}>
           <Spin
-            spinning={loading}
+            loading={loading}
             size="large"
             tip={$i18n.get({
               id: 'main.pages.Setting.ModelService.Detail.loading',

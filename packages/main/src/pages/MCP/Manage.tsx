@@ -7,13 +7,10 @@ import {
   updateMcpServer,
 } from '@/services/mcp';
 import { IMcpServer, IPagingList, McpStatus } from '@/types/mcp';
-import {
-  AlertDialog,
-  Button,
-  ButtonProps,
-  IconFont,
-  message,
-} from '@spark-ai/design';
+import { Button, Message } from '@arco-design/web-react';
+import type { ButtonProps } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import { useMount, useSetState } from 'ahooks';
 import { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -116,7 +113,7 @@ export default function McpManage() {
       danger: true,
       onOk: async () => {
         await deleteMcpServer(item.server_code);
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.MCP.Manage.deletionSuccessful',
             dm: '删除成功',
@@ -146,7 +143,7 @@ export default function McpManage() {
           ...item,
           status: McpStatus.DISABLED,
         });
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.MCP.Manage.stoppingSuccessful',
             dm: '停止成功',
@@ -176,7 +173,7 @@ export default function McpManage() {
           ...item,
           status: McpStatus.ENABLED,
         });
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.MCP.Manage.startingSuccessful',
             dm: '启动成功',

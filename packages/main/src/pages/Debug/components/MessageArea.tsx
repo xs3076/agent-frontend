@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { Button } from 'antd';
-import { SettingOutlined, ClearOutlined } from '@ant-design/icons';
+import { Button } from '@arco-design/web-react';
+import { IconSettings, IconDelete } from '@arco-design/web-react/icon';
 import { useChatContext } from '../contexts/ChatContext';
 import { useConfigContext } from '../contexts/ConfigContext';
 import MessageList from './MessageList';
@@ -38,14 +38,14 @@ const MessageArea: React.FC = () => {
         <div className={styles.headerActions}>
           <Button
             type="text"
-            icon={<SettingOutlined />}
+            icon={<IconSettings />}
             onClick={toggleDebugInfo}
             size="small"
             title="调试面板"
           />
           <Button
             type="text"
-            icon={<ClearOutlined />}
+            icon={<IconDelete />}
             onClick={handleClearChat}
             size="small"
             title="清空对话"

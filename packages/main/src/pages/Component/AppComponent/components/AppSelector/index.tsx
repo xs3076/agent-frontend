@@ -2,18 +2,10 @@ import Search from '@/components/Search';
 import $i18n from '@/i18n';
 import { getEnableAppList, IAppType } from '@/services/appComponent';
 import { IEnableAppListItem } from '@/types/appComponent';
-import {
-  Button,
-  Checkbox,
-  Empty,
-  IconFont,
-  message,
-  Modal,
-  Pagination,
-  Radio,
-} from '@spark-ai/design';
+import { Button, Checkbox, Empty, Message, Modal, Pagination, Radio, Spin, Typography } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import { useMount, useSetState } from 'ahooks';
-import { Flex, Spin, Typography } from 'antd';
+
 import classNames from 'classnames';
 import { useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -109,8 +101,8 @@ export default function AppSelector(props: IProps) {
     );
 
   return (
-    <Flex className="h-full" vertical gap={12}>
-      <Flex className={classNames(styles.list, props.className)} gap={12} wrap>
+    <div className="flex flex-col gap-3 h-full">
+      <div className={`flex gap-3 flex-wrap ${classNames(styles.list, props.className)}`}>
         {memoList.map((item) => (
           <div
             onClick={() => {
@@ -131,9 +123,9 @@ export default function AppSelector(props: IProps) {
             })}
             key={item.app_id}
           >
-            <Flex gap={8} align="center">
+            <div className="flex gap-2 items-center">
               <img src={APP_ICON_IMAGE[item.type]} alt="" />
-              <Flex align="center" gap={4} className="flex-1 w-1">
+              <div className="flex items-center gap-1 flex-1 w-1">
                 <Typography.Text
                   ellipsis={{ tooltip: item.name }}
                   className={styles.title}
@@ -151,13 +143,13 @@ export default function AppSelector(props: IProps) {
                   className="cursor-pointer"
                   type="spark-setting-line"
                 />
-              </Flex>
+              </div>
               {props.isMulti ? (
                 <Checkbox checked={item.isSelected} />
               ) : (
                 <Radio checked={item.isSelected} />
               )}
-            </Flex>
+            </div>
             <div className={styles.desc}>
               {$i18n.get(
                 {
@@ -169,7 +161,7 @@ export default function AppSelector(props: IProps) {
             </div>
           </div>
         ))}
-      </Flex>
+      </div>
       {props.pagination && (
         <Pagination
           hideOnSinglePage
@@ -177,7 +169,7 @@ export default function AppSelector(props: IProps) {
           {...props.pagination}
         />
       )}
-    </Flex>
+    </div>
   );
 }
 
@@ -201,7 +193,7 @@ export function AppSelectorModalByAppComponent(props: IAppModalProps) {
 
   const handleOk = () => {
     if (!state.selectedApp) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'main.pages.Component.AppComponent.components.AppSelector.index.selectApplication',
           dm: '请选择应用',
@@ -257,8 +249,8 @@ export function AppSelectorModalByAppComponent(props: IAppModalProps) {
         dm: '选择应用',
       })}
     >
-      <Flex vertical gap={12}>
-        <Flex justify="space-between" align="center">
+      <div className="flex flex-col gap-3">
+        <div className="flex items-center justify-between">
           <Search
             className={styles.search}
             value={state.app_name}
@@ -289,7 +281,7 @@ export function AppSelectorModalByAppComponent(props: IAppModalProps) {
                   dm: '工作流',
                 })}
           </Button>
-        </Flex>
+        </div>
         <div className={styles['list-wrap']}>
           <AppSelector
             onSelect={(val) =>
@@ -310,7 +302,7 @@ export function AppSelectorModalByAppComponent(props: IAppModalProps) {
             }}
           />
         </div>
-      </Flex>
+      </div>
     </Modal>
   );
 }

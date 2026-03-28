@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Switch } from '@spark-ai/design';
-import { Flex } from 'antd';
+import { Button, Switch } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
+
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import { IChunkItem } from '../../type';
@@ -169,7 +170,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           )}
         </div>
         {mode === 'edit' && (
-          <Flex align="center" gap={8}>
+          <div className="flex items-center gap-2">
             <Switch checked={enabled} onChange={handleDisplay} size="small" />
             <div
               className={classNames(styles['display-status'], {
@@ -186,7 +187,7 @@ const Header: React.FC<HeaderProps> = (props) => {
                     dm: '已禁用',
                   })}
             </div>
-          </Flex>
+          </div>
         )}
       </div>
       {visible && (

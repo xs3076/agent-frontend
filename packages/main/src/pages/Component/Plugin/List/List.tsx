@@ -1,9 +1,9 @@
 import CardList from '@/components/Card/List';
 import $i18n from '@/i18n';
 import { listPlugin } from '@/services/plugin';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
 import { useRequest, useSetState } from 'ahooks';
-import { Button } from 'antd';
+import { Button } from '@arco-design/web-react';
 import { history } from 'umi';
 import PluginCard from './Card';
 

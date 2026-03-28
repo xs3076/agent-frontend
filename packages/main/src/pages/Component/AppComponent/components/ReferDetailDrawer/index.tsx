@@ -1,10 +1,10 @@
 import $i18n from '@/i18n';
 import { getAppComponentRefApps, IAppType } from '@/services/appComponent';
 import { IAppComponentListItem, IReferAppListItem } from '@/types/appComponent';
-import { Drawer } from '@spark-ai/design';
+import { Drawer, Table, Typography } from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Table, Typography } from 'antd';
-import { ColumnProps } from 'antd/es/table';
+
+import { ColumnProps } from '@arco-design/web-react';
 import { useMemo } from 'react';
 
 interface IProps {

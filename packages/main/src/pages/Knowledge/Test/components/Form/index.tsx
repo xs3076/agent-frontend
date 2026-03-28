@@ -1,6 +1,7 @@
 import SliderInput from '@/components/SliderInput';
 import $i18n from '@/i18n';
-import { Button, Form, IconFont, Input, Tooltip } from '@spark-ai/design';
+import { Button, Form, Input, Tooltip } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import React, { useEffect } from 'react';
 import styles from './index.module.less';
@@ -39,7 +40,7 @@ const TestForm: React.FC<FormProps> = ({
       <Form
         form={form}
         layout="vertical"
-        onFinish={onSubmit}
+        onSubmit={onSubmit}
         initialValues={initialValues}
       >
         <div className={styles['form-title']}>
@@ -57,8 +58,7 @@ const TestForm: React.FC<FormProps> = ({
                   dm: '相似度阈值',
                 })}
               </span>
-              <Tooltip
-                title={$i18n.get({
+              <Tooltip content={$i18n.get({
                   id: 'main.pages.Knowledge.Test.components.Form.index.thresholdMeasureSimilarity',
                   dm: '用于衡量文本或数据间相似程度的临界值,当计算出的文本相似度达到或超过该值时，会返回该文本 。',
                 })}
@@ -90,7 +90,7 @@ const TestForm: React.FC<FormProps> = ({
             id: 'main.pages.Knowledge.Test.components.Form.index.input',
             dm: '输入',
           })}
-          name="query"
+          field="query"
           rules={[
             {
               required: true,

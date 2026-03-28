@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { Button, Drawer } from '@spark-ai/design';
+import { Button, Drawer } from '@arco-design/web-react';
 import styles from './index.module.less';
 
 interface ChunkViewDrawerProps {
@@ -26,7 +26,7 @@ export default function ChunkViewDrawer(props: ChunkViewDrawerProps) {
 
   return (
     <Drawer
-      open={visible}
+      visible={visible}
       title={$i18n.get(
         {
           id: 'main.pages.Knowledge.Detail.components.ChunkViewDrawer.index.viewSliceVar1',

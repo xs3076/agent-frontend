@@ -5,7 +5,7 @@ import styles from './index.module.less';
 
 import $i18n from '@/i18n';
 import ChunkItem from '@/pages/Knowledge/Detail/components/ChunkItem/index';
-import { Empty } from '@spark-ai/design';
+import { Empty } from '@arco-design/web-react';
 
 interface ChunkListProps {
   /**

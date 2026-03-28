@@ -1,5 +1,5 @@
 import { getModelSelector } from '@/services/modelService';
-import { Select } from '@spark-ai/design';
+import { Select } from '@arco-design/web-react';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.less';
 

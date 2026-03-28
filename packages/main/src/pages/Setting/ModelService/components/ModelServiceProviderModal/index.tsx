@@ -3,8 +3,7 @@ import $i18n from '@/i18n';
 import { API_KEY_TIP_SECTIONS } from '@/pages/Setting/utils';
 import { createProvider, getProviderProtocols } from '@/services/modelService';
 import type { ICreateProviderParams } from '@/types/modelService';
-import { Button, Form, Input, Modal, Radio, message } from '@spark-ai/design';
-import { Space } from 'antd';
+import { Button, Form, Input, Modal, Radio, Message } from '@arco-design/web-react';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.less';
 
@@ -49,7 +48,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
       const res = await createProvider(params);
 
       if (res) {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.Setting.ModelService.components.ModelServiceProviderModal.index.createSuccess',
             dm: '模型服务商创建成功',
@@ -69,7 +68,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
         id: 'main.pages.Setting.ModelService.components.ModelServiceProviderModal.index.addServiceProvider',
         dm: '新增模型服务商',
       })}
-      open={open}
+      visible={open}
       onCancel={() => {
         form.resetFields();
         onCancel();
@@ -105,7 +104,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
         className={styles['provider-modal']}
       >
         <Form.Item
-          name="name"
+          field="name"
           label={$i18n.get({
             id: 'main.pages.Setting.ModelService.components.ModelServiceProviderModal.index.serviceProviderName',
             dm: '服务商名称',
@@ -131,7 +130,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="api_key"
+          field="api_key"
           label="API-KEY"
           rules={[
             {
@@ -154,7 +153,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="endpoint"
+          field="endpoint"
           label="API URL"
           rules={[
             {
@@ -183,7 +182,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="protocol"
+          field="protocol"
           label={$i18n.get({
             id: 'main.pages.Setting.ModelService.components.ModelServiceProviderModal.index.serviceProviderType',
             dm: '服务商类型',
@@ -199,13 +198,13 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
           ]}
         >
           <Radio.Group className={styles['protocol-type-radio']}>
-            <Space>
+            <div className="flex gap-4">
               {protocols.map((protocol) => (
                 <Radio key={protocol} value={protocol}>
                   {protocol}
                 </Radio>
               ))}
-            </Space>
+            </div>
             <TipBox
               title={$i18n.get({
                 id: 'main.pages.Setting.ModelService.components.ModelServiceProviderModal.index.howToGetModelServiceApi',

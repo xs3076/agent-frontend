@@ -1,9 +1,10 @@
 import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { createDocuments, createKnowledge } from '@/services/knowledge';
-import { AlertDialog, Button, message } from '@spark-ai/design';
+import { Button, Message, Steps } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
 import { useSetState } from 'ahooks';
-import { Steps } from 'antd';
+
 import { useRef, useState } from 'react';
 import { history } from 'umi';
 import StepOne from '../components/StepOne';
@@ -224,7 +225,7 @@ export default function Ceeate() {
                   .then(() => {
                     setState({ step: 1 });
                   })
-                  .catch((errInfo) => message.warning(errInfo));
+                  .catch((errInfo) => Message.warning(errInfo));
               }}
             >
               {$i18n.get({
@@ -268,7 +269,7 @@ export default function Ceeate() {
                   .then(() => {
                     setState({ step: 2 });
                   })
-                  .catch((errInfo) => message.warning(errInfo));
+                  .catch((errInfo) => Message.warning(errInfo));
               }}
               disabled={uploadingCount > 0}
             >

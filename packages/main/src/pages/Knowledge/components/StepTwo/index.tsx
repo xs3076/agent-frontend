@@ -2,8 +2,9 @@ import IconFile from '@/components/Icon/IconFile';
 import $i18n from '@/i18n';
 import upload, { getPreviewUrl } from '@/request/upload';
 import type { FileType } from '@/types/base';
-import { Form, IconFont, message } from '@spark-ai/design';
-import { Flex, Upload } from 'antd';
+import { Form, Message, Upload } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
+
 import React, { useRef } from 'react';
 import styles from './index.module.less';
 
@@ -86,7 +87,7 @@ export default function StepTwo({
               if (fileList.length + files.length > 50 || files.length > 50) {
                 if (!isLimitReachedRef.current) {
                   message.destroy();
-                  message.error(
+                  Message.error(
                     $i18n.get({
                       id: 'main.pages.Knowledge.components.StepTwo.index.maxUpload50Files',
                       dm: '最多只能上传 50 个文件',
@@ -104,7 +105,7 @@ export default function StepTwo({
                 : true; // Maximum image size is 20MB
 
               if (!isSupportedFormat) {
-                message.error(
+                Message.error(
                   $i18n.get({
                     id: 'main.pages.Knowledge.Detail.components.UploadModal.index.supportedFormats',
                     dm: '仅支持上传.pdf、.doc、.txt、.md、.ppt、.docx、.pptx等格式的文件',
@@ -114,7 +115,7 @@ export default function StepTwo({
               }
 
               if (!isFileSizeValid) {
-                message.error(
+                Message.error(
                   $i18n.get({
                     id: 'main.pages.Knowledge.components.StepTwo.index.singleFileSizeLimit100MB',
                     dm: '单个文件大小不能超过100MB',
@@ -124,7 +125,7 @@ export default function StepTwo({
               }
 
               if (!isImageSizeValid) {
-                message.error(
+                Message.error(
                   $i18n.get({
                     id: 'main.pages.Knowledge.components.StepTwo.index.singleImageSizeLimit20MB',
                     dm: '单个图片大小不能超过20MB',
@@ -161,12 +162,7 @@ export default function StepTwo({
               return renderFileIcon(fileType);
             }}
           >
-            <Flex
-              vertical
-              align="center"
-              justify="center"
-              className={styles['upload-dragger']}
-            >
+            <div className={`flex flex-col items-center justify-center ${styles['upload-dragger']}`}>
               <IconFont
                 type="spark-upload-line"
                 className={styles['upload-dragger-icon']}
@@ -190,7 +186,7 @@ export default function StepTwo({
                   dm: '单个文件最大100MB或1000页，单个图片最大限制20MB',
                 })}
               </div>
-            </Flex>
+            </div>
           </Upload.Dragger>
         </Form.Item>
       </Form>

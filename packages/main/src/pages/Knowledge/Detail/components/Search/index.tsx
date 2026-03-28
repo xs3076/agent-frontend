@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Input } from '@spark-ai/design';
-import type { MenuProps } from 'antd';
-import { Dropdown, Flex } from 'antd';
+import { Button, Dropdown, Input, Menu } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
+
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styles from './index.module.less';
@@ -85,15 +85,19 @@ const Search: React.FC<SearchProps> = ({
 
         <div className={styles['select-group']}>
           <Dropdown
-            menu={{
-              items,
-              onClick: (e) => {
-                onFilter?.('index_status', e.key as string);
-                setStatusName((e.domEvent.target as HTMLElement).innerText);
-              },
-            }}
+            droplist={
+              <Menu onClickMenuItem={(key) => {
+                onFilter?.('index_status', key);
+                const item = items.find((i: any) => i.key === key);
+                if (item) setStatusName(item.label as string);
+              }}>
+                {items.map((item: any) => (
+                  <Menu.Item key={item.key}>{item.label}</Menu.Item>
+                ))}
+              </Menu>
+            }
           >
-            <Flex align="center" gap={6}>
+            <div className="flex items-center gap-1.5">
               <Button type="textCompact">
                 {statusName ||
                   $i18n.get({
@@ -105,11 +109,11 @@ const Search: React.FC<SearchProps> = ({
                 type="spark-down-line"
                 className={styles['dropdown-icon']}
               />
-            </Flex>
+            </div>
           </Dropdown>
         </div>
         {!operationable && (
-          <Flex align="center" gap={8}>
+          <div className="flex items-center gap-2">
             <Button type="default" onClick={onBatchOperation}>
               {$i18n.get({
                 id: 'main.pages.Knowledge.Detail.components.Search.index.batchOperation',
@@ -126,7 +130,7 @@ const Search: React.FC<SearchProps> = ({
                 dm: '上传文件',
               })}
             </Button>
-          </Flex>
+          </div>
         )}
       </div>
     </div>

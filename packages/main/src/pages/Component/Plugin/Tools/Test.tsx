@@ -1,7 +1,9 @@
 import $i18n from '@/i18n';
 import { testTool } from '@/services/plugin';
-import { Button, CodeBlock, Drawer, IconFont } from '@spark-ai/design';
-import { Collapse, CollapseProps, Flex } from 'antd';
+import { Button, Collapse, CollapseProps, Drawer } from '@arco-design/web-react';
+import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
+import IconFont from '@/components/ui/IconFont';
+
 import { useEffect, useState } from 'react';
 import { InputParamItem } from '../components/InputParamsConfig';
 import styles from './index.module.less';
@@ -40,7 +42,7 @@ export default function (props: {
       }),
       classNames: { header: styles.collapse },
       children: (
-        <Flex gap={20} vertical>
+        <div className="flex flex-col gap-5">
           <CodeBlock
             // @ts-ignore
             onChange={(value: string) => {
@@ -64,7 +66,7 @@ export default function (props: {
               dm: '开始运行',
             })}
           </Button>
-        </Flex>
+        </div>
       ),
     },
     {
@@ -92,7 +94,7 @@ export default function (props: {
           dm: '测试工具',
         })}
         width={480}
-        open={open}
+        visible={open}
         onClose={() => setOpen(false)}
       >
         <div>

@@ -3,9 +3,9 @@ import { useInnerLayout } from '@/components/InnerLayout/utils';
 import ScrollMenu from '@/components/ScrollMenu';
 import $i18n from '@/i18n';
 import { getPlugin, getTool, publishTool, saveTool } from '@/services/plugin';
-import { Button, Form, message } from '@spark-ai/design';
+import { Button, Divider, Form, Input, Message, Select } from '@arco-design/web-react';
 import { useRequest, useSetState } from 'ahooks';
-import { Divider, Flex, Input, Select } from 'antd';
+
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
 import { history, useNavigate, useParams } from 'umi';
@@ -94,7 +94,7 @@ export default function () {
     <Button
       onClick={async () => {
         save().then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Component.Plugin.Tools.Edit.successSave',
               dm: '保存成功',
@@ -116,7 +116,7 @@ export default function () {
       onClick={async () => {
         const toolId = (await save()) as string;
         publishTool(id, toolId).then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Component.Plugin.Tools.Edit.successPublish',
               dm: '发布成功',
@@ -177,7 +177,7 @@ export default function () {
             layout="vertical"
             colon={false}
           >
-            <Flex vertical>
+            <div className="flex flex-col">
               <div
                 ref={(el: HTMLDivElement) => {
                   menuRef.current[0] = el;
@@ -191,7 +191,7 @@ export default function () {
                   })}
                 </div>
                 <Form.Item
-                  name="name"
+                  field="name"
                   rules={[
                     {
                       required: true,
@@ -217,7 +217,7 @@ export default function () {
                 </Form.Item>
 
                 <Form.Item
-                  name="description"
+                  field="description"
                   rules={[
                     {
                       required: true,
@@ -364,14 +364,14 @@ export default function () {
                 }}
                 className={styles['form-area']}
               >
-                <Flex justify="space-between" align="center">
+                <div className="flex items-center justify-between">
                   <span className={styles.title}>
                     {$i18n.get({
                       id: 'main.pages.Component.Plugin.Tools.Edit.advancedConfiguration',
                       dm: '高级配置',
                     })}
                   </span>
-                </Flex>
+                </div>
                 <div className={styles.tip}>
                   {$i18n.get({
                     id: 'main.pages.Component.Plugin.Tools.Edit.addCallExamples',
@@ -385,7 +385,7 @@ export default function () {
                 />
               </div>
               {bottomPortal(
-                <Flex className={styles['bottom-bar']} align="center" gap={12}>
+                <div className={`flex items-center gap-3 ${styles['bottom-bar']}`}>
                   {publishButton}
                   {saveButton}
                   {cancelButton}
@@ -395,9 +395,9 @@ export default function () {
                     toolId={toolId as string}
                     inputParams={state.inputParams}
                   />
-                </Flex>,
+                </div>,
               )}
-            </Flex>
+            </div>
           </Form>
           <div className={styles['scroll-control']}>
             <ScrollMenu

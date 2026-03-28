@@ -5,7 +5,7 @@ import React from 'react';
 import styles from './index.module.less';
 
 import $i18n from '@/i18n';
-import { Empty } from '@spark-ai/design';
+import { Empty } from '@arco-design/web-react';
 
 interface ChunkListProps {
   /**

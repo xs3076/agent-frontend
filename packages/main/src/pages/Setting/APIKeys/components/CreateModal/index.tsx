@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { createApiKey } from '@/services/apiKey';
-import { Form, Input, message, Modal } from '@spark-ai/design';
+import { Form, Input, Message, Modal } from '@arco-design/web-react';
 import React, { useState } from 'react';
 
 interface CreateModalProps {
@@ -24,7 +24,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
       setLoading(true);
       const res = await createApiKey(values);
       if (res && res.data) {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.Setting.APIKeys.components.CreateModal.index.createSuccess',
             dm: '创建成功',
@@ -53,7 +53,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
         id: 'main.pages.Setting.APIKeys.components.CreateModal.index.createApiKey',
         dm: '创建API KEY',
       })}
-      open={open}
+      visible={open}
       onCancel={handleCancel}
       onOk={handleSubmit}
       confirmLoading={loading}
@@ -61,7 +61,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
     >
       <Form form={form} layout="vertical">
         <Form.Item
-          name="description"
+          field="description"
           label={$i18n.get({
             id: 'main.pages.Setting.APIKeys.components.CreateModal.index.description',
             dm: '描述',

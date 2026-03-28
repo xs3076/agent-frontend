@@ -1,4 +1,4 @@
-import { IconButton } from '@spark-ai/design';
+import IconButton from '@/components/ui/IconButton';
 import classNames from 'classnames';
 import styles from './index.module.less';
 

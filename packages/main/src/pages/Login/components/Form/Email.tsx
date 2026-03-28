@@ -1,5 +1,7 @@
 import $i18n from '@/i18n';
-import { IconFont, Input, InputProps } from '@spark-ai/design';
+import { Input } from '@arco-design/web-react';
+import type { InputProps } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './Email.module.less';

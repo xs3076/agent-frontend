@@ -1,14 +1,14 @@
 import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { convertDifyToSpringAI } from '@/services/difyConverter';
-import { Button, Upload, message } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import { Button, Upload, Message } from '@arco-design/web-react';
+import { IconInbox } from '@arco-design/web-react/icon';
 import { useRequest } from 'ahooks';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.less';
 
-const { Dragger } = Upload;
+const Dragger = Upload.Dragger;
 
 const DifyConverter: React.FC = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const DifyConverter: React.FC = () => {
     // 所以我们需要在这里直接处理文件选择
     if (file) {
       setSelectedFile(file.originFileObj || file);
-      message.success(`${file.name} 文件选择成功`);
+      Message.success(`${file.name} 文件选择成功`);
     }
   };
 
@@ -37,13 +37,13 @@ const DifyConverter: React.FC = () => {
                    file.name.endsWith('.yaml') ||
                    file.name.endsWith('.yml');
     if (!isYaml) {
-      message.error('只支持 YAML 格式的 Dify DSL 文件！');
+      Message.error('只支持 YAML 格式的 Dify DSL 文件！');
       return false;
     }
 
     // 直接设置选中的文件，因为我们要阻止自动上传
     setSelectedFile(file);
-    message.success(`${file.name} 文件选择成功`);
+    Message.success(`${file.name} 文件选择成功`);
 
     // 阻止自动上传，只做文件选择
     return false;
@@ -51,7 +51,7 @@ const DifyConverter: React.FC = () => {
 
   const handleConvert = async () => {
     if (!selectedFile) {
-      message.warning('请先选择 Dify DSL 文件');
+      Message.warning('请先选择 Dify DSL 文件');
       return;
     }
 
@@ -92,7 +92,7 @@ const DifyConverter: React.FC = () => {
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
-      message.success('转换成功！项目文件已开始下载');
+      Message.success('转换成功！项目文件已开始下载');
       setConvertResult([
         'Spring AI Alibaba 项目已生成',
         '项目类型: Maven 项目',
@@ -103,7 +103,7 @@ const DifyConverter: React.FC = () => {
 
     } catch (error) {
       console.error('转换失败:', error);
-      message.error(`转换失败：${error.message || '请重试'}`);
+      Message.error(`转换失败：${error.message || '请重试'}`);
     }
   };
 
@@ -180,13 +180,13 @@ const DifyConverter: React.FC = () => {
             className={styles.uploader}
             accept=".yaml,.yml"
           >
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">点击或拖拽 Dify DSL 文件到此区域</p>
-            <p className="ant-upload-hint">
+            <div className="arco-upload-drag-icon">
+              <IconInbox />
+            </div>
+            <div className="arco-upload-drag-text">点击或拖拽 Dify DSL 文件到此区域</div>
+            <div className="arco-upload-drag-tip">
               支持 YAML 格式的 Dify DSL 配置文件（.yaml 或 .yml）
-            </p>
+            </div>
           </Dragger>
 
           {selectedFile && (

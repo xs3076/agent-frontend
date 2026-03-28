@@ -7,7 +7,9 @@ import {
   updateProvider,
 } from '@/services/modelService';
 import { IProvider } from '@/types/modelService';
-import { AlertDialog, Button, IconFont, message } from '@spark-ai/design';
+import { Button, Message } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'umi';
 import ModelServiceCard from './components/ModelServiceCard';
@@ -68,7 +70,7 @@ const ModelService = () => {
   const handleDeleteService = (provider: IProvider) => {
     deleteProvider(provider.provider).then((res) => {
       if (res.data) {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.Setting.ModelService.index.deleteSuccess',
             dm: '删除成功',
@@ -82,7 +84,7 @@ const ModelService = () => {
   const handleEnableService = (provider: IProvider, enable: boolean) => {
     updateProvider(provider.provider, { ...provider, enable }).then((res) => {
       if (res.data) {
-        message.success(
+        Message.success(
           enable
             ? $i18n.get({
                 id: 'main.pages.Setting.ModelService.index.startSuccess',

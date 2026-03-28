@@ -1,8 +1,8 @@
 import ProCard from '@/components/Card/ProCard';
 import $i18n from '@/i18n';
 import { IMcpServer, McpStatus, McpStatusMap } from '@/types/mcp';
-import { Button, Dropdown, IconFont } from '@spark-ai/design';
-import type { MenuProps } from 'antd';
+import { Button, Dropdown, Menu } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
@@ -30,9 +30,8 @@ const McpCard: React.FC<McpCardProps> = ({ data, onClick, className }) => {
     return dayjs(gmt_modified).format('YYYY-MM-DD HH:mm:ss');
   }, [gmt_modified]);
 
-  const handleDropdownClick: MenuProps['onClick'] = (info) => {
-    info.domEvent.stopPropagation();
-    onClick?.(info.key as string, data);
+  const handleDropdownClick = (key: string) => {
+    onClick?.(key, data);
   };
 
   const handleButtonClick = (action: string, e: React.MouseEvent) => {
@@ -93,8 +92,16 @@ const McpCard: React.FC<McpCardProps> = ({ data, onClick, className }) => {
         </Button>
         <Dropdown
           getPopupContainer={(ele) => ele}
-          trigger={['click']}
-          menu={{ items: menuItems, onClick: handleDropdownClick }}
+          trigger="click"
+          droplist={
+            <Menu onClickMenuItem={handleDropdownClick}>
+              {menuItems.map((item) => (
+                <Menu.Item key={item.key} className={item.danger ? 'text-red-500' : ''}>
+                  {item.label}
+                </Menu.Item>
+              ))}
+            </Menu>
+          }
         >
           <div onClick={(e) => e.stopPropagation()}>
             <Button icon={<IconFont type="spark-more-line" />} />

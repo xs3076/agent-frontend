@@ -4,8 +4,9 @@ import upload, { getPreviewUrl } from '@/request/upload';
 import { createDocuments } from '@/services/knowledge';
 import type { FileType } from '@/types/base';
 import { ICreateDocumentParams } from '@/types/knowledge';
-import { IconFont, Modal, message } from '@spark-ai/design';
-import { Flex, Upload } from 'antd';
+import { Message, Modal, Upload } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
+
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './index.module.less';
@@ -36,7 +37,7 @@ export default function UploadModal(props: IUploadModalProps) {
       kb_id: kb_id as string,
     };
     createDocuments(params).then(() => {
-      message.success(
+      Message.success(
         $i18n.get({
           id: 'main.pages.Knowledge.Detail.components.UploadModal.index.fileImportSuccess',
           dm: '文件导入成功',
@@ -62,7 +63,7 @@ export default function UploadModal(props: IUploadModalProps) {
         id: 'main.pages.Knowledge.Detail.components.UploadModal.index.uploadFile',
         dm: '上传文件',
       })}
-      open={true}
+      visible={true}
       onCancel={onClose}
       okText={$i18n.get({
         id: 'main.pages.Knowledge.Detail.components.UploadModal.index.confirm',
@@ -122,7 +123,7 @@ export default function UploadModal(props: IUploadModalProps) {
             if (fileList.length + files.length > 50 || files.length > 50) {
               if (!isLimitReachedRef.current) {
                 message.destroy();
-                message.error(
+                Message.error(
                   $i18n.get({
                     id: 'main.pages.Knowledge.Detail.components.UploadModal.index.maxUpload50Files',
                     dm: '最多只能上传 50 个文件',
@@ -142,7 +143,7 @@ export default function UploadModal(props: IUploadModalProps) {
               : true; // Maximum image size is 20MB
 
             if (!isSupportedFormat) {
-              message.error(
+              Message.error(
                 $i18n.get({
                   id: 'main.pages.Knowledge.Detail.components.UploadModal.index.supportedFormats',
                   dm: '仅支持上传.pdf、.doc、.txt、.md、.ppt、.docx、.pptx等格式的文件',
@@ -152,7 +153,7 @@ export default function UploadModal(props: IUploadModalProps) {
             }
 
             if (!isFileSizeValid) {
-              message.error(
+              Message.error(
                 $i18n.get({
                   id: 'main.pages.Knowledge.Detail.components.UploadModal.index.fileSizeExceeds100MB',
                   dm: '单个文件大小不能超过100MB',
@@ -162,7 +163,7 @@ export default function UploadModal(props: IUploadModalProps) {
             }
 
             if (!isImageSizeValid) {
-              message.error(
+              Message.error(
                 $i18n.get({
                   id: 'main.pages.Knowledge.Detail.components.UploadModal.index.imageSizeExceeds20MB',
                   dm: '单个图片大小不能超过20MB',
@@ -201,12 +202,7 @@ export default function UploadModal(props: IUploadModalProps) {
           }}
         >
           <div className={styles['upload-dragger-wrapper']}>
-            <Flex
-              vertical
-              align="center"
-              justify="center"
-              className={styles['upload-dragger']}
-            >
+            <div className={`flex flex-col items-center justify-center ${styles['upload-dragger']}`}>
               <IconFont
                 type="spark-upload-line"
                 className={styles['upload-dragger-icon']}
@@ -230,7 +226,7 @@ export default function UploadModal(props: IUploadModalProps) {
                   dm: '单个文件最大100MB或1000页，单个图片最大限制20MB',
                 })}
               </div>
-            </Flex>
+            </div>
           </div>
         </Upload.Dragger>
       </div>

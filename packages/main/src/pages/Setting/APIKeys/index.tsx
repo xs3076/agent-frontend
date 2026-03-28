@@ -2,14 +2,9 @@ import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { deleteApiKey, getApiKey, listApiKeys } from '@/services/apiKey';
 import { IApiKey } from '@/types/apiKey';
-import {
-  AlertDialog,
-  Button,
-  IconFont,
-  message,
-  Pagination,
-} from '@spark-ai/design';
-import { Table } from 'antd';
+import { Button, Message, Pagination, Table } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import copy from 'copy-to-clipboard';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
@@ -62,7 +57,7 @@ export default function APIKeys() {
       onOk: async () => {
         const res = await deleteApiKey(id);
         if (res) {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Setting.APIKeys.index.deleteSuccess',
               dm: '删除成功',
@@ -145,7 +140,7 @@ export default function APIKeys() {
                 type="link"
                 onClick={() => {
                   copy(isKeyVisible[id] as string);
-                  message.success(
+                  Message.success(
                     $i18n.get({
                       id: 'main.utils.base.copySuccess',
                       dm: '复制成功',

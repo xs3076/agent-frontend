@@ -1,7 +1,8 @@
 import ProCard from '@/components/Card/ProCard';
 import $i18n from '@/i18n';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { Button, Dropdown, IconButton } from '@spark-ai/design';
+import { Button, Dropdown, Menu } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { APP_ICON_IMAGE } from '../AppSelector';
@@ -72,27 +73,25 @@ const AppComponentCard: React.FC<AppComponentCardProps> = ({
           </Button>
           <Dropdown
             getPopupContainer={(ele) => ele}
-            menu={{
-              items: [
-                {
-                  label: $i18n.get({
+            droplist={
+              <Menu onClickMenuItem={(key) => {
+                if (key === 'detail') onClickAction('referDetail');
+                if (key === 'delete') onClickAction('delete');
+              }}>
+                <Menu.Item key="detail">
+                  {$i18n.get({
                     id: 'main.pages.Component.AppComponent.components.Card.index.componentReferenceDetails',
                     dm: '组件引用详情',
-                  }),
-                  key: 'detail',
-                  onClick: () => onClickAction('referDetail'),
-                },
-                {
-                  label: $i18n.get({
+                  })}
+                </Menu.Item>
+                <Menu.Item key="delete" className="text-red-500">
+                  {$i18n.get({
                     id: 'main.pages.Component.AppComponent.components.Card.index.delete',
                     dm: '删除',
-                  }),
-                  key: 'delete',
-                  danger: true,
-                  onClick: () => onClickAction('delete'),
-                },
-              ],
-            }}
+                  })}
+                </Menu.Item>
+              </Menu>
+            }
           >
             <IconButton shape="default" icon="spark-more-line" />
           </Dropdown>

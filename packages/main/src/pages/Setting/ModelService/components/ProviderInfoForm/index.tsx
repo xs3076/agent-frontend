@@ -3,7 +3,8 @@ import $i18n from '@/i18n';
 import { API_KEY_TIP_SECTIONS } from '@/pages/Setting/utils';
 import { updateProvider } from '@/services/modelService';
 import type { IProviderConfigInfo } from '@/types/modelService';
-import { AlertDialog, Button, Form, Input, message } from '@spark-ai/design';
+import { Button, Form, Input, Message } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProviderAvatar } from '../ProviderAvatar';
@@ -102,7 +103,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
         },
       }).then((response) => {
         if (response) {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Setting.ModelService.components.ProviderInfoForm.index.configurationUpdated',
               dm: '配置已更新',
@@ -146,7 +147,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
           credential_config: provider.credential,
         }).then((response) => {
           if (response) {
-            message.success(
+            Message.success(
               $i18n.get({
                 id: 'main.pages.Setting.ModelService.components.ProviderInfoForm.index.stopServiceSuccess',
                 dm: '停止服务成功',
@@ -165,7 +166,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
         <Form
           form={form}
           layout="vertical"
-          onFinish={handleFormSubmit}
+          onSubmit={handleFormSubmit}
           className={styles.form}
         >
           <div className={styles['form-row']}>
@@ -175,7 +176,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
             />
 
             <Form.Item
-              name="name"
+              field="name"
               label={
                 <ProviderName
                   provider={provider}
@@ -205,7 +206,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
             </Form.Item>
           </div>
           <Form.Item
-            name="apiKey"
+            field="apiKey"
             label="API-KEY"
             rules={[
               {
@@ -227,7 +228,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
           </Form.Item>
 
           <Form.Item
-            name="endpoint"
+            field="endpoint"
             label="API URL"
             rules={[
               {

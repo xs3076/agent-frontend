@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconButton, Input, Select } from '@spark-ai/design';
-import { Flex } from 'antd';
+import { Button, Input, Select } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
+
 import { useMemo, useState } from 'react';
 import { RightExpandBtn } from '../ExpandBtn';
 import { IValueType } from '../InputParamsConfig';
@@ -147,20 +148,13 @@ function OutputParamItemComp({
   return (
     <>
       <div>
-        <Flex
-          className={styles.item}
-          style={
-            showLine ? { paddingLeft: (hasChildren ? 0 : 24) + 12 * order } : {}
-          }
-          gap={8}
-          align="flex-start"
-        >
+        <div className={`flex items-start gap-2 ${styles.item}`}>
           {hasChildren ? (
             <RightExpandBtn expand={expand} setExpand={setExpand} />
           ) : (
             bizHasProperties && <div className={styles.placeholder}></div>
           )}
-          <Flex style={{ flex: 1, width: 100 }} vertical>
+          <div className="flex flex-col">
             <Input
               status={errorTip ? 'error' : void 0}
               onBlur={handleCheckKey}
@@ -177,9 +171,9 @@ function OutputParamItemComp({
             {errorTip && (
               <span className={styles['error-tip']}>{errorTip}</span>
             )}
-          </Flex>
+          </div>
 
-          <Flex style={{ width: 217 }} vertical>
+          <div className="flex flex-col">
             <Input
               onChange={(e) => changeRowItem({ desc: e.target.value })}
               defaultValue={paramItem.desc}
@@ -197,7 +191,7 @@ function OutputParamItemComp({
                 {descErrorTip}
               </span>
             )}
-          </Flex>
+          </div>
 
           <Select
             onChange={(val) => changeRowItem({ type: val })}
@@ -210,7 +204,7 @@ function OutputParamItemComp({
             })}
           />
 
-          <Flex gap={8}>
+          <div className="flex gap-2">
             {hasProperties && (
               <IconButton
                 onClick={handleAddRowItem}
@@ -224,8 +218,8 @@ function OutputParamItemComp({
               bordered={false}
               shape="circle"
             />
-          </Flex>
-        </Flex>
+          </div>
+        </div>
       </div>
       {hasProperties &&
         expand &&
@@ -276,8 +270,8 @@ export default function OutputParamsConfig({
   }, [params]);
 
   return (
-    <Flex vertical gap={8}>
-      <Flex gap={12} className={styles.label}>
+    <div className="flex flex-col gap-2">
+      <div className={`flex gap-3 ${styles.label}`}>
         {hasProperties && <div className={styles.placeholder}></div>}
         <div className={styles.label} style={{ flex: 1 }}>
           {$i18n.get({
@@ -298,7 +292,7 @@ export default function OutputParamsConfig({
           })}
         </div>
         <div style={{ width: 36 }}></div>
-      </Flex>
+      </div>
       {params.map((item, index) => (
         <OutputParamItemComp
           hasProperties={hasProperties}
@@ -322,6 +316,6 @@ export default function OutputParamsConfig({
           dm: '增加出参',
         })}
       </Button>
-    </Flex>
+    </div>
   );
 }

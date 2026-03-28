@@ -4,9 +4,11 @@ import Search from '@/components/Search';
 import $i18n from '@/i18n';
 import { deleteKnowledge, getKnowledgeList } from '@/services/knowledge';
 import { IGetKnowledgeListParams } from '@/types/knowledge';
-import { AlertDialog, Button, IconFont } from '@spark-ai/design';
+import { Button } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import { useMount, useSetState } from 'ahooks';
-import { Flex } from 'antd';
+
 import classNames from 'classnames';
 import { useRef } from 'react';
 import { history } from 'umi';
@@ -110,7 +112,7 @@ export default function () {
     }
   };
   const right = state?.list?.length ? (
-    <Flex align="center" className={styles['right']}>
+    <div className={`flex items-center ${styles['right']}`}>
       <Button
         type="primary"
         icon={<IconFont type="spark-plus-line" className={styles['addicon']} />}
@@ -121,7 +123,7 @@ export default function () {
           dm: '创建知识库',
         })}
       </Button>
-    </Flex>
+    </div>
   ) : null;
   return (
     <InnerLayout

@@ -3,8 +3,9 @@ import { useInnerLayout } from '@/components/InnerLayout/utils';
 import $i18n from '@/i18n';
 import { createPlugin, savePlugin } from '@/services/plugin';
 import { Plugin } from '@/types/plugin';
-import { AlertDialog, Button, Form, Input } from '@spark-ai/design';
-import { Flex, Select } from 'antd';
+import { Button, Form, Input, Select } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+
 import { useEffect } from 'react';
 import { history } from 'umi';
 import HeadersEditForm from '../components/HeadersEditForm';
@@ -72,7 +73,7 @@ export default function (props: IProps) {
             })}
           </div>
           <Form.Item
-            name="name"
+            field="name"
             rules={[
               {
                 required: true,
@@ -98,7 +99,7 @@ export default function (props: IProps) {
           </Form.Item>
 
           <Form.Item
-            name="description"
+            field="description"
             rules={[
               {
                 required: true,
@@ -287,7 +288,7 @@ export default function (props: IProps) {
       </div>
 
       {portal.bottomPortal(
-        <Flex className={styles['bottom-bar']} gap={8}>
+        <div className={`flex gap-2 ${styles['bottom-bar']}`}>
           <Button
             type="primary"
             onClick={async () => {
@@ -365,7 +366,7 @@ export default function (props: IProps) {
               dm: '取消',
             })}
           </Button>
-        </Flex>,
+        </div>,
       )}
     </InnerLayout>
   );

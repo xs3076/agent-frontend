@@ -8,9 +8,10 @@ import {
   updateChunksContent,
   updateStatusChunks,
 } from '@/services/knowledge';
-import { AlertDialog, Empty, Pagination } from '@spark-ai/design';
+import { Empty, Pagination } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
 import { useSetState } from 'ahooks';
-import { Flex } from 'antd';
+
 import classNames from 'classnames';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -166,11 +167,7 @@ const SliceEditing: React.FC<ChunkListProps> = ({ className }) => {
                 />
               ))}
             </div>
-            <Flex
-              align="center"
-              justify="flex-end"
-              className={styles['pagination-wrapper']}
-            >
+            <div className={`flex items-center justify-end ${styles['pagination-wrapper']}`}>
               <Pagination
                 className={styles['pagination']}
                 total={state.total}
@@ -180,7 +177,7 @@ const SliceEditing: React.FC<ChunkListProps> = ({ className }) => {
                 showQuickJumper={false}
                 onChange={(page) => setState({ current: page })}
               />
-            </Flex>
+            </div>
           </>
         ) : (
           <div className={styles['empty-container']}>

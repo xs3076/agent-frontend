@@ -1,6 +1,8 @@
 import ProCard from '@/components/Card/ProCard';
 import $i18n from '@/i18n';
-import { Button, Dropdown, IconButton, IconFont } from '@spark-ai/design';
+import { Button, Dropdown, Menu } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -138,20 +140,18 @@ const KnowledgeCard: React.FC<KnowledgeCardProps> = ({
           </Button>
           <Dropdown
             getPopupContainer={(ele) => ele}
-            menu={{
-              items: [
-                {
-                  danger: true,
-                  label: $i18n.get({
+            droplist={
+              <Menu onClickMenuItem={(key) => {
+                if (key === 'delete') handleClickAction && handleClickAction('delete', kb_id);
+              }}>
+                <Menu.Item key="delete" className="text-red-500">
+                  {$i18n.get({
                     id: 'main.pages.Knowledge.List.components.Card.index.delete',
                     dm: '删除',
-                  }),
-                  key: 'delete',
-                  onClick: () =>
-                    handleClickAction && handleClickAction('delete', kb_id),
-                },
-              ],
-            }}
+                  })}
+                </Menu.Item>
+              </Menu>
+            }
           >
             <IconButton shape="default" icon="spark-more-line" />
           </Dropdown>

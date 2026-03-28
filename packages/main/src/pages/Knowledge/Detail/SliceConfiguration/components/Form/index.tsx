@@ -1,8 +1,9 @@
 import SliderInput from '@/components/SliderInput';
 import $i18n from '@/i18n';
 import { ChunkType } from '@/pages/Knowledge/components/StepThree';
-import { Form, IconFont } from '@spark-ai/design';
-import { Button, Input } from 'antd';
+import { Button, Form, Input } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
+
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styles from './index.module.less';
@@ -37,7 +38,7 @@ const TestForm: React.FC<FormProps> = ({ formRef, className, onSubmit }) => {
       <Form
         form={form}
         layout="vertical"
-        onFinish={onSubmit}
+        onSubmit={onSubmit}
         // @ts-ignore
         ref={formRef}
         className={styles['form']}
@@ -48,7 +49,7 @@ const TestForm: React.FC<FormProps> = ({ formRef, className, onSubmit }) => {
             id: 'main.pages.Knowledge.Detail.SliceConfiguration.components.Form.index.chunkSplittingMethod',
             dm: 'Chunk切分方式',
           })}
-          name="chunk_type"
+          field="chunk_type"
         >
           <ChunkType
             className={styles['chunk-type']}
@@ -72,7 +73,7 @@ const TestForm: React.FC<FormProps> = ({ formRef, className, onSubmit }) => {
                 }),
               },
             ]}
-            name="regex"
+            field="regex"
           >
             <Input.TextArea style={{ height: 58 }} />
           </Form.Item>
@@ -83,7 +84,7 @@ const TestForm: React.FC<FormProps> = ({ formRef, className, onSubmit }) => {
               id: 'main.pages.Knowledge.Detail.SliceConfiguration.components.Form.index.estimatedChunkLength',
               dm: '分段预估长度',
             })}
-            name="chunk_size"
+            field="chunk_size"
             rules={[
               {
                 required: true,
@@ -104,7 +105,7 @@ const TestForm: React.FC<FormProps> = ({ formRef, className, onSubmit }) => {
               id: 'main.pages.Knowledge.Detail.SliceConfiguration.components.Form.index.chunkOverlapLength',
               dm: '分段重叠长度',
             })}
-            name="chunk_overlap"
+            field="chunk_overlap"
             rules={[
               {
                 required: true,

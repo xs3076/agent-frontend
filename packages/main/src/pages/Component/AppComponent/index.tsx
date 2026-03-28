@@ -12,9 +12,9 @@ import {
   IAppComponentListItem,
   IEnableAppListItem,
 } from '@/types/appComponent';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
 import { useSetState } from 'ahooks';
-import { Button, message, Modal } from 'antd';
+import { Button, Message, Modal } from '@arco-design/web-react';
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -99,7 +99,7 @@ export default function AppComponent(props: { type: IAppType }) {
 
       onOk: () => {
         deleteAppComponentByCode(code).then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Component.AppComponent.index.successDelete',
               dm: '删除成功',

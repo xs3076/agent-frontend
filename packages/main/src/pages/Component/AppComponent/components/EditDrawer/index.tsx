@@ -7,9 +7,9 @@ import {
   updateAppComponent,
 } from '@/services/appComponent';
 import { IAppComponentListItem } from '@/types/appComponent';
-import { Button, Drawer, Empty, Form, message } from '@spark-ai/design';
+import { Button, Drawer, Empty, Form, Input, Message, Spin } from '@arco-design/web-react';
 import { useMount, useSetState } from 'ahooks';
-import { Flex, Input, Spin } from 'antd';
+
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import InputParamsComp, {
@@ -72,7 +72,7 @@ export default function EditDrawer(props: IProps) {
         params = [...params, ...(item.params || [])];
       });
       if (params.some((item) => !item.alias && item.display)) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'main.pages.Component.AppComponent.components.EditDrawer.index.parameterAliasRequiredCheck',
             dm: '参数别名必填，请检查',
@@ -84,7 +84,7 @@ export default function EditDrawer(props: IProps) {
       for (const item of params) {
         if (item.alias) {
           if (aliasMap.has(item.alias)) {
-            message.warning(
+            Message.warning(
               $i18n.get({
                 id: 'main.pages.Component.AppComponent.components.EditDrawer.index.parameterAliasCannotRepeatCheck',
                 dm: '参数别名不能重复，请检查',
@@ -111,7 +111,7 @@ export default function EditDrawer(props: IProps) {
         }),
       })
         .then(() => {
-          message.success(
+          Message.success(
             props.data.code
               ? $i18n.get({
                   id: 'main.pages.Component.AppComponent.components.EditDrawer.index.updateSuccess',
@@ -133,7 +133,7 @@ export default function EditDrawer(props: IProps) {
   const renderFooter = useMemo(() => {
     if (!state.detail) return null;
     return (
-      <Flex justify="flex-end" gap={8}>
+      <div className="flex justify-end gap-2">
         <Button
           disabled={state.saveLoading}
           loading={state.saveLoading}
@@ -156,7 +156,7 @@ export default function EditDrawer(props: IProps) {
             dm: '取消',
           })}
         </Button>
-      </Flex>
+      </div>
     );
   }, [state]);
 
@@ -245,7 +245,7 @@ export default function EditDrawer(props: IProps) {
                 dm: '组件名称',
               })}
               required
-              name="name"
+              field="name"
               rules={[
                 {
                   required: true,
@@ -270,7 +270,7 @@ export default function EditDrawer(props: IProps) {
                 id: 'main.pages.Component.AppComponent.components.EditDrawer.index.componentDescription',
                 dm: '组件描述',
               })}
-              name="description"
+              field="description"
               rules={[
                 {
                   required: true,

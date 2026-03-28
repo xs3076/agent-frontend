@@ -1,7 +1,6 @@
 import { ENV } from '@/config/env';
 import $i18n from '@/i18n';
-import { Button } from '@spark-ai/design';
-import { Divider, Form } from 'antd';
+import { Button, Divider, Form } from '@arco-design/web-react';
 import React, { useEffect } from 'react';
 import Email from '../Form/Email';
 import Password from '../Form/Password';
@@ -76,7 +75,7 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
       >
         <Form.Item
           className="mb-0"
-          name="username"
+          field="username"
           rules={[
             {
               required: true,
@@ -91,7 +90,7 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
         </Form.Item>
 
         <Form.Item
-          name="password"
+          field="password"
           rules={[
             {
               required: true,
@@ -109,14 +108,6 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
           <Button
             autoFocus
             htmlType="submit"
-            tooltipContent={
-              false
-                ? $i18n.get({
-                    id: 'main.pages.Login.components.Login.index.notSupportedAccountPasswordLogin',
-                    dm: '暂不支持账号密码登录',
-                  })
-                : undefined
-            }
             disabled={false}
             type="primary"
             onClick={handleSubmit}

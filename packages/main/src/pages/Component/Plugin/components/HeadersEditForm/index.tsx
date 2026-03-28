@@ -1,21 +1,22 @@
 import $i18n from '@/i18n';
-import { IconButton, IconFont } from '@spark-ai/design';
-import { Flex, Form, Input, Space } from 'antd';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
+import { Form, Input } from '@arco-design/web-react';
 import styles from './index.module.less';
 
 export default function HeadersEditForm() {
   return (
-    <Flex align="flex-start" vertical gap={8} className={styles.form}>
-      <Flex gap={8} className={styles.label}>
+    <div className={`flex flex-col gap-2 ${styles.form}`}>
+      <div className={`flex gap-2 ${styles.label}`}>
         <div style={{ width: 300 }}>Key</div>
         <div style={{ width: 300 }}>Value</div>
-      </Flex>
+      </div>
       <Form.List initialValue={[]} name={['config', 'headers']}>
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => {
               return (
-                <Space key={key} style={{ display: 'flex' }} align="start">
+                <div key={key} className="flex items-start gap-2">
                   <Form.Item
                     {...restField}
                     name={[name, 'name']}
@@ -72,7 +73,7 @@ export default function HeadersEditForm() {
                     onClick={() => remove(name)}
                     icon="spark-delete-line"
                   />
-                </Space>
+                </div>
               );
             })}
 
@@ -86,6 +87,6 @@ export default function HeadersEditForm() {
           </>
         )}
       </Form.List>
-    </Flex>
+    </div>
   );
 }

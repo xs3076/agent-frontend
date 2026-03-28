@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { createAccount, updateAccount } from '@/services/account';
-import { Button, Form, Input, message, Modal } from '@spark-ai/design';
+import { Button, Form, Input, Message, Modal } from '@arco-design/web-react';
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.less';
 
@@ -58,7 +58,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
             nickname: values.name,
             password: values.newPassword,
           });
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Setting.Account.components.UserEditModal.index.updateSuccess',
               dm: '更新成功',
@@ -70,7 +70,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
           username: values.name,
           password: values.newPassword as string,
         });
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.Setting.Account.components.UserEditModal.index.userCreateSuccess',
             dm: '用户创建成功',
@@ -97,7 +97,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
   return (
     <Modal
       title={modalTitle}
-      open={open}
+      visible={open}
       onCancel={onCancel}
       footer={[
         <Button key="cancel" onClick={onCancel}>
@@ -122,7 +122,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
     >
       <Form form={form} layout="vertical" requiredMark={false} colon={false}>
         <Form.Item
-          name="name"
+          field="name"
           label={$i18n.get({
             id: 'main.pages.Setting.Account.components.UserEditModal.index.userName',
             dm: '用户名称',
@@ -161,7 +161,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
         </div>
 
         <Form.Item
-          name="newPassword"
+          field="newPassword"
           label={$i18n.get({
             id: 'main.pages.Setting.Account.components.UserEditModal.index.newPassword',
             dm: '新密码',
@@ -192,7 +192,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="confirmPassword"
+          field="confirmPassword"
           label={$i18n.get({
             id: 'main.pages.Setting.Account.components.UserEditModal.index.confirmPassword',
             dm: '确认密码',

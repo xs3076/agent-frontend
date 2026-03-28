@@ -4,9 +4,10 @@ import StatusTag from '@/components/Tag/StatusTag';
 import $i18n from '@/i18n';
 import { batchDeleteDocuments } from '@/services/knowledge';
 import type { FileType } from '@/types/base';
-import { AlertDialog, Button, Dropdown, message } from '@spark-ai/design';
-import { Space } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Button, Dropdown, Menu, Message } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+
+// ColumnsType is not needed for Arco Table
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { areIndexStatusesEqual } from '../../../utils/constant';
@@ -157,7 +158,7 @@ const FileList: React.FC<FileListProps> = ({
       key: 'action',
       width: 300,
       render: (_, record) => (
-        <Space size={12}>
+        <div className="flex gap-3">
           <Button
             type="link"
             className={styles['operation-btn']}
@@ -187,22 +188,21 @@ const FileList: React.FC<FileListProps> = ({
             })}
           </Button>
           <Dropdown
-            menu={{
-              items: [
-                {
-                  key: 'delete',
-                  label: $i18n.get({
+            droplist={
+              <Menu onClickMenuItem={(key) => {
+                if (key === 'delete') {
+                  handleClickAction && handleClickAction('delete', record?.kb_id, record?.doc_id);
+                }
+              }}>
+                <Menu.Item key="delete" className="text-red-500">
+                  {$i18n.get({
                     id: 'main.pages.Knowledge.Detail.components.FileList.index.delete',
                     dm: '删除',
-                  }),
-                  danger: true,
-                  onClick: () =>
-                    handleClickAction &&
-                    handleClickAction('delete', record?.kb_id, record?.doc_id),
-                },
-              ],
-            }}
-            trigger={['click']}
+                  })}
+                </Menu.Item>
+              </Menu>
+            }
+            trigger="click"
           >
             <Button type="link" className={styles['operation-btn']}>
               {$i18n.get({
@@ -211,7 +211,7 @@ const FileList: React.FC<FileListProps> = ({
               })}
             </Button>
           </Dropdown>
-        </Space>
+        </div>
       ),
     },
   ];
@@ -223,7 +223,7 @@ const FileList: React.FC<FileListProps> = ({
 
   const handleBatchDisable = () => {
     if (!selectedRows.length) {
-      return message.error(
+      return Message.error(
         $i18n.get({
           id: 'main.pages.Knowledge.Detail.components.FileList.index.selectFileFirst',
           dm: '请先选择文件',
@@ -248,7 +248,7 @@ const FileList: React.FC<FileListProps> = ({
 
   const handleBatchEnable = () => {
     if (!selectedRows.length) {
-      return message.error(
+      return Message.error(
         $i18n.get({
           id: 'main.pages.Knowledge.Detail.components.FileList.index.selectFileFirst',
           dm: '请先选择文件',
@@ -281,7 +281,7 @@ const FileList: React.FC<FileListProps> = ({
 
   const handleBatchDelete = () => {
     if (!selectedRows.length) {
-      return message.error(
+      return Message.error(
         $i18n.get({
           id: 'main.pages.Knowledge.Detail.components.FileList.index.selectFileFirst',
           dm: '请先选择文件',
@@ -316,7 +316,7 @@ const FileList: React.FC<FileListProps> = ({
           doc_ids: selectedRowKeys,
         };
         batchDeleteDocuments(params).then(() => {
-          message.success(
+          Message.success(
             $i18n.get({
               id: 'main.pages.Knowledge.Detail.components.FileList.index.successfullyDeleted',
               dm: '删除成功',

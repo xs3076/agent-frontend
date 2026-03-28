@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { ICreateModelParams, IModel, MODEL_TAGS } from '@/types/modelService';
-import { Button, Checkbox, Form, Input, Modal } from '@spark-ai/design';
+import { Button, Checkbox, Form, Input, Modal } from '@arco-design/web-react';
 import React, { useEffect } from 'react';
 import styles from './index.module.less';
 
@@ -61,7 +61,7 @@ const ModelConfigModal: React.FC<ModelConfigModalProps> = ({
               dm: '新增模型',
             }))
       }
-      open={open}
+      visible={open}
       onCancel={onCancel}
       footer={[
         <Button key="cancel" onClick={onCancel}>
@@ -83,7 +83,7 @@ const ModelConfigModal: React.FC<ModelConfigModalProps> = ({
       <div className={styles.container}>
         <Form form={form} layout="vertical" requiredMark={false}>
           <Form.Item
-            name="name"
+            field="name"
             label={$i18n.get({
               id: 'main.pages.Setting.ModelService.components.ModelConfigModal.index.modelName',
               dm: '模型名称',
@@ -108,7 +108,7 @@ const ModelConfigModal: React.FC<ModelConfigModalProps> = ({
             />
           </Form.Item>
           <Form.Item
-            name="tags"
+            field="tags"
             label={$i18n.get({
               id: 'main.pages.Setting.ModelService.components.ModelConfigModal.index.modelAbility',
               dm: '模型能力',

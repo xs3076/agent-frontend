@@ -1,7 +1,7 @@
 import SliderInput from '@/components/SliderInput';
 import $i18n from '@/i18n';
-import { Form, Input } from '@spark-ai/design';
-import { Flex } from 'antd';
+import { Form, Input } from '@arco-design/web-react';
+
 import classNames from 'classnames';
 import React from 'react';
 import RadioItem from '../RadioItem';
@@ -61,7 +61,7 @@ const chunkOpts = [
 
 export const ChunkType = ({ value, onChange, disabled, className }: any) => {
   return (
-    <Flex gap={12} wrap>
+    <div className="flex gap-3 flex-wrap">
       {chunkOpts.map((item) => (
         <RadioItem
           className={classNames(styles.mcpInstallTypeItem, className)}
@@ -74,7 +74,7 @@ export const ChunkType = ({ value, onChange, disabled, className }: any) => {
           key={item.value}
         />
       ))}
-    </Flex>
+    </div>
   );
 };
 export default function StepThree({

@@ -63,7 +63,7 @@
   display: flex;
   flex-direction: column;
 
-  .ant-card-head {
+  .arco-card-head {
     border-bottom: 1px solid #e5e7eb;
     background: #ffffff;
     flex-shrink: 0;
@@ -72,7 +72,7 @@
     font-size: 14px;
   }
 
-  .ant-card-body {
+  .arco-card-body {
     padding: 8px 12px;
     flex: 1; // 改为flex: 1，占满剩余空间
     overflow: hidden; // 让内部div控制滚动
@@ -115,7 +115,7 @@
   }
 
   // 确保Antd List组件的滚动
-  .ant-list {
+  .arco-list {
     max-height: 300px; // 对应减少高度
     overflow-y: auto !important;
 
@@ -227,14 +227,14 @@
   display: flex;
   flex-direction: column;
 
-  .ant-card-head {
+  .arco-card-head {
     border-bottom: 1px solid #e5e7eb;
     background: #ffffff;
     flex-shrink: 0;
     padding: 16px 24px;
   }
 
-  .ant-card-body {
+  .arco-card-body {
     padding: 0 !important;
     flex: 1; // 改为flex: 1，占满剩余空间
     overflow: hidden; // 让内部组件控制滚动
@@ -250,13 +250,13 @@
   display: flex;
   flex-direction: column;
 
-  .ant-card-head {
+  .arco-card-head {
     border-bottom: 1px solid #e5e7eb;
     background: #ffffff;
     flex-shrink: 0;
   }
 
-  .ant-card-body {
+  .arco-card-body {
     padding: 16px;
     flex: 1; // 改为flex: 1，占满剩余空间
     overflow-y: auto;
@@ -388,7 +388,7 @@
   flex-direction: column;
   gap: 8px;
 
-  .ant-checkbox-wrapper {
+  .arco-checkbox-wrapper {
     margin: 0;
   }
 }
@@ -500,11 +500,11 @@
   margin-left: 8px;
   flex-shrink: 0;
 
-  .ant-checkbox {
+  .arco-checkbox {
     display: none;
   }
 
-  .ant-checkbox-wrapper {
+  .arco-checkbox-wrapper {
     margin: 0;
   }
 }
@@ -688,15 +688,15 @@
 .form {
   margin-bottom: 24px;
 
-  .ant-form-item-label > label {
+  .arco-form-item-label > label {
     font-weight: 500;
     color: #374151;
   }
 
-  .ant-input,
-  .ant-select-selector,
-  .ant-input-number,
-  .ant-input {
+  .arco-input,
+  .arco-select-selector,
+  .arco-input-number,
+  .arco-input {
     border-radius: 8px;
     border: 1px solid #d1d5db;
     transition: all 0.2s;
@@ -706,15 +706,15 @@
     }
 
     &:focus,
-    &.ant-input-focused,
-    &.ant-select-focused .ant-select-selector {
+    &.arco-input-focused,
+    &.arco-select-focused .arco-select-selector {
       border-color: #3b82f6;
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
     }
   }
 
   // 限制 TextArea 的最大高度
-  .ant-input {
+  .arco-input {
     max-height: 200px;
     resize: vertical;
   }
@@ -780,13 +780,13 @@
   .savedAgentsCard,
   .configCard,
   .yamlCard {
-    .ant-card-head {
+    .arco-card-head {
       background: #1f2937;
       border-bottom-color: #374151;
     }
 
     // 深色模式下的滚动条
-    .ant-card-body {
+    .arco-card-body {
       &::-webkit-scrollbar-track {
         background: #374151 !important;
       }
@@ -806,7 +806,7 @@
       scrollbar-color: #9ca3af #374151 !important;
     }
 
-    .ant-list {
+    .arco-list {
       &::-webkit-scrollbar-track {
         background: #374151 !important;
       }
@@ -846,13 +846,13 @@
   }
 
   .form {
-    .ant-form-item-label > label {
+    .arco-form-item-label > label {
       color: #f9fafb;
     }
 
-    .ant-input,
-    .ant-select-selector,
-    .ant-input-number {
+    .arco-input,
+    .arco-select-selector,
+    .arco-input-number {
       background: #374151;
       border-color: #4b5563;
       color: #f9fafb;
@@ -862,8 +862,8 @@
       }
 
       &:focus,
-      &.ant-input-focused,
-      &.ant-select-focused .ant-select-selector {
+      &.arco-input-focused,
+      &.arco-select-focused .arco-select-selector {
         border-color: #3b82f6;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
       }

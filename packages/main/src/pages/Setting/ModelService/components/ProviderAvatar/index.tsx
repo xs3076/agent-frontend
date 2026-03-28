@@ -1,5 +1,6 @@
 import { IProviderConfigInfo } from '@/types/modelService';
-import { Avatar, IconFont } from '@spark-ai/design';
+import { Avatar } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import styles from './index.module.less';
 

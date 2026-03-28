@@ -2,15 +2,9 @@ import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { deleteAccount, getAccountList } from '@/services/account';
 import type { IAccount } from '@/types/account';
-import {
-  AlertDialog,
-  Button,
-  IconFont,
-  Pagination,
-  Tag,
-} from '@spark-ai/design';
-import type { TableProps } from 'antd';
-import { Table } from 'antd';
+import { Button, Pagination, Tag, Table } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import UserEditModal, { UserEditData } from './components/UserEditModal';
@@ -90,7 +84,7 @@ export default function Account() {
     });
   };
 
-  const columns: TableProps<IAccount>['columns'] = [
+  const columns: any[] = [
     {
       title: $i18n.get({
         id: 'main.pages.Setting.Account.index.userName',

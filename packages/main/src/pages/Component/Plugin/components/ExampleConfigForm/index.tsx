@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
-import { Button, IconButton } from '@spark-ai/design';
-import { Divider, Flex, Input } from 'antd';
+import { Button, Divider, Input } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
+
 import classNames from 'classnames';
 import { useState } from 'react';
 import { InputParamItem } from '../InputParamsConfig';
@@ -51,22 +52,12 @@ export default function ExampleConfigForm({
   return (
     <>
       {expand && (
-        <Flex className={styles.content} vertical gap={8}>
+        <div className={`flex flex-col gap-2 ${styles.content}`}>
           {examples.map((item, index) => (
             <div key={index}>
-              <Flex
-                key={index}
-                gap={16}
-                align="center"
-                className={styles.formArea}
-              >
-                <Flex
-                  className={styles.formItem}
-                  style={{ flex: 1, width: 100 }}
-                  vertical
-                  gap={8}
-                >
-                  <Flex gap={8} className={styles.label}>
+              <div className={`flex items-center gap-4 ${styles.formArea}`}>
+                <div className={`flex flex-col gap-2 ${styles.formItem}`}>
+                  <div className={`flex gap-2 ${styles.label}`}>
                     <span style={{ flex: 1, width: 'calc(50% - 98px)' }}>
                       {$i18n.get({
                         id: 'main.pages.Component.Plugin.components.ExampleConfigForm.index.userQuery',
@@ -79,14 +70,11 @@ export default function ExampleConfigForm({
                         dm: '输入参数',
                       })}
                     </span>
-                    <Flex
-                      gap={8}
-                      style={{ flex: 1, width: 'calc(50% - 98px)' }}
-                    >
+                    <div className="flex gap-2">
                       Value
-                    </Flex>
-                  </Flex>
-                  <Flex align="flex-start" gap={8}>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2">
                     <Input
                       onChange={(e) =>
                         changeExampleItem({ query: e.target.value }, index)
@@ -99,11 +87,11 @@ export default function ExampleConfigForm({
                       style={{ flexShrink: 0, width: 'calc(50% - 98px)' }}
                     />
 
-                    <Flex style={{ flex: 1, width: 100 }} vertical gap={8}>
+                    <div className="flex flex-col gap-2">
                       {inputParams.map(
                         (inputParam, inputIndex) =>
                           !!inputParam.key?.trim() && (
-                            <Flex key={inputIndex} gap={8}>
+                            <div className="flex gap-2">
                               <Input
                                 disabled
                                 style={{ width: 180, flexShrink: 0 }}
@@ -132,12 +120,12 @@ export default function ExampleConfigForm({
                                 key={inputIndex}
                                 value={item.parameters?.[inputParam.key]}
                               />
-                            </Flex>
+                            </div>
                           ),
                       )}
-                    </Flex>
-                  </Flex>
-                </Flex>
+                    </div>
+                  </div>
+                </div>
                 <Divider type="vertical" style={{ height: 40 }} />
 
                 <IconButton
@@ -145,7 +133,7 @@ export default function ExampleConfigForm({
                   icon="spark-delete-line"
                   shape="circle"
                 />
-              </Flex>
+              </div>
             </div>
           ))}
           <a
@@ -167,7 +155,7 @@ export default function ExampleConfigForm({
               （{examples.length || 0}/{MAX_LEN}）
             </Button>
           </a>
-        </Flex>
+        </div>
       )}
     </>
   );

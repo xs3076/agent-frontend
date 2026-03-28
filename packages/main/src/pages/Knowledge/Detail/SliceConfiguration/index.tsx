@@ -2,7 +2,7 @@ import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { IChunkItem } from '@/pages/Knowledge/Detail/type';
 import { previewChunks, updateChunks } from '@/services/knowledge';
-import { Button, message } from '@spark-ai/design';
+import { Button, Message } from '@arco-design/web-react';
 import { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ChunkList from './components/ChunkList';
@@ -29,7 +29,7 @@ export default function SliceConfiguration() {
       },
     };
     updateChunks(params).then(() => {
-      message.success(
+      Message.success(
         $i18n.get({
           id: 'main.pages.Knowledge.Detail.SliceConfiguration.index.chunkConfigurationSuccessful',
           dm: '切片配置成功',

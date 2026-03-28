@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Select, Slider, Switch, Tooltip } from 'antd';
-import { PlusOutlined, SettingOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Button, Select, Slider, Switch, Tooltip } from '@arco-design/web-react';
+import { IconPlus, IconSettings, IconDelete } from '@arco-design/web-react/icon';
 import { useChatContext } from '../contexts/ChatContext';
 import { useConfigContext } from '../contexts/ConfigContext';
 import styles from '../index.module.less';
@@ -30,7 +30,7 @@ const Sidebar: React.FC = () => {
         <div className={styles.sidebarTitle}>Agent Chat UI</div>
         <Button
           type="primary"
-          icon={<PlusOutlined />}
+          icon={<IconPlus />}
           onClick={createNewSession}
           size="small"
         >
@@ -122,11 +122,11 @@ const Sidebar: React.FC = () => {
                   {formatTime(session.updatedAt)} · {session.messages.length} 条消息
                 </div>
               </div>
-              <Tooltip title="删除对话">
+              <Tooltip content="删除对话">
                 <Button
                   type="text"
                   size="small"
-                  icon={<DeleteOutlined />}
+                  icon={<IconDelete />}
                   onClick={(e) => {
                     e.stopPropagation();
                     deleteSession(session.id);

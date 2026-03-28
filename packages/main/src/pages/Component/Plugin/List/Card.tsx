@@ -2,8 +2,10 @@ import ProCard from '@/components/Card/ProCard';
 import $i18n from '@/i18n';
 import { removePlugin } from '@/services/plugin';
 import { Plugin } from '@/types/plugin';
-import { AlertDialog, IconButton, message } from '@spark-ai/design';
-import { Button, Dropdown } from 'antd';
+import { Button, Dropdown, Menu, Message } from '@arco-design/web-react';
+import AlertDialog from '@/components/ui/AlertDialog';
+import IconButton from '@/components/ui/IconButton';
+
 import dayjs from 'dayjs';
 import { history } from 'umi';
 import styles from './index.module.less';
@@ -67,8 +69,8 @@ export default function PluginCard(props: Plugin & { reload: () => void }) {
 
           <Dropdown
             getPopupContainer={(ele) => ele}
-            menu={{
-              onClick: () => {
+            droplist={
+              <Menu onClickMenuItem={() => {
                 AlertDialog.warning({
                   title: $i18n.get({
                     id: 'main.pages.Component.Plugin.List.Card.deletePlugin',
@@ -80,7 +82,7 @@ export default function PluginCard(props: Plugin & { reload: () => void }) {
                   }),
                   onOk: () => {
                     removePlugin(props.plugin_id as string).then(() => {
-                      message.success(
+                      Message.success(
                         $i18n.get({
                           id: 'main.pages.Component.Plugin.List.Card.successDelete',
                           dm: '删除成功',
@@ -90,18 +92,15 @@ export default function PluginCard(props: Plugin & { reload: () => void }) {
                     });
                   },
                 });
-              },
-              items: [
-                {
-                  label: $i18n.get({
+              }}>
+                <Menu.Item key="delete" className="text-red-500">
+                  {$i18n.get({
                     id: 'main.pages.Component.Plugin.List.Card.delete',
                     dm: '删除',
-                  }),
-                  key: 'delete',
-                  danger: true,
-                },
-              ],
-            }}
+                  })}
+                </Menu.Item>
+              </Menu>
+            }
           >
             <IconButton shape="default" icon="spark-more-line" />
           </Dropdown>

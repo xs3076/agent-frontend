@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Spin } from 'antd';
+import { Spin } from '@arco-design/web-react';
 import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { ChatProvider } from './contexts/ChatContext';

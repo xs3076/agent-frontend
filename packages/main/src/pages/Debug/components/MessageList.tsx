@@ -1,11 +1,11 @@
 import React from 'react';
-import { Collapse, Tag, Typography } from 'antd';
-import { UserOutlined, RobotOutlined, ToolOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Collapse, Tag, Typography } from '@arco-design/web-react';
+import { IconUser, IconRobot, IconTool, IconExclamationCircle } from '@arco-design/web-react/icon';
 import { Message } from '../contexts/ChatContext';
 import { useConfigContext } from '../contexts/ConfigContext';
 import styles from '../index.module.less';
 
-const { Panel } = Collapse;
+const CollapseItem = Collapse.Item;
 const { Text } = Typography;
 
 interface MessageListProps {
@@ -28,7 +28,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
     return (
       <div className={styles.fileAttachment}>
         {attachments.map((file, index) => (
-          <Tag key={index} icon={<ToolOutlined />}>
+          <Tag key={index} icon={<IconTool />}>
             {file.name}
           </Tag>
         ))}
@@ -41,8 +41,8 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
 
     return (
       <div className={styles.messageToolCalls}>
-        <Collapse size="small" ghost>
-          <Panel header="🔧 工具调用详情" key="1">
+        <Collapse bordered={false}>
+          <CollapseItem header="🔧 工具调用详情" name="1">
             {toolCalls.map((call, index) => (
               <div key={index} style={{ marginBottom: 8 }}>
                 <Text strong>函数: {call.name}</Text>
@@ -56,7 +56,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
                 )}
               </div>
             ))}
-          </Panel>
+          </CollapseItem>
         </Collapse>
       </div>
     );
@@ -67,7 +67,7 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
 
     return (
       <div className={styles.messageError}>
-        <ExclamationCircleOutlined style={{ marginRight: 4 }} />
+        <IconExclamationCircle style={{ marginRight: 4 }} />
         {error}
       </div>
     );
@@ -82,9 +82,9 @@ const MessageList: React.FC<MessageListProps> = ({ messages }) => {
         >
           <div className={styles.messageAvatar}>
             {message.type === 'user' ? (
-              <UserOutlined />
+              <IconUser />
             ) : (
-              <RobotOutlined />
+              <IconRobot />
             )}
           </div>
 
