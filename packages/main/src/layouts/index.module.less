@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: var(--ag-ant-color-bg-layout);
+  background-color: var(--color-bg-1);
 }
 
 .header {
@@ -18,8 +18,8 @@
   height: 0;
   flex: 1;
   margin: 0 8px 8px 8px;
-  border: 1px solid var(--ag-ant-color-border-secondary);
-  background-color: var(--ag-ant-color-bg-base);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-2);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -54,15 +54,15 @@
 
 .menu-item {
   font-size: 16px;
-  color: var(--ag-ant-color-text-secondary);
+  color: var(--color-text-3);
 
   &:global(.active) {
     font-weight: 500;
-    color: var(--ag-ant-color-text-base);
+    color: var(--color-text-1);
   }
 
   &:hover {
-    color: var(--ag-ant-color-text-base);
+    color: var(--color-text-1);
   }
 }
 
@@ -73,8 +73,7 @@
 :global {
   html,
   body,
-  #root,
-  .ag-ant-app {
+  #root {
     margin: 0;
     height: 100%;
   }
@@ -83,41 +82,11 @@
     box-sizing: border-box;
   }
 
-  .ag-ant-app {
-    color: var(--ag-ant-color-text);
-    font-size: 14px;
-
-    ::-webkit-scrollbar-thumb {
-      background-color: var(--ag-ant-color-border-secondary);
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: var(--ag-ant-color-border);
-    }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
   }
 
-  .ag-ant-input-textarea-show-count .ag-ant-input-data-count {
-    bottom: 4px;
-    right: 12px;
-    color: var(--ag-ant-color-text-description);
-    margin-bottom: 0;
-  }
-
-  .ag-ant-table-wrapper .ag-ant-table-thead>tr>th {
-    color: var(--ag-ant-color-text-secondary) !important;
-    padding: 8px 20px !important;
-    font-weight: 400 !important;
-
-    &:not(:last-child):not(.ag-ant-table-selection-column):not(.ag-ant-table-row-expand-icon-cell):not([colspan])::before {
-      display: none;
-    }
-  }
-
-  .ag-ant-table-wrapper .ag-ant-table-container table>thead>tr:first-child>*:first-child {
-    border-radius: 0;
-  }
-
-  .ag-ant-table-wrapper .ag-ant-table-container table>thead>tr:first-child>*:last-child {
-    border-radius: 0;
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-border-3);
   }
 }

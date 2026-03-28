@@ -1,6 +1,6 @@
 import { getAccountInfo } from '@/services/account';
 import { useRequest } from 'ahooks';
-import { Spin } from 'antd';
+import { Spin } from '@arco-design/web-react';
 import { history } from 'umi';
 
 export default function (props: {

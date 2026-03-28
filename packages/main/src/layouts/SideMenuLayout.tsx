@@ -1,23 +1,23 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'umi';
-import { Layout as AntLayout, Menu } from 'antd';
+import { Layout, Menu } from '@arco-design/web-react';
 import {
-  AppstoreOutlined,
-  BulbOutlined,
-  ExperimentOutlined,
-  LineChartOutlined,
-  UnorderedListOutlined,
-  PlayCircleOutlined,
-  BarChartOutlined,
-  NodeIndexOutlined,
-  SettingOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  ApiOutlined,
-  DatabaseOutlined,
-  ToolOutlined,
-  SwapOutlined,
-} from '@ant-design/icons';
+  IconApps,
+  IconBulb,
+  IconExperiment,
+  IconLineChart,
+  IconUnorderedList,
+  IconPlayCircle,
+  IconBarChart,
+  IconBranch,
+  IconSettings,
+  IconMenuFold,
+  IconMenuUnfold,
+  IconLink,
+  IconStorage,
+  IconTool,
+  IconSwap,
+} from '@arco-design/web-react/icon';
 import $i18n from '@/i18n';
 import Header from './Header';
 import styles from './index.module.less';
@@ -30,7 +30,7 @@ import PureLayout from './Pure';
 import { ModelsContext } from '@/legacy/context/models';
 import PromptAPI from '@/legacy/services';
 
-const { Sider, Content } = AntLayout;
+const { Sider, Content } = Layout;
 
 // 获取应该高亮的菜单项 key
 const getSelectedMenuKey = (pathname: string): string => {
@@ -137,120 +137,7 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
   // 获取应该高亮的菜单项 key
   const selectedKey = useMemo(() => getSelectedMenuKey(location.pathname), [location.pathname]);
 
-  // 构建菜单项
-  const menuItems = useMemo(
-    () => [
-      {
-        key: 'studio',
-        label: $i18n.get({
-          id: 'main.layouts.SideMenu.studio',
-          dm: ' Agent Builder',
-        }),
-        icon: <AppstoreOutlined />,
-        children: [
-          {
-            key: '/app',
-            label: $i18n.get({
-              id: 'main.layouts.MenuList.application',
-              dm: '应用',
-            }),
-            icon: <AppstoreOutlined />,
-          },
-          {
-            key: '/mcp',
-            label: 'MCP',
-            icon: <ApiOutlined />,
-          },
-          {
-            key: '/component',
-            label: $i18n.get({
-              id: 'main.pages.Component.AppComponent.index.component',
-              dm: '组件',
-            }),
-            icon: <ToolOutlined />,
-          },
-          {
-            key: '/knowledge',
-            label: $i18n.get({
-              id: 'main.pages.Knowledge.Test.index.knowledgeBase',
-              dm: '知识库',
-            }),
-            icon: <DatabaseOutlined />,
-          },
-          {
-            key: '/dify',
-            label: $i18n.get({
-              id: 'main.layouts.SideMenu.dify',
-              dm: 'Dify To Graph',
-            }),
-            icon: <SwapOutlined />,
-          },
-        ],
-      },
-      {
-        key: 'prompt',
-        label: 'Prompt工程',
-        icon: <BulbOutlined />,
-        children: [
-          {
-            key: '/admin/prompts',
-            label: 'Prompts',
-            icon: <UnorderedListOutlined />,
-          },
-          {
-            key: '/admin/playground',
-            label: 'Playground',
-            icon: <PlayCircleOutlined />,
-          },
-        ],
-      },
-      {
-        key: 'evaluation',
-        label: '评测',
-        icon: <ExperimentOutlined />,
-        children: [
-          {
-            key: '/admin/evaluation/gather',
-            label: '评测集',
-            icon: <UnorderedListOutlined />,
-          },
-          {
-            key: '/admin/evaluation/evaluator',
-            label: '评估器',
-            icon: <BarChartOutlined />,
-          },
-          {
-            key: '/admin/evaluation/experiment',
-            label: '实验',
-            icon: <ExperimentOutlined />,
-          },
-        ],
-      },
-      {
-        key: 'observability',
-        label: '可观测',
-        icon: <LineChartOutlined />,
-        children: [
-          {
-            key: '/admin/tracing',
-            label: 'Tracing',
-            icon: <NodeIndexOutlined />,
-          },
-        ],
-      },
-      {
-        key: '/setting',
-        label: $i18n.get({
-          id: 'main.pages.Setting.ModelService.Detail.setting',
-          dm: '设置',
-        }),
-        icon: <SettingOutlined />,
-      },
-    ],
-    [],
-  );
-
-  const handleMenuClick = ({ key }: { key: string }) => {
+  const handleMenuClick = (key: string) => {
     navigate(key);
   };
 
@@ -287,31 +174,130 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
             setModels,
           }}
         >
-          <AntLayout className="h-screen">
+          <Layout className="h-screen">
             <Sider
               width={256}
               collapsedWidth={80}
               collapsed={collapsed}
-              theme="light"
               className="shadow-lg border-r border-gray-200"
               style={{ height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}
             >
               <div className="p-6 border-b border-gray-200">
                 <h1 className="text-xl font-bold text-gray-800 flex items-center whitespace-nowrap overflow-hidden">
-                  <SettingOutlined className="mr-1 text-blue-500" />
+                  <IconSettings className="mr-1 text-blue-500" />
                   {!collapsed && 'SAA Admin'}
                 </h1>
               </div>
 
               <Menu
-                mode="inline"
+                mode="vertical"
                 selectedKeys={[selectedKey]}
                 defaultOpenKeys={collapsed ? [] : ['studio']}
-                items={menuItems}
-                onClick={handleMenuClick}
-                className="border-r-0 mt-6"
-                inlineCollapsed={collapsed}
-              />
+                onClickMenuItem={handleMenuClick}
+                collapse={collapsed}
+                style={{ borderRight: 'none', marginTop: 24 }}
+              >
+                <Menu.SubMenu
+                  key="studio"
+                  title={
+                    <>
+                      <IconApps />
+                      {$i18n.get({
+                        id: 'main.layouts.SideMenu.studio',
+                        dm: ' Agent Builder',
+                      })}
+                    </>
+                  }
+                >
+                  <Menu.Item key="/app">
+                    <IconApps />
+                    {$i18n.get({
+                      id: 'main.layouts.MenuList.application',
+                      dm: '应用',
+                    })}
+                  </Menu.Item>
+                  <Menu.Item key="/mcp">
+                    <IconLink /> MCP
+                  </Menu.Item>
+                  <Menu.Item key="/component">
+                    <IconTool />
+                    {$i18n.get({
+                      id: 'main.pages.Component.AppComponent.index.component',
+                      dm: '组件',
+                    })}
+                  </Menu.Item>
+                  <Menu.Item key="/knowledge">
+                    <IconStorage />
+                    {$i18n.get({
+                      id: 'main.pages.Knowledge.Test.index.knowledgeBase',
+                      dm: '知识库',
+                    })}
+                  </Menu.Item>
+                  <Menu.Item key="/dify">
+                    <IconSwap />
+                    {$i18n.get({
+                      id: 'main.layouts.SideMenu.dify',
+                      dm: 'Dify To Graph',
+                    })}
+                  </Menu.Item>
+                </Menu.SubMenu>
+
+                <Menu.SubMenu
+                  key="prompt"
+                  title={
+                    <>
+                      <IconBulb /> Prompt工程
+                    </>
+                  }
+                >
+                  <Menu.Item key="/admin/prompts">
+                    <IconUnorderedList /> Prompts
+                  </Menu.Item>
+                  <Menu.Item key="/admin/playground">
+                    <IconPlayCircle /> Playground
+                  </Menu.Item>
+                </Menu.SubMenu>
+
+                <Menu.SubMenu
+                  key="evaluation"
+                  title={
+                    <>
+                      <IconExperiment /> 评测
+                    </>
+                  }
+                >
+                  <Menu.Item key="/admin/evaluation/gather">
+                    <IconUnorderedList /> 评测集
+                  </Menu.Item>
+                  <Menu.Item key="/admin/evaluation/evaluator">
+                    <IconBarChart /> 评估器
+                  </Menu.Item>
+                  <Menu.Item key="/admin/evaluation/experiment">
+                    <IconExperiment /> 实验
+                  </Menu.Item>
+                </Menu.SubMenu>
+
+                <Menu.SubMenu
+                  key="observability"
+                  title={
+                    <>
+                      <IconLineChart /> 可观测
+                    </>
+                  }
+                >
+                  <Menu.Item key="/admin/tracing">
+                    <IconBranch /> Tracing
+                  </Menu.Item>
+                </Menu.SubMenu>
+
+                <Menu.Item key="/setting">
+                  <IconSettings />
+                  {$i18n.get({
+                    id: 'main.pages.Setting.ModelService.Detail.setting',
+                    dm: '设置',
+                  })}
+                </Menu.Item>
+              </Menu>
 
               <div className="absolute bottom-0 left-0 right-0 border-t border-gray-200 bg-white">
                 <div
@@ -319,16 +305,16 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
                   onClick={() => setCollapsed(!collapsed)}
                 >
                   {collapsed ? (
-                    <MenuUnfoldOutlined className="text-gray-600 text-lg" />
+                    <IconMenuUnfold className="text-gray-600 text-lg" />
                   ) : (
-                    <MenuFoldOutlined className="text-gray-600 text-lg" />
+                    <IconMenuFold className="text-gray-600 text-lg" />
                   )}
                   {!collapsed && <span className="ml-2 text-gray-600">收起菜单</span>}
                 </div>
               </div>
             </Sider>
 
-            <AntLayout style={{ marginLeft: collapsed ? 80 : 256, transition: 'margin-left 0.2s' }}>
+            <Layout style={{ marginLeft: collapsed ? 80 : 256, transition: 'margin-left 0.2s' }}>
               <Header
                 right={
                   <>
@@ -344,11 +330,10 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
                   {children}
                 </div>
               </Content>
-            </AntLayout>
-          </AntLayout>
+            </Layout>
+          </Layout>
         </ModelsContext.Provider>
       </LoginProvider>
     </PureLayout>
   );
 }
-

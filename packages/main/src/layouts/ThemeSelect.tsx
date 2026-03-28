@@ -1,4 +1,4 @@
-import { IconButton } from '@spark-ai/design';
+import IconButton from '@/components/ui/IconButton';
 
 const defaultTheme = 'dark';
 
@@ -16,7 +16,6 @@ export default function () {
       onClick={() => {
         prefersColor.set(theme === 'light' ? 'dark' : 'light');
       }}
-      shape="default"
     />
   );
 }

@@ -1,4 +1,4 @@
-import { getCommonConfig } from '@spark-ai/design';
+import { prefersColor } from './ThemeSelect';
 import { history } from 'umi';
 import styles from './index.module.less';
 
@@ -9,7 +9,7 @@ export default function (props: {
   children?: TChildren;
   right?: TChildren;
 }) {
-  const darkMode = getCommonConfig().isDarkMode;
+  const darkMode = prefersColor.get() === 'dark';
 
   return (
     <div className={styles['header']}>

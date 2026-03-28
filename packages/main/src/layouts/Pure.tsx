@@ -1,18 +1,14 @@
-import { iconFontUrl } from '@/components/Icon';
 import $i18n from '@/i18n';
+import { setArcoDarkMode } from '@/arco-theme';
 import { getGlobalConfig } from '@/services/globalConfig';
-import {
-  ConfigProvider,
-  Empty,
-  purpleDarkTheme,
-  purpleTheme,
-} from '@spark-ai/design';
+import { ConfigProvider } from '@arco-design/web-react';
+import enUS from '@arco-design/web-react/es/locale/en-US';
+import jaJP from '@arco-design/web-react/es/locale/ja-JP';
+import zhCN from '@arco-design/web-react/es/locale/zh-CN';
+import '@arco-design/web-react/dist/css/arco.css';
 import { useRequest } from 'ahooks';
-import { Flex, theme } from 'antd';
-import enUS from 'antd/locale/en_US';
-import jaJP from 'antd/locale/ja_JP';
-import zhCN from 'antd/locale/zh_CN';
 import 'dayjs/locale/zh-cn';
+import { useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import styles from './index.module.less';
 import { prefersColor } from './ThemeSelect';
@@ -36,9 +32,12 @@ export default function PureLayout(props: {
     ja: jaJP,
   }[langPreset];
 
-  // Select theme based on dark mode
-  const inputTheme = (darkMode ? purpleDarkTheme : purpleTheme).theme;
   const { loading } = useRequest(getGlobalConfig);
+
+  // Apply dark mode via Arco theme attribute
+  useEffect(() => {
+    setArcoDarkMode(darkMode);
+  }, [darkMode]);
 
   if (loading) return null;
 
@@ -48,32 +47,7 @@ export default function PureLayout(props: {
         return <h1> something error </h1>;
       }}
     >
-      <ConfigProvider
-        {...purpleTheme}
-        button={{
-          autoInsertSpace: false,
-        }}
-        theme={{
-          ...inputTheme,
-          algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
-          cssVar: { prefix: 'ag-ant' },
-          hashed: false,
-        }}
-        getPopupContainer={() =>
-          document.querySelector('#root .ag-ant-app') as HTMLElement
-        }
-        prefix="ag"
-        prefixCls="ag-ant"
-        iconfont={iconFontUrl}
-        locale={locale}
-        renderEmpty={() => {
-          return (
-            <Flex justify="center">
-              <Empty description={locale?.Empty?.description} />
-            </Flex>
-          );
-        }}
-      >
+      <ConfigProvider locale={locale}>
         <div className={styles['main']}>{props.children}</div>
       </ConfigProvider>
     </ErrorBoundary>
