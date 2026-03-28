@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: var(--ag-ant-color-bg-base);
+  background-color: var(--color-bg-2);
 
 
   &.full-screen-mode {
@@ -19,7 +19,7 @@
     width: 1px;
     height: 70%;
     align-self: center;
-    background-color: var(--ag-ant-color-border-secondary);
+    background-color: var(--color-border);
   }
 
   .header {
@@ -29,8 +29,8 @@
     align-items: center;
     padding: 16px 20px;
     height: 64px;
-    border-bottom: 1px solid var(--ag-ant-color-border-secondary);
-    background-color: var(--ag-ant-color-bg-base);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-2);
 
     .left,
     .right {
@@ -59,7 +59,7 @@
       display: flex;
       align-items: center;
       font-size: 16px;
-      color: var(--ag-ant-color-text-tertiary);
+      color: var(--color-text-3);
       font-weight: 500;
       white-space: nowrap;
       overflow: hidden;
@@ -93,12 +93,12 @@
       width: 100%;
       max-height: calc(100vh - 90px);
       overflow-y: auto;
-      box-shadow: 0 12px 24px -16px var(--ag-ant-color-5);
+      box-shadow: 0 12px 24px -16px var(--color-neutral-5);
       padding: 16px;
       z-index: 1000;
       border-width: 0 0 1px;
       border-style: solid;
-      border-color: var(--ag-ant-color-border-secondary);
+      border-color: var(--color-border);
       box-sizing: border-box;
     }
 
@@ -107,7 +107,7 @@
       justify-content: center;
       align-items: center;
       gap: 48px;
-      background-color: var(--ag-ant-color-fill-secondary);
+      background-color: var(--color-fill-2);
       padding: 16px;
       border-radius: 6px;
 
@@ -123,7 +123,7 @@
           justify-content: center;
           font-size: 12px;
           font-weight: 600;
-          color: var(--ag-ant-color-primary);
+          color: var(--color-primary-6);
           margin-bottom: 6px;
         }
 
@@ -134,14 +134,14 @@
         .tour-title {
           font-size: 14px;
           font-weight: 500;
-          color: var(--ag-ant-color-text-base);
+          color: var(--color-text-1);
           margin-bottom: 4px;
           line-height: 24px;
         }
 
         .tour-description {
           font-size: 12px;
-          color: var(--ag-ant-color-text-secondary);
+          color: var(--color-text-2);
           line-height: 1.5;
         }
       }
@@ -153,8 +153,8 @@
     flex: 1;
 
     :global {
-      .ag-ant-spin-nested-loading,
-      .ag-ant-spin-container {
+      .arco-spin-loading,
+      .arco-spin-children {
         height: 100%;
         overflow: auto;
       }
@@ -162,8 +162,8 @@
   }
 
   .bottom {
-    background-color: var(--ag-ant-color-bg-base);
-    border-top: 1px solid var(--ag-ant-color-border-secondary);
+    background-color: var(--color-bg-2);
+    border-top: 1px solid var(--color-border);
     padding: 16px 24px;
     display: flex;
     gap: 8px;
@@ -179,7 +179,7 @@
     display: block;
 
     a {
-      color: var(--ag-ant-color-text-secondary);
+      color: var(--color-text-2);
     }
   }
 
@@ -194,43 +194,43 @@
     max-width: 100%;
     padding: 0 8px;
     :global {
-      .ag-spark-segmented-tab-bar {
+      .arco-tabs-header-nav {
         margin-bottom: 0;
       }
     }
   }
 
   :global {
-    .spark-segmented-tab-bar {
+    .arco-tabs-header {
       margin-bottom: 0;
     }
 
-    .ag-ant-breadcrumb {
+    .arco-breadcrumb {
       font-size: 16px;
-      color: var(--ag-ant-color-text-tertiary);
+      color: var(--color-text-3);
       font-weight: 500;
       width: auto;
     }
 
-    .ag-ant-breadcrumb ol {
+    .arco-breadcrumb ol {
       align-items: center;
     }
 
-    .ag-ant-breadcrumb-separator {
+    .arco-breadcrumb-item-separator {
       font-weight: 400;
       margin-inline: 4px;
       line-height: 22px;
       padding: 0 2px;
     }
 
-    .ag-ant-breadcrumb li:last-child .ag-ant-breadcrumb-link {
-      color: var(--ag-ant-color-text-base);
+    .arco-breadcrumb li:last-child .arco-breadcrumb-link {
+      color: var(--color-text-1);
       font-weight: 600;
     }
 
-    .ag-ant-breadcrumb a:hover {
+    .arco-breadcrumb a:hover {
       background-color: transparent;
-      color: var(--ag-ant-color-text-secondary);
+      color: var(--color-text-2);
     }
   }
 }

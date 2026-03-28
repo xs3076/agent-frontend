@@ -1,8 +1,7 @@
 import $i18n from '@/i18n';
 import { authLogout } from '@/services/login';
 import { IAccount, USER_TYPE } from '@/types/account';
-import { Avatar, Button, Form, Input, Modal, Tag } from '@spark-ai/design';
-import { Flex } from 'antd';
+import { Avatar, Button, Form, Input, Modal, Tag } from '@arco-design/web-react';
 import React, { useEffect } from 'react';
 import styles from './index.module.less';
 
@@ -47,7 +46,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
         id: 'main.components.AccountModal.index.accountManagement',
         dm: '账号管理',
       })}
-      open={open}
+      visible={open}
       onCancel={onCancel}
       footer={[
         <Button key="cancel" onClick={onCancel}>
@@ -68,11 +67,10 @@ const AccountModal: React.FC<AccountModalProps> = ({
       <div className={styles['user-info-header']}>
         <Avatar size={40}>{userInfo.username.charAt(0).toUpperCase()}</Avatar>
         <div className={styles['user-info-details']}>
-          <Flex align="center" gap={24}>
+          <div className="flex items-center gap-6">
             <div className={styles['user-name']}>{userInfo.username}</div>
             <Button
               size="small"
-              iconType="spark-escape-line"
               onClick={() => {
                 authLogout();
               }}
@@ -82,7 +80,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
                 dm: '退出登录',
               })}
             </Button>
-          </Flex>
+          </div>
           <Tag color={userInfo.type === 'admin' ? 'purple' : 'mauve'}>
             {USER_TYPE[userInfo.type as keyof typeof USER_TYPE]}
           </Tag>
@@ -103,7 +101,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
           })}
         </div>
         <Form.Item
-          name="currentPassword"
+          field="currentPassword"
           label={$i18n.get({
             id: 'main.components.AccountModal.index.currentPassword',
             dm: '当前密码',
@@ -127,7 +125,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="newPassword"
+          field="newPassword"
           label={$i18n.get({
             id: 'main.pages.Setting.Account.components.UserEditModal.index.newPassword',
             dm: '新密码',
@@ -142,7 +140,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
         </Form.Item>
 
         <Form.Item
-          name="confirmPassword"
+          field="confirmPassword"
           label={$i18n.get({
             id: 'main.pages.Setting.Account.components.UserEditModal.index.newPassword',
             dm: '新密码',

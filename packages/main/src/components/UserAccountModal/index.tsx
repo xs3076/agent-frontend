@@ -1,6 +1,6 @@
 import { changePassword } from '@/services/account';
 import { authLogout } from '@/services/login';
-import { Avatar } from '@spark-ai/design';
+import { Avatar } from '@arco-design/web-react';
 import React, { useState } from 'react';
 import AccountModal from '../AccountModal';
 

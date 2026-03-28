@@ -1,10 +1,10 @@
-import { InputNumber, Slider } from '@spark-ai/design';
-import { Flex, SliderSingleProps } from 'antd';
+import { InputNumber, Slider } from '@arco-design/web-react';
+import { SliderProps } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './index.module.less';
 
-interface IProps extends SliderSingleProps {
+interface IProps extends SliderProps {
   isShowMarker?: boolean;
 }
 
@@ -29,7 +29,7 @@ export const SliderInput: React.FC<IProps> = (props) => {
 
   return (
     <div className={classNames(styles['slider-input'], className)}>
-      <Flex vertical>
+      <div className="flex flex-col">
         <Slider
           value={value}
           onChange={onChange}
@@ -40,17 +40,15 @@ export const SliderInput: React.FC<IProps> = (props) => {
           {...rest}
         />
         {isShowMarker && (
-          <Flex
-            align="center"
-            justify="space-between"
-            className={styles['slider-marker']}
+          <div
+            className={`flex items-center justify-between ${styles['slider-marker']}`}
             style={style}
           >
             <div className={styles['slider-marker']}>{min}</div>
             <div className={styles['slider-marker']}>{max}</div>
-          </Flex>
+          </div>
         )}
-      </Flex>
+      </div>
       <InputNumber
         step={step || 0.01}
         min={min}

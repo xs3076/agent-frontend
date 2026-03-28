@@ -62,8 +62,8 @@ export const useInnerLayout = (): {
   const bottomPortal = (children: React.ReactNode) => {
     // Default styles
     const style: React.CSSProperties = {
-      backgroundColor: 'var(--ag-ant-color-bg-base)',
-      borderTop: '1px solid var(--ag-ant-color-border-secondary)',
+      backgroundColor: 'var(--color-bg-2)',
+      borderTop: '1px solid var(--color-border)',
       padding: '16px 24px',
       display: 'flex',
       gap: 8,

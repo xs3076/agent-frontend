@@ -1,4 +1,4 @@
-import { Card } from '@spark-ai/design';
+import { Card } from '@arco-design/web-react';
 import React from 'react';
 import styles from './index.module.less';
 
@@ -29,9 +29,8 @@ const ProCard: React.FC<ProCardProps> = ({
 }) => {
   return (
     <Card
-      className={`${styles.proCard} ${className || ''}`}
+      className={`${styles.proCard} ${className || ''} ${onClick ? 'cursor-pointer' : ''}`}
       onClick={onClick}
-      hoverable={!!onClick}
     >
       <div className={styles.cardHeader}>
         <div className={styles.headerLeft}>

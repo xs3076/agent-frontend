@@ -1,4 +1,4 @@
-import { Flex, Tag } from 'antd';
+import { Tag } from '@arco-design/web-react';
 import styles from './index.module.less';
 
 export interface IFilterProps {
@@ -12,11 +12,12 @@ export interface IFilterProps {
 
 export default function Filter({ options, value, onSelect }: IFilterProps) {
   return (
-    <Flex wrap className={styles['filter-selector']} gap={8}>
+    <div className={`flex flex-wrap gap-2 ${styles['filter-selector']}`}>
       {options.map((item) => {
         const isActive = item.value === value;
         return (
-          <Tag.CheckableTag
+          <Tag
+            checkable
             checked={isActive}
             onClick={() => {
               if (isActive) return;
@@ -25,9 +26,9 @@ export default function Filter({ options, value, onSelect }: IFilterProps) {
             key={item.value}
           >
             {item.label}
-          </Tag.CheckableTag>
+          </Tag>
         );
       })}
-    </Flex>
+    </div>
   );
 }

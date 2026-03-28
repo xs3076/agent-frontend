@@ -1,4 +1,5 @@
-import { IconFont, Input } from '@spark-ai/design';
+import { Input } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './index.module.less';
@@ -28,8 +29,7 @@ const Search: React.FC<SearchProps> = ({
   value,
   placeholder = 'Type here...',
 }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+  const handleChange = (newValue: string) => {
     onChange(newValue);
   };
 

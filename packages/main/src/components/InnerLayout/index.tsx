@@ -1,10 +1,23 @@
-import { Button, IconButton, IconFont, Tabs, TabsProps, Tooltip } from '@spark-ai/design';
-import { Breadcrumb, BreadcrumbProps, Flex, Spin } from 'antd';
+import { Breadcrumb, Button, Spin, Tabs, Tooltip } from '@arco-design/web-react';
+
+interface TabItem {
+  key: string;
+  label: React.ReactNode;
+  children?: React.ReactNode;
+}
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
-import { omit } from 'lodash-es';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './index.module.less';
+
+interface BreadcrumbLinkItem {
+  title: string | React.ReactNode;
+  path?: string;
+  href?: string;
+  onClick?: (e: React.MouseEvent) => void;
+}
 
 interface TourItem {
   title: string;
@@ -12,7 +25,7 @@ interface TourItem {
 }
 
 interface InnerLayoutProps {
-  breadcrumbLinks: BreadcrumbProps['items'];
+  breadcrumbLinks: BreadcrumbLinkItem[];
   /** Whether to simplify breadcrumb display */
   simplifyBreadcrumb?: boolean;
   /** Left action area */
@@ -20,7 +33,7 @@ interface InnerLayoutProps {
   /** Right action area */
   right?: React.ReactNode;
   /** Tabs */
-  tabs?: React.ReactNode | TabsProps['items'];
+  tabs?: React.ReactNode | TabItem[];
   /** Loading state */
   loading?: boolean;
   /** Currently active tab */
@@ -108,7 +121,7 @@ const BreadcrumbItem = ({
   );
 
   return shouldShowTooltip ? (
-    <Tooltip mode="dark" title={title} placement="bottom" mouseEnterDelay={0.5}>
+    <Tooltip content={title} position="bottom">
       {content}
     </Tooltip>
   ) : (
@@ -156,18 +169,18 @@ const InnerLayout: React.FC<InnerLayoutProps> = ({
       return null;
     }
 
-    const items = tabs.map((item) => omit(item, ['children']));
-
     return (
       <Tabs
-        activeKey={activeTab}
+        activeTab={activeTab}
         onChange={handleTabChange}
-        items={items}
-        centered
-        type="segmented"
-        destroyInactiveTabPane={destroyInactiveTabPanel}
+        type="capsule"
+        destroyOnHide={destroyInactiveTabPanel}
         className={styles.tabs}
-      />
+      >
+        {tabs.map((item) => (
+          <Tabs.TabPane key={item.key} title={item.label} />
+        ))}
+      </Tabs>
     );
   };
 
@@ -206,13 +219,21 @@ const InnerLayout: React.FC<InnerLayoutProps> = ({
           <Button className={styles['back-icon']} onClick={handleBackClick}>
             <IconFont type="spark-leftArrow-line" />
           </Button>
-          <Breadcrumb items={[lastBreadcrumb]} itemRender={itemRender} />
+          <Breadcrumb>
+            <Breadcrumb.Item>{itemRender(lastBreadcrumb)}</Breadcrumb.Item>
+          </Breadcrumb>
         </>
       );
     }
 
     // Show full breadcrumb when not in fullscreen mode and not simplified
-    return <Breadcrumb items={breadcrumbLinks} itemRender={itemRender} />;
+    return (
+      <Breadcrumb>
+        {breadcrumbLinks.map((item, index) => (
+          <Breadcrumb.Item key={index}>{itemRender(item)}</Breadcrumb.Item>
+        ))}
+      </Breadcrumb>
+    );
   };
 
   const toggleFullScreen = () => {
@@ -324,13 +345,12 @@ const InnerLayout: React.FC<InnerLayoutProps> = ({
           style={customStyles.right}
         >
           {renderTourButton()}
-          <Flex
-            gap={12}
+          <div
             id="InnerLayoutRight"
-            className={styles['right-content']}
+            className={`flex gap-3 ${styles['right-content']}`}
           >
             {right}
-          </Flex>
+          </div>
           {renderFullScreenButton()}
         </div>
       </div>
@@ -345,7 +365,7 @@ const InnerLayout: React.FC<InnerLayoutProps> = ({
           )}
           style={customStyles.contentArea}
         >
-          <Spin spinning={loading} rootClassName={styles.loading}>
+          <Spin loading={loading} className={styles.loading}>
             {Array.isArray(tabs)
               ? tabs.find((item) => item.key === activeTab)?.children
               : null}

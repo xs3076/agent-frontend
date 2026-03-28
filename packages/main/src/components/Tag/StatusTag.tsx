@@ -1,7 +1,8 @@
 import React from 'react';
 
 import type { TaskStatus } from '@/types/base';
-import { IconFont, Tag, TagProps } from '@spark-ai/design';
+import { Tag, TagProps } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 
 import $i18n from '@/i18n';

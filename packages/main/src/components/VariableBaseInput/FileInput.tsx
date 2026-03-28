@@ -1,8 +1,8 @@
 import $i18n from '@/i18n';
 import upload, { getPreviewUrl } from '@/request/upload';
 import uniqueId from '@/utils/uniqueId';
-import { Button, IconFont, Input } from '@spark-ai/design';
-import { Flex, Popover, Typography, Upload } from 'antd';
+import { Button, Input, Popover, Typography, Upload } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import { memo, useEffect, useState } from 'react';
 import styles from './index.module.less';
@@ -55,14 +55,14 @@ export interface IFileRemoteUrlInputFormProps {
 export const RemoteLinkFileItem = memo(
   ({ file, onDelete }: { file: IFile; onDelete: () => void }) => {
     return (
-      <Flex className={styles['file-item']} gap={8} align="center">
+      <div className={`flex items-center gap-2 ${styles['file-item']}`}>
         <div className={styles['file-logo']}>
           <IconFont
             className={styles['file-logo-icon']}
             type="spark-link-line"
           />
         </div>
-        <Flex className="flex-1 w-1" vertical>
+        <div className="flex-1 w-1 flex flex-col">
           <Typography.Text
             ellipsis={{ tooltip: file.name }}
             className={styles['file-name']}
@@ -72,9 +72,9 @@ export const RemoteLinkFileItem = memo(
           <div className={styles['file-size']}>
             {sourceLabelMap[file.source]}
           </div>
-        </Flex>
+        </div>
         <IconFont onClick={onDelete} isCursorPointer type="spark-delete-line" />
-      </Flex>
+      </div>
     );
   },
 );
@@ -112,10 +112,10 @@ export const FileRemoteUrlInputForm = memo(
             dm: '请输入链接',
           })}
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(val) => setUrl(val)}
         />
 
-        <Flex className={styles['remote-url-input-form-actions']} gap={8}>
+        <div className={`flex gap-2 ${styles['remote-url-input-form-actions']}`}>
           <Button disabled={props.disabled} onClick={onSubmit} type="primary">
             {$i18n.get({
               id: 'main.components.VariableBaseInput.FileInput.submit',
@@ -128,7 +128,7 @@ export const FileRemoteUrlInputForm = memo(
               dm: '取消',
             })}
           </Button>
-        </Flex>
+        </div>
       </div>
     );
   },
@@ -187,7 +187,7 @@ export const FileInput = memo(
           [styles.hasFiles]: !!files.length,
         })}
       >
-        <Flex gap={8}>
+        <div className="flex gap-2">
           <Upload
             fileList={[]}
             className={styles['upload-btn-wrap']}
@@ -246,9 +246,8 @@ export const FileInput = memo(
             </Button>
           </Upload>
           <Popover
-            open={open && !(isSingle && files.length >= 1)}
-            onOpenChange={setOpen}
-            destroyTooltipOnHide
+            popupVisible={open && !(isSingle && files.length >= 1)}
+            onVisibleChange={setOpen}
             content={
               <FileRemoteUrlInputForm
                 disabled={isSingle && files.length >= 1}
@@ -275,8 +274,8 @@ export const FileInput = memo(
               })}
             </Button>
           </Popover>
-        </Flex>
-        <Flex className={styles['file-list']} vertical gap={12}>
+        </div>
+        <div className={`flex flex-col gap-3 ${styles['file-list']}`}>
           {files.map((file) => {
             if (file.source === 'remoteUrl')
               return (
@@ -288,10 +287,8 @@ export const FileInput = memo(
               );
 
             return (
-              <Flex
-                className={styles['file-item']}
-                gap={8}
-                align="center"
+              <div
+                className={`flex items-center gap-2 ${styles['file-item']}`}
                 key={file.id}
               >
                 {file.previewUrl ? (
@@ -312,7 +309,7 @@ export const FileInput = memo(
                     )}
                   </div>
                 )}
-                <Flex className="flex-1 w-1" vertical>
+                <div className="flex-1 w-1 flex flex-col">
                   <Typography.Text
                     ellipsis={{ tooltip: file.name }}
                     className={styles['file-name']}
@@ -333,16 +330,16 @@ export const FileInput = memo(
                       {sourceLabelMap[file.source]}
                     </div>
                   )}
-                </Flex>
+                </div>
                 <IconFont
                   onClick={() => handleDelete(file)}
                   isCursorPointer
                   type="spark-delete-line"
                 />
-              </Flex>
+              </div>
             );
           })}
-        </Flex>
+        </div>
       </div>
     );
   },

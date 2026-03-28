@@ -1,4 +1,4 @@
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
 import classNames from 'classnames';
 import styles from './index.module.less';
 

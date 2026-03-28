@@ -2,7 +2,7 @@ import React from 'react';
 
 import IconFile from '@/components/Icon/IconFile';
 import type { FileType } from '@/types/base';
-import { Tag, TagProps } from '@spark-ai/design';
+import { Tag, TagProps } from '@arco-design/web-react';
 import classNames from 'classnames';
 import styles from './FileTag.module.less';
 

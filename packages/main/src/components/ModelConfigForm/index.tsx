@@ -10,17 +10,9 @@ import {
   IModelSelectorItem,
   ISelectedModelParams,
 } from '@/types/modelService';
-import { Button, IconFont, Slider } from '@spark-ai/design';
+import { Button, Checkbox, Input, InputNumber, Popover, Select, Slider, Switch, Typography } from '@arco-design/web-react';
+import IconFont from '@/components/ui/IconFont';
 import { useMount, useSetState } from 'ahooks';
-import {
-  Checkbox,
-  Input,
-  InputNumber,
-  Popover,
-  Select,
-  Switch,
-  Typography,
-} from 'antd';
 import { memo, useEffect, useMemo, useState } from 'react';
 import styles from './index.module.less';
 
@@ -105,8 +97,8 @@ const ModelConfigBtn = memo(
                   <Checkbox
                     checked={!!targetValue?.enable}
                     disabled={disabled}
-                    onChange={(e) =>
-                      changeParamItem(item.code, { enable: e.target.checked })
+                    onChange={(checked) =>
+                      changeParamItem(item.code, { enable: checked })
                     }
                   />
 
@@ -168,8 +160,8 @@ const ModelConfigBtn = memo(
                       value={
                         (targetValue?.value as string) || item.default_value
                       }
-                      onChange={(e) =>
-                        changeParamItem(item.code, { value: e.target.value })
+                      onChange={(val) =>
+                        changeParamItem(item.code, { value: val })
                       }
                     />
                   ))}

@@ -1,8 +1,7 @@
 import { useInnerLayout } from '@/components/InnerLayout/utils';
 import $i18n from '@/i18n';
-import { Empty, Pagination } from '@spark-ai/design';
-import { Flex, Spin } from 'antd';
-import { PaginationConfig } from 'antd/es/pagination';
+import { Empty, Pagination, Spin } from '@arco-design/web-react';
+import { PaginationProps } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React from 'react';
 import styles from './index.module.less';
@@ -19,7 +18,7 @@ interface IProps {
   /**
    * Pagination configuration
    */
-  pagination?: PaginationConfig;
+  pagination?: PaginationProps;
   /**
    * Loading state
    */
@@ -84,16 +83,16 @@ const CardList: React.FC<IProps> = (props) => {
     <>
       <div className={classNames(styles['container'], className)}>
         {props.loading ? (
-          <Spin spinning className={styles['loading']} />
+          <Spin loading className={styles['loading']} />
         ) : (
           children
         )}
       </div>
       {props.pagination &&
         bottomPortal(
-          <Flex justify="end" className="flex-1">
-            <Pagination showSizeChanger {...props.pagination} />
-          </Flex>,
+          <div className="flex justify-end flex-1">
+            <Pagination sizeCanChange {...props.pagination} />
+          </div>,
         )}
     </>
   );

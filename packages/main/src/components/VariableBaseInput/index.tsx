@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { CodeInput, IValueType } from '@spark-ai/flow';
-import { Input, InputNumber, Select } from 'antd';
+import { Input, InputNumber, Select } from '@arco-design/web-react';
 import { memo, useMemo } from 'react';
 import { FileInput } from './FileInput';
 
@@ -62,7 +62,7 @@ export const VariableBaseInput = memo(
               }
               variant={variant}
               value={value}
-              onChange={(e) => onChange({ value: e.target.value })}
+              onChange={(val) => onChange({ value: val })}
             />
           );
 
