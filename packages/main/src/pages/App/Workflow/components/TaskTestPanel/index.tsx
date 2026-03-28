@@ -5,7 +5,7 @@ import {
   getWorkFlowTaskProcess,
   resumeWorkFlowTask,
 } from '@/services/workflow';
-import { Markdown } from '@spark-ai/chat';
+import Markdown from '@/components/ui/Markdown';
 import { Button, Radio, Tabs } from '@arco-design/web-react';
 import Flex from '@/components/ui/Flex';
 import {
@@ -28,7 +28,7 @@ import InputParamsForm from './InputParamsForm';
 export const TextCard = ({ data }: { data: { text: string } }) => {
   return (
     <div className={styles['result-panel-content']}>
-      <Markdown baseFontSize={12} content={data.text || ''} />
+      <Markdown content={data.text || ''} />
     </div>
   );
 };

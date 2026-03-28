@@ -7,20 +7,13 @@ import {
   TMessage,
   uuid,
 } from '@spark-ai/chat';
-import {
-  Button,
-  copy,
-  IconButton,
-  IconFont,
-  message,
-  notification,
-  Tooltip,
-} from '@spark-ai/design';
+import { Button, Message, Notification, Tooltip } from '@arco-design/web-react';
+import IconButton from '@/components/ui/IconButton';
+import IconFont from '@/components/ui/IconFont';
 
 import $i18n from '@/i18n';
 import upload, { getPreviewUrl } from '@/request/upload';
 import { IReceiveMessage } from '@/types/chat';
-import { UploadFile } from 'antd';
 import {
   forwardRef,
   useCallback,
@@ -35,6 +28,17 @@ import Steps from './components/Steps';
 import Welcome from './components/Welcome';
 import { convertAgentMsgToSparkChat } from './converter';
 import Chat from './libs/chat';
+
+function copyText(text: string) {
+  navigator.clipboard.writeText(text).catch(() => {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  });
+}
 
 interface IProps {
   maxTokenContext?: number;
@@ -57,16 +61,15 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
   // if the bizVar is not complete, trigger the notification
   const [hasTriggeredNotification, setHasTriggeredNotification] =
     useState(false);
-  const [api, contextHolder] = notification.useNotification();
   const triggerNotification = useCallback(() => {
     if (hasTriggeredNotification) return;
     setHasTriggeredNotification(true);
-    api.info({
-      message: $i18n.get({
+    Notification.info({
+      title: $i18n.get({
         id: 'main.pages.App.AssistantAppEdit.components.SparkChat.index.tip',
         dm: '提示',
       }),
-      description: (
+      content: (
         <div>
           <div>
             {$i18n.get({
@@ -75,10 +78,10 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
             })}
           </div>
           <Button
-            type="link"
+            type="text"
             onClick={() => {
               props.openVarDrawer();
-              api.destroy();
+              Notification.remove();
             }}
             className="float-right"
           >
@@ -102,7 +105,7 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
 
   const onInput = useCallback(
     async (
-      data: { query: string; fileList?: UploadFile<any>[][] },
+      data: { query: string; fileList?: any[][] },
       isRegenerate = false,
     ) => {
       // if the custom variable is not complete, trigger the notification
@@ -291,11 +294,11 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
 
               label: '',
               onClick: () => {
-                copy(
+                copyText(
                   sparkChatMessage.cards?.find((item) => item.code === 'Text')
                     ?.data?.content,
                 );
-                message.success(
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.AssistantAppEdit.components.SparkChat.index.copySuccess',
                     dm: '复制成功',
@@ -346,8 +349,8 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
 
               label: '',
               onClick: () => {
-                copy(requestId);
-                message.success(
+                copyText(requestId);
+                Message.success(
                   $i18n.get({
                     id: 'main.pages.App.AssistantAppEdit.components.SparkChat.index.copySuccess',
                     dm: '复制成功',
@@ -424,7 +427,7 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
   const resetSession = useCallback(
     (disabledShowTip = false) => {
       if (flushing) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'main.pages.App.AssistantAppEdit.components.SparkChat.index.generatingDialog',
             dm: '对话正在生成中，请先停止再重置对话！',
@@ -437,7 +440,7 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
       // reset hasFirstChatRef, so the welcome card will be displayed again
       hasFirstChatRef.current = false;
       if (!disabledShowTip) {
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'main.pages.App.AssistantAppEdit.components.SparkChat.index.resetSuccess',
             dm: '重置对话成功，请继续测试',
@@ -562,7 +565,6 @@ export default forwardRef<ISparkChatRef, IProps>((props, ref) => {
 
   return (
     <>
-      {contextHolder}
       <div key={appCode} style={{ height: '100%' }}>
         <ChatAnywhere
           ref={sparkChatRef}

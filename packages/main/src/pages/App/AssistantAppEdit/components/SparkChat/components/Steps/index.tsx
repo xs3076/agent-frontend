@@ -6,7 +6,11 @@ import {
   IToolCallFunction,
 } from '@/types/chat';
 import { Accordion, AccordionProps } from '@spark-ai/chat';
-import { IconFont, parseJsonSafely } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
+
+const parseJsonSafely = (str: string, fallback: any = null) => {
+  try { return JSON.parse(str); } catch { return fallback; }
+};
 import Knowledge from './Knowledge';
 import Plugin from './Plugin';
 import Reasoning from './Reasoning';

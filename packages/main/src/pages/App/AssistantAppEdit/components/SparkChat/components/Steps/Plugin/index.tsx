@@ -1,13 +1,13 @@
 import $i18n from '@/i18n';
-import { Markdown } from '@spark-ai/chat';
-import {
-  CodeBlock,
-  CollapsePanel,
-  IconFont,
-  message,
-  parseJsonSafely,
-} from '@spark-ai/design';
+import Markdown from '@/components/ui/Markdown';
+import IconFont from '@/components/ui/IconFont';
+import { Collapse, Message } from '@arco-design/web-react';
 import styles from './index.module.less';
+
+const parseJsonSafely = (str: string | undefined, fallback: any = null): any => {
+  if (!str) return fallback;
+  try { return JSON.parse(str); } catch { return fallback; }
+};
 
 export default (props: {
   params: {
@@ -17,23 +17,23 @@ export default (props: {
 }) => {
   const { params } = props;
   const inputIsJson = params.arguments
-    ? parseJsonSafely(params.arguments, false, true) !== null
+    ? parseJsonSafely(params.arguments) !== null
     : false;
   const outputIsJson = params.output
-    ? parseJsonSafely(params.output, false, true) !== null
+    ? parseJsonSafely(params.output) !== null
     : false;
 
   const handleCopy = async (value: string) => {
     try {
       await navigator.clipboard.writeText(value);
-      message.success(
+      Message.success(
         $i18n.get({
           id: 'main.components.SparkChat.components.Steps.Plugin.index.copySuccess',
           dm: '复制成功',
         }),
       );
     } catch (error) {
-      message.error(
+      Message.error(
         $i18n.get({
           id: 'main.components.SparkChat.components.Steps.Plugin.index.copyFailed',
           dm: '复制失败',
@@ -42,59 +42,81 @@ export default (props: {
     }
   };
 
+  const formatJson = (str: string) => {
+    try {
+      return JSON.stringify(JSON.parse(str), null, 2);
+    } catch {
+      return str;
+    }
+  };
+
   return (
     <div className={styles.container}>
       {!!params.arguments?.length && (
-        <CollapsePanel
-          title={$i18n.get({
-            id: 'main.components.SparkChat.components.Steps.Plugin.index.inputParameters',
-            dm: '输入参数',
-          })}
-          collapsedHeight={64}
-          expandedHeight={200}
-          expandOnPanelClick={true}
-          extra={
-            <IconFont
-              type="spark-copy-line"
-              style={{ fontSize: '16px' }}
-              onClick={() => handleCopy(params.arguments!)}
-            />
-          }
-        >
-          {inputIsJson ? (
-            <CodeBlock language={'json'} value={params.arguments} />
-          ) : (
-            <div className="p-[12px]">
-              <Markdown content={params.arguments || ''} baseFontSize={12} />
+        <Collapse bordered={false}>
+          <Collapse.Item
+            name="input"
+            header={$i18n.get({
+              id: 'main.components.SparkChat.components.Steps.Plugin.index.inputParameters',
+              dm: '输入参数',
+            })}
+            extra={
+              <IconFont
+                type="spark-copy-line"
+                style={{ fontSize: '16px' }}
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  handleCopy(params.arguments!);
+                }}
+              />
+            }
+          >
+            <div style={{ maxHeight: 200, overflow: 'auto' }}>
+              {inputIsJson ? (
+                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: 13, margin: 0, padding: 12 }}>
+                  <code>{formatJson(params.arguments!)}</code>
+                </pre>
+              ) : (
+                <div className="p-[12px]">
+                  <Markdown content={params.arguments || ''} />
+                </div>
+              )}
             </div>
-          )}
-        </CollapsePanel>
+          </Collapse.Item>
+        </Collapse>
       )}
       {!!params.output?.length && (
-        <CollapsePanel
-          title={$i18n.get({
-            id: 'main.components.SparkChat.components.Steps.Plugin.index.outputParameters',
-            dm: '输出参数',
-          })}
-          collapsedHeight={64}
-          expandedHeight={200}
-          expandOnPanelClick={true}
-          extra={
-            <IconFont
-              type="spark-copy-line"
-              style={{ fontSize: '16px' }}
-              onClick={() => handleCopy(params.output!)}
-            />
-          }
-        >
-          {outputIsJson ? (
-            <CodeBlock language={'json'} value={params.output} />
-          ) : (
-            <div className="p-[12px]">
-              <Markdown content={params.output || ''} baseFontSize={12} />
+        <Collapse bordered={false}>
+          <Collapse.Item
+            name="output"
+            header={$i18n.get({
+              id: 'main.components.SparkChat.components.Steps.Plugin.index.outputParameters',
+              dm: '输出参数',
+            })}
+            extra={
+              <IconFont
+                type="spark-copy-line"
+                style={{ fontSize: '16px' }}
+                onClick={(e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  handleCopy(params.output!);
+                }}
+              />
+            }
+          >
+            <div style={{ maxHeight: 200, overflow: 'auto' }}>
+              {outputIsJson ? (
+                <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: 13, margin: 0, padding: 12 }}>
+                  <code>{formatJson(params.output!)}</code>
+                </pre>
+              ) : (
+                <div className="p-[12px]">
+                  <Markdown content={params.output || ''} />
+                </div>
+              )}
             </div>
-          )}
-        </CollapsePanel>
+          </Collapse.Item>
+        </Collapse>
       )}
     </div>
   );

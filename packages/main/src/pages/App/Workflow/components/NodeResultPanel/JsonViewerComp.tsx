@@ -1,6 +1,6 @@
 import Flex from '@/components/ui/Flex';
 import { TopExpandBtn } from '@/components/ExpandBtn';
-import { Markdown } from '@spark-ai/chat';
+import Markdown from '@/components/ui/Markdown';
 import IconFont from '@/components/ui/IconFont';
 
 import classNames from 'classnames';
@@ -39,7 +39,7 @@ export default memo(function JSONViewer(props: IJSONViewerProps) {
     return (
       <div className={styles['text-view-content']}>
         {showType === 'md' ? (
-          <Markdown baseFontSize={12} content={props.value} />
+          <Markdown content={props.value || ''} />
         ) : (
           <div
             className={classNames(

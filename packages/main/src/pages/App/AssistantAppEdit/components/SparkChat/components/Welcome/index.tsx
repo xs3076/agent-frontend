@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { ChatAnywhereRef } from '@spark-ai/chat';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/ui/IconFont';
 import { ConfigProvider, Flex } from 'antd';
 import classNames from 'classnames';
 import './index.less';
