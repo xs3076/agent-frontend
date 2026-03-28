@@ -194,8 +194,5 @@ export default defineConfig({
   },
   lessLoader: {
     javascriptEnabled: true,
-    modifyVars: {
-      '@ant-prefix': 'ag-ant',
-    },
   },
 });
