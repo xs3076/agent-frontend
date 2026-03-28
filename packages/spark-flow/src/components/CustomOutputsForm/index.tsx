@@ -5,8 +5,8 @@ import {
   IValueType,
   IValueTypeOption,
 } from '@/types/work-flow';
-import { Button, Input } from '@spark-ai/design';
-import { Cascader } from 'antd';
+import { Button, Input, Cascader } from '@arco-design/web-react';
+
 import classNames from 'classnames';
 import React, { memo, useMemo, useState } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -147,7 +147,7 @@ export const CustomOutputsForm = memo(function ({
                   id: 'spark-flow.components.CustomOutputsForm.index.enterVariableName',
                   dm: '请输入变量名',
                 })}
-                onChange={(e) => handleChange(index, { key: e.target.value })}
+                onChange={(value) => handleChange(index, { key: value })}
               />
 
               <VariableTypeSelect
@@ -169,7 +169,7 @@ export const CustomOutputsForm = memo(function ({
                   id: 'spark-flow.components.CustomOutputsForm.index.enterVariableDescription',
                   dm: '请输入变量描述',
                 })}
-                onChange={(e) => handleChange(index, { desc: e.target.value })}
+                onChange={(value) => handleChange(index, { desc: value })}
               />
 
               {!readyOnly && (

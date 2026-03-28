@@ -1,6 +1,6 @@
 import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
-import { Tooltip } from 'antd';
+import { Tooltip } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -12,7 +12,7 @@ export default memo(function MiniMapBtn() {
   return (
     <Tooltip
       rootClassName="spark-flow-tool-tooltip"
-      title={$i18n.get({
+      content={$i18n.get({
         id: 'spark-flow.components.FlowTools.MiniMapBtn.miniMap',
         dm: '缩略图',
       })}

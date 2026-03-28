@@ -1,16 +1,8 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Slider } from '@spark-ai/design';
+import { Button, Slider, Checkbox, Input, InputNumber, Popover, Select, Switch, Typography } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import { useStore, VariableTreeSelect } from '@spark-ai/flow';
 import { useMount, useSetState } from 'ahooks';
-import {
-  Checkbox,
-  Input,
-  InputNumber,
-  Popover,
-  Select,
-  Switch,
-  Typography,
-} from 'antd';
 import React, { memo, useMemo, useState } from 'react';
 import { mockModelList, mockModelParamsSchema } from '../../constant/mock';
 import { IModelConfigParamItem, ISelectedModelParams } from '../../types/flow';
@@ -81,14 +73,14 @@ const ModelConfigBtn = memo(
                 <div className="flex items-center gap-[8px]">
                   <Checkbox
                     checked={targetValue.enable}
-                    onChange={(e) =>
-                      changeParamItem(item.key, { enable: e.target.checked })
+                    onChange={(value) =>
+                      changeParamItem(item.key, { enable: checked })
                     }
                   />
 
                   <Typography.Text
                     className="spark-model-selector-form-label"
-                    ellipsis={{ tooltip: item.name }}
+                    ellipsis={{ showTooltip: true }}
                     style={{ width: 78 }}
                   >
                     {item.name}
@@ -124,8 +116,8 @@ const ModelConfigBtn = memo(
                     disabled={!targetValue.enable}
                     className="flex-1"
                     value={targetValue.value as string}
-                    onChange={(e) =>
-                      changeParamItem(item.key, { value: e.target.value })
+                    onChange={(value) =>
+                      changeParamItem(item.key, { value: value })
                     }
                   />
                 )}

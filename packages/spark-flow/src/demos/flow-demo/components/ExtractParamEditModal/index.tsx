@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
-import { Input, Modal, Select } from '@spark-ai/design';
+import { Input, Modal, Select, Form, Switch } from '@arco-design/web-react';
 import { VALUE_TYPE_OPTIONS } from '@spark-ai/flow';
-import { Form, Switch } from 'antd';
+
 import React from 'react';
 import { IParameterExtractorNodeParam } from '../../types/flow';
 import './index.less';
@@ -46,7 +46,7 @@ export default function ExtractParamEditModal({
               dm: '新增参数',
             })
       }
-      open
+      visible
       onCancel={onCancel}
       onOk={handleOk}
       destroyOnClose
@@ -72,7 +72,7 @@ export default function ExtractParamEditModal({
             id: 'spark-flow.demos.spark-flow-1.components.ExtractParamEditModal.index.name',
             dm: '名称',
           })}
-          name="key"
+          field="key"
           rules={[
             {
               required: true,
@@ -126,7 +126,7 @@ export default function ExtractParamEditModal({
             id: 'spark-flow.demos.spark-flow-1.components.ExtractParamEditModal.index.type',
             dm: '类型',
           })}
-          name="type"
+          field="type"
           rules={[
             {
               required: true,
@@ -155,7 +155,7 @@ export default function ExtractParamEditModal({
             id: 'spark-flow.demos.spark-flow-1.components.ExtractParamEditModal.index.description',
             dm: '描述',
           })}
-          name="desc"
+          field="desc"
           rules={[
             {
               required: true,
@@ -197,7 +197,7 @@ export default function ExtractParamEditModal({
               </span>
             </div>
           }
-          name="required"
+          field="required"
         >
           <Switch />
         </Form.Item>

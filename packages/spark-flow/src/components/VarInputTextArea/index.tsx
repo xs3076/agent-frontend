@@ -3,7 +3,7 @@ import $i18n from '@/i18n';
 import { SlateEditor } from '@spark-ai/design';
 import { EditorRefProps } from '@spark-ai/design/dist/components/commonComponents/SlateEditor';
 import { useSetState } from 'ahooks';
-import { message, Typography } from 'antd';
+import { Message, Typography } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, {
   ForwardedRef,
@@ -89,7 +89,7 @@ export default memo(
         if (!editorRef.current) return;
         const text = editorRef.current.getEditorValue() || '';
         if (`${text}${name}`.length > maxLength) {
-          message.warning(
+          Message.warning(
             $i18n.get(
               {
                 id: 'spark-flow.components.VarInputTextArea.index.maxInputChars',
@@ -170,13 +170,13 @@ export default memo(
               />
 
               <Typography.Text
-                ellipsis={{ tooltip: true }}
+                ellipsis={{ showTooltip: true }}
                 className="spark-flow-var-input-var-tag-label"
               >
                 {nodeLabel}
               </Typography.Text>
               <Typography.Text
-                ellipsis={{ tooltip: variableKey }}
+                ellipsis={{ showTooltip: true }}
                 className="spark-flow-var-input-var-tag-key"
               >
                 {`/${variableKey}`}

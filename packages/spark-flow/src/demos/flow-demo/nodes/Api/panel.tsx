@@ -1,5 +1,6 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Radio, Select } from '@spark-ai/design';
+import { Button, Radio, Select } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import type { INodeDataInputParamItem } from '@spark-ai/flow';
 import {
   CustomInputsControl,
@@ -136,12 +137,12 @@ export default memo(function ApiPanel({
         </div>
         <Radio.Group
           value={data.node_param.body.type}
-          onChange={(e) =>
+          onChange={(value) =>
             changeNodeParam({
               body: {
                 ...data.node_param.body,
-                type: e.target.value,
-                data: e.target.value === 'form-data' ? [] : '',
+                type: value,
+                data: value === 'form-data' ? [] : '',
               },
             })
           }

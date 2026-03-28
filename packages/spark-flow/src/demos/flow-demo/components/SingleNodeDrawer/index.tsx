@@ -3,7 +3,8 @@ import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
 import { IWorkFlowNode } from '@/types/work-flow';
 import { defaultValueMap } from '@/utils/defaultValues';
-import { Button, Drawer, IconFont } from '@spark-ai/design';
+import { Button, Drawer } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import React, { memo, useMemo } from 'react';
 import './index.less';
 
@@ -39,14 +40,13 @@ const SingleNodeDrawer = (props: ISingleNodeDrawer) => {
 
   return (
     <Drawer
-      onClose={props.onClose}
-      open
+      onCancel={props.onClose}
+      visible
       className="spark-flow-drawer"
       height="90%"
       placement="bottom"
-      getContainer={false}
+      getPopupContainer={() => false as any}
       title={renderTitle}
-      maskClassName="spark-flow-drawer-mask"
     >
       <div className="flex flex-col gap-[16px]">
         <div className="spark-flow-panel-form-title">

@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
-import { IconFont } from '@spark-ai/design';
-import { Typography } from 'antd';
+import IconFont from '@/components/IconFont';
+import { Typography } from '@arco-design/web-react';
 import React, { memo } from 'react';
 import { IParameterExtractorNodeParam } from '../../types/flow';
 import './index.less';
@@ -21,7 +21,7 @@ export default memo(function ExtractParamItem(props: IExtractParamItemProps) {
         <span className="spark-flow-panel-extract-param-item-type">{`(${data.type})`}</span>
       </div>
       <Typography.Text
-        ellipsis={{ tooltip: data.desc }}
+        ellipsis={{ showTooltip: true }}
         className="flex-1 w-[1px]"
       >
         {data.desc}

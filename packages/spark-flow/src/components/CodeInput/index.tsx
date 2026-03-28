@@ -3,7 +3,8 @@ import { IValueType } from '@/types/work-flow';
 import { javascript } from '@codemirror/lang-javascript';
 import { Diagnostic, linter } from '@codemirror/lint';
 import { EditorView } from '@codemirror/view';
-import { getCommonConfig, Modal } from '@spark-ai/design';
+import { Modal } from '@arco-design/web-react';
+const isDarkMode = () => document.body.getAttribute('arco-theme') === 'dark';
 import { vscodeDark, vscodeLight } from '@uiw/codemirror-theme-vscode';
 import ReactCodeMirror from '@uiw/react-codemirror';
 import classNames from 'classnames';
@@ -312,7 +313,7 @@ const CodeEdit = ({
       height={height}
       onChange={onChange}
       readOnly={disabled}
-      theme={getCommonConfig().isDarkMode ? vscodeDark : vscodeLight}
+      theme={isDarkMode() ? vscodeDark : vscodeLight}
       basicSetup={{
         lineNumbers: showGutter,
         foldGutter: showGutter,
@@ -348,7 +349,7 @@ export const CodeInputModal = ({
         id: 'spark-flow.components.CodeInput.index.jsonEdit',
         dm: 'JSON编辑',
       })}
-      open
+      visible
       width={960}
       onOk={handleOk}
     >

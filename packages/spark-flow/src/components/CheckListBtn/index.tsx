@@ -2,9 +2,10 @@ import { useStore } from '@/flow/context';
 import { useNodesInteraction } from '@/hooks';
 import $i18n from '@/i18n';
 import { ICheckListItem, IWorkFlowNode } from '@/types/work-flow';
-import { Empty, IconButton } from '@spark-ai/design';
+import { Badge, Popover, Typography, Empty } from '@arco-design/web-react';
+import IconButton from '../IconButton';
 import { useStore as useFlowStore } from '@xyflow/react';
-import { Badge, Popover, Typography } from 'antd';
+
 import { debounce } from 'lodash-es';
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -98,7 +99,7 @@ export default memo(function CheckListBtn() {
                 <div className="spark-flow-node-check-container-header">
                   <FlowIcon size="small" nodeType={item.node_type} />
                   <Typography.Text
-                    ellipsis={{ tooltip: item.node_name }}
+                    ellipsis={{ showTooltip: true }}
                     className="spark-flow-node-check-container-header-title"
                   >
                     {item.node_name}
@@ -139,8 +140,8 @@ export default memo(function CheckListBtn() {
       content={memoCheckList}
       trigger={'click'}
       placement="bottomRight"
-      open={showCheckList}
-      onOpenChange={setShowCheckList}
+      popupVisible={showCheckList}
+      onVisibleChange={setShowCheckList}
     >
       <div className="spark-flow-check-list-btn">
         <IconButton

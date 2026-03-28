@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { Tag } from '@spark-ai/design';
+import { Tag } from '@arco-design/web-react';
 import React, { memo, useMemo } from 'react';
 import { isMacOS } from '../../utils';
 import './ShortKeyContent.less';

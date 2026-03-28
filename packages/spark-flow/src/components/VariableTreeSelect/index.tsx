@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
 import { IValueType } from '@/types/work-flow';
-import { Empty, Tag } from '@spark-ai/design';
-import { Popover, Typography } from 'antd';
+import { Empty, Tag, Popover, Typography } from '@arco-design/web-react';
+
 import classNames from 'classnames';
 import React, { memo, useMemo, useState } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -93,7 +93,7 @@ const VariableTreeItem = memo(
         >
           <Typography.Text
             style={{ maxWidth: 200 }}
-            ellipsis={{ tooltip: props.label }}
+            ellipsis={{ showTooltip: true }}
           >
             {props.label}
           </Typography.Text>
@@ -126,8 +126,8 @@ export const VariableTreeNodeItem = memo(
     return (
       <Popover
         rootClassName="spark-flow-small-padding-popover"
-        onOpenChange={setOpen}
-        open={open}
+        onVisibleChange={setOpen}
+        popupVisible={open}
         content={
           <VariableTree
             onChange={(val) => {
@@ -143,7 +143,7 @@ export const VariableTreeNodeItem = memo(
           <FlowIcon size="small" nodeType={props.nodeType} />
           <Typography.Text
             className="spark-flow-var-tree-select-node-title flex-1 w-[1px]"
-            ellipsis={{ tooltip: props.label }}
+            ellipsis={{ showTooltip: true }}
           >
             {props.label}
           </Typography.Text>
@@ -163,8 +163,8 @@ const VariableTreeSelect = memo((props: IVariableTreeSelectProps) => {
     <Popover
       placement="bottom"
       trigger={['click']}
-      open={open}
-      onOpenChange={(val) => {
+      popupVisible={open}
+      onVisibleChange={(val) => {
         setOpen(val);
         if (!val) props.onClose?.();
       }}

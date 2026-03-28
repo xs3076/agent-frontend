@@ -1,8 +1,8 @@
 import $i18n from '@/i18n';
 import { IBranchItem } from '@/types/work-flow';
-import { IconFont, Select } from '@spark-ai/design';
+import { Select, Message, Input, Typography } from '@arco-design/web-react';
+import IconFont from '../IconFont';
 import { useSetState } from 'ahooks';
-import { Flex, Input, message, Typography } from 'antd';
 import React, { memo, useCallback, useRef } from 'react';
 import './index.less';
 
@@ -23,7 +23,7 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
 
   const handleSure = () => {
     if (!state.tempName) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'spark-flow.BranchTitleHeader.index.conditionGroupNameEmpty',
           dm: '条件组名称不能为空',
@@ -36,7 +36,7 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
         (item) => item.label === state.tempName && item.id !== props.data.id,
       )
     ) {
-      message.warning(
+      Message.warning(
         $i18n.get({
           id: 'spark-flow.BranchTitleHeader.index.conditionGroupNameExists',
           dm: '条件组名称已存在',
@@ -76,15 +76,15 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
   );
 
   return (
-    <Flex justify="space-between">
+    <div style={{display:"flex",justifyContent:"space-between"}}>
       {state.isEdit ? (
-        <Flex className="flex-1" gap={8} align="center">
+        <div className="flex-1 flex gap-[8px] items-center">
           <Input
             onCompositionStart={handleCompositionStart}
             onCompositionEnd={handleCompositionEnd}
             onPressEnter={handlePressEnter}
             value={state.tempName}
-            onChange={(e) => setState({ tempName: e.target.value })}
+            onChange={(value) => setState({ tempName: value })}
             placeholder={$i18n.get({
               id: 'spark-flow.BranchTitleHeader.index.enterConditionGroupName',
               dm: '请输入条件组名称',
@@ -105,18 +105,18 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
             isCursorPointer
             type="spark-false-line"
           />
-        </Flex>
+        </div>
       ) : (
         <>
-          <Flex align="center" gap={16}>
+          <div className="flex items-center gap-[16px]">
             <Typography.Text
-              ellipsis={{ tooltip: props.data.label }}
+              ellipsis={{ showTooltip: true }}
               style={{ maxWidth: 120 }}
               className="spark-flow-panel-form-title"
             >
               {props.data.label}
             </Typography.Text>
-            <Flex align="center" gap={4}>
+            <div className="flex items-center gap-[4px]">
               <span>
                 {$i18n.get({
                   id: 'spark-flow.BranchTitleHeader.index.whenSatisfy',
@@ -155,9 +155,9 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
                   dm: '条件时',
                 })}
               </span>
-            </Flex>
-          </Flex>
-          <Flex gap={12}>
+            </div>
+          </div>
+          <div className="flex gap-[12px]">
             <IconFont
               className={props.disabled ? 'disabled-icon-btn' : ''}
               onClick={() => {
@@ -179,9 +179,9 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
               isCursorPointer={!props.disabled}
               type="spark-delete-line"
             />
-          </Flex>
+          </div>
         </>
       )}
-    </Flex>
+    </div>
   );
 });

@@ -1,9 +1,9 @@
 import CustomIcon from '@/components/CustomIcon';
 import { useFlowDebugInteraction } from '@/hooks/useFlowDebugInteraction';
 import $i18n from '@/i18n';
-import { Button, IconButton } from '@spark-ai/design';
+import { Button, Tooltip } from '@arco-design/web-react';
+import IconButton from '@/components/IconButton';
 import { CheckListBtn, useStore } from '@spark-ai/flow';
-import { Segmented, Tooltip } from 'antd';
 import React, { memo } from 'react';
 import './index.less';
 import LangSelect from './LangSelect';
@@ -21,24 +21,10 @@ export default memo(function WorkFlowHeader(props: IProps) {
     <div className="spark-flow-header flex gap-[16px] items-center">
       <div className="spark-flow-header-item"></div>
       <div className="spark-flow-header-tabs">
-        <Segmented
-          options={[
-            {
-              label: $i18n.get({
-                id: 'spark-flow.demos.spark-flow-1.components.WorkFlowHeader.index.canvasConfiguration',
-                dm: '画布',
-              }),
-              value: 'config',
-            },
-            {
-              label: $i18n.get({
-                id: 'spark-flow.demos.spark-flow-1.components.WorkFlowHeader.index.publishChannels',
-                dm: '发布',
-              }),
-              value: 'channel',
-            },
-          ]}
-        />
+        <Button.Group>
+          <Button>{$i18n.get({ id: 'spark-flow.demos.spark-flow-1.components.WorkFlowHeader.index.canvasConfiguration', dm: '画布' })}</Button>
+          <Button>{$i18n.get({ id: 'spark-flow.demos.spark-flow-1.components.WorkFlowHeader.index.publishChannels', dm: '发布' })}</Button>
+        </Button.Group>
       </div>
       <div className="spark-flow-header-item flex gap-[12px] justify-end">
         <Button
@@ -172,7 +158,7 @@ export default memo(function WorkFlowHeader(props: IProps) {
           })}
         </Button>
         <Tooltip
-          title={$i18n.get({
+          content={$i18n.get({
             id: 'spark-flow.demos.spark-flow-1.components.WorkFlowHeader.index.displayTestResults',
             dm: '展示测试结果',
           })}

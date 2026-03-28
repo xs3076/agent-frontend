@@ -1,5 +1,5 @@
 import { INodeDataOutputParamItem } from '@/types/work-flow';
-import { Typography } from 'antd';
+import { Typography } from '@arco-design/web-react';
 import React, { memo } from 'react';
 import './index.less';
 
@@ -8,7 +8,7 @@ export const OutputParamsTreeNode = memo(
     return (
       <div className="spark-flow-output-params-tree-node">
         <div className="spark-flow-output-params-tree-node-label">
-          <Typography.Text ellipsis={{ tooltip: props.data.key }}>
+          <Typography.Text ellipsis={{ showTooltip: true }}>
             {props.data.key}
           </Typography.Text>
           <span className="spark-flow-output-params-tree-node-desc">

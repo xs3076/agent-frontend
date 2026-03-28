@@ -2,10 +2,8 @@ import { useStore } from '@/flow/context';
 import { useNodesInteraction, useNodesReadOnly } from '@/hooks';
 import $i18n from '@/i18n';
 import { IWorkFlowNode, IWorkFlowStatus } from '@/types/work-flow';
-import { copy, Dropdown, Tag, Tooltip } from '@spark-ai/design';
+import { Dropdown, Menu, Tag, Tooltip, Typography, Message } from '@arco-design/web-react';
 import { Background, NodeProps } from '@xyflow/react';
-import { ConfigProvider, message, Typography } from 'antd';
-import { ItemType } from 'antd/es/menu/interface';
 import classNames from 'classnames';
 import React, {
   memo,
@@ -87,8 +85,8 @@ function BaseNode(props: IProps) {
           onNodeDelete(props.id);
           break;
         case 'id':
-          copy(props.id);
-          message.success(
+          navigator.clipboard.writeText(props.id);
+          Message.success(
             $i18n.get({
               id: 'spark-flow.components.BaseNode.index.copySuccess',
               dm: '复制成功',
@@ -167,7 +165,7 @@ function BaseNode(props: IProps) {
         );
 
       return true;
-    }) as ItemType[];
+    }) as any[];
   }, [nodeSchemaMap, props.type, nodesReadOnly]);
 
   const nodeSchemaInfo = useMemo(() => {
@@ -189,9 +187,6 @@ function BaseNode(props: IProps) {
   }, [props.parentId, updateParentNodeSize]);
 
   return (
-    <ConfigProvider
-      getPopupContainer={() => containerRef.current || document.body}
-    >
       <div
         ref={containerRef}
         className={classNames('spark-flow-node-container', props.className, {
@@ -203,7 +198,7 @@ function BaseNode(props: IProps) {
           <div className="flex gap-[8px] items-center flex-1">
             <FlowIcon nodeType={props.type} />
             <Typography.Text
-              ellipsis={{ tooltip: true }}
+              ellipsis={{ showTooltip: true }}
               className="spark-flow-node-label flex-1 w-1"
             >
               {props.data.label}
@@ -221,7 +216,7 @@ function BaseNode(props: IProps) {
             >
               {nodeSchemaInfo.allowSingleTest && !nodesReadOnly && (
                 <Tooltip
-                  title={$i18n.get({
+                  content={$i18n.get({
                     id: 'spark-flow.components.BaseNode.index.debug',
                     dm: '调试',
                   })}
@@ -247,13 +242,19 @@ function BaseNode(props: IProps) {
               )}
               {!!actionMenus.length && (
                 <Dropdown
-                  placement="bottomRight"
-                  trigger={['click']}
-                  overlayClassName="spark-flow-node-dropdown"
-                  menu={{
-                    onClick: handleClickOperation,
-                    items: actionMenus,
-                  }}
+                  position="br"
+                  trigger="click"
+                  droplist={
+                    <Menu onClickMenuItem={(key) => handleClickOperation({ key })}>
+                      {actionMenus.map((item: any) =>
+                        item.type === 'divider' ? (
+                          <Menu.Item key="__divider" style={{ height: 1, padding: 0, background: 'var(--color-border-2)', margin: '4px 0', cursor: 'default' }} />
+                        ) : (
+                          <Menu.Item key={item.key}>{item.label}</Menu.Item>
+                        ),
+                      )}
+                    </Menu>
+                  }
                 >
                   <div className="spark-flow-operator-icon-with-bg rounded-[6px] size-[24px] flex-center cursor-pointer">
                     <CustomIcon
@@ -268,7 +269,7 @@ function BaseNode(props: IProps) {
         </div>
         {!!props.data.desc && (
           <Typography.Paragraph
-            ellipsis={{ tooltip: props.data.desc, rows: 2 }}
+            ellipsis={{ rows: 2, showTooltip: true }}
             className="spark-flow-node-desc"
           >
             {props.data.desc}
@@ -313,7 +314,6 @@ function BaseNode(props: IProps) {
         )}
         {nodeResult && showResults && <NodeResultPanel data={nodeResult} />}
       </div>
-    </ConfigProvider>
   );
 }
 

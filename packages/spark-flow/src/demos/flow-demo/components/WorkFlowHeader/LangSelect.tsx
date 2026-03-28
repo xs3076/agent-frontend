@@ -1,34 +1,8 @@
 import $i18n from '@/i18n';
-import { Dropdown, IconButton, IconFont } from '@spark-ai/design';
-import { MenuProps } from 'antd';
+import { Dropdown, Menu } from '@arco-design/web-react';
+import IconButton from '@/components/IconButton';
+import IconFont from '@/components/IconFont';
 import React from 'react';
-
-const menuItems: MenuProps['items'] = [
-  {
-    key: 'en',
-    label: (
-      <div className="flex items-center gap-[4px]">
-        <IconFont type="spark-english02-line" /> English
-      </div>
-    ),
-  },
-  {
-    key: 'zh',
-    label: (
-      <div className="flex items-center gap-[4px]">
-        <IconFont type="spark-chinese02-line" /> 简体中文
-      </div>
-    ),
-  },
-  {
-    key: 'ja',
-    label: (
-      <div className="flex items-center gap-[4px]">
-        <IconFont type="spark-japan-line" /> 日本語
-      </div>
-    ),
-  },
-];
 
 const lang = $i18n.getCurrentLanguage();
 
@@ -39,18 +13,33 @@ export default function () {
     ja: 'spark-japan-line',
   }[lang];
 
-  const button = <IconButton bordered={false} icon={icon} shape="default" />;
+  const button = <IconButton bordered={false} icon={icon} />;
 
   return (
     <Dropdown
-      menu={{
-        items: menuItems,
-        onClick: (e) => {
-          $i18n.setCurrentLanguage(e.key);
+      trigger="click"
+      droplist={
+        <Menu onClickMenuItem={(key) => {
+          $i18n.setCurrentLanguage(key);
           location.reload();
-        },
-      }}
-      trigger={['click']}
+        }}>
+          <Menu.Item key="en">
+            <div className="flex items-center gap-[4px]">
+              <IconFont type="spark-english02-line" /> English
+            </div>
+          </Menu.Item>
+          <Menu.Item key="zh">
+            <div className="flex items-center gap-[4px]">
+              <IconFont type="spark-chinese02-line" /> 简体中文
+            </div>
+          </Menu.Item>
+          <Menu.Item key="ja">
+            <div className="flex items-center gap-[4px]">
+              <IconFont type="spark-japan-line" /> 日本語
+            </div>
+          </Menu.Item>
+        </Menu>
+      }
     >
       {button}
     </Dropdown>

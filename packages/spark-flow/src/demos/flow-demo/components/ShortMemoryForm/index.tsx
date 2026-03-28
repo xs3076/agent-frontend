@@ -1,7 +1,8 @@
 import $i18n from '@/i18n';
-import { IconFont } from '@spark-ai/design';
+import { Switch } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import { SelectWithDesc } from '@spark-ai/flow';
-import { Switch } from 'antd';
+
 import React, { memo } from 'react';
 import { IShortMemoryConfig } from '../../types/flow';
 

@@ -1,7 +1,7 @@
 import { useNodesReadOnly } from '@/hooks';
 import { IEdgeData } from '@/types/work-flow';
 import { getTypeFromId } from '@/utils';
-import { getCommonConfig } from '@spark-ai/design';
+const isDarkMode = () => document.body.getAttribute('arco-theme') === 'dark';
 import {
   BaseEdge,
   EdgeLabelRenderer,
@@ -105,9 +105,9 @@ export default memo(function FlowBaseEdge({
         { color: '#624AFF', offset: 100 },
       ];
     return [
-      { color: `var(--${getCommonConfig().antPrefix}-color-mauve)`, offset: 0 },
+      { color: `var(--color-border-2)`, offset: 0 },
       {
-        color: `var(--${getCommonConfig().antPrefix}-color-mauve)`,
+        color: `var(--color-border-2)`,
         offset: 100,
       },
     ];
@@ -163,12 +163,12 @@ export default memo(function FlowBaseEdge({
       };
 
     return {
-      stroke: `var(--${getCommonConfig().antPrefix}-color-mauve)`,
+      stroke: `var(--color-border-2)`,
     };
   }, [
     edgeData._hover,
     selected,
-    getCommonConfig,
+    isDarkMode,
     edgeData._source_node_status,
     edgeData._target_node_status,
   ]);

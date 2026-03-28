@@ -1,8 +1,9 @@
 import $i18n from '@/i18n';
 import { INodeDataInputParamItem, IValueType } from '@/types/work-flow';
 import { extractVariables } from '@/utils';
-import { Button, Input, Select, SelectProps } from '@spark-ai/design';
-import { Typography } from 'antd';
+import { Button, Input, Select, Typography } from '@arco-design/web-react';
+import type { SelectProps } from '@arco-design/web-react';
+
 import React, { memo, useCallback, useMemo } from 'react';
 import CustomIcon from '../CustomIcon';
 import FlowIcon from '../FlowIcon';
@@ -50,13 +51,13 @@ export const variableLabelRender = ({
     <div className="spark-flow-var-label flex text-[12px] items-center gap-[2px]">
       <FlowIcon noWidth nodeType={nodeInfo.nodeType} showBg={false} />
       <Typography.Text
-        ellipsis={{ tooltip: nodeInfo.nodeName }}
+        ellipsis={{ showTooltip: true }}
         style={{ maxWidth: '35%' }}
       >
         {nodeInfo.nodeName}
       </Typography.Text>
       <Typography.Text
-        ellipsis={{ tooltip: nodeInfo.variableKey }}
+        ellipsis={{ showTooltip: true }}
         className="spark-flow-var-name"
       >
         {`/${nodeInfo.variableKey}`}
@@ -286,7 +287,7 @@ export default memo(function CustomInputsControl(
               id: 'spark-flow.components.CustomInputsControl.index.enterVariableName',
               dm: '请输入变量名',
             })}
-            onChange={(e) => changeRowValue(index, { key: e.target.value })}
+            onChange={(value) => changeRowValue(index, { key: value })}
             disabled={props.disabled || props.disabledKey}
           />
 

@@ -1,5 +1,6 @@
 import $i18n from '@/i18n';
-import { IconFont, Input, Select } from '@spark-ai/design';
+import { Input, Select, Message } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import {
   DraggableWithHandle,
   useStore,
@@ -7,7 +8,7 @@ import {
   VariableTreeSelect,
 } from '@spark-ai/flow';
 import { useSetState } from 'ahooks';
-import { message } from 'antd';
+
 import React, { memo, useCallback, useRef } from 'react';
 import { IVariable, IVariableHandleGroupItem } from '../../types/flow';
 import './index.less';
@@ -104,7 +105,7 @@ export default memo(function GroupVariableForm({
           isEdit: false,
         });
       })
-      .catch((msg) => message.warning(msg));
+      .catch((msg) => Message.warning(msg));
   }, [state.tempName, data]);
 
   const handleCompositionStart = useCallback(() => {
@@ -136,9 +137,9 @@ export default memo(function GroupVariableForm({
             <div className="flex gap-[8px] items-center w-full">
               <Input
                 value={state.tempName}
-                onChange={(e) =>
+                onChange={(value) =>
                   setState({
-                    tempName: e.target.value,
+                    tempName: value,
                   })
                 }
                 onCompositionStart={handleCompositionStart}

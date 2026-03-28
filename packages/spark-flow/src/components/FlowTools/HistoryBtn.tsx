@@ -3,7 +3,7 @@ import { useHistory } from '@/hooks/useHistory';
 import $i18n from '@/i18n';
 import { isEventInInput, transformToMacKey } from '@/utils';
 import { useKeyPress } from 'ahooks';
-import { Tooltip } from 'antd';
+import { Tooltip } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -34,7 +34,7 @@ export default memo(function HistoryBtn() {
     <div className="spark-flow-tools gap-[8px] items-center flex">
       <Tooltip
         destroyTooltipOnHide
-        title={$i18n.get({
+        content={$i18n.get({
           id: 'spark-flow.components.FlowTools.HistoryBtn.undo',
           dm: '撤销',
         })}
@@ -53,7 +53,7 @@ export default memo(function HistoryBtn() {
       </Tooltip>
       <Tooltip
         destroyTooltipOnHide
-        title={$i18n.get({
+        content={$i18n.get({
           id: 'spark-flow.components.FlowTools.HistoryBtn.redo',
           dm: '重做',
         })}

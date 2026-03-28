@@ -1,4 +1,4 @@
-import { IconFont } from '@spark-ai/design';
+import IconFont from '../IconFont';
 import { memo } from 'react';
 
 export default memo(IconFont);

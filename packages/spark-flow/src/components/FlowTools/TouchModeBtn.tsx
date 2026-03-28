@@ -1,6 +1,6 @@
 import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
-import { Popover, Tooltip } from 'antd';
+import { Popover, Tooltip } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo, useMemo } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -86,7 +86,7 @@ const TouchModeBtn = () => {
       getPopupContainer={(ele) => ele}
       trigger="click"
     >
-      <Tooltip title={currentInteractiveMode?.label}>
+      <Tooltip content={currentInteractiveMode?.label}>
         <div className="spark-flow-tool-icon-btn spark-flow-touch-mode-btn-container h-[32px] flex items-center gap-[4px] p-[6px]">
           <CustomIcon type={currentInteractiveMode?.iconType as string} />
           <CustomIcon size="small" type="spark-down-line" />

@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/IconFont';
 import { CustomOutputsFormWrap, useNodeDataUpdate } from '@spark-ai/flow';
 import React, { memo } from 'react';
 import { IStartNodeData } from '../../types/flow';

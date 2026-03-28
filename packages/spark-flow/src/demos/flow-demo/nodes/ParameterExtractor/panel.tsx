@@ -1,5 +1,6 @@
 import $i18n from '@/i18n';
-import { Button, IconFont, Select } from '@spark-ai/design';
+import { Button, Select } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import {
   OutputParamsTree,
   VarInputTextArea,

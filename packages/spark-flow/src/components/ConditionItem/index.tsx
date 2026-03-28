@@ -1,6 +1,6 @@
 import { filterVarItemsByType } from '@/hooks';
 import { IConditionItem, IValueType } from '@/types/work-flow';
-import { Divider, Flex, Select } from 'antd';
+import { Divider, Select } from '@arco-design/web-react';
 import React, { useMemo } from 'react';
 import { OPERATOR_OPTS_MAP } from '../../constant';
 import {
@@ -96,7 +96,7 @@ export default function ConditionItem(props: IConditionItemProps) {
 
       default:
         return (
-          <Flex align="center">
+          <div className="flex items-center">
             <Select
               disabled={props.disabled}
               variant="borderless"
@@ -151,14 +151,14 @@ export default function ConditionItem(props: IConditionItemProps) {
                 />
               </div>
             )}
-          </Flex>
+          </div>
         );
     }
   }, [props.value, props.disabled, props.onChange]);
 
   return (
     <div className="spark-flow-condition-item">
-      <Flex align="center" className="spark-flow-condition-item-header">
+      <div className="flex items-center spark-flow-condition-item-header">
         <div className="flex-1">
           <VariableSelector
             variant="borderless"
@@ -226,7 +226,7 @@ export default function ConditionItem(props: IConditionItemProps) {
             ]
           }
         />
-      </Flex>
+      </div>
       {memoRightForm}
     </div>
   );

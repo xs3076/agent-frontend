@@ -3,9 +3,8 @@ import {
   INodeDataInputParamItem,
   INodeDataOutputParamItem,
 } from '@/types/work-flow';
-import { Modal } from '@spark-ai/design';
+import { Modal, Radio } from '@arco-design/web-react';
 import { useSetState } from 'ahooks';
-import { Segmented } from 'antd';
 import React from 'react';
 import ScriptCodeMirror from '../ScriptCodeMirror';
 import './index.less';
@@ -60,8 +59,8 @@ export default function ScriptEditModal(props: IScriptEditModalProps) {
 
   return (
     <Modal
-      open
-      width={960}
+      visible
+      style={{ width: 960 }}
       className="spark-flow-script-edit-modal"
       onOk={() => props.onOk({ language: state.language, value: state.value })}
       onCancel={props.onClose}
@@ -74,8 +73,9 @@ export default function ScriptEditModal(props: IScriptEditModalProps) {
               dm: '脚本转换：代码编辑',
             })}
           </span>
-          <Segmented
+          <Radio.Group
             disabled={props.disabled}
+            type="button"
             value={state.language}
             options={scriptTypeOptions}
             onChange={(val) =>

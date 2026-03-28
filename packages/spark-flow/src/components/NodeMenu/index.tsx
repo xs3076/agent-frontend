@@ -3,9 +3,9 @@ import { useNodesReadOnly } from '@/hooks';
 import { useNodesInteraction } from '@/hooks/useNodesInteraction';
 import $i18n from '@/i18n';
 import { INodeSchema, IPointItem } from '@/types/work-flow';
-import { Empty, Input, Popover } from '@spark-ai/design';
+import { Empty, Input, Popover } from '@arco-design/web-react';
 import { useNodes } from '@xyflow/react';
-import { TooltipPlacement } from 'antd/es/tooltip';
+
 import { debounce, groupBy } from 'lodash-es';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -42,8 +42,8 @@ export const NodeMenuItem = memo((props: INodeMenuItemProps) => {
       key={data.type}
       placement="left"
       arrow={false}
-      onOpenChange={setOpen}
-      open={open}
+      onVisibleChange={setOpen}
+      popupVisible={open}
       destroyTooltipOnHide
       getPopupContainer={() =>
         document.querySelector('.spark-flow-node-menu') || document.body
@@ -231,7 +231,7 @@ export const NodeMenu = memo((props: IProps) => {
             dm: '搜索节点名称',
           })}
           value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(value) => setSearchValue(value)}
         />
       </div>
       <div className="flex-1 overflow-y-auto nowheel flex flex-col gap-[16px] px-[16px] spark-flow-node-menu-list pb-[16px]">
@@ -271,7 +271,7 @@ export const NodeMenu = memo((props: IProps) => {
 interface IPopoverNodeMenuProps extends IProps {
   children: React.ReactNode;
   onOpenChange?: (open: boolean) => void;
-  placement?: TooltipPlacement;
+  placement?: string;
   disableDrag?: boolean;
 }
 
@@ -288,10 +288,10 @@ export const PopoverNodeMenu = memo((props: IPopoverNodeMenuProps) => {
 
   return (
     <Popover
-      placement={props.placement || 'right'}
+      position={(props.placement || 'right') as any}
       trigger="click"
-      onOpenChange={setOpen}
-      open={open && !nodesReadOnly}
+      onVisibleChange={setOpen}
+      popupVisible={open && !nodesReadOnly}
       destroyTooltipOnHide
       getPopupContainer={(ele) => ele}
       content={

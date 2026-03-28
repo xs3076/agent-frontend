@@ -1,6 +1,6 @@
 import { useNodesReadOnly } from '@/hooks';
 import $i18n from '@/i18n';
-import { Tooltip } from 'antd';
+import { Tooltip } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -11,7 +11,7 @@ const AddNodeBtn = () => {
   return (
     <PopoverNodeMenu placement="top">
       <Tooltip
-        title={$i18n.get({
+        content={$i18n.get({
           id: 'spark-flow.components.FlowTools.AddNodeBtn.addNode',
           dm: '添加节点',
         })}

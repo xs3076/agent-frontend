@@ -1,9 +1,7 @@
 import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
 import { IWorkFlowStatus, IWorkFlowTaskProcess } from '@/types/work-flow';
-import { Button, copy, Popover, Tag } from '@spark-ai/design';
-import { Flex, message, Table, Typography } from 'antd';
-import { ColumnType } from 'antd/es/table';
+import { Button, Popover, Tag, Table, Typography, Message } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo, useCallback, useMemo } from 'react';
 import { NodeStatusIcon } from '../BaseNode';
@@ -55,8 +53,8 @@ function TaskStatus() {
 
   const copyRequestId = useCallback(() => {
     if (!taskStore) return;
-    copy(taskStore.request_id);
-    message.success(
+    navigator.clipboard.writeText(taskStore.request_id);
+    Message.success(
       $i18n.get({
         id: 'spark-flow.components.TaskStatus.index.requestIdCopied',
         dm: 'Request ID 已复制',
@@ -107,17 +105,17 @@ function TaskStatus() {
         dataIndex: 'type',
         render: (_, record) => {
           return (
-            <Flex gap={8} align="center">
+            <div className="flex gap-[8px] items-center">
               <span className="flex-shrink-0">
                 <FlowIcon nodeType={record.type} />
               </span>
               <Typography.Text
-                ellipsis={{ tooltip: true }}
+                ellipsis={{ showTooltip: true }}
                 style={{ maxWidth: 120 }}
               >
                 {record.name}
               </Typography.Text>
-            </Flex>
+            </div>
           );
         },
       },
@@ -135,7 +133,7 @@ function TaskStatus() {
         }),
         dataIndex: 'output',
       },
-    ] as ColumnType<ITokenDetail>[];
+    ] as any[];
   }, []);
 
   return (

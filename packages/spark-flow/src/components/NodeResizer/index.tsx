@@ -1,5 +1,4 @@
 import { useNodesInteraction } from '@/hooks';
-import { getCommonConfig } from '@spark-ai/design';
 import { NodeResizeControl } from '@xyflow/react';
 import React, { memo } from 'react';
 import './index.less';
@@ -15,7 +14,7 @@ const Icon = () => {
     >
       <path
         d="M5.19009 11.8398C8.26416 10.6196 10.7144 8.16562 11.9297 5.08904"
-        stroke={`var(--${getCommonConfig().antPrefix}-color-border-secondary)`}
+        stroke={`var(--color-border-2)`}
         strokeWidth="2"
         strokeLinecap="round"
       />

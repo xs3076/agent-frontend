@@ -1,4 +1,4 @@
-import { Divider } from 'antd';
+import { Divider } from '@arco-design/web-react';
 import React, { memo } from 'react';
 import AddNodeBtn from './AddNodeBtn';
 import HistoryBtn from './HistoryBtn';

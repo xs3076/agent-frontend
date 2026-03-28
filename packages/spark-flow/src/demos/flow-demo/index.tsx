@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { bailianTheme, ConfigProvider } from '@spark-ai/design';
+import { ConfigProvider, Modal } from '@arco-design/web-react';
 import {
   ConfigPanel,
   Flow,
@@ -11,10 +11,10 @@ import {
   WorkflowContextProvider,
 } from '@spark-ai/flow';
 import { useMount } from 'ahooks';
-import { Modal } from 'antd';
-import enUS from 'antd/locale/en_US';
-import jaJP from 'antd/locale/ja_JP';
-import zhCN from 'antd/locale/zh_CN';
+
+
+
+
 import React, { memo, useState } from 'react';
 import { dispatch } from 'use-bus';
 import { iconFontUrl } from './components/Icon';
@@ -26,17 +26,8 @@ import NODE_COMPONENT_MAP from './nodes/constant';
 import { NODE_SCHEMA_MAP } from './nodes/nodeSchema';
 import { transformToFlowData } from './uitls/transform';
 
-// Get current language preset
-const langPreset = $i18n.getCurrentLanguage();
-
 const SparkFlow = () => {
   const [openTestPanel, setOpenTestPanel] = useState(false);
-
-  const locale = {
-    zh: zhCN,
-    en: enUS,
-    ja: jaJP,
-  }[langPreset];
 
   useMount(() => {
     setTimeout(() => {
@@ -203,15 +194,7 @@ const SparkFlow = () => {
   };
   return (
     <ConfigProvider
-      {...bailianTheme}
-      prefix="spark-flow"
-      prefixCls="spark-ant"
-      locale={locale}
-      iconfont={iconFontUrl}
-      style={{
-        height: '100vh',
-        width: '100vw',
-      }}
+      componentConfig={{}}
     >
       <WorkflowContextProvider
         initialState={{

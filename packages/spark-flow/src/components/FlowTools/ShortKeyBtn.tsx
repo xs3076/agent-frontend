@@ -1,5 +1,5 @@
 import $i18n from '@/i18n';
-import { Popover, Tooltip } from 'antd';
+import { Popover, Tooltip } from '@arco-design/web-react';
 import React, { memo, useState } from 'react';
 import CustomIcon from '../CustomIcon';
 import ShortKeyContent from './ShortKeyContent';
@@ -11,8 +11,8 @@ export default memo(function ShortKeyBtn() {
       placement="top"
       arrow={false}
       destroyTooltipOnHide
-      open={showTip}
-      onOpenChange={setShowTip}
+      popupVisible={showTip}
+      onVisibleChange={setShowTip}
       content={<ShortKeyContent />}
       trigger="click"
       getPopupContainer={(ele) => ele}

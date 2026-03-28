@@ -2,8 +2,9 @@ import $i18n from '@/i18n';
 import { IBranchItem, IConditionItem } from '@/types/work-flow';
 import { generateUniqueName } from '@/utils';
 import uniqueId from '@/utils/uniqueId';
-import { Button, IconFont } from '@spark-ai/design';
-import { Flex } from 'antd';
+import { Button } from '@arco-design/web-react';
+import IconFont from '../IconFont';
+
 import classNames from 'classnames';
 import React, { memo, useCallback } from 'react';
 import BranchTitleHeader from '../BranchTitleHeader';
@@ -133,7 +134,7 @@ export default memo(function JudgeForm(props: {
               style={areaStyle}
               className="spark-flow-panel-form-section"
             >
-              <Flex vertical gap={16}>
+              <div className="flex flex-col gap-[16px]">
                 <BranchTitleHeader
                   data={item}
                   onChange={(payload) => changeBranchItem(item.id, payload)}
@@ -143,7 +144,7 @@ export default memo(function JudgeForm(props: {
                 />
 
                 {(item.conditions || []).map((condition, index) => (
-                  <Flex key={index} gap={8}>
+                  <div key={index} className="flex gap-[8px]">
                     <div className="flex-1 flex-start">
                       <ConditionItem
                         disabled={disabled}
@@ -171,7 +172,7 @@ export default memo(function JudgeForm(props: {
                         type="spark-delete-line"
                       />
                     </div>
-                  </Flex>
+                  </div>
                 ))}
                 <Button
                   onClick={() => addConditionItem(item.id)}
@@ -185,7 +186,7 @@ export default memo(function JudgeForm(props: {
                     dm: '添加条件',
                   })}
                 </Button>
-              </Flex>
+              </div>
             </div>
           </div>
         );

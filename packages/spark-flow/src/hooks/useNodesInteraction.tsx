@@ -28,7 +28,7 @@ import {
   useReactFlow,
   useStoreApi,
 } from '@xyflow/react';
-import { message } from 'antd';
+import { Message } from '@arco-design/web-react';
 import { useCallback } from 'react';
 import { useFlowInteraction } from './useFlowInteraction';
 import { useFlowSave } from './useFlowSave';
@@ -53,7 +53,7 @@ export const useNodesInteraction = () => {
         (sourceNode?.parentId || targetNode?.parentId) &&
         sourceNode?.parentId !== targetNode?.parentId
       ) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'spark-flow.hooks.useNodesInteraction.sameSubCanvasOnly',
             dm: '只能同一子画布中的节点相连',
@@ -62,7 +62,7 @@ export const useNodesInteraction = () => {
         return;
       }
       if (targetNode?.id === connection.source) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'spark-flow.hooks.useNodesInteraction.cannotConnectToSelf',
             dm: '不能与自身相连',
@@ -82,7 +82,7 @@ export const useNodesInteraction = () => {
       };
 
       if (targetNode && hasCycle(targetNode)) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'spark-flow.hooks.useNodesInteraction.cannotFormLoop',
             dm: '不能形成环路',
@@ -244,7 +244,7 @@ export const useNodesInteraction = () => {
       let newNode = generateNewNode({ type, parentId }, position);
       if (nodeInfo.isGroup) {
         if (parentId) {
-          message.warning(
+          Message.warning(
             $i18n.get({
               id: 'spark-flow.hooks.useNodesInteraction.subCanvasCannotNest',
               dm: '子画布不能互相嵌套',
@@ -758,7 +758,7 @@ export const useNodesInteraction = () => {
         if (newEdges.length) setEdges([...edges, ...newEdges]);
         handleNodeClick(newNode);
         handleSaveFlowDraft();
-        message.success(
+        Message.success(
           $i18n.get({
             id: 'spark-flow.hooks.useNodesInteraction.copySuccess',
             dm: '复制成功',

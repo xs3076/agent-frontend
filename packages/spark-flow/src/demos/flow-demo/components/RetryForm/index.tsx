@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
-import { IconFont, SliderSelector } from '@spark-ai/design';
-import { Switch } from 'antd';
+import { Switch, Slider, InputNumber } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
+
 import React from 'react';
 import { IRetryConfig } from '../../types/flow';
 import './index.less';
@@ -37,7 +38,7 @@ export default function RetryForm({
                 dm: '最大重试次数',
               })}
             </span>
-            <SliderSelector
+            <Slider
               value={value.max_retries}
               onChange={(val) =>
                 onChange({ ...value, max_retries: val as number })
@@ -55,7 +56,7 @@ export default function RetryForm({
                 dm: '重试间隔',
               })}
             </span>
-            <SliderSelector
+            <Slider
               className="flex-1 ml-[20px]"
               value={value.retry_interval}
               onChange={(val) =>

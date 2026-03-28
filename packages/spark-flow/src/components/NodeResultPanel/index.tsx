@@ -1,6 +1,6 @@
 import $i18n from '@/i18n';
 import { IWorkFlowNodeResultItem, IWorkFlowStatus } from '@/types/work-flow';
-import { Typography } from 'antd';
+import { Typography } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo, useState } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -72,10 +72,7 @@ const NodeResultPanel = (props: INodeResultPanelProps) => {
         {expand && props.data.node_status === 'fail' && (
           <Typography.Text
             ellipsis={{
-              tooltip: {
-                title: props.data.error_info,
-                destroyTooltipOnHide: true,
-              },
+              showTooltip: true,
             }}
             className={'spark-flow-node-result-error-info'}
           >

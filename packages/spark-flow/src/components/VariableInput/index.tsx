@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
 import { IValueType } from '@/types/work-flow';
 import { defaultValueMap } from '@/utils/defaultValues';
-import { Input, InputNumber, Select, Space } from 'antd';
+import { Input, InputNumber, Select } from '@arco-design/web-react';
 import React, { memo, useMemo } from 'react';
 import CodeInput from '../CodeInput';
 import { VariableTypeSelect } from '../CustomOutputsForm';
@@ -68,7 +68,7 @@ export const VariableBaseInput = memo(
                 })
               }
               value={value}
-              onChange={(e) => onChange({ value: e.target.value })}
+              onChange={(value) => onChange({ value: value })}
             />
           );
 
@@ -134,7 +134,7 @@ const VariableInput = ({
   disabledTypes = ['File', 'Array<File>'],
 }: IVariableInputProps) => {
   return (
-    <Space.Compact block className="variable-input-container flex-1 w-[1px]">
+    <div className="variable-input-container flex-1 w-[1px] flex">
       <VariableTypeSelect
         type={type}
         className="variable-type-select"
@@ -156,7 +156,7 @@ const VariableInput = ({
           onChange={onChange}
         />
       </div>
-    </Space.Compact>
+    </div>
   );
 };
 

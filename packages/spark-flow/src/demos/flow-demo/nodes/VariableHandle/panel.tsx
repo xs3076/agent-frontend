@@ -1,6 +1,7 @@
 import CustomInputsControl from '@/components/CustomInputsControl';
 import $i18n from '@/i18n';
-import { Button, IconFont, Input } from '@spark-ai/design';
+import { Button, Input } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import type {
   INodeDataInputParamItem,
   INodeDataOutputParamItem,

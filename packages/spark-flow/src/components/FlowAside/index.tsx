@@ -1,6 +1,6 @@
 import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
-import { Tabs } from '@spark-ai/design';
+import { Tabs } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -31,27 +31,14 @@ export default memo(function FlowAside() {
             type="spark-operateLeft-line"
           />
         </div>
-        <Tabs
-          className="spark-flow-aside-tabs flex-1 h-[1px]"
-          items={[
-            {
-              label: $i18n.get({
-                id: 'spark-flow.components.FlowAside.index.nodeLibrary',
-                dm: '节点库',
-              }),
-              key: 'node-library',
-              children: <NodeMenu />,
-            },
-            {
-              label: $i18n.get({
-                id: 'spark-flow.components.FlowAside.index.current',
-                dm: '当前',
-              }),
-              key: 'current',
-              children: <NodeTree />,
-            },
-          ]}
-        />
+        <Tabs className="spark-flow-aside-tabs flex-1 h-[1px]">
+          <Tabs.TabPane key="node-library" title={$i18n.get({ id: 'spark-flow.components.FlowAside.index.nodeLibrary', dm: '节点库' })}>
+            <NodeMenu />
+          </Tabs.TabPane>
+          <Tabs.TabPane key="current" title={$i18n.get({ id: 'spark-flow.components.FlowAside.index.current', dm: '当前' })}>
+            <NodeTree />
+          </Tabs.TabPane>
+        </Tabs>
       </div>
       <div
         className={classNames(

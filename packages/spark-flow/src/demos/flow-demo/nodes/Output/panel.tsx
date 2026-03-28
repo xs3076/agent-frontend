@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
-import { IconFont } from '@spark-ai/design';
+import IconFont from '@/components/IconFont';
 import { useNodeDataUpdate } from '@spark-ai/flow';
-import { Switch } from 'antd';
+import { Switch } from '@arco-design/web-react';
 import React, { memo, useCallback } from 'react';
 import { IOutputNodeData, IOutputNodeParam } from '../../types/flow';
 

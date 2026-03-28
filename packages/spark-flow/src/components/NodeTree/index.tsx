@@ -1,9 +1,9 @@
 import { useStore } from '@/flow/context';
 import { useNodesInteraction } from '@/hooks';
 import $i18n from '@/i18n';
-import { Input } from '@spark-ai/design';
+import { Input, Tree } from '@arco-design/web-react';
 import { useStore as useReactFlowStore } from '@xyflow/react';
-import { Tree } from 'antd';
+
 import { debounce } from 'lodash-es';
 import React, { memo, useCallback, useMemo, useState } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -199,7 +199,7 @@ export default memo(function NodeTree() {
           })}
           prefix={<CustomIcon type="spark-search-line" />}
           value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
+          onChange={(value) => setSearchValue(value)}
         />
       </div>
       <div className="flex-1 overflow-y-auto px-[16px]">

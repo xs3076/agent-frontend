@@ -6,19 +6,11 @@ import {
 } from '@/hooks';
 import $i18n from '@/i18n';
 import { IWorkFlowNode } from '@/types/work-flow';
-import {
-  copy,
-  Dropdown,
-  Empty,
-  IconButton,
-  IconFont,
-  Input,
-  Tag,
-} from '@spark-ai/design';
+import { Dropdown, Menu, Empty, Input, Tag, Divider, Tooltip, Typography, Message } from '@arco-design/web-react';
+import IconButton from '../IconButton';
+import IconFont from '../IconFont';
 import { useNodes } from '@xyflow/react';
 import { useSetState } from 'ahooks';
-import { Divider, Flex, message, Tooltip, Typography } from 'antd';
-import { TextAreaRef } from 'antd/es/input/TextArea';
 import { compact } from 'lodash-es';
 import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import CustomIcon from '../CustomIcon';
@@ -53,7 +45,7 @@ export const ConfigPanel = memo(
       tempName: '',
       isEditing: false,
     });
-    const textAreaRef = useRef<TextAreaRef>(null);
+    const textAreaRef = useRef<any>(null);
 
     const selectedNodeData = useMemo(() => {
       return nodes.find((node) => node.id === selectedNode.id);
@@ -76,8 +68,8 @@ export const ConfigPanel = memo(
             onNodeDelete(selectedNodeData.id);
             break;
           case 'id':
-            copy(selectedNode.id);
-            message.success(
+            navigator.clipboard.writeText(selectedNode.id);
+            Message.success(
               $i18n.get({
                 id: 'spark-flow.components.FlowPanel.ConfigPanel.copySuccess',
                 dm: '复制成功',
@@ -97,7 +89,7 @@ export const ConfigPanel = memo(
 
     const handleSure = useCallback(() => {
       if (!state.tempName) {
-        message.error(
+        Message.error(
           $i18n.get({
             id: 'spark-flow.components.FlowPanel.ConfigPanel.enterNodeName',
             dm: '请输入节点名称',
@@ -112,7 +104,7 @@ export const ConfigPanel = memo(
             node.id !== selectedNodeData?.id,
         )
       ) {
-        message.error(
+        Message.error(
           $i18n.get({
             id: 'spark-flow.components.FlowPanel.ConfigPanel.nodeNameExists',
             dm: '节点名称已存在',
@@ -155,10 +147,10 @@ export const ConfigPanel = memo(
             <Input.TextArea
               ref={textAreaRef}
               value={selectedNodeData.data.desc}
-              onChange={(e) =>
+              onChange={(value) =>
                 handleNodeDataUpdate({
                   id: selectedNodeData.id,
-                  data: { desc: e.target.value },
+                  data: { desc: value },
                 })
               }
               onBlur={handleBlur}
@@ -168,17 +160,16 @@ export const ConfigPanel = memo(
                 dm: '添加描述...',
               })}
               autoSize={{ minRows: 1, maxRows: 2 }}
-              variant="borderless"
             />
           }
           title={
             <div className="flex gap-[8px] items-center flex-1">
               <FlowIcon nodeType={selectedNodeData.type} />
               {state.isEditing ? (
-                <Flex gap={8} align="center" flex={1}>
+                <div className="flex gap-[8px] items-center flex-1">
                   <Input
                     value={state.tempName}
-                    onChange={(e) => setState({ tempName: e.target.value })}
+                    onChange={(value) => setState({ tempName: value })}
                   />
 
                   <IconButton
@@ -194,10 +185,10 @@ export const ConfigPanel = memo(
                     type="text"
                     icon={<IconFont type="spark-false-line" />}
                   />
-                </Flex>
+                </div>
               ) : (
                 <Typography.Text
-                  ellipsis={{ tooltip: true }}
+                  ellipsis={{ showTooltip: true }}
                   className="spark-flow-panel-title flex-1 w-1"
                 >
                   {selectedNodeData.data.label ||
@@ -216,7 +207,7 @@ export const ConfigPanel = memo(
                 nodeInfo?.allowSingleTest &&
                 !nodesReadOnly && (
                   <Tooltip
-                    title={$i18n.get({
+                    content={$i18n.get({
                       id: 'spark-flow.components.FlowPanel.ConfigPanel.debug',
                       dm: '调试',
                     })}
@@ -233,84 +224,26 @@ export const ConfigPanel = memo(
                   </Tooltip>
                 )}
               <Dropdown
-                placement="bottomRight"
-                trigger={['click']}
+                position="br"
+                trigger="click"
                 getPopupContainer={(ele) => ele}
-                overlayClassName="spark-flow-node-dropdown"
-                menu={{
-                  onClick: handleClickOperation,
-                  items: compact([
-                    !nodesReadOnly && {
-                      label: (
-                        <div className="flex items-center gap-[8px]">
-                          <CustomIcon type="spark-edit-line" />
-                          <span>
-                            {$i18n.get({
-                              id: 'spark-flow.components.FlowPanel.ConfigPanel.rename',
-                              dm: '重命名',
-                            })}
-                          </span>
-                        </div>
+                droplist={
+                  <Menu onClickMenuItem={(key) => handleClickOperation({ key })}>
+                    {compact([
+                      !nodesReadOnly && { key: 'rename', label: <div className="flex items-center gap-[8px]"><CustomIcon type="spark-edit-line" /><span>{$i18n.get({ id: 'spark-flow.components.FlowPanel.ConfigPanel.rename', dm: '重命名' })}</span></div> },
+                      !nodeInfo?.isSystem && !nodesReadOnly && { key: 'copy', label: <div className="flex items-center gap-[8px]"><CustomIcon type="spark-copy-line" /><span>{$i18n.get({ id: 'spark-flow.components.FlowPanel.ConfigPanel.copy', dm: '复制' })}</span></div> },
+                      !nodeInfo?.isSystem && !nodesReadOnly && { key: 'delete', label: <div className="flex items-center gap-[8px]"><CustomIcon type="spark-delete-line" /><span>{$i18n.get({ id: 'spark-flow.components.FlowPanel.ConfigPanel.delete', dm: '删除' })}</span></div> },
+                      !nodesReadOnly && { type: 'divider' },
+                      { key: 'id', label: <div className="flex items-center spark-flow-node-copy-btn gap-[4px]"><Tag className="spark-flow-node-copy-btn-tag" icon={<CustomIcon type="spark-ID-line" />}>{selectedNodeData.id}</Tag><CustomIcon className="spark-flow-node-copy-btn-icon" type="spark-copy-line" /></div> },
+                    ]).map((item: any) =>
+                      item.type === 'divider' ? (
+                        <Menu.Item key="__divider" style={{ height: 1, padding: 0, background: 'var(--color-border-2)', margin: '4px 0', cursor: 'default' }} />
+                      ) : (
+                        <Menu.Item key={item.key}>{item.label}</Menu.Item>
                       ),
-
-                      key: 'rename',
-                    },
-                    !nodeInfo?.isSystem &&
-                      !nodesReadOnly && {
-                        label: (
-                          <div className="flex items-center gap-[8px]">
-                            <CustomIcon type="spark-copy-line" />
-                            <span>
-                              {$i18n.get({
-                                id: 'spark-flow.components.FlowPanel.ConfigPanel.copy',
-                                dm: '复制',
-                              })}
-                            </span>
-                          </div>
-                        ),
-
-                        key: 'copy',
-                      },
-                    !nodeInfo?.isSystem &&
-                      !nodesReadOnly && {
-                        label: (
-                          <div className="flex items-center gap-[8px]">
-                            <CustomIcon type="spark-delete-line" />
-                            <span>
-                              {$i18n.get({
-                                id: 'spark-flow.components.FlowPanel.ConfigPanel.delete',
-                                dm: '删除',
-                              })}
-                            </span>
-                          </div>
-                        ),
-
-                        key: 'delete',
-                        danger: true,
-                      },
-                    !nodesReadOnly && {
-                      type: 'divider',
-                    },
-                    {
-                      label: (
-                        <div className="flex items-center spark-flow-node-copy-btn gap-[4px]">
-                          <Tag
-                            className="spark-flow-node-copy-btn-tag"
-                            icon={<CustomIcon type="spark-ID-line" />}
-                          >
-                            {selectedNodeData.id}
-                          </Tag>
-                          <CustomIcon
-                            className="spark-flow-node-copy-btn-icon"
-                            type="spark-copy-line"
-                          />
-                        </div>
-                      ),
-
-                      key: 'id',
-                    },
-                  ]),
-                }}
+                    )}
+                  </Menu>
+                }
               >
                 <div className="spark-flow-operator-icon-with-bg rounded-[6px] size-[32px] flex-center cursor-pointer">
                   <CustomIcon

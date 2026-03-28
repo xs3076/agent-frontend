@@ -9,7 +9,7 @@ import { useHistory } from '@/hooks/useHistory';
 import { useNodesInteraction } from '@/hooks/useNodesInteraction';
 import $i18n from '@/i18n';
 import { IWorkFlowNode } from '@/types/work-flow';
-import { getCommonConfig } from '@spark-ai/design';
+const isDarkMode = () => document.body.getAttribute('arco-theme') === 'dark';
 import {
   Background,
   Edge,
@@ -20,7 +20,7 @@ import {
   useNodesState,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { message } from 'antd';
+import { Message } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, { memo, useCallback, useMemo } from 'react';
 import useBus from 'use-bus';
@@ -77,7 +77,7 @@ const Flow = memo((props: IFlowProps) => {
       });
 
       if (showTip) {
-        message.warning(
+        Message.warning(
           $i18n.get({
             id: 'spark-flow.flow.index.systemNodeCannotBeDeleted',
             dm: '系统节点不允许删除',
@@ -118,7 +118,7 @@ const Flow = memo((props: IFlowProps) => {
         connectionLineComponent={CustomConnectionLine}
         nodes={nodes}
         edges={edges}
-        colorMode={getCommonConfig().isDarkMode ? 'dark' : 'light'}
+        colorMode={isDarkMode() ? 'dark' : 'light'}
         nodeTypes={props.nodeTypes}
         onDragOver={onDragOver}
         onNodeDrag={onNodeDrag}

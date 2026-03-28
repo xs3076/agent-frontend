@@ -3,7 +3,7 @@ import { useFlowViewPort } from '@/hooks/useFlowViewPort';
 import $i18n from '@/i18n';
 import { transformToMacKey } from '@/utils';
 import { useKeyPress } from 'ahooks';
-import { Divider, Dropdown, Tooltip } from 'antd';
+import { Divider, Dropdown, Menu, Tooltip } from '@arco-design/web-react';
 import React, { memo } from 'react';
 import CustomIcon from '../CustomIcon';
 
@@ -35,33 +35,25 @@ export default memo(function ScaleBtn() {
   return (
     <>
       <Dropdown
-        menu={{
-          items: [
-            { label: '200%', key: '200' },
-            { label: '100%', key: '100' },
-            { label: '50%', key: '50' },
-            {
-              label: $i18n.get({
-                id: 'spark-flow.components.FlowTools.ScaleBtn.autoView',
-                dm: '自适应试图',
-              }),
-              key: 'fit',
-            },
-          ],
-
-          onClick: (e) => {
-            if (e.key === 'fit') {
+        trigger="click"
+        getPopupContainer={(ele) => ele}
+        droplist={
+          <Menu onClickMenuItem={(key) => {
+            if (key === 'fit') {
               autoFitView();
             } else {
-              handleSetScale(parseInt(e.key) / 100);
+              handleSetScale(parseInt(key) / 100);
             }
-          },
-        }}
-        trigger={['click']}
-        getPopupContainer={(ele) => ele}
+          }}>
+            <Menu.Item key="200">200%</Menu.Item>
+            <Menu.Item key="100">100%</Menu.Item>
+            <Menu.Item key="50">50%</Menu.Item>
+            <Menu.Item key="fit">{$i18n.get({ id: 'spark-flow.components.FlowTools.ScaleBtn.autoView', dm: '自适应试图' })}</Menu.Item>
+          </Menu>
+        }
       >
         <Tooltip
-          title={$i18n.get({
+          content={$i18n.get({
             id: 'spark-flow.components.FlowTools.ScaleBtn.scale',
             dm: '缩放',
           })}

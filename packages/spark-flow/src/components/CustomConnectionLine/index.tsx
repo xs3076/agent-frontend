@@ -1,4 +1,3 @@
-import { getCommonConfig } from '@spark-ai/design';
 import { ConnectionLineComponentProps } from '@xyflow/react';
 import React, { memo } from 'react';
 
@@ -17,7 +16,7 @@ export default memo(function ({
     <g>
       <path
         fill="none"
-        stroke={`var(--${getCommonConfig().antPrefix}-color-primary)`}
+        stroke={`rgb(var(--primary-6))`}
         strokeWidth={1.5}
         className="animated"
         d={`M${fromX},${fromY} C ${controlPoint1X} ${controlPoint1Y} ${controlPoint2X} ${controlPoint2Y} ${toX},${toY}`}
@@ -25,9 +24,9 @@ export default memo(function ({
       <circle
         cx={toX}
         cy={toY}
-        fill={`var(--${getCommonConfig().antPrefix}-color-bg-base)`}
+        fill={`var(--color-bg-1)`}
         r={3}
-        stroke={`var(--${getCommonConfig().antPrefix}-color-primary)`}
+        stroke={`rgb(var(--primary-6))`}
         strokeWidth={1.5}
       />
     </g>

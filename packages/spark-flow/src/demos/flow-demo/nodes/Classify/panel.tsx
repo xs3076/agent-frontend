@@ -1,5 +1,6 @@
 import $i18n from '@/i18n';
-import { Button, IconFont } from '@spark-ai/design';
+import { Button } from '@arco-design/web-react';
+import IconFont from '@/components/IconFont';
 import type { INodeDataInputParamItem } from '@spark-ai/flow';
 import {
   InputTextArea,
