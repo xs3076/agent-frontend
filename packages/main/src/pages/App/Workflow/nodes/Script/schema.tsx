@@ -69,7 +69,7 @@ export const ScriptSchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-orange-hover)',
+  bgColor: 'var(--orange-5)',
   getRefVariables: (val) => getScriptRefVariables(val as IScriptNodeData),
   checkValid: (data) => checkScriptNodeValid(data as IScriptNodeData),
 };

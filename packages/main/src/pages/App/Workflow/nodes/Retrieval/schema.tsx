@@ -117,6 +117,6 @@ export const RetrievalSchema: INodeSchema = {
     dm: '基础',
   }),
   checkValid: (val) => getRetrievalCheckValid(val as IRetrievalNodeData),
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
   getRefVariables: (val) => getRetrievalRefVariables(val as IRetrievalNodeData),
 };

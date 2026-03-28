@@ -95,6 +95,6 @@ export const VariableAssignSchema: INodeSchema = {
   allowSingleTest: false,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-pink-hover)',
+  bgColor: 'var(--magenta-5)',
   checkValid: (data) => checkValid(data as IVariableAssignNodeData),
 };

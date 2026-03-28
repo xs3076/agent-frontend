@@ -36,5 +36,5 @@ export const JudgeSchema: INodeSchema = {
   allowSingleTest: false,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-orange-hover)',
+  bgColor: 'var(--orange-5)',
 };

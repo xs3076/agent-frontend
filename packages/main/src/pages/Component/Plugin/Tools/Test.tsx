@@ -1,6 +1,7 @@
 import $i18n from '@/i18n';
 import { testTool } from '@/services/plugin';
 import { Button, Collapse, CollapseProps, Drawer } from '@arco-design/web-react';
+// TODO: CodeBlock still depends on @spark-ai/design - migrate when replacement is available
 import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
 import IconFont from '@/components/ui/IconFont';
 

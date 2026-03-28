@@ -68,7 +68,7 @@ export default function PluginSelectorComp() {
         <Flex
           gap={8}
           className="text-[13px] font-medium leading-[20px]"
-          style={{ color: 'var(--ag-ant-color-text)' }}
+          style={{ color: 'var(--color-text-1)' }}
           align="center"
         >
           <Flex align="center">
@@ -85,7 +85,7 @@ export default function PluginSelectorComp() {
           </Flex>
           <span
             className="text-[12px] leading-[20px]"
-            style={{ color: 'var(--ag-ant-color-text-tertiary)' }}
+            style={{ color: 'var(--color-text-3)' }}
           >
             {selectedTools.length}/{TOOL_MAX_LIMIT}
           </span>

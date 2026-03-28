@@ -32,6 +32,6 @@ export const InputSchema: INodeSchema = {
   allowSingleTest: false,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-teal-hover)',
+  bgColor: 'var(--cyan-5)',
   checkValid: (data) => checkInputNodeValid(data as IInputNodeData),
 };

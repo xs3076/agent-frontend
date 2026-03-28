@@ -4,6 +4,7 @@ import { createMcpServer, getMcpServer, updateMcpServer } from '@/services/mcp';
 import { ICreateMcpParams, IUpdateMcpParams, McpStatus } from '@/types/mcp';
 import { Button, Form, Input, Message } from '@arco-design/web-react';
 import AlertDialog from '@/components/ui/AlertDialog';
+// TODO: CodeBlock still depends on @spark-ai/design - migrate when replacement is available
 import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';

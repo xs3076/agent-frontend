@@ -33,7 +33,7 @@ const ResultItem = (props: { item: IFileSearchResult }) => {
             </div>
           }
         >
-          <div className="p-[8px_12px]" style={{ backgroundColor: 'var(--ag-ant-color-bg-base)' }}>
+          <div className="p-[8px_12px]" style={{ backgroundColor: 'var(--color-bg-1)' }}>
             <div className={cls(styles.resultCon, styles.textContent)}>
               <Markdown content={item.text || ''} />
             </div>

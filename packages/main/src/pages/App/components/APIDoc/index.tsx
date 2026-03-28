@@ -96,7 +96,7 @@ export default function (props: { appId: string; type: IAppType }) {
                 wordBreak: 'break-all',
                 fontSize: 13,
                 padding: 12,
-                background: 'var(--ag-ant-color-fill-tertiary)',
+                background: 'var(--color-fill-3)',
                 borderRadius: 6,
                 overflow: 'auto',
               }}

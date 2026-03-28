@@ -2,7 +2,7 @@
   width: 280px;
   flex-shrink: 0;
   height: 100%;
-  background: var(--ag-ant-color-bg-base);
+  background: var(--color-bg-1);
   position: relative;
 
   .header {
@@ -12,8 +12,8 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
-    color: var(--ag-ant-color-text);
-    border-bottom: 1px solid var(--ag-ant-color-split);
+    color: var(--color-text-1);
+    border-bottom: 1px solid var(--color-border-2);
   }
 
   .list {
@@ -37,7 +37,7 @@
       .arco-timeline-item-tail {
         top: 15px;
         height: calc(100% - 20px);
-        border-inline-start: 1px solid var(--ag-ant-color-border-secondary);
+        border-inline-start: 1px solid var(--color-border-2);
       }
     }
 
@@ -50,7 +50,7 @@
       .more {
         width: 22px;
         height: 22px;
-        background: url('/images/moreIcon.png') no-repeat var(--ag-ant-color-fill-tertiary);
+        background: url('/images/moreIcon.png') no-repeat var(--color-fill-3);
         background-size: 100%;
         position: absolute;
         right: 0;
@@ -58,19 +58,19 @@
       }
 
       &:hover {
-        background-color: var(--ag-ant-control-item-bg-hover);
+        background-color: var(--color-fill-2);
       }
 
       &.hover {
         &.timelineTitle {
-          color: var(--ag-ant-color-link);
+          color: var(--color-primary-6);
           min-width: 56px;
         }
 
         &::before {
           content: '';
           position: absolute;
-          background-color: var(--ag-ant-color-fill-tertiary);
+          background-color: var(--color-fill-3);
           top: -12px;
           right: -8px;
           bottom: -12px;
@@ -82,15 +82,15 @@
 
       &.selected {
         &.timelineTitle {
-          color: var(--ag-ant-color-link);
+          color: var(--color-primary-6);
           min-width: 56px;
         }
 
         &::before {
           content: '';
           position: absolute;
-          background-color: var(--ag-ant-color-primary-bg-hover);
-          border: 1px solid var(--ag-ant-color-primary-base);
+          background-color: var(--color-primary-light-2);
+          border: 1px solid var(--color-primary-6);
           top: -12px;
           right: -8px;
           bottom: -12px;
@@ -103,11 +103,11 @@
       &.disabled {
         cursor: not-allowed;
         opacity: 0.7;
-        background-color: var(--ag-ant-color-bg-container-disabled);
+        background-color: var(--color-bg-3);
       }
 
       .timelineTitle {
-        color: var(--ag-ant-color-text);
+        color: var(--color-text-1);
         font-size: 14px;
         font-weight: 500;
         line-height: 22px;
@@ -118,7 +118,7 @@
         font-size: 12px;
         font-weight: normal;
         line-height: 20px;
-        color: var(--ag-ant-color-text-label);
+        color: var(--color-text-2);
         margin: 4px 0;
 
         :global {
@@ -126,7 +126,7 @@
             font-size: 12px;
             font-weight: normal;
             line-height: 20px;
-            color: var(--ag-ant-color-text-label);
+            color: var(--color-text-2);
           }
         }
       }
@@ -140,8 +140,8 @@
   border-radius: 4px;
   line-height: 20px;
   text-align: center;
-  background: var(--ag-ant-color-purple-bg);
-  color: var(--ag-ant-color-primary-base);
+  background: var(--color-primary-light-1);
+  color: var(--color-primary-6);
 }
 
 .timelineNew {
@@ -150,8 +150,8 @@
   line-height: 20px;
   border-radius: 4px;
   text-align: center;
-  background: var(--ag-ant-color-purple-bg);
-  color: var(--ag-ant-color-primary-base);
+  background: var(--color-primary-light-1);
+  color: var(--color-primary-6);
 }
 
 .footer {

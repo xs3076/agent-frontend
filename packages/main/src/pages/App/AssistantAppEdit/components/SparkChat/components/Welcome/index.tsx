@@ -1,7 +1,7 @@
 import $i18n from '@/i18n';
 import { ChatAnywhereRef } from '@spark-ai/chat';
 import IconFont from '@/components/ui/IconFont';
-import { ConfigProvider, Flex } from 'antd';
+import Flex from '@/components/ui/Flex';
 import classNames from 'classnames';
 import './index.less';
 interface IProps {
@@ -46,12 +46,12 @@ const CornerMark = ({
         height: `${diameter}px`,
         bottom: `${offset}px`,
         right: `${offset}px`,
-        backgroundColor: 'var(--ag-ant-color-text-base)',
+        backgroundColor: 'var(--color-text-1)',
       }}
     >
       <IconFont
         type={iconType}
-        style={{ color: 'var(--ag-ant-color-bg-base)' }}
+        style={{ color: 'var(--color-bg-1)' }}
         size="small"
       />
     </div>
@@ -74,7 +74,8 @@ const DefaultAvatar = ({
 export default function Welcome(props: IProps) {
   const { data } = props;
   const modalType = data.modalType;
-  const { componentDisabled } = ConfigProvider.useConfig();
+  // TODO: Arco doesn't have ConfigProvider.useConfig() - using false as default
+  const componentDisabled = false;
   if (!data.suggested_questions?.length && !data.prologue) {
     return (
       <Flex
@@ -86,7 +87,7 @@ export default function Welcome(props: IProps) {
         <DefaultAvatar modalType={modalType} />
         <div
           className="text-[16px] text-center font-semibold mt-[24px]"
-          style={{ color: 'var(--ag-ant-tooltip-bg)' }}
+          style={{ color: 'var(--color-text-1)' }}
         >
           {props.title ||
             $i18n.get({
@@ -116,13 +117,13 @@ export default function Welcome(props: IProps) {
         )}
         <div
           className="text-[16px] text-center font-medium"
-          style={{ color: 'var(--ag-ant-color-text)' }}
+          style={{ color: 'var(--color-text-1)' }}
         >
           {data.name}
         </div>
         <div
           className="text-[14px]"
-          style={{ color: 'var(--ag-ant-color-text-secondary)' }}
+          style={{ color: 'var(--color-text-2)' }}
         >
           {data.prologue}
         </div>

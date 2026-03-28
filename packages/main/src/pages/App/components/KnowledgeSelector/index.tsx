@@ -286,7 +286,7 @@ export function KnowledgeSelectorDrawer(props: IKnowledgeSelectorModalProps) {
         >
           <div
             style={{
-              color: 'var(--ag-ant-color-text-tertiary)',
+              color: 'var(--color-text-3)',
               fontSize: '14px',
               fontWeight: 'normal',
               lineHeight: '24px',

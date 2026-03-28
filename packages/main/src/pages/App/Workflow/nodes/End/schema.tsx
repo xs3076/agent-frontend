@@ -64,6 +64,6 @@ export const EndSchema: INodeSchema = {
     id: 'main.pages.App.Workflow.nodes.End.schema.basic',
     dm: '基础',
   }),
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
   checkValid: (data) => checkEndNodeDataValid(data as IEndNodeData),
 };

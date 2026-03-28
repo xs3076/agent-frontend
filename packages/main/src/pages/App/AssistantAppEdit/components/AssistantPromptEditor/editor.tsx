@@ -10,6 +10,7 @@ import {
 import Flex from '@/components/ui/Flex';
 // TODO: migrate remaining spark-ai/design imports
 import { SlateEditor } from '@spark-ai/design';
+// TODO: SlateEditor type still depends on @spark-ai/design - migrate when replacement is available
 import { EditorRefProps } from '@spark-ai/design/dist/components/commonComponents/SlateEditor';
 import { useMount, useSetState, useUnmount } from 'ahooks';
 
@@ -317,7 +318,7 @@ export const AssistantPromptEditor = forwardRef((props: IProps, ref: any) => {
       <div
         className={classNames('text-[12px] leading-[20px] w-full text-right')}
         style={{
-          color: 'var(--ag-ant-color-text-quaternary)',
+          color: 'var(--color-text-4)',
         }}
       >
         {props.prompt?.length}&nbsp;/&nbsp;{props.maxTokenContext}

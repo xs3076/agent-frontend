@@ -152,7 +152,7 @@ export default function AgentVarConfigForm(props: VarConfigFormProps) {
                         </Typography.Text>
                         <Typography.Text
                           className="text-[12px] leading-[20px]"
-                          style={{ color: 'var(--ag-ant-color-text-tertiary)' }}
+                          style={{ color: 'var(--color-text-3)' }}
                           ellipsis={{
                             tooltip:(item.description),
                           }}

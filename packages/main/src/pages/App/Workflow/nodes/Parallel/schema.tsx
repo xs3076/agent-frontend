@@ -59,7 +59,7 @@ export const ParallelSchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-orange-hover)',
+  bgColor: 'var(--orange-5)',
   isGroup: true,
   checkValid: (data) => checkValid(data as IParallelNodeData),
   getRefVariables: (data) => getRefVariables(data as IParallelNodeData),

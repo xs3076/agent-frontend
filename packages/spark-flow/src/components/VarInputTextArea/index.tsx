@@ -1,6 +1,8 @@
 import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
+// TODO: SlateEditor still depends on @spark-ai/design - migrate when replacement is available
 import { SlateEditor } from '@spark-ai/design';
+// TODO: SlateEditor type still depends on @spark-ai/design - migrate when replacement is available
 import { EditorRefProps } from '@spark-ai/design/dist/components/commonComponents/SlateEditor';
 import { useSetState } from 'ahooks';
 import { Message, Typography } from '@arco-design/web-react';

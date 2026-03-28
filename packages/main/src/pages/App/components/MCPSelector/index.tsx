@@ -203,7 +203,7 @@ export const MCPServerSelectDrawer = (props: IMCPSelectorDrawerProps) => {
         >
           <div
             style={{
-              color: 'var(--ag-ant-color-text-tertiary)',
+              color: 'var(--color-text-3)',
               fontSize: '14px',
               fontWeight: 'normal',
               lineHeight: '24px',

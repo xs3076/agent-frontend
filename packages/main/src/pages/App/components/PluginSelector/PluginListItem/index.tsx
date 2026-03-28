@@ -68,7 +68,7 @@ export default (props: IProps) => {
                   styles['check-item'],
                 )}
                 style={{
-                  border: '1px solid var(--ag-ant-color-border-secondary)',
+                  border: '1px solid var(--color-border-2)',
                 }}
               >
                 <img src={'/images/plugin.svg'} alt="" />
@@ -79,7 +79,7 @@ export default (props: IProps) => {
                 <div
                   className="text-[16px] font-semibold mr-[4px]"
                   style={{
-                    color: 'var(--ag-ant-color-text-base)',
+                    color: 'var(--color-text-1)',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -89,7 +89,7 @@ export default (props: IProps) => {
                 >
                   {item.name}
                 </div>
-                <div className="flex" style={{ color: 'var(--ag-ant-color-text)' }}>
+                <div className="flex" style={{ color: 'var(--color-text-1)' }}>
                   {!!toolsList?.length && (
                     <span
                       className="mr-[4px] cursor-pointer"
@@ -164,14 +164,14 @@ export default (props: IProps) => {
                       className="flex flex-col flex-1 gap-[8px] h-[72px] rounded-[6px]"
                       style={{
                         border:
-                          '1px solid var(--ag-ant-color-border-secondary)',
+                          '1px solid var(--color-border-2)',
                         padding: '8px 12px',
                       }}
                     >
                       <div className="flex items-center gap-[12px] h-[28px]">
                         <div
                           className="text-[16px] font-semibold leading-6"
-                          style={{ color: 'var(--ag-ant-color-text-base)' }}
+                          style={{ color: 'var(--color-text-1)' }}
                         >
                           <Tooltip content={tool.name}>
                             <Typography.Paragraph

@@ -61,7 +61,7 @@ export const ChartSchema: INodeSchema = {
   },
   isSystem: false,
   allowSingleTest: false,
-  bgColor: 'var(--ag-ant-color-cyan-hover)',
+  bgColor: 'var(--cyan-5)',
   getRefVariables: (val) => getChartRefVariables(val as IChartNodeData),
   checkValid: (data) => checkChartNodeValid(data as IChartNodeData),
 };

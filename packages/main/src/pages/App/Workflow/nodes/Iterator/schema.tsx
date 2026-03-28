@@ -88,7 +88,7 @@ export const IteratorSchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-orange-hover)',
+  bgColor: 'var(--orange-5)',
   isGroup: true,
   checkValid: (data) => validateIteratorNodeData(data as IIteratorNodeData),
   getRefVariables: (data) => getIteratorRefVariables(data as IIteratorNodeData),

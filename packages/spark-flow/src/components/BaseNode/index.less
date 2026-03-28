@@ -2,8 +2,8 @@
 
 .spark-flow-node-container {
   --angle: 0deg;
-  border: 1px solid e('var(--@{ant-prefix}-color-border-secondary)');
-  background: e('var(--@{ant-prefix}-color-bg-base)');
+  border: 1px solid var(--color-border-2);
+  background: var(--color-bg-1);
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -27,22 +27,22 @@
       .react-flow__background {
         border-radius: 6px;
         z-index: 1;
-        border: 1px solid e('var(--@{ant-prefix}-color-border-secondary)');
+        border: 1px solid var(--color-border-2);
       }
     }
 
     &.spark-flow-node-container-hovered {
       box-shadow: 0px 2px 8px 0px rgba(38, 36, 76, 0.3);
-      border-color: e('var(--@{ant-prefix}-color-primary)');
+      border-color: var(--color-primary-6);
     }
   }
 
   &-success {
-    border-color: e('var(--@{ant-prefix}-color-success)');
+    border-color: var(--color-success-6);
   }
 
   &-fail {
-    border-color: e('var(--@{ant-prefix}-color-error)');
+    border-color: var(--color-danger-6);
   }
 
   @keyframes rotate {
@@ -55,16 +55,16 @@
     border: 2px solid transparent;
     background:
       linear-gradient(
-          e('var(--@{ant-prefix}-color-bg-base)'),
-          e('var(--@{ant-prefix}-color-bg-base)')
+          var(--color-bg-1),
+          var(--color-bg-1)
         )
         padding-box,
       conic-gradient(
           from var(--angle),
-          e('var(--@{ant-prefix}-color-primary)') 0deg,
+          var(--color-primary-6) 0deg,
           transparent 90deg,
           transparent 270deg,
-          e('var(--@{ant-prefix}-color-primary)') 360deg
+          var(--color-primary-6) 360deg
         )
         border-box;
     animation: rotate 2s linear infinite;
@@ -80,13 +80,13 @@
   .spark-flow-target-handle {
     width: 10px;
     height: 10px;
-    background: e('var(--@{ant-prefix}-color-bg-base)');
-    border: 1px solid e('var(--@{ant-prefix}-color-primary)');
+    background: var(--color-bg-1);
+    border: 1px solid var(--color-primary-6);
     border-radius: 50%;
     transition-duration: 0.2s;
 
     &-add-btn {
-      color: e('var(--@{ant-prefix}-color-bg-base)');
+      color: var(--color-bg-1);
       font-size: 16px;
       height: 16px;
       display: none;
@@ -95,7 +95,7 @@
   }
 
   .spark-flow-fail-branch-handle {
-    border-color: e('var(--@{ant-prefix}-color-orange)');
+    border-color: var(--orange-6);
   }
 
   &:hover {
@@ -121,7 +121,7 @@
 
   .spark-flow-source-handle.spark-flow-source-handle-open,
   &:hover .spark-flow-source-handle {
-    background: e('var(--@{ant-prefix}-color-primary)');
+    background: var(--color-primary-6);
     width: 16px;
     height: 16px;
     border-width: 0;
@@ -133,7 +133,7 @@
 
   &:hover .spark-flow-fail-branch-handle,
   .spark-flow-fail-branch-handle.spark-flow-source-handle-open {
-    background: e('var(--@{ant-prefix}-color-orange-hover)');
+    background: var(--orange-5);
     width: 16px;
     height: 16px;
     border-width: 0;
@@ -152,7 +152,7 @@
     .spark-flow-node-container-stop,
     .spark-flow-node-container-pause
   ) {
-  border-color: e('var(--@{ant-prefix}-color-primary)');
+  border-color: var(--color-primary-6);
   box-shadow:
     0 0 0 2px rgb(105 83 245 / 15%),
     0 4px 36px 0 rgb(60 52 197 / 8%);
@@ -163,8 +163,8 @@
 }
 
 .spark-flow-judge-branch {
-  color: e('var(--@{ant-prefix}-color-text-secondary)');
-  background: e('var(--@{ant-prefix}-color-fill-tertiary)');
+  color: var(--color-text-2);
+  background: var(--color-fill-3);
   border-radius: 6px;
   padding: 0 8px;
   font-size: 12px;
@@ -183,18 +183,18 @@
   }
 
   .spark-flow-fail-branch-label {
-    color: e('var(--@{ant-prefix}-color-text-tertiary)');
+    color: var(--color-text-3);
   }
 
   .spark-flow-fail-branch-label-right {
     font-weight: 500;
-    color: e('var(--@{ant-prefix}-color-text-secondary)');
+    color: var(--color-text-2);
   }
 }
 
 .spark-flow-node-copy-btn {
   &-icon {
-    color: e('var(--@{ant-prefix}-color-text-tertiary)');
+    color: var(--color-text-3);
     opacity: 0;
     transition: 0.4s ease-in-out;
   }
@@ -203,8 +203,8 @@
     line-height: 20px;
     font-size: 12px;
     font-weight: 500;
-    background: e('var(--@{ant-prefix}-color-mauve-bg)');
-    color: e('var(--@{ant-prefix}-color-mauve)');
+    background: var(--color-primary-light-1);
+    color: var(--color-primary-6);
     padding: 0 4px;
     border-radius: 4px;
     margin: 0;
@@ -227,15 +227,15 @@
 
 .spark-flow-status-icon {
   &-success {
-    color: e('var(--@{ant-prefix}-color-success)');
+    color: var(--color-success-6);
   }
 
   &-fail {
-    color: e('var(--@{ant-prefix}-color-error)');
+    color: var(--color-danger-6);
   }
 
   &-executing {
-    color: e('var(--@{ant-prefix}-color-primary)');
+    color: var(--color-primary-6);
     animation: executing-animation 3s linear infinite;
   }
 }
@@ -252,6 +252,6 @@
 .spark-flow-node-desc {
   font-size: 14px;
   line-height: 24px;
-  color: e('var(--@{ant-prefix}-color-text-secondary)');
+  color: var(--color-text-2);
   margin: 0 !important;
 }

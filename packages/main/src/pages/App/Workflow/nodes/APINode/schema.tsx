@@ -102,7 +102,7 @@ export const APISchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-blue-hover)',
+  bgColor: 'var(--color-primary-5)',
   checkValid: (data) => checkApiNodeDataValid(data as IApiNodeData),
   getRefVariables: (data) => getApiVariables(data as IApiNodeData),
 };

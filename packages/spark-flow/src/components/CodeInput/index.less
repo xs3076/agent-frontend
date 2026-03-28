@@ -2,10 +2,10 @@
 
 .spark-flow-code-input {
   position: relative;
-  border: 1px solid e('var(--@{ant-prefix}-color-border)');
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   padding: 4px 0;
-  background: e('var(--@{ant-prefix}-color-bg-container)');
+  background: var(--color-bg-2);
 
   .cm-content {
     margin: 0;
@@ -33,12 +33,12 @@
   }
 
   .cm-diagnosticText {
-    color: e('var(--@{ant-prefix}-color-error)');
+    color: var(--color-danger-6);
     font-size: 12px;
   }
 
   .cm-diagnosticAction {
-    color: e('var(--@{ant-prefix}-color-primary)');
+    color: var(--color-primary-6);
     cursor: pointer;
     margin-left: 8px;
   }
@@ -53,7 +53,7 @@
 
   &.spark-flow-code-input-disabled {
     cursor: not-allowed;
-    background: e('var(--@{ant-prefix}-color-bg-container-disabled)');
+    background: var(--color-bg-3);
   }
 
   .spark-flow-code-input-expand-icon {
@@ -62,7 +62,7 @@
     right: 4px;
     pointer-events: none;
     opacity: 0;
-    background-color: e('var(--@{ant-prefix}-color-mauve-bg)');
+    background-color: var(--color-primary-light-1);
     transition: all 0.3s ease-in-out;
     border-radius: 4px;
   }

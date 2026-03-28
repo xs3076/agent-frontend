@@ -40,7 +40,7 @@ export const SystemSchema: INodeSchema = {
     output_params: [],
     node_param: {},
   },
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
   hideInMenu: true,
 };
 
@@ -60,7 +60,7 @@ export const ConversationSchema: INodeSchema = {
     output_params: [],
     node_param: {},
   },
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
   hideInMenu: true,
 };
 

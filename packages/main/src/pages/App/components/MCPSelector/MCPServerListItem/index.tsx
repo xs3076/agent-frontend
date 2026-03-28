@@ -83,7 +83,7 @@ export default (props: IProps) => {
                 justify="center"
                 className="h-[40px] w-[40px] rounded-[6px]"
                 style={{
-                  border: '1px solid var(--ag-ant-color-border-secondary)',
+                  border: '1px solid var(--color-border-2)',
                 }}
               >
                 <IconFont
@@ -100,7 +100,7 @@ export default (props: IProps) => {
                 <div
                   className="text-[16px] font-semibold  mr-[4px] "
                   style={{
-                    color: 'var(--ag-ant-color-text-base)',
+                    color: 'var(--color-text-1)',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
@@ -110,7 +110,7 @@ export default (props: IProps) => {
                 >
                   {item.name}
                 </div>
-                <Flex style={{ color: 'var(--ag-ant-color-text)' }}>
+                <Flex style={{ color: 'var(--color-text-1)' }}>
                   {!!item.tools?.length && (
                     <span
                       className="mr-[4px] cursor-pointer"
@@ -183,7 +183,7 @@ export default (props: IProps) => {
                       className="h-[60px] flex-1 rounded-[6px]"
                       style={{
                         border:
-                          '1px solid var(--ag-ant-color-border-secondary)',
+                          '1px solid var(--color-border-2)',
                         padding: '8px 12px',
                       }}
                       align="center"
@@ -192,20 +192,20 @@ export default (props: IProps) => {
                         align="center"
                         className="h-[20px] w-[20px] rounded-[4px]"
                         style={{
-                          backgroundColor: 'var(--ag-ant-color-text-base)',
+                          backgroundColor: 'var(--color-text-1)',
                         }}
                       >
                         <IconFont
                           className="w-full h-full rounded-[4px]"
                           type="spark-tool-line"
-                          style={{ color: 'var(--ag-ant-color-bg-base)' }}
+                          style={{ color: 'var(--color-bg-1)' }}
                         ></IconFont>
                       </Flex>
                       <div className="flex-1">
                         <Flex justify="space-between" className="header">
                           <div
                             className="text-[16px] font-semibold leading-6"
-                            style={{ color: 'var(--ag-ant-color-text-base)' }}
+                            style={{ color: 'var(--color-text-1)' }}
                           >
                             <Typography.Paragraph
                               className={styles.desc}
@@ -238,7 +238,7 @@ export default (props: IProps) => {
                       className="h-[72px] flex-1 rounded-[6px]"
                       style={{
                         border:
-                          '1px solid var(--ag-ant-color-border-secondary)',
+                          '1px solid var(--color-border-2)',
                         padding: '8px 12px',
                       }}
                       vertical
@@ -248,18 +248,18 @@ export default (props: IProps) => {
                           align="center"
                           className="h-[20px] w-[20px] rounded-[4px]"
                           style={{
-                            backgroundColor: 'var(--ag-ant-color-text-base)',
+                            backgroundColor: 'var(--color-text-1)',
                           }}
                         >
                           <IconFont
                             className="w-full h-full rounded-[4px]"
                             type="spark-tool-line"
-                            style={{ color: 'var(--ag-ant-color-bg-base)' }}
+                            style={{ color: 'var(--color-bg-1)' }}
                           ></IconFont>
                         </Flex>
                         <div
                           className="text-[16px] font-semibold leading-6"
-                          style={{ color: 'var(--ag-ant-color-text-base)' }}
+                          style={{ color: 'var(--color-text-1)' }}
                         >
                           <Typography.Paragraph
                             className={styles.desc}

@@ -27,5 +27,5 @@ export const StartSchema: INodeSchema = {
     dm: '基础',
   }),
   checkValid: () => [],
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
 };

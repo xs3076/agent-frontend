@@ -100,7 +100,7 @@ export const LLMSchema: INodeSchema = {
     id: 'main.pages.App.Workflow.nodes.LLM.schema.basic',
     dm: '基础',
   }),
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
   getRefVariables: (data) => getLLMNodeVariables(data as ILLMNodeData),
   checkValid: (data) => checkLLMNodeDataValid(data as ILLMNodeData),
 };

@@ -24,7 +24,7 @@
   }
 
   .disabled-icon-btn {
-    color: var(--ag-ant-color-text-disabled);
+    color: var(--color-text-4);
     cursor: not-allowed;
   }
 }

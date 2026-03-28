@@ -115,7 +115,7 @@ export function AssistantPromptEditorWrap(props: IPromptProps) {
       <Flex className={cls(styles.label, 'mb-[6px]')} justify="space-between">
         <div
           className="text-[13px] font-medium leading-[20px]"
-          style={{ color: 'var(--ag-ant-color-text)' }}
+          style={{ color: 'var(--color-text-1)' }}
         >
           {$i18n.get({
             id: 'main.pages.MCP.Detail.promptWords',
@@ -135,7 +135,7 @@ export function AssistantPromptEditorWrap(props: IPromptProps) {
       <div
         className={'text-[12px] font-normal leading-[24px] mt-[4px] mb-[24px]'}
         style={{
-          color: 'var(--ag-ant-color-text-tertiary)',
+          color: 'var(--color-text-3)',
         }}
       >
         {$i18n.get({

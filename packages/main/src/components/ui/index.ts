@@ -10,3 +10,5 @@ export { default as Markdown } from './Markdown';
 export type { MarkdownProps } from './Markdown';
 export { default as Accordion } from './Accordion';
 export type { AccordionProps, AccordionItem } from './Accordion';
+export { default as Flex } from './Flex';
+export type { FlexProps } from './Flex';

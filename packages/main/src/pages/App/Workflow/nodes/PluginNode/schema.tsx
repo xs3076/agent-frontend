@@ -41,7 +41,7 @@ export const PluginSchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-blue-hover)',
+  bgColor: 'var(--color-primary-5)',
   customAdd: true,
   getRefVariables: (data) => getPluginNodeVariables(data as IPluginNodeData),
 };

@@ -129,7 +129,7 @@ export const ClassifierSchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-orange-hover)',
+  bgColor: 'var(--orange-5)',
   checkValid: (data) => checkClassifyNodeDataValid(data as IClassifierNodeData),
   getRefVariables: (data) => getClassifyVariables(data as IClassifierNodeData),
 };

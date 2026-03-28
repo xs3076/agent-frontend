@@ -46,7 +46,7 @@ export default function WorkFlowSelectorComp() {
         <Flex
           gap={8}
           className="text-[13px] font-medium leading-[20px]"
-          style={{ color: 'var(--ag-ant-color-text-base)' }}
+          style={{ color: 'var(--color-text-1)' }}
           align="center"
         >
           <Flex align="center">
@@ -64,7 +64,7 @@ export default function WorkFlowSelectorComp() {
           </Flex>
           <span
             className="text-[12px] leading-[24px]"
-            style={{ color: 'var(--ag-ant-color-text-tertiary)' }}
+            style={{ color: 'var(--color-text-3)' }}
           >
             {workflow_components.length}/{MAX_LIMIT}
           </span>

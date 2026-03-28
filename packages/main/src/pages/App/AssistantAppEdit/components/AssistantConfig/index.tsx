@@ -84,7 +84,7 @@ export default function AssistantConfig() {
       id={`agent_${appCode}`}
       ref={containerRef}
       className={styles.container}
-      style={{ background: 'var(--ag-ant-color-bg-base)' }}
+      style={{ background: 'var(--color-bg-1)' }}
     >
       <PanelGroup direction="horizontal" id="group">
         <Panel
@@ -118,7 +118,7 @@ export default function AssistantConfig() {
                     <div>
                       <div
                         className="text-[14px] font-medium leading-[24px] mb-[10px]"
-                        style={{ color: 'var(--ag-ant-color-text)' }}
+                        style={{ color: 'var(--color-text-1)' }}
                       >
                         {$i18n.get({
                           id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.instruction',
@@ -150,7 +150,7 @@ export default function AssistantConfig() {
                     <div>
                       <div
                         className="text-[14px] font-medium leading-[24px] mb-[10px]"
-                        style={{ color: 'var(--ag-ant-color-text)' }}
+                        style={{ color: 'var(--color-text-1)' }}
                       >
                         {$i18n.get({
                           id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.knowledge',
@@ -168,7 +168,7 @@ export default function AssistantConfig() {
                     <div>
                       <div
                         className="text-[14px] font-medium leading-[24px] mb-[10px]"
-                        style={{ color: 'var(--ag-ant-color-text)' }}
+                        style={{ color: 'var(--color-text-1)' }}
                       >
                         {$i18n.get({
                           id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.skill',

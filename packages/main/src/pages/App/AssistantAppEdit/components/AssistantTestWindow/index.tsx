@@ -77,7 +77,7 @@ export default function AssistantTestWindow(props: IProps) {
       <div
         className="py-[12px] px-[20px] flex items-center justify-between"
         style={{
-          background: 'var(--ag-ant-color-fill-tertiary)',
+          background: 'var(--color-fill-3)',
           height: '48px',
         }}
       >
@@ -100,7 +100,7 @@ export default function AssistantTestWindow(props: IProps) {
                   >
                     <IconFont
                       className="w-[24px] h-[24px] rounded-[12px]"
-                      style={{ background: 'var(--ag-ant-color-mauve-bg)' }}
+                      style={{ background: 'var(--color-primary-light-1)' }}
                       type="spark-text-line"
                     ></IconFont>
                     <div className="flex-1">
@@ -112,7 +112,7 @@ export default function AssistantTestWindow(props: IProps) {
                       </div>
                       <div
                         className="text-[12px] font-normal leading-[20px]"
-                        style={{ color: 'var(--ag-ant-color-text-tertiary)' }}
+                        style={{ color: 'var(--color-text-3)' }}
                       >
                         {$i18n.get({
                           id: 'main.components.AssistantTestWindow.index.conversationBased',

@@ -73,7 +73,7 @@ export default function () {
           <>
             <IconFont
               type="spark-checkCircle-fill"
-              style={{ color: 'var(--ag-ant-color-success-base)' }}
+              style={{ color: 'var(--color-success-6)' }}
             />
 
             <span>
@@ -90,7 +90,7 @@ export default function () {
           <>
             <IconFont
               type="spark-errorCircle-fill"
-              style={{ color: 'var(--ag-ant-color-error-base)' }}
+              style={{ color: 'var(--color-danger-6)' }}
             />
 
             <span>
@@ -107,7 +107,7 @@ export default function () {
           <>
             <IconFont
               type="spark-delete02-fill"
-              style={{ color: 'var(--ag-ant-color-text-description)' }}
+              style={{ color: 'var(--color-text-3)' }}
             />
             <span>
               {$i18n.get({

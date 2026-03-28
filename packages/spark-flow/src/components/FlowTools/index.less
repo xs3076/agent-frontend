@@ -4,8 +4,8 @@
     0 12px 24px -16px rgb(54 54 73 / 4%),
     0 12px 40px 0 rgb(51 51 71 / 8%),
     0 0 1px 0 rgb(44 44 54 / 2%);
-  border: 1px solid e('var(--@{ant-prefix}-color-border-secondary)');
-  background: e('var(--@{ant-prefix}-color-bg-base)');
+  border: 1px solid var(--color-border-2);
+  background: var(--color-bg-1);
   padding: 6px;
   border-radius: 8px;
 }
@@ -13,18 +13,18 @@
 .spark-flow-tool-icon-btn {
   cursor: pointer;
   transition: 0.4s ease-in-out;
-  color: e('var(--@{ant-prefix}-color-text)');
+  color: var(--color-text-1);
   border-radius: 6px;
 
   &:hover:not(.spark-flow-tool-icon-btn-disabled),
   &.spark-flow-tool-icon-btn-active {
-    color: e('var(--@{ant-prefix}-color-primary)');
-    background: e('var(--@{ant-prefix}-color-primary-bg)');
+    color: var(--color-primary-6);
+    background: var(--color-primary-light-1);
   }
 
   &.spark-flow-tool-icon-btn-disabled {
     cursor: not-allowed;
-    color: e('var(--@{ant-prefix}-color-text-disabled)');
+    color: var(--color-text-4);
   }
 
   .@{ant-prefix}-popover .@{ant-prefix}-popover-content,
@@ -46,8 +46,8 @@
   padding: 8px 12px;
 
   &-icon {
-    background: e('var(--@{ant-prefix}-color-fill-secondary)');
-    color: e('var(--@{ant-prefix}-color-text-secondary)');
+    background: var(--color-fill-2);
+    color: var(--color-text-2);
     border-radius: 4px;
   }
 
@@ -55,22 +55,22 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
-    color: e('var(--@{ant-prefix}-color-text)');
+    color: var(--color-text-1);
   }
 
   &-desc {
     font-size: 12px;
     line-height: 18px;
-    color: e('var(--@{ant-prefix}-color-text-secondary)');
+    color: var(--color-text-2);
   }
 
   &:hover,
   &.spark-flow-touch-mode-select-item-active {
-    background: e('var(--@{ant-prefix}-color-primary-bg)');
+    background: var(--color-primary-light-1);
 
     .spark-flow-touch-mode-select-item-icon {
-      background: e('var(--@{ant-prefix}-color-primary-border)');
-      color: e('var(--@{ant-prefix}-color-primary)');
+      background: var(--color-primary-light-3);
+      color: var(--color-primary-6);
     }
   }
 }

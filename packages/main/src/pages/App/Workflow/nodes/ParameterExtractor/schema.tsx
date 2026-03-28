@@ -150,7 +150,7 @@ export const ParameterExtractorSchema: INodeSchema = {
   allowSingleTest: true,
   disableConnectSource: true,
   disableConnectTarget: true,
-  bgColor: 'var(--ag-ant-color-pink-hover)',
+  bgColor: 'var(--magenta-5)',
   checkValid: (data) => checkValid(data as IParameterExtractorNodeData),
   getRefVariables: (data) =>
     getRefVariables(data as IParameterExtractorNodeData),

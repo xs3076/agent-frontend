@@ -1,25 +1,25 @@
 @import '../../index.less';
 
 .spark-flow-task-status {
-  border-bottom: 1px solid e('var(--@{ant-prefix}-color-border-secondary)');
+  border-bottom: 1px solid var(--color-border-2);
   height: 40px;
   padding: 0 24px;
   font-weight: 500;
-  background: e('var(--@{ant-prefix}-color-info-bg)');
+  background: var(--color-primary-light-1);
 
   &-fail {
-    background: e('var(--@{ant-prefix}-color-error-bg)');
-    color: e('var(--@{ant-prefix}-color-error)');
+    background: var(--color-danger-light-1);
+    color: var(--color-danger-6);
   }
 
   &-success {
-    background: e('var(--@{ant-prefix}-color-success-bg)');
-    color: e('var(--@{ant-prefix}-color-success)');
+    background: var(--color-success-light-1);
+    color: var(--color-success-6);
   }
 
   &-tag {
-    color: e('var(--@{ant-prefix}-color-text-secondary)') !important;
-    background: e('var(--@{ant-prefix}-color-bg-base)') !important;
+    color: var(--color-text-2) !important;
+    background: var(--color-bg-1) !important;
     display: inline-flex !important;
     align-items: center;
     gap: 2px;
@@ -35,7 +35,7 @@
 
 .spark-flow-task-status-button {
   padding: 0 !important;
-  color: e('var(--@{ant-prefix}-color-text-secondary)');
+  color: var(--color-text-2);
   font-weight: normal;
 }
 
@@ -46,16 +46,16 @@
   }
 
   .@{ant-prefix}-table {
-    border-radius: e("var(--@{ant-prefix}-table-header-border-radius)");
+    border-radius: var(--border-radius-medium);
   }
 
   .@{ant-prefix}-table-wrapper .@{ant-prefix}-table-container table > thead > tr:first-child {
     > *:first-child {
-      border-start-start-radius: e("var(--@{ant-prefix}-table-header-border-radius)");
+      border-start-start-radius: var(--border-radius-medium);
     }
 
     > *:last-child {
-      border-start-end-radius: e("var(--@{ant-prefix}-table-header-border-radius)");
+      border-start-end-radius: var(--border-radius-medium);
     }
   }
 

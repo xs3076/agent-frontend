@@ -18,7 +18,7 @@ export default (props: {
   return (
     <Flex
       justify="space-between"
-      style={{ background: 'var(--ag-ant-color-fill-tertiary)' }}
+      style={{ background: 'var(--color-fill-3)' }}
       className="w-full height-[32px] rounded-[6px] p-[6px_12px]"
     >
       <Flex
@@ -29,7 +29,7 @@ export default (props: {
         <IconFont type={props.iconType} size="small"></IconFont>
         <Typography.Text
           ellipsis={{ tooltip:(props.name) }}
-          style={{ color: 'var(--ag-ant-color-text-base)', width: '112px' }}
+          style={{ color: 'var(--color-text-1)', width: '112px' }}
           className="text-[12px] text-normal leading-[20px]"
         >
           {props.name}
@@ -37,7 +37,7 @@ export default (props: {
         <Typography.Text
           style={{
             width: 'calc(100% - 140px)',
-            color: 'var(--ag-ant-color-text-tertiary)',
+            color: 'var(--color-text-3)',
           }}
           ellipsis={{ tooltip:(props?.description || '') }}
         >
@@ -46,7 +46,7 @@ export default (props: {
         <Popover content={props.weightInfo?.description}>
           <Typography.Text
             style={{
-              color: 'var(--ag-ant-color-text-description)',
+              color: 'var(--color-text-3)',
               fontSize: '12px',
               flexShrink: 0,
               marginRight: '12px',

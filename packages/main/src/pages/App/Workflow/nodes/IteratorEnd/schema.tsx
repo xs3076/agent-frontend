@@ -27,5 +27,5 @@ export const IteratorEndSchema: INodeSchema = {
   disableConnectSource: true,
   disableConnectTarget: true,
   notAllowConfig: true,
-  bgColor: 'var(--ag-ant-color-purple-hover)',
+  bgColor: 'var(--color-primary-5)',
 };

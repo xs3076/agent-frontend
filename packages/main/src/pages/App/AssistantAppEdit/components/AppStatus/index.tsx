@@ -27,7 +27,7 @@ export default function AppStatusBar(props: IProps) {
       {!!autoSaveTime && (
         <div
           className={'text-[12px] leading-[32px]'}
-          style={{ color: 'var(--ag-ant-color-text-quaternary)' }}
+          style={{ color: 'var(--color-text-4)' }}
         >
           <EllipsisTip
             tooltip={$i18n.get(

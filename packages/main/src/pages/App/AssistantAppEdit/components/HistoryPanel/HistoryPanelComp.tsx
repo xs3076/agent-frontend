@@ -246,8 +246,8 @@ export default function HistoryPanelComp(props: IProps) {
 
               color:
                 selectedVersion === 'draft'
-                  ? 'var(--ag-ant-color-primary)'
-                  : 'var(--ag-ant-color-text-description)',
+                  ? 'var(--color-primary-6)'
+                  : 'var(--color-text-3)',
             },
             // other published versions
             ...state.versionConfigList.map((config, index) => {
@@ -266,8 +266,8 @@ export default function HistoryPanelComp(props: IProps) {
 
                 color:
                   selectedVersion === config.version
-                    ? 'var(--ag-ant-color-primary)'
-                    : 'var(--ag-ant-color-text-description)',
+                    ? 'var(--color-primary-6)'
+                    : 'var(--color-text-3)',
               };
             }),
           ]}

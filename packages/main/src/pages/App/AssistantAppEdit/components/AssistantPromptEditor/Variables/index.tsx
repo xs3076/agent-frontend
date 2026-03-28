@@ -172,7 +172,7 @@ export default (props: IProps) => {
         <Flex gap={8} align="center" className={styles.title}>
           <span
             className="text-[13px] text-medium leading-[20px]"
-            style={{ color: 'var(--ag-ant-color-text)' }}
+            style={{ color: 'var(--color-text-1)' }}
           >
             {$i18n.get({
               id: 'main.pages.App.Workflow.nodes.VariableHandle.schema.variable',
@@ -231,7 +231,7 @@ export default (props: IProps) => {
               'text-[12px] text-normal leading-[24px] mt-[4px] mb-[8px]'
             }
             style={{
-              color: 'var(--ag-ant-color-text-tertiary)',
+              color: 'var(--color-text-3)',
             }}
           >
             {$i18n.get({
@@ -240,7 +240,7 @@ export default (props: IProps) => {
             })}
             <Tag
               color="mauve"
-              style={{ marginInlineStart: 'var(--ag-ant-margin-xs)' }}
+              style={{ marginInlineStart: '4px' }}
             >
               biz_params
             </Tag>
@@ -256,7 +256,7 @@ export default (props: IProps) => {
                   className="text-[12px] text-normal leading-[20px]"
                   style={{
                     flex: 3,
-                    color: 'var(--ag-ant-color-text-secondary)',
+                    color: 'var(--color-text-2)',
                   }}
                 >
                   {$i18n.get({
@@ -268,7 +268,7 @@ export default (props: IProps) => {
                   className="text-[12px] text-normal leading-[20px]"
                   style={{
                     flex: 5,
-                    color: 'var(--ag-ant-color-text-secondary)',
+                    color: 'var(--color-text-2)',
                   }}
                 >
                   {$i18n.get({
@@ -280,7 +280,7 @@ export default (props: IProps) => {
                   className="text-[12px] text-normal leading-[20px]"
                   style={{
                     flex: 2,
-                    color: 'var(--ag-ant-color-text-secondary)',
+                    color: 'var(--color-text-2)',
                   }}
                 >
                   {$i18n.get({
@@ -296,7 +296,7 @@ export default (props: IProps) => {
                       className="text-[12px] text-normal leading-[20px]"
                       style={{
                         flex: 3,
-                        color: 'var(--ag-ant-color-text-secondary)',
+                        color: 'var(--color-text-2)',
                       }}
                     >
                       <Form.Item
@@ -323,7 +323,7 @@ export default (props: IProps) => {
                       className="text-[12px] text-normal leading-[20px]"
                       style={{
                         flex: 5,
-                        color: 'var(--ag-ant-color-text-secondary)',
+                        color: 'var(--color-text-2)',
                       }}
                     >
                       <Form.Item>
@@ -349,7 +349,7 @@ export default (props: IProps) => {
                       className="text-[12px] text-normal leading-[20px]"
                       style={{
                         flex: 2,
-                        color: 'var(--ag-ant-color-text-secondary)',
+                        color: 'var(--color-text-2)',
                       }}
                     >
                       <Flex gap={8} align="center">

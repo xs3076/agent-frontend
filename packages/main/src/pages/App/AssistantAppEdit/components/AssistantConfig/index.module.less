@@ -5,7 +5,7 @@
     }
 
     .arco-timeline-item-head {
-      background-color: var(--ag-ant-color-primary-bg);
+      background-color: var(--color-primary-light-1);
       width: 20px;
       height: 20px;
       border-radius: 50%;
@@ -17,7 +17,7 @@
 }
 
 .config {
-  background-color: var(--ag-ant-color-bg-base);
+  background-color: var(--color-bg-1);
   overflow-y: auto;
   height: 100%;
   width: calc(100% - 0px);
@@ -30,24 +30,24 @@
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--ag-ant-color-fill-secondary);
+    background: var(--color-fill-2);
     border-radius: 6px;
-    border: 1px solid var(--ag-ant-color-border);
+    border: 1px solid var(--color-border);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--ag-ant-color-text-tertiary);
+    background: var(--color-text-3);
     border-radius: 6px;
-    border: 2px solid var(--ag-ant-color-bg-base);
+    border: 2px solid var(--color-bg-1);
     background-clip: padding-box;
     transition: all 0.2s ease;
 
     &:hover {
-      background: var(--ag-ant-color-text-secondary);
+      background: var(--color-text-2);
     }
 
     &:active {
-      background: var(--ag-ant-color-text);
+      background: var(--color-text-1);
     }
   }
 
@@ -57,7 +57,7 @@
 
   // Firefox 支持
   scrollbar-width: thin;
-  scrollbar-color: var(--ag-ant-color-text-tertiary) var(--ag-ant-color-fill-secondary);
+  scrollbar-color: var(--color-text-3) var(--color-fill-2);
 }
 
 // 为配置时间线添加独立滚动条
@@ -75,23 +75,23 @@
   }
 
   &::-webkit-scrollbar-track {
-    background: var(--ag-ant-color-fill-alter);
+    background: var(--color-fill-2);
     border-radius: 4px;
     margin: 4px 0;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--ag-ant-color-text-disabled);
+    background: var(--color-text-4);
     border-radius: 4px;
     min-height: 30px;
     transition: all 0.2s ease;
 
     &:hover {
-      background: var(--ag-ant-color-text-tertiary);
+      background: var(--color-text-3);
     }
 
     &:active {
-      background: var(--ag-ant-color-text-secondary);
+      background: var(--color-text-2);
     }
   }
 
@@ -101,13 +101,13 @@
 
   // Firefox 支持
   scrollbar-width: thin;
-  scrollbar-color: var(--ag-ant-color-text-disabled) var(--ag-ant-color-fill-alter);
+  scrollbar-color: var(--color-text-4) var(--color-fill-2);
 }
 
 .container {
   height: 100%;
   display: flex;
-  background-color: var(--ag-ant-color-border-secondary);
+  background-color: var(--color-border-2);
 
   .divider {
     width: 1px;
@@ -128,7 +128,7 @@
     align-items: center;
     border-width: 0px 0px 1px 0px;
     border-style: dashed;
-    border-color: var(--ag-ant-color-fill);
+    border-color: var(--color-fill-1);
     margin-bottom: 16px;
   }
 
@@ -136,7 +136,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 32px;
-    color: var(--ag-ant-color-text-tertiary);
+    color: var(--color-text-3);
   }
 }
 
@@ -144,7 +144,7 @@
   position: relative;
   height: 100%;
   flex: 1;
-  border-left: 1px solid var(--ag-ant-color-border-secondary);
+  border-left: 1px solid var(--color-border-2);
   border-bottom: none;
   width: 100%;
 }
@@ -179,9 +179,9 @@
   font-size: 20px;
   padding: 5px 5px 5px 5px;
   border-radius: 0 4px 4px 0;
-  border: 1px solid var(--ag-ant-color-border);
+  border: 1px solid var(--color-border);
   border-width: 1px 1px 1px 0;
-  background-color: var(--ag-ant-color-bg-base);
+  background-color: var(--color-bg-1);
   z-index: 1;
 
   :global {
@@ -218,7 +218,7 @@
 
   &:hover {
     .divider1 {
-      background-color: var(--ag-ant-color-primary-hover);
+      background-color: var(--color-primary-5);
     }
   }
 }

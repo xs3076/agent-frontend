@@ -138,7 +138,7 @@ function getFileExtension(filename: string): string {
 
 //// Example usage
 // import { request } from "@/request"
-// import { Button, Upload } from 'antd';
+// import { Button, Upload } from '@arco-design/web-react';
 // import upload from "@/request/upload";
 
 // export default function () {
