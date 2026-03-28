@@ -1,7 +1,6 @@
 import $i18n from '@/i18n';
-import { notification, Space } from 'antd';
+import { Notification } from '@arco-design/web-react';
 import axios, { AxiosRequestConfig } from 'axios';
-import styles from './index.module.less';
 import { session } from './session';
 export { session };
 
@@ -54,14 +53,13 @@ async function getBaseHeader() {
  * @param error Error object containing response data
  */
 function notificationError(error: any) {
-  notification.error({
-    className: styles.error,
-    message: error.response?.data?.code || error.message,
-    description: (
-      <Space direction="vertical">
+  Notification.error({
+    title: error.response?.data?.code || error.message,
+    content: (
+      <div className="flex flex-col gap-1">
         <div>{error.response?.data?.message}</div>
         <div>{error.response?.data?.request_id}</div>
-      </Space>
+      </div>
     ),
   });
 }
