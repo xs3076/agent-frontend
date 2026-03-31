@@ -33,7 +33,6 @@ export default memo(function HistoryBtn() {
   return (
     <div className="spark-flow-tools gap-[8px] items-center flex">
       <Tooltip
-        destroyTooltipOnHide
         content={$i18n.get({
           id: 'spark-flow.components.FlowTools.HistoryBtn.undo',
           dm: '撤销',
@@ -52,7 +51,6 @@ export default memo(function HistoryBtn() {
         </div>
       </Tooltip>
       <Tooltip
-        destroyTooltipOnHide
         content={$i18n.get({
           id: 'spark-flow.components.FlowTools.HistoryBtn.redo',
           dm: '重做',

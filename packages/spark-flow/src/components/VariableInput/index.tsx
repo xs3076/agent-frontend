@@ -44,9 +44,8 @@ export const VariableBaseInput = memo(
                   dm: '输入变量值',
                 })
               }
-              stringMode
               prefix={<VarTypePrefix prefix={prefix} />}
-              variant={variant}
+              {...(variant === 'borderless' ? { bordered: false } : {})}
               disabled={disabled}
               value={value}
               onChange={(val) =>
@@ -59,7 +58,7 @@ export const VariableBaseInput = memo(
             <Input
               disabled={disabled}
               prefix={<VarTypePrefix prefix={prefix} />}
-              variant={variant}
+              {...(variant === 'borderless' ? { bordered: false } : {})}
               placeholder={
                 placeholder ||
                 $i18n.get({

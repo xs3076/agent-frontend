@@ -144,9 +144,8 @@ export default memo(function BranchTitleHeader(props: IBranchTitleHeaderProps) {
                     value: 'or',
                   },
                 ]}
-                popupMatchSelectWidth={false}
+                bordered={false}
                 size="small"
-                variant="borderless"
               />
 
               <span>

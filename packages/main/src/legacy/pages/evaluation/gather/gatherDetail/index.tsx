@@ -218,7 +218,7 @@ const GatherDetail: React.FC = () => {
   const handleAddDataSubmit = async () => {
     try {
       setAddingData(true);
-      const values = await addDataForm.validateFields();
+      const values = await addDataForm.validate();
       
       // 根据columnsConfig动态构造dataContent对象
       const dataContent: Record<string, any> = {};
@@ -890,7 +890,7 @@ const GatherDetail: React.FC = () => {
   const handleSave = async () => {
     try {
       setSaving(true);
-      const values = await editForm.validateFields();
+      const values = await editForm.validate();
       
       // 调用API保存修改
       const response = await API.updateDataset({

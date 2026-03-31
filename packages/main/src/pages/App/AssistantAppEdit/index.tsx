@@ -602,21 +602,10 @@ export default function AssistantAppEdit() {
                 },
                 {
                   title: (
-                    <Flex align="center" gap={8}>
-                      <Typography.Text
-                        ellipsis={{
-                          tooltip:(
-                            state.appBasicConfig?.name || '',
-                            {
-                              getPopupContainer: () => document.body,
-                            },
-                          ),
-                        }}
-                      >
-                        <span className="text-[16px]">
-                          {state.appBasicConfig?.name?.trim()}
-                        </span>
-                      </Typography.Text>
+                    <Flex align="center" gap={6} style={{ height: 24, lineHeight: '24px' }}>
+                      <span className="text-[14px] font-normal overflow-hidden text-ellipsis whitespace-nowrap" style={{ maxWidth: 200 }}>
+                        {state.appBasicConfig?.name?.trim()}
+                      </span>
                       <IconFont
                         className={styles.icon}
                         onClick={() => {

@@ -5,10 +5,9 @@ import {
   IconApps,
   IconBulb,
   IconExperiment,
-  IconLineChart,
+  IconDashboard,
   IconUnorderedList,
   IconPlayCircle,
-  IconBarChart,
   IconBranch,
   IconSettings,
   IconMenuFold,
@@ -270,7 +269,7 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
                     <IconUnorderedList /> 评测集
                   </Menu.Item>
                   <Menu.Item key="/admin/evaluation/evaluator">
-                    <IconBarChart /> 评估器
+                    <IconDashboard /> 评估器
                   </Menu.Item>
                   <Menu.Item key="/admin/evaluation/experiment">
                     <IconExperiment /> 实验
@@ -281,7 +280,7 @@ export default function SideMenuLayout({ children }: { children: React.ReactNode
                   key="observability"
                   title={
                     <>
-                      <IconLineChart /> 可观测
+                      <IconDashboard /> 可观测
                     </>
                   }
                 >

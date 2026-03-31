@@ -39,7 +39,7 @@ export default memo(function NodeTree() {
   const nodeSchemaMap = useStore((store) => store.nodeSchemaMap);
   const { handleNodeClickByNodeId } = useNodesInteraction();
   const [searchValue, setSearchValue] = useState('');
-  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([]);
+  const [expandedKeys, setExpandedKeys] = useState<string[]>([]);
 
   const findParentKeys = (nodes: any[], targetKey: string): string[] => {
     const parentKeys: string[] = [];
@@ -138,8 +138,8 @@ export default memo(function NodeTree() {
     });
   }, [filterNodes, nodeSchemaMap, searchValue]);
 
-  const getAllKeys = (nodes: any[]): React.Key[] => {
-    const keys: React.Key[] = [];
+  const getAllKeys = (nodes: any[]): string[] => {
+    const keys: string[] = [];
 
     const traverse = (items: any[]) => {
       items.forEach((item) => {
@@ -205,8 +205,8 @@ export default memo(function NodeTree() {
       <div className="flex-1 overflow-y-auto px-[16px]">
         <Tree
           expandedKeys={expandedKeys}
-          onExpand={(keys) => setExpandedKeys(keys)}
-          switcherIcon={<CustomIcon type="spark-down-line" />}
+          onExpand={(keys) => setExpandedKeys(keys as string[])}
+          icons={{ switcherIcon: <CustomIcon type="spark-down-line" /> }}
           treeData={treeData}
           onSelect={([key]) => {
             handleNodeClickByNodeId(key as string);

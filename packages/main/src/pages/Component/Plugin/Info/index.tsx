@@ -292,7 +292,7 @@ export default function (props: IProps) {
           <Button
             type="primary"
             onClick={async () => {
-              const v = await form.validateFields();
+              const v = await form.validate();
               if (v.config.headers) {
                 v.config.headers = headersConvert.toObject(v.config.headers);
               }
@@ -316,7 +316,7 @@ export default function (props: IProps) {
           {props.isCreate ? (
             <Button
               onClick={async () => {
-                const v = await form.validateFields();
+                const v = await form.validate();
                 if (v.config.headers) {
                   v.config.headers = headersConvert.toObject(v.config.headers);
                 }

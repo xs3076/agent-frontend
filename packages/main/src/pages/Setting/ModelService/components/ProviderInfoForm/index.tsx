@@ -91,7 +91,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
   };
 
   const handleFormSubmit = () => {
-    form.validateFields().then((values) => {
+    form.validate().then((values) => {
       if (!providerId || !provider) return;
 
       updateProvider(providerId, {
@@ -118,7 +118,7 @@ const ProviderInfoForm: React.FC<ProviderInfoFormProps> = ({
   const enableService = async (enable: boolean) => {
     if (!provider) return;
 
-    await form.validateFields();
+    await form.validate();
 
     AlertDialog.warning({
       title: enable

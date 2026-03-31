@@ -114,9 +114,7 @@ const TimelineItem = (props: ITimelineItem) => {
                 })}
               </span>
               <Typography.Text
-                ellipsis={{
-                  tooltip:(versionConfig.modifier || ''),
-                }}
+                ellipsis
               >
                 {versionConfig.modifier}
               </Typography.Text>

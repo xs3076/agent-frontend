@@ -8,9 +8,9 @@ export default memo(function ShortKeyBtn() {
   const [showTip, setShowTip] = useState(false);
   return (
     <Popover
-      placement="top"
+      position="top"
+      // @ts-ignore
       arrow={false}
-      destroyTooltipOnHide
       popupVisible={showTip}
       onVisibleChange={setShowTip}
       content={<ShortKeyContent />}
@@ -18,7 +18,7 @@ export default memo(function ShortKeyBtn() {
       getPopupContainer={(ele) => ele}
     >
       <Tooltip
-        title={$i18n.get({
+        content={$i18n.get({
           id: 'spark-flow.components.FlowTools.ShortKeyBtn.shortcutKeys',
           dm: '快捷键',
         })}

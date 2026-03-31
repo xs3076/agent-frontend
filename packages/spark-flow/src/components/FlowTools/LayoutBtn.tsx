@@ -10,8 +10,7 @@ export default memo(function LayoutBtn() {
   const { nodesReadOnly } = useNodesReadOnly();
   return (
     <Tooltip
-      rootClassName="spark-flow-tool-tooltip"
-      destroyTooltipOnHide
+      className="spark-flow-tool-tooltip"
       content={$i18n.get({
         id: 'spark-flow.components.FlowTools.LayoutBtn.optimizeLayout',
         dm: '布局优化',

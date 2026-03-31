@@ -239,8 +239,7 @@ export default (props: IProps) => {
               dm: '可通过入参变量表单填写，或',
             })}
             <Tag
-              color="mauve"
-              style={{ marginInlineStart: '4px' }}
+              style={{ marginInlineStart: '4px', background: 'var(--color-fill-2)', color: 'var(--color-text-2)', border: 'none' }}
             >
               biz_params
             </Tag>

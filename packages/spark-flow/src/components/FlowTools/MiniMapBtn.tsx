@@ -11,7 +11,7 @@ export default memo(function MiniMapBtn() {
 
   return (
     <Tooltip
-      rootClassName="spark-flow-tool-tooltip"
+      className="spark-flow-tool-tooltip"
       content={$i18n.get({
         id: 'spark-flow.components.FlowTools.MiniMapBtn.miniMap',
         dm: '缩略图',

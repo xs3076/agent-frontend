@@ -22,7 +22,7 @@ const Login: React.FC<IProps> = ({ onSubmit, loading }) => {
 
   const handleSubmit = () => {
     form
-      .validateFields()
+      .validate()
       .then((values) => {
         onSubmit(values);
       })

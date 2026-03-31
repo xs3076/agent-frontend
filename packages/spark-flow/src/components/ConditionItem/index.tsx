@@ -99,11 +99,11 @@ export default function ConditionItem(props: IConditionItemProps) {
           <div className="flex items-center">
             <Select
               disabled={props.disabled}
-              variant="borderless"
+              bordered={false}
               style={{ width: 60 }}
               options={VALUE_FROM_OPTIONS}
               value={props.value.right.value_from}
-              onChange={(val) =>
+              onChange={(val: any) =>
                 props.onChange({
                   right: {
                     ...props.value.right,
@@ -112,10 +112,9 @@ export default function ConditionItem(props: IConditionItemProps) {
                   },
                 })
               }
-              popupMatchSelectWidth={false}
               className="spark-flow-variable-from-select"
-              labelRender={(val) =>
-                variableFromLabelRender(val.value as string)
+              renderFormat={(option: any, value: any) =>
+                variableFromLabelRender(typeof value === 'string' ? value : (Array.isArray(value) ? value[0] : value))
               }
             />
 
@@ -127,7 +126,7 @@ export default function ConditionItem(props: IConditionItemProps) {
               <div className="flex-1">
                 <VariableSelector
                   disabled={props.disabled}
-                  variant="borderless"
+                  bordered={false}
                   variableList={memoRightVariableListByType}
                   prefix={props.value.right.type}
                   value={props.value.right}
@@ -161,7 +160,7 @@ export default function ConditionItem(props: IConditionItemProps) {
       <div className="flex items-center spark-flow-condition-item-header">
         <div className="flex-1">
           <VariableSelector
-            variant="borderless"
+            bordered={false}
             variableList={props.leftVariableList}
             value={props.value.left}
             disabled={props.disabled}
@@ -187,11 +186,11 @@ export default function ConditionItem(props: IConditionItemProps) {
         />
         <Select
           disabled={props.disabled}
-          labelRender={(val) => operatorLabelRender(val.value as string)}
-          variant="borderless"
+          renderFormat={(option: any, value: any) => operatorLabelRender(typeof value === 'string' ? value : (Array.isArray(value) ? value[0] : value))}
+          bordered={false}
           style={{ width: 80 }}
           value={props.value.operator}
-          onChange={(val) => {
+          onChange={(val: any) => {
             // set to default type (based on left condition)
             const right = {
               ...props.value.right,
@@ -218,7 +217,6 @@ export default function ConditionItem(props: IConditionItemProps) {
 
             props.onChange({ operator: val, right });
           }}
-          popupMatchSelectWidth={false}
           options={
             OPERATOR_OPTS_MAP[
               (props.value.left.type ||

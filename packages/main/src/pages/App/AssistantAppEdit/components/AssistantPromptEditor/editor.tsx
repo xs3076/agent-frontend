@@ -8,10 +8,15 @@ import {
   Tag,
 } from '@arco-design/web-react';
 import Flex from '@/components/ui/Flex';
-// TODO: migrate remaining spark-ai/design imports
-import { SlateEditor } from '@spark-ai/design';
-// TODO: SlateEditor type still depends on @spark-ai/design - migrate when replacement is available
-import { EditorRefProps } from '@spark-ai/design/dist/components/commonComponents/SlateEditor';
+import { Input } from '@arco-design/web-react';
+
+// Minimal EditorRefProps stub replacing @spark-ai/design SlateEditor
+interface EditorRefProps {
+  getEditorValue: () => string;
+  _insertNodes: (node: any, opts?: any) => void;
+  _setEditorContentByStr: (value: string) => void;
+  _insertFragment?: (template: string, replace?: boolean) => void;
+}
 import { useMount, useSetState, useUnmount } from 'ahooks';
 
 import { default as classNames, default as cls } from 'classnames';
@@ -49,7 +54,26 @@ export const AssistantPromptEditor = forwardRef((props: IProps, ref: any) => {
     }[],
     visibleCount: 0,
   });
-  const editorRef = useRef<EditorRefProps>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // Provide a compatible ref API for promptEventBus and addVarTag
+  const editorRef = useRef<EditorRefProps>({
+    getEditorValue: () => props.prompt || '',
+    _insertNodes: (node: any) => {
+      const code = node.code || '';
+      const varStr = `\${${code}}`;
+      props.setPrompt((props.prompt || '') + varStr);
+    },
+    _setEditorContentByStr: (value: string) => {
+      props.setPrompt(value);
+    },
+    _insertFragment: (template: string, replace?: boolean) => {
+      if (replace) {
+        props.setPrompt(template);
+      } else {
+        props.setPrompt((props.prompt || '') + template);
+      }
+    },
+  });
   const headerRef = useRef<null | HTMLDivElement>(null);
   const addVarTag = useCallback((code: string) => {
     if (!editorRef.current) return;
@@ -298,22 +322,20 @@ export const AssistantPromptEditor = forwardRef((props: IProps, ref: any) => {
         </div>
       )}
       <div className="overflow-y-auto m-[12px_0]">
-        <SlateEditor
+        <Input.TextArea
           disabled={componentDisabled}
-          ref={editorRef}
+          ref={textareaRef}
           value={props.prompt}
           onChange={(val) => {
             props.setPrompt(val || '');
           }}
-          wordLimit={props.maxTokenContext}
-          renderVarLabel={(code) => {
-            return `$\{${code}\}`;
-          }}
+          maxLength={props.maxTokenContext}
+          autoSize={{ minRows: 4, maxRows: 12 }}
           placeholder={$i18n.get({
             id: 'work-station-app.pages.App.AssistantAppEdit.components.AssistantPromptEditor.editor.writeSystemPromptIncludingRoleSettingTaskObjectiveAbilityAndReplyRequirements',
             dm: '在这里编写系统提示词，包括角色设定、任务目标、具备的能力及回复的要求与限制等，好的提示词会直接影响智能体效果',
           })}
-        ></SlateEditor>
+        />
       </div>
       <div
         className={classNames('text-[12px] leading-[20px] w-full text-right')}

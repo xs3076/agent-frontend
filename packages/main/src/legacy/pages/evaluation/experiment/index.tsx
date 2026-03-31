@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Table, Input, Select, Button, Space, Tag, Checkbox, Pagination, Spin, Message, Tooltip, Modal, Card, Drawer, Typography } from '@arco-design/web-react';
-import { IconSearch, IconPlus, IconSync, IconEye, IconStop, IconRefresh, IconPlayCircle, IconDelete, IconBarChart } from '@arco-design/web-react/icon';
+import { IconSearch, IconPlus, IconSync, IconEye, IconStop, IconRefresh, IconPlayCircle, IconDelete, IconDashboard } from '@arco-design/web-react/icon';
 import { handleApiError, notifySuccess } from '../../../utils/notification';
 import API from '../../../services';
 import ExperimentCreate from './experimentCreate';
@@ -374,7 +374,7 @@ const Experiment = () => {
                                 <Tooltip content="查看结果">
                                     <Button
                                         type="text"
-                                        icon={<IconBarChart />}
+                                        icon={<IconDashboard />}
                                         onClick={() => handleViewResult(record)}
                                     />
                                 </Tooltip>

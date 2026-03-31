@@ -1,206 +1,107 @@
-.configTimeline {
+// 左侧配置面板 - 极简风格
+.configSection {
+  padding: 24px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  // 极简化选择器行样式
   :global {
-    .arco-timeline-item {
-      margin-bottom: 4px;
+    .arco-divider-vertical {
+      display: none;
     }
-
-    .arco-timeline-item-head {
-      background-color: var(--color-primary-light-1);
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
+    .icon.expand-btn,
+    .icon[class*="expand"],
+    svg[class*="expand"] {
+      display: none !important;
+    }
+    .arco-btn-text.arco-btn-size-small {
+      padding: 2px 8px !important;
+      border-radius: 4px;
+      display: inline-flex !important;
       align-items: center;
+      color: var(--color-text-3);
+      transition: color 0.15s, background 0.15s;
+
+      &:hover {
+        color: var(--color-text-1);
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      > span:first-child:not(:last-child),
+      > svg,
+      > .bl-iconfont {
+        display: none !important;
+      }
+    }
+    .arco-textarea {
+      min-height: 80px !important;
+    }
+    // 柔化所有输入框
+    .arco-input-inner-wrapper,
+    .arco-select-view {
+      border-color: rgba(0, 0, 0, 0.08) !important;
+      transition: border-color 0.2s;
+
+      &:hover {
+        border-color: rgba(0, 0, 0, 0.15) !important;
+      }
+      &:focus-within {
+        border-color: var(--color-primary-5) !important;
+      }
     }
   }
 }
 
-.config {
-  background-color: var(--color-bg-1);
-  overflow-y: auto;
-  height: 100%;
-  width: calc(100% - 0px);
-  flex-shrink: 0;
-  transition: width 0.5s ease;
-
-  // 独立滚动条样式
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--color-fill-2);
-    border-radius: 6px;
-    border: 1px solid var(--color-border);
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--color-text-3);
-    border-radius: 6px;
-    border: 2px solid var(--color-bg-1);
-    background-clip: padding-box;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--color-text-2);
-    }
-
-    &:active {
-      background: var(--color-text-1);
-    }
-  }
-
-  &::-webkit-scrollbar-button {
-    display: none;
-  }
-
-  // Firefox 支持
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-text-3) var(--color-fill-2);
-}
-
-// 为配置时间线添加独立滚动条
-.configTimelineContainer {
-  height: calc(100% - 80px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 4px;
-  margin-right: -4px;
-  border-radius: 8px;
-
-  // 独立滚动条样式
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: var(--color-fill-2);
-    border-radius: 4px;
-    margin: 4px 0;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--color-text-4);
-    border-radius: 4px;
-    min-height: 30px;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--color-text-3);
-    }
-
-    &:active {
-      background: var(--color-text-2);
-    }
-  }
-
-  &::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  // Firefox 支持
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-text-4) var(--color-fill-2);
+.sectionTitle {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
 }
 
 .container {
   height: 100%;
+  width: 100%;
   display: flex;
-  background-color: var(--color-border-2);
-
-  .divider {
-    width: 1px;
-  }
-
-  :global {
-    .arco-tabs-nav {
-      padding: 0 24px 1px !important;
-      border-bottom: 0 !important;
-    }
-  }
-
-  .titleWrapper {
-    width: 100%;
-    height: 52px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-width: 0px 0px 1px 0px;
-    border-style: dashed;
-    border-color: var(--color-fill-1);
-    margin-bottom: 16px;
-  }
-
-  .header1 {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 32px;
-    color: var(--color-text-3);
-  }
+  background-color: #fff;
 }
 
 .testWindow {
   position: relative;
   height: 100%;
   flex: 1;
-  border-left: 1px solid var(--color-border-2);
-  border-bottom: none;
   width: 100%;
+  background-color: #fafafa;
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 32px;
+  color: var(--color-text-1);
 }
 
 .formTitle {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.expandBtn {
   font-size: 14px;
-  line-height: 1;
-
-  &.hidden {
-    transform: rotate(180deg);
-  }
-}
-
-.debugIcon {
-  display: flex;
-  position: absolute;
-  height: 24px;
-  width: 24px;
-  cursor: pointer;
-  margin-top: 54px;
-  font-size: 20px;
-  padding: 5px 5px 5px 5px;
-  border-radius: 0 4px 4px 0;
-  border: 1px solid var(--color-border);
-  border-width: 1px 1px 1px 0;
-  background-color: var(--color-bg-1);
-  z-index: 1;
-
-  :global {
-    .bl-iconfont {
-      font-size: 14px !important;
-    }
-  }
+  font-weight: 500;
 }
 
 .divider1 {
   position: relative;
   width: 1px;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease;
 
   img {
     width: 16px;
     height: 100%;
     position: absolute;
-    left: -1px;
+    left: -8px;
     cursor: col-resize !important;
     opacity: 0;
     user-select: none;
@@ -212,13 +113,50 @@
   outline: none;
   width: 1px;
   display: flex;
-  justify-content: stretch;
+  justify-content: center;
   align-items: stretch;
-  transition: background-color 0.2s linear;
 
   &:hover {
     .divider1 {
-      background-color: var(--color-primary-5);
+      background-color: rgba(0, 0, 0, 0.15);
     }
   }
+}
+
+// 滚动条 - 极致轻量
+.config,
+.configScrollContainer {
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+.config {
+  background-color: #fff;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.configScrollContainer {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }

@@ -2,7 +2,7 @@ import InnerLayout from '@/components/InnerLayout';
 import $i18n from '@/i18n';
 import { convertDifyToSpringAI } from '@/services/difyConverter';
 import { Button, Upload, Message } from '@arco-design/web-react';
-import { IconInbox } from '@arco-design/web-react/icon';
+import { IconFolder } from '@arco-design/web-react/icon';
 import { useRequest } from 'ahooks';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -181,7 +181,7 @@ const DifyConverter: React.FC = () => {
             accept=".yaml,.yml"
           >
             <div className="arco-upload-drag-icon">
-              <IconInbox />
+              <IconFolder />
             </div>
             <div className="arco-upload-drag-text">点击或拖拽 Dify DSL 文件到此区域</div>
             <div className="arco-upload-drag-tip">

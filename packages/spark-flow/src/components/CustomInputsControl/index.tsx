@@ -75,7 +75,7 @@ export const VariableSelector = memo(
     onChange: (val: Partial<INodeDataInputParamItem>) => void;
     variableList?: IVarTreeItem[];
     prefix?: SelectProps['prefix'];
-    variant?: SelectProps['variant'];
+    bordered?: boolean;
     disabled?: boolean;
   }) => {
     const nodeInfo = useMemo(() => {
@@ -114,7 +114,7 @@ export const VariableSelector = memo(
             id: 'spark-flow.components.CustomInputsControl.index.selectVariable',
             dm: '请选择变量',
           })}
-          labelRender={() =>
+          renderFormat={() =>
             variableLabelRender({
               value: props.value,
               nodeInfo,
@@ -122,10 +122,11 @@ export const VariableSelector = memo(
             })
           }
           className="w-full"
+          // @ts-ignore - suppress open prop for Arco compatibility
           open={false}
           value={!props.value.value ? undefined : props.value.value}
           prefix={<VarTypePrefix prefix={props.prefix as string} />}
-          variant={props.variant}
+          bordered={props.bordered}
         />
       </VariableTreeSelect>
     );
@@ -301,10 +302,9 @@ export default memo(function CustomInputsControl(
               }
               disabled={props.disabled}
               options={VALUE_FROM_OPTIONS}
-              labelRender={(props) =>
-                variableFromLabelRender(props.value as string)
+              renderFormat={(option: any, value: any) =>
+                variableFromLabelRender(typeof value === 'string' ? value : (Array.isArray(value) ? value[0] : value))
               }
-              popupMatchSelectWidth={false}
             />
           )}
           <VariableFormComp
@@ -330,7 +330,7 @@ export default memo(function CustomInputsControl(
       <Button
         className="spark-flow-text-btn self-start"
         icon={<CustomIcon type="spark-plus-line" />}
-        type="link"
+        type="text"
         size="small"
         onClick={handleAddVar}
         disabled={props.disabled}

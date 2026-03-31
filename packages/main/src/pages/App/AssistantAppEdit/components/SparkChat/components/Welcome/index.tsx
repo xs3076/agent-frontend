@@ -40,18 +40,18 @@ const CornerMark = ({
   }
   return (
     <div
-      className="absolute rounded-[14px] flex justify-center items-center border-2 border-white border-solid"
+      className="absolute rounded-full flex justify-center items-center border-2 border-white border-solid shadow-sm"
       style={{
         width: `${diameter}px`,
         height: `${diameter}px`,
         bottom: `${offset}px`,
         right: `${offset}px`,
-        backgroundColor: 'var(--color-text-1)',
+        backgroundColor: 'var(--color-primary-6)',
       }}
     >
       <IconFont
         type={iconType}
-        style={{ color: 'var(--color-bg-1)' }}
+        style={{ color: '#fff' }}
         size="small"
       />
     </div>
@@ -86,8 +86,8 @@ export default function Welcome(props: IProps) {
       >
         <DefaultAvatar modalType={modalType} />
         <div
-          className="text-[16px] text-center font-semibold mt-[24px]"
-          style={{ color: 'var(--color-text-1)' }}
+          className="text-[14px] text-center font-medium mt-[20px]"
+          style={{ color: 'var(--color-text-2)' }}
         >
           {props.title ||
             $i18n.get({

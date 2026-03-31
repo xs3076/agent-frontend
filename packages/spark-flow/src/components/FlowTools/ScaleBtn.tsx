@@ -85,7 +85,7 @@ export default memo(function ScaleBtn() {
       </Dropdown>
       <Divider type="vertical" className="m-0" />
       <Tooltip
-        title={$i18n.get({
+        content={$i18n.get({
           id: 'spark-flow.components.FlowTools.ScaleBtn.autoView',
           dm: '自适应试图',
         })}

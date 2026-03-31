@@ -76,7 +76,7 @@ export const VariableTypeSelect = memo((props: IVariableTypeSelectProps) => {
         const type = selectedList[selectedList.length - 1] as IValueType;
         handleChange(type);
       }}
-      displayRender={(payload) => displayRender(payload, props.isMini)}
+      renderFormat={(payload: string[]) => displayRender(payload, props.isMini)}
       disabled={props.disabled}
     />
   );
@@ -207,7 +207,7 @@ export const CustomOutputsForm = memo(function ({
       })}
       {!readyOnly && (
         <Button
-          type="link"
+          type="text"
           onClick={handleAdd}
           size="small"
           className="self-start spark-flow-text-btn"

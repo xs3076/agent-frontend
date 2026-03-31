@@ -31,7 +31,7 @@ const AccountModal: React.FC<AccountModalProps> = ({
   }, [open, userInfo, form]);
 
   const handleOk = () => {
-    form.validateFields().then((values) => {
+    form.validate().then((values) => {
       onOk(values);
     });
   };

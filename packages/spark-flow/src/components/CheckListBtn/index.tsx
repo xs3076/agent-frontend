@@ -82,7 +82,6 @@ export default memo(function CheckListBtn() {
                 id: 'spark-flow.components.CheckListBtn.index.allResolved',
                 dm: '所有清单项已解决',
               })}
-              type="success"
             />
           </div>
         ) : (
@@ -139,7 +138,7 @@ export default memo(function CheckListBtn() {
       getPopupContainer={(ele) => ele}
       content={memoCheckList}
       trigger={'click'}
-      placement="bottomRight"
+      position="br"
       popupVisible={showCheckList}
       onVisibleChange={setShowCheckList}
     >
@@ -151,7 +150,6 @@ export default memo(function CheckListBtn() {
           {!!checkList.length && (
             <Badge
               className="spark-flow-check-list-btn-count"
-              showZero
               count={checkList.length}
               color="orange"
             />

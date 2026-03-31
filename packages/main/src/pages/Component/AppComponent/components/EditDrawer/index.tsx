@@ -65,7 +65,7 @@ export default function EditDrawer(props: IProps) {
   }, [props.data.code, props.data.type]);
 
   const handleSave = () => {
-    form.validateFields().then((formValues: any) => {
+    form.validate().then((formValues: any) => {
       const { input } = state;
       let params = [...(input.system_params || [])];
       (input.user_params || []).forEach((item) => {

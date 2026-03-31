@@ -79,9 +79,9 @@ const TouchModeBtn = () => {
 
   return (
     <Popover
-      placement="top"
+      position="top"
+      // @ts-ignore
       arrow={false}
-      destroyTooltipOnHide
       content={memoTouchModeSelect}
       getPopupContainer={(ele) => ele}
       trigger="click"

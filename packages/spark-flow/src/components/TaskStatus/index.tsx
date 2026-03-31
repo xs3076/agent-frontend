@@ -103,7 +103,7 @@ function TaskStatus() {
           dm: '节点类型',
         }),
         dataIndex: 'type',
-        render: (_, record) => {
+        render: (_: any, record: ITokenDetail) => {
           return (
             <div className="flex gap-[8px] items-center">
               <span className="flex-shrink-0">
@@ -154,8 +154,8 @@ function TaskStatus() {
           </div>
           <div className="flex items-center gap-[4px]">
             <Popover
-              placement="bottom"
-              rootClassName="spark-flow-task-token-popover"
+              position="bottom"
+              className="spark-flow-task-token-popover"
               getPopupContainer={(ele) => ele}
               content={
                 <Table
@@ -163,11 +163,10 @@ function TaskStatus() {
                     pageSize: dataSource.length,
                     hideOnSinglePage: true,
                   }}
-                  dataSource={dataSource}
+                  data={dataSource}
                   columns={columns}
                 />
               }
-              destroyTooltipOnHide
             >
               <Tag
                 icon={<CustomIcon size="small" type="spark-token-line" />}

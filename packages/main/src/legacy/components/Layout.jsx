@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, Layout as ArcoLayout } from '@arco-design/web-react';
-import { IconBulb, IconExperiment, IconLineChart, IconUnorderedList, IconPlayCircle, IconBarChart, IconBranch, IconSettings, IconMenuFold, IconMenuUnfold } from '@arco-design/web-react/icon';
+import { IconBulb, IconExperiment, IconDashboard, IconUnorderedList, IconPlayCircle, IconBranch, IconSettings, IconMenuFold, IconMenuUnfold } from '@arco-design/web-react/icon';
 
 const { Sider, Content } = ArcoLayout;
 const MenuItem = Menu.Item;
@@ -88,10 +88,10 @@ const Layout = ({ children }) => {
           </SubMenu>
           <SubMenu key="evaluation" title={<><IconExperiment /> 评测</>}>
             <MenuItem key="/admin/evaluation/gather"><IconUnorderedList /> 评测集</MenuItem>
-            <MenuItem key="/admin/evaluation/evaluator"><IconBarChart /> 评估器</MenuItem>
+            <MenuItem key="/admin/evaluation/evaluator"><IconDashboard /> 评估器</MenuItem>
             <MenuItem key="/admin/evaluation/experiment"><IconExperiment /> 实验</MenuItem>
           </SubMenu>
-          <SubMenu key="observability" title={<><IconLineChart /> 可观测</>}>
+          <SubMenu key="observability" title={<><IconDashboard /> 可观测</>}>
             <MenuItem key="/admin/tracing"><IconBranch /> Tracing</MenuItem>
           </SubMenu>
         </Menu>

@@ -125,7 +125,7 @@ export const VariableTreeNodeItem = memo(
     const [open, setOpen] = useState(false);
     return (
       <Popover
-        rootClassName="spark-flow-small-padding-popover"
+        className="spark-flow-small-padding-popover"
         onVisibleChange={setOpen}
         popupVisible={open}
         content={
@@ -137,7 +137,7 @@ export const VariableTreeNodeItem = memo(
             list={props.children || []}
           />
         }
-        placement="leftTop"
+        position="lt"
       >
         <div className="flex gap-[4px] px-[8px] py-[4px] spark-flow-var-tree-select-node-props items-center">
           <FlowIcon size="small" nodeType={props.nodeType} />
@@ -161,20 +161,19 @@ const VariableTreeSelect = memo((props: IVariableTreeSelectProps) => {
 
   return (
     <Popover
-      placement="bottom"
+      position="bottom"
       trigger={['click']}
       popupVisible={open}
       onVisibleChange={(val) => {
         setOpen(val);
         if (!val) props.onClose?.();
       }}
-      rootClassName="spark-flow-small-padding-popover spark-flow-var-tree-select-popover"
+      className="spark-flow-small-padding-popover spark-flow-var-tree-select-popover"
       getPopupContainer={(ele) => ele}
       content={
         !props.options?.length ? (
           <div className="full-center">
             <Empty
-              size={160}
               description={$i18n.get({
                 id: 'main.pages.Component.Plugin.Tools.List.noData',
                 dm: '暂无数据',

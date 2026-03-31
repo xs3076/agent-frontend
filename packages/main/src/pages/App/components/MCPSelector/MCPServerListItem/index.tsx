@@ -138,7 +138,7 @@ export default (props: IProps) => {
               <Typography.Paragraph
                 className={styles.desc}
                 style={{ marginBottom: 0 }}
-                ellipsis={{ rows: 1, tooltip:(item.description) }}
+                ellipsis={{ rows: 1 }}
               >
                 {item.description}
               </Typography.Paragraph>
@@ -212,7 +212,6 @@ export default (props: IProps) => {
                               style={{ marginBottom: 0, marginTop: 0 }}
                               ellipsis={{
                                 rows: 1,
-                                tooltip:(tool.name),
                               }}
                             >
                               {tool.name}
@@ -224,7 +223,6 @@ export default (props: IProps) => {
                           style={{ marginBottom: 0 }}
                           ellipsis={{
                             rows: 1,
-                            tooltip:(tool.description),
                           }}
                         >
                           {tool.description}
@@ -266,7 +264,6 @@ export default (props: IProps) => {
                             style={{ marginBottom: 0, marginTop: 0 }}
                             ellipsis={{
                               rows: 1,
-                              tooltip:(tool.name),
                             }}
                           >
                             {tool.name}
@@ -278,7 +275,6 @@ export default (props: IProps) => {
                         style={{ marginBottom: 0, marginTop: 0 }}
                         ellipsis={{
                           rows: 1,
-                          tooltip:(tool.description),
                         }}
                       >
                         {tool.description}

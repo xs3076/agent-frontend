@@ -347,7 +347,7 @@ const InnerLayout: React.FC<InnerLayoutProps> = ({
           {renderTourButton()}
           <div
             id="InnerLayoutRight"
-            className={`flex gap-3 ${styles['right-content']}`}
+            className={`flex gap-3 items-center ${styles['right-content']}`}
           >
             {right}
           </div>

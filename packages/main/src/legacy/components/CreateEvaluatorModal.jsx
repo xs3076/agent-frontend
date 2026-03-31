@@ -22,7 +22,7 @@ const CreateEvaluatorModal = ({ onClose, onSuccess }) => {
 
   const handleSubmit = async () => {
     try {
-      const values = await form.validateFields();
+      const values = await form.validate();
       setLoading(true);
       setError(null);
 

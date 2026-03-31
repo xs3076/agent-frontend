@@ -18,7 +18,7 @@
     "dayjs": "^1.11.13",
     "react-error-boundary": "^6.0.0",
     "umi": "^4.3.8",
-    "@arco-design/web-react": "^2.68.0",
+    "@arco-design/web-react": "^2.66.12",
     "react-markdown": "^9.0.0",
     "rehype-highlight": "^7.0.0",
     "react-router-dom": "^6",

@@ -350,7 +350,7 @@ export const CodeInputModal = ({
         dm: 'JSON编辑',
       })}
       visible
-      width={960}
+      style={{ width: 960 }}
       onOk={handleOk}
     >
       <div className="spark-flow-code-input-modal-content spark-flow-code-input">

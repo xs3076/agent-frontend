@@ -157,7 +157,8 @@ export default function AppActions(props: {
             }
           >
             <Button
-              icon={<IconFont type="spark-auditLog-line" />}
+              type="text"
+              size="small"
               onClick={() => {
                 setAppState((prev) => {
                   return {
@@ -176,6 +177,8 @@ export default function AppActions(props: {
           {appState.selectedVersion === 'draft' ? (
             <>
               <Button
+                type="text"
+                size="small"
                 disabled={appState.saveLoading}
                 onClick={handleExportSAA}
               >
@@ -232,7 +235,7 @@ export default function AppActions(props: {
               rootClassName={styles.confirmWrap111}
             >
               <Button
-                icon={<IconFont type="spark-send-line" />}
+                size="small"
                 onClick={() => {
                   beforePublish();
                 }}

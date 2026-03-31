@@ -1,12 +1,9 @@
 import defaultSettings from '@/defaultSettings';
 import $i18n from '@/i18n';
-import IconFont from '@/components/ui/IconFont';
-import { ConfigProvider, Timeline, Message } from '@arco-design/web-react';
+import { Message } from '@arco-design/web-react';
 import Flex from '@/components/ui/Flex';
 import { useSetState } from 'ahooks';
 
-import { default as classNames } from 'classnames';
-import { compact } from 'lodash-es';
 import { useContext, useLayoutEffect, useRef } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
 import { isTextModal } from '../..';
@@ -34,8 +31,8 @@ export default function AssistantConfig() {
   const prompt = appBasicConfig?.config.instructions;
   const containerRef = useRef(null as HTMLDivElement | null);
   const [widthLayout, setWidthLayout] = useSetState({
-    leftWidth: 33.3,
-    rightWidth: 66.7,
+    leftWidth: 38,
+    rightWidth: 62,
   });
 
   const beforeSendValidate = () => {
@@ -54,8 +51,8 @@ export default function AssistantConfig() {
 
   const getUniqueId = () => {
     return {
-      left: `${appState.modalType}_${widthLayout.leftWidth.toString()}`,
-      right: `${appState.modalType}_${widthLayout.rightWidth.toString()}`,
+      left: `config_left`,
+      right: `config_right`,
     };
   };
 
@@ -63,7 +60,7 @@ export default function AssistantConfig() {
     if (!isTextModal(appState.modalType)) {
       setWidthLayout({ leftWidth: 33.3, rightWidth: 66.7 });
     } else {
-      setWidthLayout({ leftWidth: 50, rightWidth: 50 });
+      setWidthLayout({ leftWidth: 38, rightWidth: 62 });
     }
   }, [appState.modalType]);
 
@@ -71,10 +68,8 @@ export default function AssistantConfig() {
   const onSelectVersion = async (version: string, index?: number) => {
     if (!appCode) return;
     if (version === 'draft') {
-      // switch to current draft
       setAppState({ selectedVersion: 'draft', isReleaseVersion: false });
     } else {
-      // switch to historical version
       setAppState({ selectedVersion: version, isReleaseVersion: index === 0 });
     }
   };
@@ -84,110 +79,71 @@ export default function AssistantConfig() {
       id={`agent_${appCode}`}
       ref={containerRef}
       className={styles.container}
-      style={{ background: 'var(--color-bg-1)' }}
     >
-      <PanelGroup direction="horizontal" id="group">
+      <PanelGroup direction="horizontal" id="assistant-config-v2">
         <Panel
-          minSizePixels={340}
+          minSize={25}
           defaultSizePercentage={widthLayout.leftWidth}
           id={getUniqueId().left}
           order={1}
           style={{ overflowY: 'auto' }}
         >
-          <ConfigProvider componentDisabled={appState.readonly}>
-            <div className="p-[8px_20px]">
-              <Flex
-                justify="space-between"
-                className={classNames(styles.title, 'w-full')}
-              >
+          <div style={{ pointerEvents: appState.readonly ? 'none' : 'auto', opacity: appState.readonly ? 0.6 : 1 }}>
+            {/* 模型选择 */}
+            <div className="px-[24px] py-[12px] flex items-center justify-between"
+              style={{ borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}>
+              <span className="text-[12px] font-medium tracking-wide" style={{ color: 'rgba(0, 0, 0, 0.35)' }}>
                 {$i18n.get({
                   id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.apiConfiguration',
                   dm: 'API配置',
                 })}
-
-                <ModelConfig></ModelConfig>
-              </Flex>
+              </span>
+              <ModelConfig />
             </div>
-            <div className={styles.configTimelineContainer}>
-              <Timeline
-                className={styles.configTimeline}
-                style={{ padding: '0 20px', marginTop: 8 }}
-                items={compact([
-                {
-                  children: (
-                    <div>
-                      <div
-                        className="text-[14px] font-medium leading-[24px] mb-[10px]"
-                        style={{ color: 'var(--color-text-1)' }}
-                      >
-                        {$i18n.get({
-                          id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.instruction',
-                          dm: '指令',
-                        })}
-                      </div>
-                      <AssistantPromptEditorWrap
-                        maxTokenContext={
-                          defaultSettings.agentSystemPromptMaxLength
-                        }
-                        appBasicConfig={appBasicConfig}
-                        changePrompt={(val) =>
-                          onAppConfigChange({ instructions: val })
-                        }
-                        prompt={prompt || ''}
-                      />
-                    </div>
-                  ),
 
-                  dot: (
-                    <IconFont
-                      className="width-[20px] height-[20px] rounded-[50%]"
-                      type="spark-code02-line"
-                    ></IconFont>
-                  ),
-                },
-                {
-                  children: (
-                    <div>
-                      <div
-                        className="text-[14px] font-medium leading-[24px] mb-[10px]"
-                        style={{ color: 'var(--color-text-1)' }}
-                      >
-                        {$i18n.get({
-                          id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.knowledge',
-                          dm: '知识',
-                        })}
-                      </div>
-                      <KnowledgeBaseSelectorComp></KnowledgeBaseSelectorComp>
-                    </div>
-                  ),
+            <div className={styles.configScrollContainer}>
+              {/* 指令 Section */}
+              <div className={styles.configSection}>
+                <div className={styles.sectionTitle}>
+                  {$i18n.get({
+                    id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.instruction',
+                    dm: '指令',
+                  })}
+                </div>
+                <AssistantPromptEditorWrap
+                  maxTokenContext={defaultSettings.agentSystemPromptMaxLength}
+                  appBasicConfig={appBasicConfig}
+                  changePrompt={(val) => onAppConfigChange({ instructions: val })}
+                  prompt={prompt || ''}
+                />
+              </div>
 
-                  dot: <IconFont type="spark-paper-line"></IconFont>,
-                },
-                {
-                  children: (
-                    <div>
-                      <div
-                        className="text-[14px] font-medium leading-[24px] mb-[10px]"
-                        style={{ color: 'var(--color-text-1)' }}
-                      >
-                        {$i18n.get({
-                          id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.skill',
-                          dm: '技能',
-                        })}
-                      </div>
-                      <MCPSelectorComp />
-                      <PluginSelectorComp />
-                      <AgentSelectorComp />
-                      <WorkFlowSelectorComp />
-                    </div>
-                  ),
+              {/* 知识 Section */}
+              <div className={styles.configSection}>
+                <div className={styles.sectionTitle}>
+                  {$i18n.get({
+                    id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.knowledge',
+                    dm: '知识',
+                  })}
+                </div>
+                <KnowledgeBaseSelectorComp />
+              </div>
 
-                  dot: <IconFont type="spark-toolbox-line"></IconFont>,
-                },
-              ])}
-            ></Timeline>
+              {/* 技能 Section */}
+              <div className={styles.configSection}>
+                <div className={styles.sectionTitle}>
+                  {$i18n.get({
+                    id: 'main.pages.App.AssistantAppEdit.components.AssistantConfig.index.skill',
+                    dm: '技能',
+                  })}
+                </div>
+                <MCPSelectorComp />
+                <PluginSelectorComp />
+                <AgentSelectorComp />
+                <WorkFlowSelectorComp />
+              </div>
             </div>
-          </ConfigProvider>
+          </div>
         </Panel>
         <PanelResizeHandle className={styles.resizeHandle}>
           <div className={styles.divider1}>
@@ -195,21 +151,19 @@ export default function AssistantConfig() {
           </div>
         </PanelResizeHandle>
         <Panel
-          minSizePixels={600}
+          minSize={40}
           defaultSizePercentage={widthLayout.rightWidth}
           order={2}
           id={getUniqueId().right}
         >
-          <ConfigProvider componentDisabled={!appState.canChat}>
-            <div className={styles.testWindow}>
-              <AssistantTestWindow
-                appStatus={appState.appStatus}
-                beforeSendValidate={beforeSendValidate}
-                maxTokenContext={defaultSettings.agentUserPromptMaxLength}
-                assistantId={appCode}
-              />
-            </div>
-          </ConfigProvider>
+          <div className={styles.testWindow}>
+            <AssistantTestWindow
+              appStatus={appState.appStatus}
+              beforeSendValidate={beforeSendValidate}
+              maxTokenContext={defaultSettings.agentUserPromptMaxLength}
+              assistantId={appCode}
+            />
+          </div>
         </Panel>
       </PanelGroup>
       {appState.showHistoryPanel && appCode && appBasicConfig && (

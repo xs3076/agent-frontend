@@ -1,11 +1,13 @@
 import { useStore } from '@/flow/context';
 import $i18n from '@/i18n';
-// TODO: SlateEditor still depends on @spark-ai/design - migrate when replacement is available
-import { SlateEditor } from '@spark-ai/design';
-// TODO: SlateEditor type still depends on @spark-ai/design - migrate when replacement is available
-import { EditorRefProps } from '@spark-ai/design/dist/components/commonComponents/SlateEditor';
+// Minimal EditorRefProps for internal use
+interface EditorRefProps {
+  getEditorValue: () => string;
+  _insertNodes: (node: any, opts?: any) => void;
+  _setEditorContentByStr: (value: string) => void;
+}
 import { useSetState } from 'ahooks';
-import { Message, Typography } from '@arco-design/web-react';
+import { Input, Message, Typography } from '@arco-design/web-react';
 import classNames from 'classnames';
 import React, {
   ForwardedRef,
@@ -202,14 +204,14 @@ export default memo(
             ['spark-flow-var-input-text-area-disabled']: disabled,
           })}
         >
-          <SlateEditor
-            ref={editorRef}
-            renderVarLabel={renderVarLabel}
+          <Input.TextArea
             value={value}
-            onChange={onChange}
+            onChange={(val) => onChange?.(val)}
             disabled={disabled}
             onKeyDown={disabled ? undefined : checkSlash}
-            wordLimit={maxLength}
+            maxLength={maxLength}
+            autoSize={{ minRows: 2, maxRows: 6 }}
+            style={{ width: '100%' }}
           />
 
           {state.showParams && (

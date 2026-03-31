@@ -75,56 +75,50 @@ export default function AssistantTestWindow(props: IProps) {
   return (
     <div className={styles.container} ref={panelGroupRef}>
       <div
-        className="py-[12px] px-[20px] flex items-center justify-between"
+        className="py-[10px] px-[20px] flex items-center justify-between"
         style={{
-          background: 'var(--color-fill-3)',
-          height: '48px',
+          background: '#fff',
+          height: '44px',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
         }}
       >
         {/**modality switch*/}
         <Dropdown
-          overlayStyle={{ width: 380 }}
-          menu={{
-            items: [
-              {
-                key: 'textDialog',
-                label: (
-                  <Flex
-                    align="top"
-                    justify="space-between"
-                    className="w-full"
-                    gap={8}
-                    onClick={() => {
-                      onSwitchModalType('textDialog');
-                    }}
-                  >
-                    <IconFont
-                      className="w-[24px] h-[24px] rounded-[12px]"
-                      style={{ background: 'var(--color-primary-light-1)' }}
-                      type="spark-text-line"
-                    ></IconFont>
-                    <div className="flex-1">
-                      <div
-                        className="text-[12px] font-medium leading-[20px]"
-                        style={{ marginBottom: '2px' }}
-                      >
-                        {ModalityTypeTexts.textDialog}
-                      </div>
-                      <div
-                        className="text-[12px] font-normal leading-[20px]"
-                        style={{ color: 'var(--color-text-3)' }}
-                      >
-                        {$i18n.get({
-                          id: 'main.components.AssistantTestWindow.index.conversationBased',
-                          dm: '基于LLM的对话型交互，适合进行复杂的多轮对话',
-                        })}
-                      </div>
+          droplist={
+            <Menu style={{ width: 380 }}>
+              <Menu.Item key="textDialog" onClick={() => onSwitchModalType('textDialog')}>
+                <Flex
+                  align="top"
+                  justify="space-between"
+                  className="w-full"
+                  gap={8}
+                >
+                  <IconFont
+                    className="w-[24px] h-[24px] rounded-[12px]"
+                    style={{ background: 'var(--color-primary-light-1)' }}
+                    type="spark-text-line"
+                  />
+                  <div className="flex-1">
+                    <div
+                      className="text-[12px] font-medium leading-[20px]"
+                      style={{ marginBottom: '2px' }}
+                    >
+                      {ModalityTypeTexts.textDialog}
                     </div>
-                  </Flex>
-                ),
-              },
-            ],
-          }}
+                    <div
+                      className="text-[12px] font-normal leading-[20px]"
+                      style={{ color: 'var(--color-text-3)' }}
+                    >
+                      {$i18n.get({
+                        id: 'main.components.AssistantTestWindow.index.conversationBased',
+                        dm: '基于LLM的对话型交互，适合进行复杂的多轮对话',
+                      })}
+                    </div>
+                  </div>
+                </Flex>
+              </Menu.Item>
+            </Menu>
+          }
           disabled={componentDisabled}
         >
           <Flex

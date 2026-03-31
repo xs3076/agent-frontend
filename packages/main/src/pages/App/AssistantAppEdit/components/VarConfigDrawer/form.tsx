@@ -71,9 +71,7 @@ export function ConfigFormItem(props: { item: BizVarItem }) {
           <Form.Item
             label={
               <Typography.Text
-                ellipsis={{
-                  tooltip:(paramItem.field),
-                }}
+                ellipsis
                 className={styles.labelMulti}
               >
                 {paramItem.field}
@@ -144,18 +142,14 @@ export default function AgentVarConfigForm(props: VarConfigFormProps) {
                       <Flex vertical gap={4}>
                         <Typography.Text
                           className="text-[13px] leading-[20px] font-medium"
-                          ellipsis={{
-                            tooltip:(item.name),
-                          }}
+                          ellipsis
                         >
                           {item.name}
                         </Typography.Text>
                         <Typography.Text
                           className="text-[12px] leading-[20px]"
                           style={{ color: 'var(--color-text-3)' }}
-                          ellipsis={{
-                            tooltip:(item.description),
-                          }}
+                          ellipsis
                         >
                           {item.description}
                         </Typography.Text>

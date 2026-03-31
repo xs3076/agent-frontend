@@ -33,7 +33,7 @@ const ModelServiceProviderModal: React.FC<ModelServiceProviderModalProps> = ({
 
   const handleSubmit = async () => {
     try {
-      const values = await form.validateFields();
+      const values = await form.validate();
       setLoading(true);
 
       const params: ICreateProviderParams = {

@@ -28,7 +28,7 @@ export default (props: {
       >
         <IconFont type={props.iconType} size="small"></IconFont>
         <Typography.Text
-          ellipsis={{ tooltip:(props.name) }}
+          ellipsis
           style={{ color: 'var(--color-text-1)', width: '112px' }}
           className="text-[12px] text-normal leading-[20px]"
         >
@@ -39,7 +39,7 @@ export default (props: {
             width: 'calc(100% - 140px)',
             color: 'var(--color-text-3)',
           }}
-          ellipsis={{ tooltip:(props?.description || '') }}
+          ellipsis
         >
           {props?.description}
         </Typography.Text>

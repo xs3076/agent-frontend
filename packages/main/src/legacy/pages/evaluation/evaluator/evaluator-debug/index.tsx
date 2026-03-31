@@ -96,7 +96,7 @@ function EvaluatorDebug() {
   const handleRun = async () => {
     try {
       // 首先进行表单校验
-      await form.validateFields();
+      await form.validate();
       
       const modelConfig = getModelConfig();
 

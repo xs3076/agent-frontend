@@ -40,11 +40,11 @@ export const NodeMenuItem = memo((props: INodeMenuItemProps) => {
   return (
     <Popover
       key={data.type}
-      placement="left"
+      position="left"
+      // @ts-ignore
       arrow={false}
       onVisibleChange={setOpen}
       popupVisible={open}
-      destroyTooltipOnHide
       getPopupContainer={() =>
         document.querySelector('.spark-flow-node-menu') || document.body
       }
@@ -238,7 +238,6 @@ export const NodeMenu = memo((props: IProps) => {
         {!groupList.length ? (
           <div className="full-center">
             <Empty
-              size={204}
               description={$i18n.get({
                 id: 'main.pages.App.components.MCPSelector.index.noSearchResult',
                 dm: '暂无搜索结果',
@@ -292,7 +291,6 @@ export const PopoverNodeMenu = memo((props: IPopoverNodeMenuProps) => {
       trigger="click"
       onVisibleChange={setOpen}
       popupVisible={open && !nodesReadOnly}
-      destroyTooltipOnHide
       getPopupContainer={(ele) => ele}
       content={
         <div

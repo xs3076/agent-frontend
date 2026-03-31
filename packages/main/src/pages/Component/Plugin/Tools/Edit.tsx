@@ -53,7 +53,7 @@ export default function () {
   const requestMethod = Form.useWatch(['config', 'request_method'], form);
 
   const save = async function () {
-    const values = await form.validateFields();
+    const values = await form.validate();
     const { inputParams, outputParams, examples } = state;
 
     const requestData = {

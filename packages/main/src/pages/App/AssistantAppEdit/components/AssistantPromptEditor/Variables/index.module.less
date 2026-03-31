@@ -1,20 +1,45 @@
 .variablesWrapper {
-  padding: 12px;
-  border-radius: 6px;
-  background: var(--color-fill-4);
+  padding: 16px;
+  border-radius: 10px;
+  background: #f8f9fa;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+
+  :global {
+    .arco-input,
+    .arco-input-inner-wrapper,
+    .arco-textarea {
+      background: #fff !important;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      border-radius: 6px !important;
+      transition: border-color 0.2s;
+
+      &:hover {
+        border-color: rgba(0, 0, 0, 0.15) !important;
+      }
+      &:focus,
+      &:focus-within {
+        border-color: var(--color-primary-5) !important;
+      }
+    }
+  }
 }
 
 .form {
   :global {
     .arco-form-item {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
   }
 }
 
 .expandBtn {
-  color: var(--color-text-1);
+  color: rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  transition: color 0.15s;
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.5);
+  }
 
   &.hidden {
     transform: rotate(180deg);

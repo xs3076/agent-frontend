@@ -611,9 +611,7 @@ function Workflow() {
                 <Flex align="center" gap={8}>
                   <Typography.Text
                     ellipsis={{
-                      tooltip:(state.appDetail?.name || '', {
-                        getPopupContainer: () => document.body,
-                      }),
+                      wrapper: 'span',
                     }}
                   >
                     <span className="text-[16px]">

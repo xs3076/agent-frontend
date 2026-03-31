@@ -201,7 +201,7 @@ function EvaluatorDetail() {
     if (!evaluator) return;
 
     try {
-      const values = await form.validateFields();
+      const values = await form.validate();
       setEditLoading(true);
 
       const response = await API.updateEvaluator({
@@ -428,7 +428,7 @@ function EvaluatorDetail() {
   // 处理发布版本确认
   const handlePublishConfirm = async () => {
     try {
-      const values = await publishForm.validateFields();
+      const values = await publishForm.validate();
       const configValues = configForm.getFieldsValue();
 
       // 检查版本号是否已存在

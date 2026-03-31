@@ -20,7 +20,7 @@ const CreateModal: React.FC<CreateModalProps> = ({
   // Submit API key creation form
   const handleSubmit = async () => {
     try {
-      const values = await form.validateFields();
+      const values = await form.validate();
       setLoading(true);
       const res = await createApiKey(values);
       if (res && res.data) {

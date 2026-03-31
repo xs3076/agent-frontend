@@ -1,8 +1,7 @@
 import $i18n from '@/i18n';
 import { IMcpServer } from '@/types/mcp';
 import { Empty } from '@arco-design/web-react';
-// TODO: CodeBlock still depends on @spark-ai/design - migrate when replacement is available
-import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
+import CodeBlock from '@/components/CodeBlock';
 import React from 'react';
 import styles from './index.module.less';
 

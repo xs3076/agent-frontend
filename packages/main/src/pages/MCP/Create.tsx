@@ -4,8 +4,7 @@ import { createMcpServer, getMcpServer, updateMcpServer } from '@/services/mcp';
 import { ICreateMcpParams, IUpdateMcpParams, McpStatus } from '@/types/mcp';
 import { Button, Form, Input, Message } from '@arco-design/web-react';
 import AlertDialog from '@/components/ui/AlertDialog';
-// TODO: CodeBlock still depends on @spark-ai/design - migrate when replacement is available
-import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
+import CodeBlock from '@/components/CodeBlock';
 import { useMount } from 'ahooks';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
@@ -85,7 +84,7 @@ export default function McpCreate() {
     if (saveLoading) return;
 
     try {
-      const formValues = await form.validateFields();
+      const formValues = await form.validate();
       let _deployConfig = formValues.deployConfig;
 
       // Validate deployConfig is a valid JSON

@@ -49,7 +49,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({
 
   const handleOk = async () => {
     try {
-      const values = await form.validateFields();
+      const values = await form.validate();
       setLoading(true);
 
       if (isEditMode) {

@@ -2,8 +2,7 @@ import $i18n from '@/i18n';
 import { IMCPTool, IToolProperty } from '@/types/mcp';
 import { Button, Card, Form, Input, Radio, Tooltip, Message } from '@arco-design/web-react';
 import IconFont from '@/components/ui/IconFont';
-// TODO: CodeBlock still depends on @spark-ai/design - migrate when replacement is available
-import CodeBlock from '@spark-ai/design/dist/components/commonComponents/CodeBlock';
+import CodeBlock from '@/components/CodeBlock';
 import classNames from 'classnames';
 import React, { useState } from 'react';
 import styles from './index.module.less';

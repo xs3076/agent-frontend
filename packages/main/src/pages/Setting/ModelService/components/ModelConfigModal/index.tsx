@@ -36,7 +36,7 @@ const ModelConfigModal: React.FC<ModelConfigModalProps> = ({
   }, [open, model, form]);
 
   const handleSubmit = () => {
-    form.validateFields().then((values) => {
+    form.validate().then((values) => {
       const _model: ICreateModelParams = {
         ...(model || {}),
         name: values.name,
